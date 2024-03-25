@@ -30,9 +30,9 @@ vector2 &vector2::operator+=(const vector2 &rhs)
     return *this;
 }
 
-vector2 operator+(const vector2 &lhs, const vector2 rhs)
+vector2 vector2::operator+(const vector2 &rhs) const
 {
-    return vector2(lhs) += rhs;
+    return vector2(*this) += rhs;
 }
 
 vector2 &vector2::operator-=(const vector2 &rhs)
@@ -43,9 +43,9 @@ vector2 &vector2::operator-=(const vector2 &rhs)
     return *this;
 }
 
-vector2 operator-(const vector2 &lhs, const vector2 &rhs)
+vector2 vector2::operator-(const vector2 &rhs) const
 {
-    return vector2(lhs) -= rhs;
+    return vector2(*this) -= rhs;
 }
 
 vector2 &vector2::operator*=(float rhs)
@@ -56,19 +56,19 @@ vector2 &vector2::operator*=(float rhs)
     return *this;
 }
 
+vector2 vector2::operator*(float rhs) const
+{
+    return vector2(*this) *= rhs;
+}
+
 vector2 operator*(float lhs, const vector2 &rhs)
 {
     return vector2(rhs) *= lhs;
 }
 
-vector2 operator*(const vector2 &lhs, float rhs)
-{
-    return vector2(lhs) *= rhs;
-}
-
 vector2 vector2::operator-() const
 {
-    return *this * -1.0f;
+    return *this * -1;
 }
 
 float vector2::x() const
@@ -88,7 +88,7 @@ float vector2::magnitude() const
 
 vector2 vector2::normalize() const
 {
-    return *this * (1.0f / magnitude());
+    return *this * (1 / magnitude());
 }
 
 vector2 vector2::points_to(const vector2 &position) const
@@ -99,4 +99,24 @@ vector2 vector2::points_to(const vector2 &position) const
 float vector2::distance_from(const vector2 &position) const
 {
     return points_to(position).magnitude();
+}
+
+vector2 vector2::zero()
+{
+    return vector2(0, 0);
+}
+
+vector2 vector2::up()
+{
+    return vector2(0, 1);
+}
+
+vector2 vector2::left()
+{
+    return vector2(-1, 0);
+}
+
+vector2 vector2::right()
+{
+    return vector2(1, 0);
 }
