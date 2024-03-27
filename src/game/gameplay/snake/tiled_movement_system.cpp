@@ -11,7 +11,7 @@ tiled_movement_system::tiled_movement_system(game_object &attached_to, float til
 segment_correction tiled_movement_system::correct_segments(vector2 start, vector2 end) const
 {
     start = tile_center(start);
-    end = tile_center(start);
+    end = tile_center(end);
     vector2 difference = start.points_to(end);
     end = start + project_longer_axis(difference);
 
