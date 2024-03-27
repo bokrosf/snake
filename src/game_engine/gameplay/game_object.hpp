@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <ranges>
 #include <typeinfo>
 #include <stdexcept>
 #include "component.h"
@@ -17,6 +18,7 @@ public:
     ~game_object();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
+    auto children() const;
 
     template<typename T>
     void add_component();
@@ -78,6 +80,13 @@ void game_object::attach_to(game_object *new_parent)
     {
         _parent->_children.push_back(this);
     }
+}
+
+auto game_object::children() const
+{
+    auto reference_transformer = [](const game_object *go) { return *go; };
+
+    return std::views::all(_children) | std::views::transform(reference_transformer);
 }
 
 template<typename T>
