@@ -29,7 +29,7 @@ public:
     template<typename T>
     T &attached_component() const;
 
-    void erase_component(const component &c);
+    void erase_component(const component &erased);
 
     template<typename T>
     void erase_component();
