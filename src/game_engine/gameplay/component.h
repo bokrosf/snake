@@ -6,7 +6,7 @@ class game_object;
 class component
 {
 public:
-    ~component();
+    virtual ~component();
     game_object &attached_to() const;
 protected:
     component(game_object &attached_to);
