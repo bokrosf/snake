@@ -2,6 +2,12 @@
 #include "movement_system.h"
 #include "tiled_movement_system.h"
 
+tiled_movement_system::tiled_movement_system(game_object &attached_to, float tile_size)
+    : movement_system(attached_to)
+    , _tile_size(tile_size)
+{
+}
+
 segment_correction tiled_movement_system::correct_segments(vector2 start, vector2 end) const
 {
     start = tile_center(start);

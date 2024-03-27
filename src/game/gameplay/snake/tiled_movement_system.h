@@ -6,7 +6,7 @@
 class tiled_movement_system : public movement_system
 {
 public:
-    tiled_movement_system(game_object &attached_to);
+    tiled_movement_system(game_object &attached_to, float tile_size);
     segment_correction correct_segments(vector2 start, vector2 end) const override;
     head_turning_correction correct_head_turning(vector2 head_position, vector2 look_direction) const override;
 private:
