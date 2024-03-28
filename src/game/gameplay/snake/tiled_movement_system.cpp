@@ -10,19 +10,19 @@ tiled_movement_system::tiled_movement_system(game_object &attached_to, float til
 
 segment_correction tiled_movement_system::correct_segments(const vector2 &start, const vector2 &end) const
 {
-    start = tile_center(start);
-    end = tile_center(end);
-    vector2 difference = start.points_to(end);
-    end = start + project_longer_axis(difference);
+    vector2 start_corrected = tile_center(start);
+    vector2 end_corrected = tile_center(end);
+    vector2 difference = start_corrected.points_to(end_corrected);
+    end_corrected = start_corrected + project_longer_axis(difference);
 
-    return segment_correction { start, end };
+    return segment_correction { start_corrected, end_corrected };
 }
 
-head_turning_correction tiled_movement_system::correct_head_turning(const vector2 &head_position, const vector2 &look_direction) const
+turning_correction tiled_movement_system::correct_turning(const vector2 &head_position, const vector2 &look_direction) const
 {
     std::vector<vector2> head_segments = { tile_center(head_position) };
 
-    return head_turning_correction { head_segments, project_longer_axis(look_direction).normalize() };
+    return turning_correction { head_segments, project_longer_axis(look_direction).normalize() };
 }
 
 vector2 tiled_movement_system::tile_center(const vector2 &position) const
