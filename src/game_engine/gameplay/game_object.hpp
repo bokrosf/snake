@@ -88,7 +88,7 @@ auto game_object::children() const
 {
     auto reference_transformer = [](const game_object *go) { return *go; };
 
-    return std::views::all(_children) | std::views::transform(reference_transformer);
+    return std::views::transform(reference_transformer);
 }
 
 template<typename T>
