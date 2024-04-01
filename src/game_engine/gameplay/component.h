@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAMEENGINE_GAMEPLAY_COMPONENT_H
 #define SNAKE_GAMEENGINE_GAMEPLAY_COMPONENT_H
 
-#include "game_object.hpp"
+#include "game_object.h"
 
 class game_object;
 
