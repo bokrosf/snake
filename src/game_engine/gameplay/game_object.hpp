@@ -109,7 +109,7 @@ T* game_object::find_component() const
 template<typename T>
 T &game_object::attached_component() const
 {
-    T* component = find_component<T>();
+    T *component = find_component<T>();
 
     return component ? *component : throw component_not_found("Not found component of type.");
 }
