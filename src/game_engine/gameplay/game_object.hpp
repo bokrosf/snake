@@ -128,7 +128,7 @@ void game_object::erase_component(const component &erased)
 template<typename T>
 void game_object::erase_component()
 {
-    if (T* component = find_component<T>())
+    if (T *component = find_component<T>())
     {
         erase_component(component);
     }
