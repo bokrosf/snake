@@ -26,7 +26,7 @@ public:
     void add_component();
 
     template<typename T>
-    T* find_component() const;
+    T *find_component() const;
 
     template<typename T>
     T &attached_component() const;
