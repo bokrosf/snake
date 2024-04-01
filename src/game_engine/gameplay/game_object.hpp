@@ -98,7 +98,7 @@ void game_object::add_component()
 }
 
 template<typename T>
-T* game_object::find_component() const
+T *game_object::find_component() const
 {
     auto predicate = [](component *c) { return dynamic_cast<T *>(c); };
     auto it = std::find_if(_components.begin() , _components.end(), predicate);
