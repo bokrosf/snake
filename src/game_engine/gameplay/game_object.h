@@ -7,7 +7,6 @@
 #include <typeinfo>
 #include <stdexcept>
 #include "component.h"
-#include "updatable.h"
 #include "activatable.h"
 #include "component_not_found.h"
 
