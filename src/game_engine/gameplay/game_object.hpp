@@ -11,6 +11,8 @@
 #include "activatable.h"
 #include "component_not_found.h"
 
+class component;
+
 class game_object : public activatable 
 {
 public:
