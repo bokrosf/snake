@@ -33,7 +33,7 @@ void snake::look_in_direction(const vector2 &direction)
 {
     turning_correction correction = _movement_system->correct_turning(_segments.front(), direction.normalize());
 
-    if (correction.head_direction == -1 * _head_direction)
+    if (correction.head_direction == -_head_direction)
     {
         return;
     }
