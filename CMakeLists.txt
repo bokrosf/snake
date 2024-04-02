@@ -12,6 +12,7 @@ add_executable(snake
   src/game_engine/gameplay/component.cpp
   src/game_engine/gameplay/component_not_found.cpp
   src/game_engine/gameplay/game_object.cpp
+  src/game_engine/messaging/messenger.cpp
   src/game/gameplay/snake/movement_system.cpp
   src/game/gameplay/snake/snake.cpp
   src/game/gameplay/snake/tiled_movement_system.cpp)
