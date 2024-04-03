@@ -1,14 +1,14 @@
-#ifndef SNAKE_GAMEENGINE_GAMEPLAY_GAMEOBJECT_H
-#define SNAKE_GAMEENGINE_GAMEPLAY_GAMEOBJECT_H
+#ifndef SNAKE_GAMEENGINE_GAMEOBJECT_H
+#define SNAKE_GAMEENGINE_GAMEOBJECT_H
 
 #include <vector>
 #include <algorithm>
 #include <ranges>
 #include <typeinfo>
 #include <stdexcept>
-#include "component.h"
 #include "activatable.h"
-#include "component_not_found.h"
+#include "component/component.h"
+#include "component/component_not_found.h"
 
 class component;
 
