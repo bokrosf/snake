@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <game_engine/vector2.h>
-#include <game_engine/gameplay/component.h>
+#include <game_engine/component/component.h>
 
 struct segment_correction
 {

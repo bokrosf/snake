@@ -1,9 +1,9 @@
-#ifndef SNAKE_GAMEENGINE_GAMEPLAY_BEHAVIOR_H
-#define SNAKE_GAMEENGINE_GAMEPLAY_BEHAVIOR_H
+#ifndef SNAKE_GAMEENGINE_COMPONENT_BEHAVIOR_H
+#define SNAKE_GAMEENGINE_COMPONENT_BEHAVIOR_H
 
+#include <game_engine/activatable.h>
 #include "component.h"
 #include "updatable.h"
-#include "activatable.h"
 
 class behavior : public component, public updatable, public activatable
 {

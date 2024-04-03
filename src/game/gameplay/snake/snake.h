@@ -3,8 +3,8 @@
 
 #include <list>
 #include <game_engine/vector2.h>
-#include <game_engine/gameplay/behavior.h>
-#include <game_engine/gameplay/updatable.h>
+#include <game_engine/component/behavior.h>
+#include <game_engine/component/updatable.h>
 #include "movement_system.h"
 
 class snake : public behavior
