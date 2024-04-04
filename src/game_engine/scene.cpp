@@ -8,11 +8,13 @@ scene::scene(messenger &messenger)
 scene::~scene()
 {
     _messenger.unsubscribe<game_object_parent_changed>(*this);
+    _messenger.unsubscribe<component_added>(*this);
 }
 
 void scene::initialize()
 {
     _messenger.subscribe<game_object_parent_changed>(*this);
+    _messenger.subscribe<component_added>(*this);
 }
 
 void scene::receive(const game_object_parent_changed &message)
