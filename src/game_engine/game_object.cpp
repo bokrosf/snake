@@ -1,4 +1,5 @@
 #include "game_object.h"
+#include "game_object_parent_changed.h"
 
 game_object::game_object(messenger &messenger)
     : _parent(nullptr)
@@ -42,6 +43,8 @@ void game_object::attach_to(game_object *new_parent)
     {
         _parent->_children.push_back(this);
     }
+
+    _messenger.send(game_object_parent_changed(*this));
 }
 
 auto game_object::children() const
