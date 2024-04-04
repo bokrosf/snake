@@ -26,3 +26,8 @@ void scene::receive(const game_object_parent_changed &message)
         _root_objects.insert(&message.object);
     }
 }
+
+void scene::receive(const component_added &message)
+{
+    _components_to_initialize.push(&message.added);
+}
