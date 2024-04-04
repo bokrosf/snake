@@ -1,8 +1,8 @@
 #include "game_object.h"
 
-
-game_object::game_object()
+game_object::game_object(messenger &messenger)
     : _parent(nullptr)
+    , _messenger(messenger)
 {
 }
 
