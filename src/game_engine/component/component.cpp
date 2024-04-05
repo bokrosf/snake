@@ -9,6 +9,10 @@ component::~component()
 {
 }
 
+void component::initialize()
+{
+}
+
 game_object &component::attached_to() const
 {
     return _attached_to;

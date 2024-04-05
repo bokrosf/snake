@@ -9,13 +9,15 @@
 #include "activatable.h"
 #include "component/component.h"
 #include "component/component_not_found.h"
+#include "messaging/messenger.h"
+#include "component_added.h"
 
 class component;
 
 class game_object : public activatable 
 {
 public:
-    game_object();
+    game_object(messenger &messenger);
     ~game_object();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
@@ -35,6 +37,7 @@ public:
     template<typename T>
     void erase_component();
 private:
+    messenger &_messenger;
     game_object *_parent;
     std::vector<game_object *> _children;
     std::vector<component *> _components;
@@ -43,7 +46,9 @@ private:
 template<typename T>
 void game_object::add_component()
 {
-    _components.push_back(new T(*this));
+    T component = new T(*this);
+    _components.push_back(component);
+    _messenger.send(component_added(component));
 }
 
 template<typename T>
