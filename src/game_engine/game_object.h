@@ -46,7 +46,7 @@ private:
 template<typename T>
 void game_object::add_component()
 {
-    T component = new T(*this);
+    T *component = new T(*this);
     _components.push_back(component);
     _messenger.send(component_added(component));
 }
