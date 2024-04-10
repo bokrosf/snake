@@ -53,7 +53,18 @@ template<typename T, typename... Args>
     requires std::derived_from<T, component>
 void game_object::add_component(Args&&... args)
 {
-    T *component = new T(*this, std::forward<Args>(args)...);
+    T *component = nullptr;
+    
+    try
+    {
+        component = new T(*this, std::forward<Args>(args)...);
+    }
+    catch (...)
+    {
+        delete component;
+        throw;
+    }
+
     _components.push_back(component);
     _messenger.send(component_added(*component));
 }
