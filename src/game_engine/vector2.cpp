@@ -66,6 +66,19 @@ vector2 operator*(float lhs, const vector2 &rhs)
     return vector2(rhs) *= lhs;
 }
 
+vector2 &vector2::operator/=(float rhs)
+{
+    _x /= rhs;
+    _y /= rhs;
+
+    return *this;
+}
+
+vector2 vector2::operator/(float rhs) const
+{
+    return vector2(*this) /= rhs;
+}
+
 vector2 vector2::operator-() const
 {
     return *this * -1;
@@ -88,7 +101,7 @@ float vector2::magnitude() const
 
 vector2 vector2::normalize() const
 {
-    return *this * (1 / magnitude());
+    return (*this) / magnitude();
 }
 
 vector2 vector2::points_to(const vector2 &position) const

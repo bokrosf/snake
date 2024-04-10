@@ -14,6 +14,8 @@ public:
     vector2 &operator*=(float rhs);
     vector2 operator*(float rhs) const;
     friend vector2 operator*(float lhs, const vector2 &rhs);
+    vector2 &operator/=(float rhs);
+    vector2 operator/(float rhs) const;
     vector2 operator-() const;
     float x() const;
     float y() const;
