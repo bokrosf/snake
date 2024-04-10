@@ -2,26 +2,28 @@
 #include "game_engine/time.h"
 #include "snake.h"
 
-snake::snake(game_object &attached_to)
+snake::snake(game_object &attached_to, const vector2 &head, const vector2 &tail)
     : behavior(attached_to)
     , _movement_system(nullptr)
     , _speed(0)
-{
-    _head_direction = vector2::left();
-}
-
-void snake::initialize(const vector2 &head, const vector2 &tail)
 {
     if (head.distance_from(tail) <= 0)
     {
         throw std::invalid_argument("Head and tail can not be the same position. Segment's length must be greater than zero.");
     }
+    
+    _head_direction = vector2::left();
+    _segments.push_front(head);
+    _segments.push_back(tail);
+}
 
+void snake::initialize()
+{    
     _movement_system = &attached_to().attached_component<movement_system>();
-    segment_correction correction = _movement_system->correct_segments(head, tail);
+    segment_correction correction = _movement_system->correct_segments(_segments.front(), _segments.back());
     _head_direction = correction.end.points_to(correction.start).normalize();
-    _segments.push_front(correction.start);
-    _segments.push_back(correction.end);
+    _segments.front() = correction.start;
+    _segments.back() = correction.end;
 }
 
 void snake::update()

@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include <stdexcept>
 #include <concepts>
+#include <utility>
 #include "activatable.h"
 #include "component/component.h"
 #include "component/component_not_found.h"
@@ -24,9 +25,9 @@ public:
     void attach_to(game_object *new_parent);
     auto children() const;
 
-    template<typename T>
+    template<typename T, typename... Args>
         requires std::derived_from<T, component>
-    void add_component();
+    void add_component(Args&&... args);
 
     template<typename T>
         requires std::derived_from<T, component>
@@ -48,11 +49,22 @@ private:
     std::vector<component *> _components;
 };
 
-template<typename T>
+template<typename T, typename... Args>
     requires std::derived_from<T, component>
-void game_object::add_component()
+void game_object::add_component(Args&&... args)
 {
-    T *component = new T(*this);
+    T *component = nullptr;
+    
+    try
+    {
+        component = new T(*this, std::forward<Args>(args)...);
+    }
+    catch (...)
+    {
+        delete component;
+        throw;
+    }
+
     _components.push_back(component);
     _messenger.send(component_added(*component));
 }
