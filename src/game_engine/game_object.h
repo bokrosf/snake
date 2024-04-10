@@ -6,6 +6,7 @@
 #include <ranges>
 #include <typeinfo>
 #include <stdexcept>
+#include <concepts>
 #include "activatable.h"
 #include "component/component.h"
 #include "component/component_not_found.h"
@@ -24,17 +25,21 @@ public:
     auto children() const;
 
     template<typename T>
+        requires std::derived_from<T, component>
     void add_component();
 
     template<typename T>
+        requires std::derived_from<T, component>
     T *find_component() const;
 
     template<typename T>
+        requires std::derived_from<T, component>
     T &attached_component() const;
 
     void erase_component(const component &erased);
 
     template<typename T>
+        requires std::derived_from<T, component>
     void erase_component();
 private:
     messenger &_messenger;
@@ -44,23 +49,25 @@ private:
 };
 
 template<typename T>
+    requires std::derived_from<T, component>
 void game_object::add_component()
 {
     T *component = new T(*this);
     _components.push_back(component);
-    _messenger.send(component_added(component));
+    _messenger.send(component_added(*component));
 }
 
 template<typename T>
+    requires std::derived_from<T, component>
 T *game_object::find_component() const
 {
     auto predicate = [](component *c) { return dynamic_cast<T *>(c); };
     auto it = std::find_if(_components.begin() , _components.end(), predicate);
-
     return it != _components.end() ? dynamic_cast<T *>(*it) : nullptr;
 }
 
 template<typename T>
+    requires std::derived_from<T, component>
 T &game_object::attached_component() const
 {
     T *component = find_component<T>();
@@ -69,6 +76,7 @@ T &game_object::attached_component() const
 }
 
 template<typename T>
+    requires std::derived_from<T, component>
 void game_object::erase_component()
 {
     if (T *component = find_component<T>())
