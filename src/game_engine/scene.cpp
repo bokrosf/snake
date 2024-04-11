@@ -16,3 +16,12 @@ void scene::register_added_component(const component_added &message)
 {
     _components_to_initialize.push(&message.added);
 }
+
+void scene::initialize_components()
+{
+    while (!_components_to_initialize.empty())
+    {
+        _components_to_initialize.front()->initialize();
+        _components_to_initialize.pop();
+    }
+}

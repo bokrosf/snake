@@ -15,6 +15,7 @@ public:
     virtual void initialize() = 0;
     void update_root_objects(const game_object_parent_changed &message);
     void register_added_component(const component_added &message);
+    void initialize_components();
 protected:
     scene() = default;
 private:
