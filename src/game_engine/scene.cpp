@@ -26,7 +26,7 @@ void scene::initialize_components()
     }
 }
 
-auto scene::root_objects() const
+std::ranges::ref_view<const std::unordered_set<game_object *>> scene::root_objects() const
 {
     return std::views::all(_root_objects);
 }

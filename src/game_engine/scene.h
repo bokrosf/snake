@@ -17,7 +17,7 @@ public:
     void update_root_objects(const game_object_parent_changed &message);
     void register_added_component(const component_added &message);
     void initialize_components();
-    auto root_objects() const;
+    std::ranges::ref_view<const std::unordered_set<game_object *>> root_objects() const;
 protected:
     scene() = default;
 private:
