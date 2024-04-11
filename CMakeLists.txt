@@ -6,15 +6,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(snake
   src/main.cpp
   src/game_engine/activatable.cpp
+  src/game_engine/app.cpp
   src/game_engine/game_object.cpp
   src/game_engine/scene.cpp
+  src/game_engine/subsystem_initialization_failed.cpp
   src/game_engine/time.cpp
   src/game_engine/vector2.cpp
   src/game_engine/component/behavior.cpp
   src/game_engine/component/component.cpp
   src/game_engine/component/component_not_found.cpp
   src/game_engine/component/renderer.cpp
+  src/game_engine/logging/console_logger.cpp
+  src/game_engine/logging/logger.cpp
   src/game_engine/messaging/messenger.cpp
+  src/game/snake_app.cpp
   src/game/gameplay/snake/movement_system.cpp
   src/game/gameplay/snake/snake.cpp
   src/game/gameplay/snake/tiled_movement_system.cpp)
