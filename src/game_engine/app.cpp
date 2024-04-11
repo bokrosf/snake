@@ -19,9 +19,11 @@ void app::run()
 {
     initialize_subsystems();
     start();
+    _running = true;
 
     while (_running)
     {
+        handle_user_input();
         // TODO 2024-04-10 Implement GameLoop.
     }
 
@@ -82,6 +84,20 @@ void app::detect_collisions()
 
 void app::handle_user_input()
 {
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EventType::SDL_QUIT)
+        {
+            _running = false;
+        }
+        else if (event.key.keysym.sym == SDLK_ESCAPE)
+        {
+            _running = false;
+        }
+    }
+
     // TODO 2024-04-10 Implement.
 }
 
