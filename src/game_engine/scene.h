@@ -2,7 +2,7 @@
 #define SNAKE_GAMEENGINE_SCENE_H
 
 #include <unordered_set>
-#include <vector>
+#include <queue>
 #include "game_object.h"
 #include "component/component.h"
 #include "game_object_parent_changed.h"
@@ -19,7 +19,7 @@ protected:
     scene() = default;
 private:
     std::unordered_multiset<game_object *> _root_objects;
-    std::vector<component *> _components_to_initialize;
+    std::queue<component *> _components_to_initialize;
 };
 
 #endif
