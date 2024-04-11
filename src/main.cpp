@@ -1,14 +1,29 @@
 #include <iostream>
+#include <exception>
 #include <SDL2/sdl.h>
+#include "game_engine/app.h"
+#include "game_engine/logging/logger.h"
+#include "game_engine/logging/console_logger.h"
+#include "game/snake_app.h"
 
 void sdl_test();
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Snake" << std::endl;
-    sdl_test();
+    console_logger::initialize();
+    
+    try
+    {
+        app *app = new snake_app();
+        app->run();
 
-    return 0;
+        return 0;
+    }
+    catch (const std::exception &ex)
+    {
+        logger::instance().error(ex.what());
+        return 1;
+    }
 }
 
 void sdl_test()
@@ -71,5 +86,6 @@ void sdl_test()
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    SDL_Quit();
     SDL_Quit();
 }
