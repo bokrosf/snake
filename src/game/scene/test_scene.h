@@ -6,7 +6,6 @@
 class test_scene : public scene
 {
 public:
-    test_scene() = default;
     void initialize() override;
 };
 
