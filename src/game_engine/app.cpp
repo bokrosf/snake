@@ -19,7 +19,7 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
-    start();
+    _active_scene = start();
     _running = true;
 
     while (_running)
