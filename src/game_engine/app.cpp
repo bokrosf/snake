@@ -1,4 +1,8 @@
+#include <map>
+#include <queue>
+#include <vector>
 #include "app.h"
+#include "component/renderer.h"
 #include "subsystem_initialization_failed.h"
 
 app::app(const std::string &app_name)
@@ -117,5 +121,38 @@ void app::update_game_state()
 
 void app::render()
 {
-    // TODO 2024-04-10 Implement.
+    std::queue<const game_object *> checked_objects;
+    std::map<int, std::vector<renderer *>> rendering_layers;
+
+    for (const game_object *root : _active_scene->root_objects())
+    {
+        checked_objects.push(root);
+    }
+
+    while (!checked_objects.empty())
+    {
+        const game_object *object = checked_objects.front();
+        checked_objects.pop();
+
+        if (object->active())
+        {
+            if (renderer *r = object->find_component<renderer>())
+            {
+                rendering_layers[r->layer_order()].push_back(r);
+            }
+            
+            for (const game_object *child : object->children())
+            {
+                checked_objects.push(child);
+            }
+        }
+    }
+
+    for (const auto &[layer, renderers] : rendering_layers)
+    {
+        for (renderer *r : renderers)
+        {
+            r->render(_renderer);
+        }
+    }
 }
