@@ -5,6 +5,7 @@ app::app(const std::string &app_name)
     : _messenger(messenger::instance())
     , _window(nullptr)
     , _renderer(nullptr)
+    , _active_scene(nullptr)
     , _running(false)
     , _app_name(app_name)
 {

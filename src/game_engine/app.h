@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "messaging/messenger.h"
+#include "scene.h"
 
 class app
 {
@@ -17,6 +18,7 @@ protected:
 private:
     SDL_Window *_window;
     SDL_Renderer *_renderer;
+    scene *_active_scene;
     bool _running;
     const std::string _app_name;
     void initialize_subsystems();
