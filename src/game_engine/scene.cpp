@@ -14,5 +14,5 @@ void scene::update_root_objects(const game_object_parent_changed &message)
 
 void scene::register_added_component(const component_added &message)
 {
-    _uninitialized_components.push(&message.added);
+    _components_to_initialize.push_back(&message.added);
 }
