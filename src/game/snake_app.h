@@ -8,7 +8,7 @@ class snake_app : public app
 public:
     snake_app();
 protected:
-    void start() override;
+    scene *start() override;
 };
 
 #endif

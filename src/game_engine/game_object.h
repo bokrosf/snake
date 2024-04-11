@@ -23,7 +23,7 @@ public:
     ~game_object();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
-    auto children() const;
+    std::ranges::ref_view<const std::vector<game_object *>> children() const;
 
     template<typename T, typename... Args>
         requires std::derived_from<T, component>

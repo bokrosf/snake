@@ -1,10 +1,15 @@
+#include <map>
+#include <queue>
+#include <vector>
 #include "app.h"
+#include "component/renderer.h"
 #include "subsystem_initialization_failed.h"
 
 app::app(const std::string &app_name)
     : _messenger(messenger::instance())
     , _window(nullptr)
     , _renderer(nullptr)
+    , _active_scene(nullptr)
     , _running(false)
     , _app_name(app_name)
 {
@@ -18,13 +23,27 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
-    start();
+    _active_scene = start();
     _running = true;
 
     while (_running)
     {
-        handle_user_input();
         // TODO 2024-04-10 Implement GameLoop.
+        // [] Frame start time recording.
+        // [x] Initialize components.
+        // [] Detect collisions
+        // [] Handle user input.
+        // [] Logic:
+        //      [] Update game state by traversing the game_object tree.
+        //      [] Don't process Inactive game_object subtree.
+        //      [] Only active behaviors updated.
+        // [x] Graphical rendering.
+        // [] Frame end time recording.
+        // [] Delta-time update.
+        
+        _active_scene->initialize_components();
+        handle_user_input();
+        render();
     }
 
     shutdown_subsystems();
@@ -72,11 +91,6 @@ void app::shutdown_subsystems()
     SDL_Quit();
 }
 
-void app::initialize_components()
-{
-    // TODO 2024-04-10 Implement.
-}
-
 void app::detect_collisions()
 {
     // TODO 2024-04-10 Implement.
@@ -108,5 +122,38 @@ void app::update_game_state()
 
 void app::render()
 {
-    // TODO 2024-04-10 Implement.
+    std::queue<const game_object *> checked_objects;
+    std::map<int, std::vector<renderer *>> rendering_layers;
+
+    for (const game_object *root : _active_scene->root_objects())
+    {
+        checked_objects.push(root);
+    }
+
+    while (!checked_objects.empty())
+    {
+        const game_object *object = checked_objects.front();
+        checked_objects.pop();
+
+        if (object->active())
+        {
+            if (renderer *r = object->find_component<renderer>())
+            {
+                rendering_layers[r->layer_order()].push_back(r);
+            }
+            
+            for (const game_object *child : object->children())
+            {
+                checked_objects.push(child);
+            }
+        }
+    }
+
+    for (const auto &[layer, renderers] : rendering_layers)
+    {
+        for (renderer *r : renderers)
+        {
+            r->render(_renderer);
+        }
+    }
 }

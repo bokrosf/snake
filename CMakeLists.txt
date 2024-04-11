@@ -22,7 +22,8 @@ add_executable(snake
   src/game/snake_app.cpp
   src/game/gameplay/snake/movement_system.cpp
   src/game/gameplay/snake/snake.cpp
-  src/game/gameplay/snake/tiled_movement_system.cpp)
+  src/game/gameplay/snake/tiled_movement_system.cpp
+  src/game/scene/test_scene.cpp)
 
 target_link_directories(snake
   PRIVATE "lib/SDL2-2.30.2")
