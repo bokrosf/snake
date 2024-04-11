@@ -47,13 +47,10 @@ void game_object::attach_to(game_object *new_parent)
     _messenger.send(game_object_parent_changed(*this));
 }
 
-auto game_object::children() const
+std::ranges::ref_view<const std::vector<game_object *>> game_object::children() const
 {
-    auto reference_transformer = [](const game_object *go) { return *go; };
-
-    return std::views::transform(reference_transformer);
+    return std::views::all(_children);
 }
-
 
 void game_object::erase_component(const component &erased)
 {
