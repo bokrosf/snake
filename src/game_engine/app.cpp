@@ -23,8 +23,20 @@ void app::run()
 
     while (_running)
     {
-        handle_user_input();
         // TODO 2024-04-10 Implement GameLoop.
+        // - Frame start time recording.
+        // - Initialize components.
+        // - Detect collisions
+        // - Handle user input.
+        // - Logic:
+        //      - Update game state by traversing the game_object tree.
+        //      - Don't process Inactive game_object subtree.
+        //      - Only active behaviors updated.
+        // - Graphical rendering.
+        // - Frame end time recording.
+        // - Delta-time update.
+        
+        handle_user_input();
     }
 
     shutdown_subsystems();
