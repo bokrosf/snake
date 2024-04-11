@@ -8,8 +8,11 @@ class renderer : public component
 {
 public:
     virtual void render(SDL_Renderer *renderer) = 0;
+    int layer_order() const;
 protected:
-    renderer(game_object &attached_to);
+    renderer(game_object &attached_to, int layer_order);
+private:
+    const int _layer_order;
 };
 
 #endif
