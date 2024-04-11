@@ -3,6 +3,7 @@
 
 #include <unordered_set>
 #include <queue>
+#include <ranges>
 #include "game_object.h"
 #include "component/component.h"
 #include "game_object_parent_changed.h"
@@ -16,6 +17,7 @@ public:
     void update_root_objects(const game_object_parent_changed &message);
     void register_added_component(const component_added &message);
     void initialize_components();
+    auto root_objects() const;
 protected:
     scene() = default;
 private:

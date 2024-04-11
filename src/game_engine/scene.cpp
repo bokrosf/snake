@@ -25,3 +25,8 @@ void scene::initialize_components()
         _components_to_initialize.pop();
     }
 }
+
+auto scene::root_objects() const
+{
+    return std::views::all(_root_objects);
+}
