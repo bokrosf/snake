@@ -37,6 +37,7 @@ void app::run()
         // - Frame end time recording.
         // - Delta-time update.
         
+        _active_scene->initialize_components();
         handle_user_input();
     }
 
@@ -83,11 +84,6 @@ void app::shutdown_subsystems()
     }
 
     SDL_Quit();
-}
-
-void app::initialize_components()
-{
-    // TODO 2024-04-10 Implement.
 }
 
 void app::detect_collisions()

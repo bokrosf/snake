@@ -23,7 +23,6 @@ private:
     const std::string _app_name;
     void initialize_subsystems();
     void shutdown_subsystems();
-    void initialize_components();
     void detect_collisions();
     void handle_user_input();
     void update_game_state();
