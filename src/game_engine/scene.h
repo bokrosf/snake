@@ -5,32 +5,21 @@
 #include <queue>
 #include "game_object.h"
 #include "component/component.h"
-#include "messaging/messenger.h"
-#include "messaging/recipient.h"
 #include "game_object_parent_changed.h"
 #include "component_added.h"
 
-class scene : public recipient<game_object_parent_changed>, public recipient<component_added>
+class scene
 {
 public:
-    virtual ~scene();
-    virtual void initialize();
-    void play();
-    void pause();
-    void receive(const game_object_parent_changed &message) override;
-    void receive(const component_added &message) override;
+    virtual ~scene() = default;
+    virtual void initialize() = 0;
+    void update_root_objects(const game_object_parent_changed &message);
+    void register_added_component(const component_added &message);
 protected:
-    scene(messenger &messenger);
+    scene() = default;
 private:
-    messenger &_messenger;
     std::unordered_multiset<game_object *> _root_objects;
-    std::queue<component *> _components_to_initialize;
-    bool _running;
-    void initialize_components();
-    void detect_collisions();
-    void handle_user_input();
-    void update_game_state();
-    void render();
+    std::queue<component *> _uninitialized_components;
 };
 
 #endif
