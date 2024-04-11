@@ -73,6 +73,7 @@ T *game_object::find_component() const
 {
     auto predicate = [](component *c) { return dynamic_cast<T *>(c); };
     auto it = std::find_if(_components.begin() , _components.end(), predicate);
+    
     return it != _components.end() ? dynamic_cast<T *>(*it) : nullptr;
 }
 
