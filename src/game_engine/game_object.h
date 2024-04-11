@@ -14,12 +14,10 @@
 #include "messaging/messenger.h"
 #include "component_added.h"
 
-class component;
-
 class game_object : public activatable 
 {
 public:
-    game_object(messenger &messenger);
+    game_object();
     ~game_object();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
@@ -43,7 +41,6 @@ public:
         requires std::derived_from<T, component>
     void erase_component();
 private:
-    messenger &_messenger;
     game_object *_parent;
     std::vector<game_object *> _children;
     std::vector<component *> _components;
@@ -66,7 +63,7 @@ void game_object::add_component(Args&&... args)
     }
 
     _components.push_back(component);
-    _messenger.send(component_added(*component));
+    messenger::instance().send(component_added(*component));
 }
 
 template<typename T>
@@ -75,6 +72,7 @@ T *game_object::find_component() const
 {
     auto predicate = [](component *c) { return dynamic_cast<T *>(c); };
     auto it = std::find_if(_components.begin() , _components.end(), predicate);
+    
     return it != _components.end() ? dynamic_cast<T *>(*it) : nullptr;
 }
 
