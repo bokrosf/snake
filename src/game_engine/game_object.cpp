@@ -1,9 +1,8 @@
 #include "game_object.h"
 #include "game_object_parent_changed.h"
 
-game_object::game_object(messenger &messenger)
+game_object::game_object()
     : _parent(nullptr)
-    , _messenger(messenger)
 {
 }
 
@@ -44,7 +43,7 @@ void game_object::attach_to(game_object *new_parent)
         _parent->_children.push_back(this);
     }
 
-    _messenger.send(game_object_parent_changed(*this));
+    messenger::instance().send(game_object_parent_changed(*this));
 }
 
 std::ranges::ref_view<const std::vector<game_object *>> game_object::children() const
