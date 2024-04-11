@@ -14,8 +14,6 @@
 #include "messaging/messenger.h"
 #include "component_added.h"
 
-class component;
-
 class game_object : public activatable 
 {
 public:
