@@ -21,7 +21,7 @@ public:
 protected:
     scene() = default;
 private:
-    std::unordered_multiset<game_object *> _root_objects;
+    std::unordered_set<game_object *> _root_objects;
     std::queue<component *> _components_to_initialize;
 };
 
