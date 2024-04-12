@@ -31,8 +31,8 @@ private:
     void handle_user_input();
     void update_game_state();
     void render();
-    void receive(const component_added &message) override;
-    void receive(const game_object_parent_changed &message) override;
+    void receive(const component_added &message) final;
+    void receive(const game_object_parent_changed &message) final;
 };
 
 #endif
