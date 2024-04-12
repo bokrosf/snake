@@ -1,20 +1,20 @@
 #include "scene.h"
 
-void scene::update_root_objects(const game_object_parent_changed &message)
+void scene::update_root_status(game_object &object)
 {
-    if (message.object.parent())
+    if (object.parent())
     {
-        _root_objects.erase(&message.object);
+        _root_objects.erase(&object);
     }
     else
     {
-        _root_objects.insert(&message.object);
+        _root_objects.insert(&object);
     }
 }
 
-void scene::register_added_component(const component_added &message)
+void scene::register_added_component(component &added)
 {
-    _components_to_initialize.push(&message.added);
+    _components_to_initialize.push(&added);
 }
 
 void scene::initialize_components()

@@ -17,13 +17,16 @@ app::app(const std::string &app_name)
 
 app::~app()
 {
-    shutdown_subsystems();
+    shutdown();
 }
 
 void app::run()
 {
     initialize_subsystems();
-    _active_scene = start();
+    _messenger.subscribe<component_added>(*this);
+    _messenger.subscribe<game_object_parent_changed>(*this);
+    _active_scene = create_start_scene();
+    _active_scene->initialize();
     _running = true;
 
     while (_running)
@@ -46,7 +49,7 @@ void app::run()
         render();
     }
 
-    shutdown_subsystems();
+    shutdown();
 }
 
 void app::initialize_subsystems()
@@ -72,6 +75,13 @@ void app::initialize_subsystems()
 
     _window = window;
     _renderer = renderer;
+}
+
+void app::shutdown()
+{
+    _messenger.unsubscribe<component_added>(*this);
+    _messenger.unsubscribe<game_object_parent_changed>(*this);
+    shutdown_subsystems();
 }
 
 void app::shutdown_subsystems()
@@ -156,4 +166,14 @@ void app::render()
             r->render(_renderer);
         }
     }
+}
+
+void app::receive(const component_added &message)
+{
+    _active_scene->register_added_component(message.added);
+}
+
+void app::receive(const game_object_parent_changed &message)
+{
+    _active_scene->update_root_status(message.object);
 }
