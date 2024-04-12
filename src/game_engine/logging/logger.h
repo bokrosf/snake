@@ -6,7 +6,7 @@
 class logger
 {  
 public:
-    virtual ~logger() = default;
+    ~logger() = default;
     static logger &instance();
     void change_destination(std::ostream &destination);
     std::ostream &debug();
