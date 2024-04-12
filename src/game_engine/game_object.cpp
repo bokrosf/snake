@@ -36,14 +36,20 @@ void game_object::attach_to(game_object *new_parent)
         _children.erase(std::find(_children.begin(), _children.end(), this));
     }
 
-    _parent = new_parent;
-    
-    if (_parent)
+    game_object *descendant_tree_root = find_descendant_tree_root(new_parent);
+
+    if (descendant_tree_root)
     {
-        _parent->_children.push_back(this);
+        change_parent(descendant_tree_root, _parent);
     }
 
+    change_parent(this, new_parent);
     messenger::instance().send(game_object_parent_changed(*this));
+
+    if (descendant_tree_root)
+    {
+        messenger::instance().send(game_object_parent_changed(*descendant_tree_root));
+    }
 }
 
 std::ranges::ref_view<const std::vector<game_object *>> game_object::children() const
@@ -59,5 +65,25 @@ void game_object::erase_component(const component &erased)
     {
         delete *it;
         _components.erase(it);
+    }
+}
+
+game_object *game_object::find_descendant_tree_root(game_object *descendant) const
+{
+    while (descendant && descendant->parent() != this)
+    {
+        descendant = descendant->parent();
+    }
+
+    return descendant;
+}
+
+void game_object::change_parent(game_object *object, game_object *new_parent)
+{
+    object->_parent = new_parent;
+
+    if (new_parent)
+    {
+        new_parent->_children.push_back(object);
     }
 }
