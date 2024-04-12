@@ -3,14 +3,13 @@
 #include <SDL2/sdl.h>
 #include "game_engine/app.h"
 #include "game_engine/logging/logger.h"
-#include "game_engine/logging/console_logger.h"
 #include "game/snake_app.h"
 
 void sdl_test();
 
 int main(int argc, char *argv[])
 {
-    console_logger::initialize();
+    logger::instance().change_destination(std::cout);
     
     try
     {
@@ -21,7 +20,7 @@ int main(int argc, char *argv[])
     }
     catch (const std::exception &ex)
     {
-        logger::instance().error(ex.what());
+        logger::instance().error() << ex.what();
         return 1;
     }
 }

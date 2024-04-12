@@ -3,29 +3,44 @@
 
 logger *logger::_instance = nullptr;
 
+logger::logger()
+    : _destination(nullptr)
+{
+}
+
 logger &logger::instance()
 {
+    if (!_instance)
+    {
+        _instance = new logger();
+    }
+    
     return *_instance;
 }
 
-void logger::debug(const std::string &message)
+void logger::change_destination(std::ostream &destination)
 {
-    write(log_level::debug, message);
+    _destination = &destination;
 }
 
-void logger::information(const std::string &message)
+std::ostream &logger::debug()
 {
-    write(log_level::information, message);
+    return write(log_level::debug);
 }
 
-void logger::warning(const std::string &message)
+std::ostream &logger::information()
 {
-    write(log_level::warning, message);
+    return write(log_level::information);
 }
 
-void logger::error(const std::string &message)
+std::ostream &logger::warning()
 {
-    write(log_level::error, message);
+    return write(log_level::warning);
+}
+
+std::ostream &logger::error()
+{
+    return write(log_level::error);
 }
 
 inline std::string logger::level_name(log_level level)
@@ -45,9 +60,8 @@ inline std::string logger::level_name(log_level level)
     }
 }
 
-void logger::write(log_level level, const std::string &message)
+std::ostream &logger::write(log_level level)
 {
-    std::ostringstream stream;
-    stream << "<TimeStamp>|" << level_name(level) << "|" << message;
-    write_to_output(stream.str());
+    // TODO 2024-04-12 TimeStamp part needed.
+    return *_destination << "<TimeStamp>|" << level_name(level) << "|";
 }
