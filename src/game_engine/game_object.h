@@ -44,6 +44,8 @@ private:
     game_object *_parent;
     std::vector<game_object *> _children;
     std::vector<component *> _components;
+    game_object *find_descendant_tree_root(game_object *descendant) const;
+    void change_parent(game_object *object, game_object *new_parent);
 };
 
 template<typename T, typename... Args>
