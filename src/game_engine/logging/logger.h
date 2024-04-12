@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAMEENGINE_LOGGING_LOGGER_H
 #define SNAKE_GAMEENGINE_LOGGING_LOGGER_H
 
-#include <string>
+#include <ostream>
 
 class logger
 {
@@ -16,17 +16,17 @@ private:
 public:
     virtual ~logger() = default;
     static logger &instance();
-    void debug(const std::string &message);
-    void information(const std::string &message);
-    void warning(const std::string &message);
-    void error(const std::string &message);
-protected:
-    logger() = default;
-    static logger *_instance;
-    virtual void write_to_output(const std::string &message) = 0;
+    void change_destination(std::ostream &destination);
+    std::ostream &debug();
+    std::ostream &information();
+    std::ostream &warning();
+    std::ostream &error();
 private:
+    static logger *_instance;
+    std::ostream *_destination;
+    logger();
     inline std::string level_name(log_level level);
-    void write(log_level level, const std::string &message);
+    std::ostream &write(log_level level);
 };
 
 #endif
