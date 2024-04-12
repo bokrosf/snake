@@ -4,15 +4,7 @@
 #include <ostream>
 
 class logger
-{
-private:
-    enum class log_level
-    {
-        debug,
-        information,
-        warning,
-        error
-    };
+{  
 public:
     virtual ~logger() = default;
     static logger &instance();
@@ -22,6 +14,14 @@ public:
     std::ostream &warning();
     std::ostream &error();
 private:
+    enum class log_level
+    {
+        debug,
+        information,
+        warning,
+        error
+    };
+
     static logger *_instance;
     std::ostream *_destination;
     logger();
