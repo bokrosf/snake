@@ -7,7 +7,7 @@ snake_app::snake_app()
 {
 }
 
-scene *snake_app::start()
+scene *snake_app::create_start_scene()
 {
     // TODO 2024-04-11 Instantiate classis_mode or game_mode_selector scene.
     return new test_scene();

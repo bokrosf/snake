@@ -14,7 +14,7 @@ public:
     void run();
 protected:
     messenger &_messenger;
-    virtual scene *start() = 0;
+    virtual scene *create_start_scene() = 0;
 private:
     SDL_Window *_window;
     SDL_Renderer *_renderer;
