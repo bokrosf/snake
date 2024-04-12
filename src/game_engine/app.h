@@ -25,6 +25,7 @@ private:
     bool _running;
     const std::string _app_name;
     void initialize_subsystems();
+    void shutdown();
     void shutdown_subsystems();
     void detect_collisions();
     void handle_user_input();
