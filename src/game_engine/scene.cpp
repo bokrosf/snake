@@ -12,9 +12,9 @@ void scene::update_root_objects(const game_object_parent_changed &message)
     }
 }
 
-void scene::register_added_component(const component_added &message)
+void scene::register_added_component(component &added)
 {
-    _components_to_initialize.push(&message.added);
+    _components_to_initialize.push(&added);
 }
 
 void scene::initialize_components()
