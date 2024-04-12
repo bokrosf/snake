@@ -158,3 +158,13 @@ void app::render()
         }
     }
 }
+
+void app::receive(const component_added &message)
+{
+    _active_scene->register_added_component(message.added);
+}
+
+void app::receive(const game_object_parent_changed &message)
+{
+    _active_scene->update_root_status(message.object);
+}

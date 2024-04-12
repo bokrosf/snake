@@ -4,9 +4,12 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "messaging/messenger.h"
+#include "messaging/recipient.h"
 #include "scene.h"
+#include "component_added.h"
+#include "game_object_parent_changed.h"
 
-class app
+class app : public recipient<component_added>, public recipient<game_object_parent_changed>
 {
 public:
     app(const std::string &app_name);
@@ -27,6 +30,8 @@ private:
     void handle_user_input();
     void update_game_state();
     void render();
+    void receive(const component_added &message) override;
+    void receive(const game_object_parent_changed &message) override;
 };
 
 #endif
