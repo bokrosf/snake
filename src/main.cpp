@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     }
     catch (const std::exception &ex)
     {
-        logger::instance().error() << ex.what();
+        logger::instance().error(ex.what());
         return 1;
     }
 }

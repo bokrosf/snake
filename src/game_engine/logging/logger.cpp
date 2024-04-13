@@ -23,27 +23,7 @@ void logger::change_destination(std::ostream &destination)
     _destination = &destination;
 }
 
-std::ostream &logger::debug()
-{
-    return write(log_level::debug);
-}
-
-std::ostream &logger::information()
-{
-    return write(log_level::information);
-}
-
-std::ostream &logger::warning()
-{
-    return write(log_level::warning);
-}
-
-std::ostream &logger::error()
-{
-    return write(log_level::error);
-}
-
-inline std::string logger::level_name(log_level level)
+std::string logger::level_name(log_level level)
 {
     switch (level)
     {
@@ -58,10 +38,4 @@ inline std::string logger::level_name(log_level level)
         default:
             return "UNKNOWN";
     }
-}
-
-std::ostream &logger::write(log_level level)
-{
-    // TODO 2024-04-12 TimeStamp part needed.
-    return *_destination << "<TimeStamp>|" << level_name(level) << "|";
 }

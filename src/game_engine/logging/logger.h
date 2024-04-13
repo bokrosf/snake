@@ -9,10 +9,18 @@ public:
     ~logger() = default;
     static logger &instance();
     void change_destination(std::ostream &destination);
-    std::ostream &debug();
-    std::ostream &information();
-    std::ostream &warning();
-    std::ostream &error();
+    
+    template<typename... Args>
+    void debug(Args&&... args);
+    
+    template<typename... Args>
+    void information(Args&&... args);
+
+    template<typename... Args>
+    void warning(Args&&... args);
+
+    template<typename... Args>
+    void error(Args&&... args);
 private:
     enum class log_level
     {
@@ -25,8 +33,42 @@ private:
     static logger *_instance;
     std::ostream *_destination;
     logger();
-    inline std::string level_name(log_level level);
-    std::ostream &write(log_level level);
+    std::string level_name(log_level level);
+
+    template<typename... Args>
+    void write(log_level level, Args&&... args);
 };
+
+template<typename... Args>
+void logger::debug(Args&&... args)
+{
+    write(log_level::debug, args...);
+}
+
+template<typename... Args>
+void logger::information(Args&&... args)
+{
+    write(log_level::information, args...);
+}
+
+template<typename... Args>
+void logger::warning(Args&&... args)
+{
+    write(log_level::warning, args...);
+}
+
+template<typename... Args>
+void logger::error(Args&&... args)
+{
+    write(log_level::error, args...);
+}
+
+template<typename... Args>
+void logger::write(log_level level, Args&&... args)
+{
+    // TODO 2024-04-12 TimeStamp part needed.
+    *_destination << "<TimeStamp>|" << level_name(level) << "|";
+    (*_destination << ... << args) << std::endl;
+}
 
 #endif
