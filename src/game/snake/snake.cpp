@@ -59,6 +59,11 @@ void snake::change_speed(float speed)
     _speed = speed;
 }
 
+const std::list<vector2> &snake::segments() const
+{
+    return _segments;
+}
+
 void snake::move_forward()
 {
     float moved_distance = time::delta_time() * _speed;
