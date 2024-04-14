@@ -19,9 +19,9 @@ add_executable(snake
   src/game_engine/logging/logger.cpp
   src/game_engine/messaging/messenger.cpp
   src/game/snake_app.cpp
-  src/game/gameplay/snake/movement_system.cpp
-  src/game/gameplay/snake/snake.cpp
-  src/game/gameplay/snake/tiled_movement_system.cpp
+  src/game/snake/movement_system.cpp
+  src/game/snake/snake.cpp
+  src/game/snake/tiled_movement_system.cpp
   src/game/scene/test_scene.cpp)
 
 target_link_directories(snake

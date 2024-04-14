@@ -1,5 +1,5 @@
-#ifndef SNAKE_GAME_GAMEPLAY_SNAKE_SNAKE_H
-#define SNAKE_GAME_GAMEPLAY_SNAKE_SNAKE_H
+#ifndef SNAKE_GAME_SNAKE_SNAKE_H
+#define SNAKE_GAME_SNAKE_SNAKE_H
 
 #include <list>
 #include <game_engine/vector2.h>
