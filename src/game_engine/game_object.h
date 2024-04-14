@@ -4,7 +4,6 @@
 #include <vector>
 #include <algorithm>
 #include <ranges>
-#include <typeinfo>
 #include <stdexcept>
 #include <concepts>
 #include <utility>
