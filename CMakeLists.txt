@@ -21,6 +21,7 @@ add_executable(snake
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
+  src/game/snake/snake_renderer.cpp
   src/game/snake/tiled_movement_system.cpp
   src/game/scene/test_scene.cpp)
 
