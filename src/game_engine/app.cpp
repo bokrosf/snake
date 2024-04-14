@@ -159,6 +159,9 @@ void app::render()
         }
     }
 
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(_renderer);
+
     for (const auto &[layer, renderers] : rendering_layers)
     {
         for (renderer *r : renderers)
@@ -166,6 +169,8 @@ void app::render()
             r->render(_renderer);
         }
     }
+
+    SDL_RenderPresent(_renderer);
 }
 
 void app::receive(const component_added &message)
