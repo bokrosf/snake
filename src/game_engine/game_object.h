@@ -37,6 +37,15 @@ public:
         requires std::derived_from<T, component>
     T &attached_component() const;
 
+    template<typename T>
+        requires std::derived_from<T, component>
+    auto all_attached_components() const
+    {
+        auto conversion = [](component *c) { return dynamic_cast<T *>(c); };
+        
+        return _components | std::views::filter(conversion) | std::views::transform(conversion);
+    }
+
     void erase_component(const component &erased);
 
     template<typename T>
