@@ -23,7 +23,7 @@ protected:
 private:
     std::unordered_set<game_object *> _root_objects;
     std::queue<component *> _components_to_initialize;
-    std::unordered_set<game_object *> _marked_as_destroyed;
+    std::unordered_set<game_object *> _objects_to_destroy;
 };
 
 #endif

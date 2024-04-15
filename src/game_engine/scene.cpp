@@ -41,25 +41,25 @@ std::ranges::ref_view<const std::unordered_set<game_object *>> scene::root_objec
 
 void scene::mark_as_destroyed(game_object &object)
 {
-    _marked_as_destroyed.insert(&object);
+    _objects_to_destroy.insert(&object);
 }
 
 void scene::destroy_marked_objects()
 {
-    for (auto destroyed : _marked_as_destroyed)
+    for (auto destroyed : _objects_to_destroy)
     {
         destroyed->attach_to(nullptr);
     }
 
-    for (auto destroyed : _marked_as_destroyed)
+    for (auto destroyed : _objects_to_destroy)
     {
         _root_objects.erase(destroyed);
     }
 
-    for (auto destroyed : _marked_as_destroyed)
+    for (auto destroyed : _objects_to_destroy)
     {
         delete destroyed;
     }
 
-    _marked_as_destroyed.clear();
+    _objects_to_destroy.clear();
 }
