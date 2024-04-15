@@ -38,3 +38,8 @@ std::ranges::ref_view<const std::unordered_set<game_object *>> scene::root_objec
 {
     return std::views::all(_root_objects);
 }
+
+void scene::mark_as_destroyed(game_object &object)
+{
+    _marked_as_destroyed.insert(&object);
+}

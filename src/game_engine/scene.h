@@ -16,11 +16,13 @@ public:
     void register_added_component(component &added);
     void initialize_components();
     std::ranges::ref_view<const std::unordered_set<game_object *>> root_objects() const;
+    void mark_as_destroyed(game_object &object);
 protected:
     scene() = default;
 private:
     std::unordered_set<game_object *> _root_objects;
     std::queue<component *> _components_to_initialize;
+    std::unordered_set<game_object *> _marked_as_destroyed;
 };
 
 #endif
