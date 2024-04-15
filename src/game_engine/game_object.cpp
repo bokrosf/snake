@@ -24,7 +24,18 @@ game_object::~game_object()
 
 game_object &game_object::create()
 {
-    game_object *object = new game_object();
+    game_object *object = nullptr;
+
+    try
+    {
+        object = new game_object();
+    }
+    catch (...)
+    {
+        delete object;
+        throw;
+    }
+
     messenger::instance().send(game_object_created(*object));
 
     return *object;
