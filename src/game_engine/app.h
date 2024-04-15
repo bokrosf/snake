@@ -7,11 +7,13 @@
 #include "messaging/recipient.h"
 #include "scene.h"
 #include "game_object_created.h"
+#include "game_object_destroy_requested.h"
 #include "component_added.h"
 #include "game_object_parent_changed.h"
 
 class app : 
     public recipient<game_object_created>,
+    public recipient<game_object_destroy_requested>,
     public recipient<component_added>, 
     public recipient<game_object_parent_changed>
 {
@@ -36,6 +38,7 @@ private:
     void update_game_state();
     void render();
     void receive(const game_object_created &message) final;
+    void receive(const game_object_destroy_requested &message) final;
     void receive(const component_added &message) final;
     void receive(const game_object_parent_changed &message) final;
 };
