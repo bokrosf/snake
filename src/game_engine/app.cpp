@@ -1,8 +1,11 @@
 #include <map>
 #include <queue>
 #include <vector>
+#include <ranges>
 #include "app.h"
+#include "component/behavior.h"
 #include "component/renderer.h"
+#include "component/updatable.h"
 #include "game_time.h"
 #include "subsystem_initialization_failed.h"
 
@@ -42,16 +45,17 @@ void app::run()
         // [x] Initialize components.
         // [] Detect collisions
         // [] Handle user input.
-        // [] Logic:
-        //      [] Update game state by traversing the game_object tree.
-        //      [] Don't process Inactive game_object subtree.
-        //      [] Only active behaviors updated.
+        // [x] Logic:
+        //      [x] Update game state by traversing the game_object tree.
+        //      [x] Don't process Inactive game_object subtree.
+        //      [x] Only active behaviors updated.
         // [x] Delete game_objects marked for deletion.
         // [x] Graphical rendering.
         // [x] Frame end time recording.
         // [x] Delta-time update.
         _active_scene->initialize_components();
         handle_user_input();
+        update_game_state();
         _active_scene->destroy_marked_objects();
         render();
         frame_ended_at = SDL_GetTicks64();
@@ -139,7 +143,35 @@ void app::handle_user_input()
 
 void app::update_game_state()
 {
-    // TODO 2024-04-10 Implement.
+    std::queue<game_object *> checked_objects;
+    std::vector<updatable *> updatables;
+    auto active_object = [](const game_object *object) { return object->active(); };
+
+    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
+    {
+        checked_objects.push(root);
+    }
+
+    while (!checked_objects.empty())
+    {
+        game_object *object = checked_objects.front();
+        checked_objects.pop();
+
+        if (behavior *b = object->find_component<behavior>(); b->active())
+        {
+            updatables.push_back(b);
+        }
+
+        for (game_object *child : std::views::filter(object->children(), active_object))
+        {
+            checked_objects.push(child);
+        }
+    }
+
+    for (updatable *u : updatables)
+    {
+        u->update();
+    }
 }
 
 void app::render()
