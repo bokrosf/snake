@@ -17,6 +17,7 @@ public:
     void initialize_components();
     std::ranges::ref_view<const std::unordered_set<game_object *>> root_objects() const;
     void mark_as_destroyed(game_object &object);
+    void destroy_marked_objects();
 protected:
     scene() = default;
 private:

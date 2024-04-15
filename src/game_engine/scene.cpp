@@ -43,3 +43,23 @@ void scene::mark_as_destroyed(game_object &object)
 {
     _marked_as_destroyed.insert(&object);
 }
+
+void scene::destroy_marked_objects()
+{
+    for (auto destroyed : _marked_as_destroyed)
+    {
+        destroyed->attach_to(nullptr);
+    }
+
+    for (auto destroyed : _marked_as_destroyed)
+    {
+        _root_objects.erase(destroyed);
+    }
+
+    for (auto destroyed : _marked_as_destroyed)
+    {
+        delete destroyed;
+    }
+
+    _marked_as_destroyed.clear();
+}
