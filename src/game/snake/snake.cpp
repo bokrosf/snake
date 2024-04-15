@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "game_engine/time.h"
+#include <game_engine/game_time.h>
 #include "snake.h"
 
 snake::snake(game_object &attached_to, const vector2 &head, const vector2 &tail)
@@ -66,8 +66,8 @@ const std::list<vector2> &snake::segments() const
 
 void snake::move_forward()
 {
-    float moved_distance = time::delta_time() * _speed;
-    _segments.front() = moved_distance * _head_direction;
+    float moved_distance = game_time::delta_time() * _speed;
+    _segments.front() += moved_distance * _head_direction;
     bool moving_tail = true;
 
     while (moving_tail)
