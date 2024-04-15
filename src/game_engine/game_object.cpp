@@ -4,7 +4,8 @@
 #include "game_object_parent_changed.h"
 
 game_object::game_object()
-    : _parent(nullptr)
+    : _messenger(messenger::instance())
+    , _parent(nullptr)
 {
 }
 
@@ -31,7 +32,7 @@ game_object &game_object::create()
 
 void game_object::destroy()
 {
-    messenger::instance().send(game_object_destroyed(*this));
+    _messenger.send(game_object_destroyed(*this));
 }
 
 game_object *game_object::parent() const
@@ -64,11 +65,11 @@ void game_object::attach_to(game_object *new_parent)
     }
 
     change_parent(this, new_parent);
-    messenger::instance().send(game_object_parent_changed(*this));
+    _messenger.send(game_object_parent_changed(*this));
 
     if (descendant_tree_root)
     {
-        messenger::instance().send(game_object_parent_changed(*descendant_tree_root));
+        _messenger.send(game_object_parent_changed(*descendant_tree_root));
     }
 }
 

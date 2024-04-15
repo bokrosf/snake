@@ -44,6 +44,7 @@ public:
     void erase_component();
 private:
     game_object();
+    messenger &_messenger;
     game_object *_parent;
     std::vector<game_object *> _children;
     std::vector<component *> _components;
@@ -68,7 +69,7 @@ void game_object::add_component(Args&&... args)
     }
 
     _components.push_back(component);
-    messenger::instance().send(component_added(*component));
+    _messenger.send(component_added(*component));
 }
 
 template<typename T>
