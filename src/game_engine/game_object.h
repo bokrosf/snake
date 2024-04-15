@@ -20,6 +20,7 @@ public:
     game_object(game_object &&other) = delete;
     ~game_object();
     static game_object &create();
+    void destroy();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
     std::ranges::ref_view<const std::vector<game_object *>> children() const;
