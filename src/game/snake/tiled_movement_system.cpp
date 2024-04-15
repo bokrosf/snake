@@ -20,7 +20,7 @@ segment_correction tiled_movement_system::correct_segments(const vector2 &start,
 
 turning_correction tiled_movement_system::correct_turning(const vector2 &head_position, const vector2 &look_direction) const
 {
-    std::vector<vector2> head_segments = { tile_center(head_position) };
+    std::vector<vector2> head_segments = { tile_center(head_position), tile_center(head_position) };
 
     return turning_correction { head_segments, project_longer_axis(look_direction).normalize() };
 }
