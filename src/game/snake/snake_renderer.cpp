@@ -20,10 +20,7 @@ void snake_renderer::render(SDL_Renderer *renderer)
 
     while (segment_end != _snake->segments().cend())
     {
-        int half_thickness = _thickness / 2;
-        vector2 offset = segment_start->points_to(*segment_end).normalize();
-        offset *= half_thickness;
-        draw_segment(renderer, *segment_start - offset, *segment_end + offset);
+        draw_segment(renderer, *segment_start, *segment_end);
         segment_start = segment_end;
         ++segment_end;
     }
