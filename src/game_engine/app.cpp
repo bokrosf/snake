@@ -82,6 +82,7 @@ void app::initialize_subsystems()
 
 void app::shutdown()
 {
+    _messenger.unsubscribe<game_object_created>(*this);
     _messenger.unsubscribe<game_object_destroy_requested>(*this);
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<game_object_parent_changed>(*this);
