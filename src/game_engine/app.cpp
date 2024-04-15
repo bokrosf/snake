@@ -164,7 +164,7 @@ void app::update_game_state()
         game_object *object = checked_objects.front();
         checked_objects.pop();
         
-        if (behavior *b = object->find_component<behavior>(); b->active())
+        for (behavior *b : object->all_attached_components<behavior>() | std::views::filter([](behavior *b) { return b->active(); }))
         {
             updatables.push_back(b);
         }
