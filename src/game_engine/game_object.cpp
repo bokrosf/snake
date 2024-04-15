@@ -13,6 +13,11 @@ game_object::~game_object()
     {
         delete c;
     }
+
+    for (auto c : _children)
+    {
+        delete c;
+    }
 }
 
 game_object &game_object::create()
