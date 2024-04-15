@@ -178,8 +178,9 @@ void app::render()
 {
     std::queue<const game_object *> checked_objects;
     std::map<int, std::vector<renderer *>> rendering_layers;
+    auto active_object = [](game_object *object) { return object->active(); };
 
-    for (const game_object *root : _active_scene->root_objects())
+    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
     {
         checked_objects.push(root);
     }
@@ -189,17 +190,14 @@ void app::render()
         const game_object *object = checked_objects.front();
         checked_objects.pop();
 
-        if (object->active())
+        if (renderer *r = object->find_component<renderer>())
         {
-            if (renderer *r = object->find_component<renderer>())
-            {
-                rendering_layers[r->layer_order()].push_back(r);
-            }
-            
-            for (const game_object *child : object->children())
-            {
-                checked_objects.push(child);
-            }
+            rendering_layers[r->layer_order()].push_back(r);
+        }
+        
+        for (const game_object *child : std::views::filter(object->children(), active_object))
+        {
+            checked_objects.push(child);
         }
     }
 
