@@ -9,6 +9,7 @@ add_executable(snake
   src/game_engine/app.cpp
   src/game_engine/game_object.cpp
   src/game_engine/game_time.cpp
+  src/game_engine/input.cpp
   src/game_engine/scene.cpp
   src/game_engine/subsystem_initialization_failed.cpp
   src/game_engine/vector2.cpp
@@ -21,6 +22,7 @@ add_executable(snake
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
+  src/game/snake/snake_controller.cpp
   src/game/snake/snake_renderer.cpp
   src/game/snake/tiled_movement_system.cpp
   src/game/scene/test_scene.cpp)

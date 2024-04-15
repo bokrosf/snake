@@ -129,6 +129,11 @@ vector2 vector2::up()
     return vector2(0, 1);
 }
 
+vector2 vector2::down()
+{
+    return vector2(0, -1);
+}
+
 vector2 vector2::left()
 {
     return vector2(-1, 0);

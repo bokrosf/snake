@@ -7,6 +7,7 @@
 #include "component/renderer.h"
 #include "component/updatable.h"
 #include "game_time.h"
+#include "input.h"
 #include "subsystem_initialization_failed.h"
 
 app::app(const std::string &app_name)
@@ -44,7 +45,7 @@ void app::run()
         // [x] Frame start time recording.
         // [x] Initialize components.
         // [] Detect collisions
-        // [] Handle user input.
+        // [x] Handle user input.
         // [x] Logic:
         //      [x] Update game state by traversing the game_object tree.
         //      [x] Don't process Inactive game_object subtree.
@@ -124,21 +125,27 @@ void app::detect_collisions()
 
 void app::handle_user_input()
 {
-    SDL_Event event;
+    SDL_Event current_event;
+    std::vector<SDL_Event> events;
 
-    while (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&current_event))
     {
-        if (event.type == SDL_EventType::SDL_QUIT)
+        
+        if (current_event.type == SDL_EventType::SDL_QUIT)
         {
             _running = false;
+            return;
         }
-        else if (event.key.keysym.sym == SDLK_ESCAPE)
+        else if (current_event.key.keysym.sym == SDLK_ESCAPE)
         {
             _running = false;
+            return;
         }
+
+        events.push_back(current_event);
     }
 
-    // TODO 2024-04-10 Implement.
+    input::update_events(events);
 }
 
 void app::update_game_state()
@@ -156,8 +163,8 @@ void app::update_game_state()
     {
         game_object *object = checked_objects.front();
         checked_objects.pop();
-
-        if (behavior *b = object->find_component<behavior>(); b->active())
+        
+        for (behavior *b : object->all_attached_components<behavior>() | std::views::filter([](behavior *b) { return b->active(); }))
         {
             updatables.push_back(b);
         }
