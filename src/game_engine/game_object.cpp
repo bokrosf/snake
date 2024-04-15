@@ -1,4 +1,5 @@
 #include "game_object.h"
+#include "game_object_created.h"
 #include "game_object_parent_changed.h"
 
 game_object::game_object()
@@ -12,6 +13,14 @@ game_object::~game_object()
     {
         delete c;
     }
+}
+
+game_object &game_object::create()
+{
+    game_object *object = new game_object();
+    messenger::instance().send(game_object_created(*object));
+
+    return *object;
 }
 
 game_object *game_object::parent() const

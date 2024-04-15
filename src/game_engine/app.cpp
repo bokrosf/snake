@@ -23,6 +23,7 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
+    _messenger.subscribe<game_object_created>(*this);
     _messenger.subscribe<component_added>(*this);
     _messenger.subscribe<game_object_parent_changed>(*this);
     _active_scene = create_start_scene();
@@ -172,6 +173,11 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
+}
+
+void app::receive(const game_object_created &message)
+{
+    _active_scene->update_root_status(message.created);
 }
 
 void app::receive(const component_added &message)

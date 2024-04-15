@@ -16,8 +16,10 @@
 class game_object : public activatable 
 {
 public:
-    game_object();
+    game_object(const game_object &other) = delete;
+    game_object(game_object &&other) = delete;
     ~game_object();
+    static game_object &create();
     game_object *parent() const;
     void attach_to(game_object *new_parent);
     std::ranges::ref_view<const std::vector<game_object *>> children() const;
@@ -40,6 +42,7 @@ public:
         requires std::derived_from<T, component>
     void erase_component();
 private:
+    game_object();
     game_object *_parent;
     std::vector<game_object *> _children;
     std::vector<component *> _components;
