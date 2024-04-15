@@ -67,7 +67,7 @@ const std::list<vector2> &snake::segments() const
 void snake::move_forward()
 {
     float moved_distance = game_time::delta_time() * _speed;
-    _segments.front() = moved_distance * _head_direction;
+    _segments.front() += moved_distance * _head_direction;
     bool moving_tail = true;
 
     while (moving_tail)
