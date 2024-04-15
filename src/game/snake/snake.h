@@ -1,5 +1,5 @@
-#ifndef SNAKE_GAME_GAMEPLAY_SNAKE_SNAKE_H
-#define SNAKE_GAME_GAMEPLAY_SNAKE_SNAKE_H
+#ifndef SNAKE_GAME_SNAKE_SNAKE_H
+#define SNAKE_GAME_SNAKE_SNAKE_H
 
 #include <list>
 #include <game_engine/vector2.h>
@@ -15,6 +15,7 @@ public:
     void update() override;
     void look_in_direction(const vector2 &direction);
     void change_speed(float speed);
+    const std::list<vector2> &segments() const;
 private:
     vector2 _head_direction;
     std::list<vector2> _segments;
