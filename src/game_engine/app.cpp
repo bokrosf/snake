@@ -40,6 +40,7 @@ void app::run()
         //      [] Update game state by traversing the game_object tree.
         //      [] Don't process Inactive game_object subtree.
         //      [] Only active behaviors updated.
+        // [] Delete game_objects marked for deletion.
         // [x] Graphical rendering.
         // [] Frame end time recording.
         // [] Delta-time update.
