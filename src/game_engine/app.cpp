@@ -3,6 +3,7 @@
 #include <vector>
 #include "app.h"
 #include "component/renderer.h"
+#include "game_time.h"
 #include "subsystem_initialization_failed.h"
 
 app::app(const std::string &app_name)
@@ -31,10 +32,13 @@ void app::run()
     _active_scene->initialize();
     _running = true;
 
+    Uint64 frame_started_at = 0;
+    Uint64 frame_ended_at = 0;
+
     while (_running)
     {
         // TODO 2024-04-10 Implement GameLoop.
-        // [] Frame start time recording.
+        // [x] Frame start time recording.
         // [x] Initialize components.
         // [] Detect collisions
         // [] Handle user input.
@@ -44,13 +48,15 @@ void app::run()
         //      [] Only active behaviors updated.
         // [x] Delete game_objects marked for deletion.
         // [x] Graphical rendering.
-        // [] Frame end time recording.
-        // [] Delta-time update.
-        
+        // [x] Frame end time recording.
+        // [x] Delta-time update.
         _active_scene->initialize_components();
         handle_user_input();
         _active_scene->destroy_marked_objects();
         render();
+        frame_ended_at = SDL_GetTicks64();
+        game_time::update_delta_time(frame_started_at, frame_ended_at);
+        frame_started_at = frame_ended_at;
     }
 
     shutdown();

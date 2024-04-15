@@ -8,9 +8,9 @@ add_executable(snake
   src/game_engine/activatable.cpp
   src/game_engine/app.cpp
   src/game_engine/game_object.cpp
+  src/game_engine/game_time.cpp
   src/game_engine/scene.cpp
   src/game_engine/subsystem_initialization_failed.cpp
-  src/game_engine/time.cpp
   src/game_engine/vector2.cpp
   src/game_engine/component/behavior.cpp
   src/game_engine/component/component.cpp
