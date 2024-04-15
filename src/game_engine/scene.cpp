@@ -1,5 +1,13 @@
 #include "scene.h"
 
+scene::~scene()
+{
+    for (auto root : _root_objects)
+    {
+        delete root;
+    }
+}
+
 void scene::update_root_status(game_object &object)
 {
     if (object.parent())
@@ -29,4 +37,29 @@ void scene::initialize_components()
 std::ranges::ref_view<const std::unordered_set<game_object *>> scene::root_objects() const
 {
     return std::views::all(_root_objects);
+}
+
+void scene::mark_as_destroyed(game_object &object)
+{
+    _objects_to_destroy.insert(&object);
+}
+
+void scene::destroy_marked_objects()
+{
+    for (auto destroyed : _objects_to_destroy)
+    {
+        destroyed->attach_to(nullptr);
+    }
+
+    for (auto destroyed : _objects_to_destroy)
+    {
+        _root_objects.erase(destroyed);
+    }
+
+    for (auto destroyed : _objects_to_destroy)
+    {
+        delete destroyed;
+    }
+
+    _objects_to_destroy.clear();
 }

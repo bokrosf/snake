@@ -6,10 +6,16 @@
 #include "messaging/messenger.h"
 #include "messaging/recipient.h"
 #include "scene.h"
+#include "game_object_created.h"
+#include "game_object_destroyed.h"
 #include "component_added.h"
 #include "game_object_parent_changed.h"
 
-class app : public recipient<component_added>, public recipient<game_object_parent_changed>
+class app : 
+    public recipient<game_object_created>,
+    public recipient<game_object_destroyed>,
+    public recipient<component_added>, 
+    public recipient<game_object_parent_changed>
 {
 public:
     app(const std::string &app_name);
@@ -31,6 +37,8 @@ private:
     void handle_user_input();
     void update_game_state();
     void render();
+    void receive(const game_object_created &message) final;
+    void receive(const game_object_destroyed &message) final;
     void receive(const component_added &message) final;
     void receive(const game_object_parent_changed &message) final;
 };

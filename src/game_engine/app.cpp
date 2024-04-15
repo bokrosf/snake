@@ -23,6 +23,8 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
+    _messenger.subscribe<game_object_created>(*this);
+    _messenger.subscribe<game_object_destroyed>(*this);
     _messenger.subscribe<component_added>(*this);
     _messenger.subscribe<game_object_parent_changed>(*this);
     _active_scene = create_start_scene();
@@ -40,12 +42,14 @@ void app::run()
         //      [] Update game state by traversing the game_object tree.
         //      [] Don't process Inactive game_object subtree.
         //      [] Only active behaviors updated.
+        // [x] Delete game_objects marked for deletion.
         // [x] Graphical rendering.
         // [] Frame end time recording.
         // [] Delta-time update.
         
         _active_scene->initialize_components();
         handle_user_input();
+        _active_scene->destroy_marked_objects();
         render();
     }
 
@@ -79,6 +83,8 @@ void app::initialize_subsystems()
 
 void app::shutdown()
 {
+    _messenger.unsubscribe<game_object_created>(*this);
+    _messenger.unsubscribe<game_object_destroyed>(*this);
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<game_object_parent_changed>(*this);
     shutdown_subsystems();
@@ -171,6 +177,16 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
+}
+
+void app::receive(const game_object_created &message)
+{
+    _active_scene->update_root_status(message.created);
+}
+
+void app::receive(const game_object_destroyed &message)
+{
+    _active_scene->mark_as_destroyed(message.object);
 }
 
 void app::receive(const component_added &message)
