@@ -10,7 +10,7 @@
 class scene
 {
 public:
-    virtual ~scene() = default;
+    virtual ~scene();
     virtual void initialize() = 0;
     void update_root_status(game_object &object);
     void register_added_component(component &added);

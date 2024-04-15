@@ -1,5 +1,13 @@
 #include "scene.h"
 
+scene::~scene()
+{
+    for (auto root : _root_objects)
+    {
+        delete root;
+    }
+}
+
 void scene::update_root_status(game_object &object)
 {
     if (object.parent())
