@@ -21,6 +21,10 @@ public:
     app(const std::string &app_name);
     virtual ~app();
     void run();
+    void receive(const game_object_created &message) final;
+    void receive(const game_object_destroyed &message) final;
+    void receive(const component_added &message) final;
+    void receive(const game_object_parent_changed &message) final;
 protected:
     messenger &_messenger;
     virtual scene *create_start_scene() = 0;
@@ -37,10 +41,6 @@ private:
     void handle_user_input();
     void update_game_state();
     void render();
-    void receive(const game_object_created &message) final;
-    void receive(const game_object_destroyed &message) final;
-    void receive(const component_added &message) final;
-    void receive(const game_object_parent_changed &message) final;
 };
 
 #endif
