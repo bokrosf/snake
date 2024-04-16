@@ -8,7 +8,7 @@
 void test_scene::initialize()
 {
     // Write logic to test.
-    const float tile_size = 50;
+    const float tile_size = 1920 / 30;
 
     game_object &terrain = game_object::create();
     terrain.add_component<tile_renderer>(0, tile_size);
