@@ -13,7 +13,7 @@ void snake_renderer::initialize()
 }
 
 void snake_renderer::render(SDL_Renderer *renderer)
-{
+{    
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     auto segment_start = _snake->segments().cbegin();
     auto segment_end = ++_snake->segments().cbegin();
@@ -23,7 +23,7 @@ void snake_renderer::render(SDL_Renderer *renderer)
 
     while (segment_end != _snake->segments().cend())
     {
-        vector2 offset = half_thickness() * segment_start->points_to(*segment_end).normalize();
+        vector2 offset = (half_thickness() - 1) * segment_start->points_to(*segment_end).normalize();
         draw_segment(renderer, *segment_start - offset, *segment_end);
         segment_start = segment_end++;
     }
