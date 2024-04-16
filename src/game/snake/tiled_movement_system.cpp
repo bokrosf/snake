@@ -18,11 +18,14 @@ segment_correction tiled_movement_system::correct_segments(const vector2 &start,
     return segment_correction { start_corrected, end_corrected };
 }
 
-turning_correction tiled_movement_system::correct_turning(const vector2 &head_position, const vector2 &look_direction) const
+turning_correction tiled_movement_system::correct_turning(const vector2 &head_position, const vector2 &turn_direction) const
 {
-    std::vector<vector2> head_segments = { tile_center(head_position), tile_center(head_position) };
+    vector2 break_point = tile_center(head_position);
+    vector2 corrected_look_direction = project_longer_axis(turn_direction).normalize();
+    vector2 corrected_head_position = break_point + (half_tile_size() * corrected_look_direction);
+    std::vector<vector2> head_segments = { break_point, corrected_head_position };
 
-    return turning_correction { head_segments, project_longer_axis(look_direction).normalize() };
+    return turning_correction { head_segments, corrected_look_direction };
 }
 
 vector2 tiled_movement_system::tile_center(const vector2 &position) const
@@ -41,4 +44,9 @@ vector2 tiled_movement_system::project_longer_axis(const vector2 &position) cons
     return std::abs(position.x()) > std::abs(position.y())
         ? vector2(position.x(), 0)
         : vector2(0, position.y());
+}
+
+float tiled_movement_system::half_tile_size() const
+{
+    return 0.5F * _tile_size;
 }
