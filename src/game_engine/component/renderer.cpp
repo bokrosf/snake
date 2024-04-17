@@ -6,6 +6,11 @@ renderer::renderer(game_object &attached_to, int layer_order)
 {
 }
 
+void renderer::initialize()
+{
+    _material = attached_to().find_component<material>();
+}
+
 int renderer::layer_order() const
 {
     return _layer_order;
