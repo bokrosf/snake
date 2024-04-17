@@ -41,11 +41,21 @@ void snake::look_in_direction(const vector2 &direction)
     }
 
     _head_direction = correction.head_direction;
+    float original_head_length = _segments.cbegin()->distance_from(*++_segments.cbegin());
     _segments.pop_front();
+    float new_head_length = 0;
 
     for (const auto &position : correction.head_segments)
     {
+        new_head_length += _segments.cbegin()->distance_from(position);
         _segments.push_front(position);
+    }
+
+    float difference = new_head_length - original_head_length;
+
+    if (difference > 0)
+    {
+        shrink_tail(difference);
     }
 }
 
