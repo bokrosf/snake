@@ -14,10 +14,14 @@ public:
     virtual void initialize() = 0;
     void update_root_status(game_object &object);
     void register_added_component(component &added);
-    void initialize_components();
-    std::ranges::ref_view<const std::unordered_set<game_object *>> root_objects() const;
+    void initialize_components();    
     void mark_as_destroyed(game_object &object);
     void destroy_marked_objects();
+
+    auto root_objects() const
+    {
+        return std::views::all(_root_objects);
+    }
 protected:
     scene() = default;
 private:

@@ -34,11 +34,6 @@ void scene::initialize_components()
     }
 }
 
-std::ranges::ref_view<const std::unordered_set<game_object *>> scene::root_objects() const
-{
-    return std::views::all(_root_objects);
-}
-
 void scene::mark_as_destroyed(game_object &object)
 {
     _objects_to_destroy.insert(&object);
