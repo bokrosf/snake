@@ -13,25 +13,27 @@ void snake_renderer::initialize()
 }
 
 void snake_renderer::render(SDL_Renderer *renderer)
-{
+{    
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     auto segment_start = _snake->segments().cbegin();
     auto segment_end = ++_snake->segments().cbegin();
 
+    draw_segment(renderer, *segment_start, *segment_end);
+    segment_start = segment_end++;
+
     while (segment_end != _snake->segments().cend())
     {
-        draw_segment(renderer, *segment_start, *segment_end);
-        segment_start = segment_end;
-        ++segment_end;
+        vector2 offset = (half_thickness() - 1) * segment_start->points_to(*segment_end).normalize();
+        draw_segment(renderer, *segment_start - offset, *segment_end);
+        segment_start = segment_end++;
     }
 }
 
 void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &start, const vector2 &end) const
 {
-    int half_thickness = _thickness / 2;
     vector2 perpendicular = start.points_to(end).perpendicular().normalize();
 
-    for (int i = 0; i < half_thickness; ++i)
+    for (int i = 0; i < half_thickness(); ++i)
     {
         vector2 line_start = start - i * perpendicular;
         vector2 line_end = end - i * perpendicular;
@@ -41,4 +43,9 @@ void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &start, 
         line_end = end + i * perpendicular;
         SDL_RenderDrawLine(renderer, line_start.x(), line_start.y(), line_end.x(), line_end.y());
     }
+}
+
+int snake_renderer::half_thickness() const
+{
+    return _thickness / 2;
 }

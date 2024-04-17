@@ -41,19 +41,29 @@ void snake::look_in_direction(const vector2 &direction)
     }
 
     _head_direction = correction.head_direction;
+    float original_head_length = _segments.cbegin()->distance_from(*++_segments.cbegin());
     _segments.pop_front();
+    float new_head_length = 0;
 
     for (const auto &position : correction.head_segments)
     {
+        new_head_length += _segments.cbegin()->distance_from(position);
         _segments.push_front(position);
+    }
+
+    float difference = new_head_length - original_head_length;
+
+    if (difference > 0)
+    {
+        shrink_tail(difference);
     }
 }
 
 void snake::change_speed(float speed)
 {
-    if (speed <= 0)
+    if (speed < 0)
     {
-        throw std::invalid_argument("Speed must be greater than zero.");
+        throw std::invalid_argument("Speed must be greater than or equal to zero.");
     }
 
     _speed = speed;
@@ -68,25 +78,30 @@ void snake::move_forward()
 {
     float moved_distance = game_time::delta_time() * _speed;
     _segments.front() += moved_distance * _head_direction;
-    bool moving_tail = true;
+    shrink_tail(moved_distance);
+}
 
-    while (moving_tail)
+void snake::shrink_tail(float cut_off_length)
+{
+    bool shrinking = true;
+
+    while (shrinking)
     {
         vector2 before_last = *(++_segments.rbegin());
         float tail_length = before_last.distance_from(_segments.back());
 
-        if (tail_length > moved_distance)
+        if (tail_length > cut_off_length)
         {
             vector2 tail_direction = before_last.points_to(_segments.back()).normalize();
-            _segments.back() -= moved_distance * tail_direction;
+            _segments.back() -= cut_off_length * tail_direction;
         }
         else
         {
             _segments.pop_back();
         }
 
-        float removed_length = std::min(tail_length, moved_distance);
-        moving_tail = moved_distance - removed_length < moved_distance;
-        moved_distance -= removed_length;   
+        float removed_length = std::min(tail_length, cut_off_length);
+        shrinking = cut_off_length - removed_length < cut_off_length;
+        cut_off_length -= removed_length;   
     }
 }

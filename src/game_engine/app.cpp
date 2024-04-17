@@ -67,25 +67,45 @@ void app::run()
     shutdown();
 }
 
+void app::receive(const game_object_created &message)
+{
+    _active_scene->update_root_status(message.created);
+}
+
+void app::receive(const game_object_destroyed &message)
+{
+    _active_scene->mark_as_destroyed(message.object);
+}
+
+void app::receive(const component_added &message)
+{
+    _active_scene->register_added_component(message.added);
+}
+
+void app::receive(const game_object_parent_changed &message)
+{
+    _active_scene->update_root_status(message.object);
+}
+
 void app::initialize_subsystems()
 {
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
-        throw subsystem_initialization_failed("SDL Video initialization failed. " + std::string(SDL_GetError()));
+        throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
     }
 
     SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 
     if (!window)
     {
-        throw subsystem_initialization_failed("SDL Window creation failed. " + std::string(SDL_GetError()));
+        throw subsystem_initialization_failed(std::string("SDL Window creation failed. ").append(SDL_GetError()));
     }
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer)
     {
-        throw subsystem_initialization_failed("SDL Renderer creation failed. " + std::string(SDL_GetError()));
+        throw subsystem_initialization_failed(std::string("SDL Renderer creation failed. ").append(SDL_GetError()));
     }
 
     _window = window;
@@ -220,24 +240,4 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
-}
-
-void app::receive(const game_object_created &message)
-{
-    _active_scene->update_root_status(message.created);
-}
-
-void app::receive(const game_object_destroyed &message)
-{
-    _active_scene->mark_as_destroyed(message.object);
-}
-
-void app::receive(const component_added &message)
-{
-    _active_scene->register_added_component(message.added);
-}
-
-void app::receive(const game_object_parent_changed &message)
-{
-    _active_scene->update_root_status(message.object);
 }

@@ -84,11 +84,6 @@ void game_object::attach_to(game_object *new_parent)
     }
 }
 
-std::ranges::ref_view<const std::vector<game_object *>> game_object::children() const
-{
-    return std::views::all(_children);
-}
-
 void game_object::erase_component(const component &erased)
 {
     auto it = std::find(_components.begin(), _components.end(), &erased);
