@@ -22,6 +22,7 @@ private:
     movement_system *_movement_system;
     float _speed;
     void move_forward();
+    void shrink_tail(float removed_length);
 };
 
 #endif

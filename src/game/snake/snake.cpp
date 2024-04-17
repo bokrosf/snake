@@ -68,25 +68,30 @@ void snake::move_forward()
 {
     float moved_distance = game_time::delta_time() * _speed;
     _segments.front() += moved_distance * _head_direction;
-    bool moving_tail = true;
+    shrink_tail(moved_distance);
+}
 
-    while (moving_tail)
+void snake::shrink_tail(float cut_off_length)
+{
+    bool shrinking = true;
+
+    while (shrinking)
     {
         vector2 before_last = *(++_segments.rbegin());
         float tail_length = before_last.distance_from(_segments.back());
 
-        if (tail_length > moved_distance)
+        if (tail_length > cut_off_length)
         {
             vector2 tail_direction = before_last.points_to(_segments.back()).normalize();
-            _segments.back() -= moved_distance * tail_direction;
+            _segments.back() -= cut_off_length * tail_direction;
         }
         else
         {
             _segments.pop_back();
         }
 
-        float removed_length = std::min(tail_length, moved_distance);
-        moving_tail = moved_distance - removed_length < moved_distance;
-        moved_distance -= removed_length;   
+        float removed_length = std::min(tail_length, cut_off_length);
+        shrinking = cut_off_length - removed_length < cut_off_length;
+        cut_off_length -= removed_length;   
     }
 }
