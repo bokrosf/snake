@@ -61,9 +61,9 @@ void snake::look_in_direction(const vector2 &direction)
 
 void snake::change_speed(float speed)
 {
-    if (speed <= 0)
+    if (speed < 0)
     {
-        throw std::invalid_argument("Speed must be greater than zero.");
+        throw std::invalid_argument("Speed must be greater than or equal to zero.");
     }
 
     _speed = speed;
