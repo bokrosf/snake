@@ -1,11 +1,11 @@
 #include "test_scene.h"
 #include <game_engine/game_object.h>
-#include "../snake/snake_renderer.h"
-#include "../snake/tiled_movement_system.h"
-#include "../snake/snake_controller.h"
-#include "../terrain/tile_renderer.h"
-#include "../food/food.h"
-#include "../food/food_renderer.h"
+#include <game/snake/snake_renderer.h>
+#include <game/snake/tiled_movement_system.h>
+#include <game/snake/snake_controller.h>
+#include <game/terrain/tile_renderer.h>
+#include <game/food/food.h>
+#include <game/food/food_renderer.h>
 
 class test_food : public food
 {
