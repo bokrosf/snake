@@ -15,11 +15,6 @@ public:
     {
     }
 
-    void update() override
-    {
-
-    }
-
     void eat(snake &snake) override
     {
     }

@@ -3,9 +3,8 @@
 
 #include <game_engine/activatable.h>
 #include "component.h"
-#include "updatable.h"
 
-class behavior : public component, public updatable, public activatable
+class behavior : public component, public activatable
 {
 protected:
     behavior(game_object &attached_to);
