@@ -6,9 +6,9 @@ food_renderer::food_renderer(game_object &attached_to, int layer_order, float th
     , _thickness(thickness)
     , _food(nullptr)
 {
-    if (thickness <= 0)
+    if (thickness < 0)
     {
-        throw std::invalid_argument("Thickness must be greater than zero.");
+        throw std::invalid_argument("Thickness must be greater than or equal to zero.");
     }
 }
 
@@ -32,7 +32,7 @@ void food_renderer::render(SDL_Renderer *renderer)
     SDL_FRect rect;
     rect.x = draw_position.x();
     rect.y = draw_position.y();
-    rect.w = _thickness - 1;
-    rect.h = _thickness - 1;
+    rect.w = _thickness;
+    rect.h = _thickness;
     SDL_RenderFillRectF(renderer, &rect);
 }
