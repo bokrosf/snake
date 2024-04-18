@@ -20,6 +20,7 @@ add_executable(snake
   src/game_engine/logging/logger.cpp
   src/game_engine/messaging/messenger.cpp
   src/game/food/food.cpp
+  src/game/food/food_renderer.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
