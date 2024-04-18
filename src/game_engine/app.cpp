@@ -183,10 +183,12 @@ void app::update_game_state()
     {
         game_object *object = checked_objects.front();
         checked_objects.pop();
+        auto cast_to_updatable = [](behavior *b) { return dynamic_cast<updatable *>(b); };
+        auto filter = [cast_to_updatable](behavior *b) { return cast_to_updatable(b) && b->active(); };
         
-        for (behavior *b : object->all_attached_components<behavior>() | std::views::filter([](behavior *b) { return b->active(); }))
+        for (updatable *u : object->all_attached_components<behavior>() | std::views::filter(filter) | std::views::transform(cast_to_updatable))
         {
-            updatables.push_back(b);
+            updatables.push_back(u);
         }
 
         for (game_object *child : std::views::filter(object->children(), active_object))

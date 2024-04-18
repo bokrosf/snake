@@ -14,7 +14,13 @@ void snake_renderer::initialize()
 
 void snake_renderer::render(SDL_Renderer *renderer)
 {    
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    if (!_material)
+    {
+        return;
+    }
+    
+    const SDL_Color &color = _material->color;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     auto segment_start = _snake->segments().cbegin();
     auto segment_end = ++_snake->segments().cbegin();
 

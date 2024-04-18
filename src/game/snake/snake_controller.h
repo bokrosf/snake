@@ -2,9 +2,10 @@
 #define SNAKE_GAME_SNAKE_SNAKECONTROLLER_H
 
 #include <game_engine/component/behavior.h>
+#include <game_engine/component/updatable.h>
 #include "snake.h"
 
-class snake_controller : public behavior
+class snake_controller : public behavior, public updatable
 {
 public:
     snake_controller(game_object &attached_to);

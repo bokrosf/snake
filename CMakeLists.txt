@@ -19,6 +19,8 @@ add_executable(snake
   src/game_engine/component/renderer.cpp  
   src/game_engine/logging/logger.cpp
   src/game_engine/messaging/messenger.cpp
+  src/game/food/food.cpp
+  src/game/food/food_renderer.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
@@ -26,7 +28,9 @@ add_executable(snake
   src/game/snake/snake_renderer.cpp
   src/game/snake/tiled_movement_system.cpp
   src/game/scene/test_scene.cpp
-  src/game/terrain/tile_renderer.cpp)
+  src/game/terrain/tile_renderer.cpp
+  src/game/wall/wall.cpp
+  src/game/wall/wall_renderer.cpp)
 
 target_link_directories(snake
   PRIVATE "lib/SDL2-2.30.2")
