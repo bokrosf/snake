@@ -6,6 +6,8 @@
 #include <game/terrain/tile_renderer.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
+#include <game/wall/wall.h>
+#include <game/wall/wall_renderer.h>
 
 class test_food : public food
 {
@@ -25,6 +27,7 @@ void test_scene::initialize()
     // Write logic to test.
     const float tile_size = 1920 / 30;
     const int terrain_layer = 0;
+    const int wall_layer = terrain_layer + 1;
     const int food_layer = terrain_layer + 1;
     const int snake_layer = food_layer + 1;
 
@@ -44,4 +47,9 @@ void test_scene::initialize()
     food.add_component<::test_food>(food_position);
     food.add_component<food_renderer>(food_layer, tile_size);
     food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
+
+    game_object &wall = game_object::create();
+    wall.add_component<::wall>(tile_size * vector2(5, 12), vector2(10 * tile_size, tile_size));
+    wall.add_component<wall_renderer>(wall_layer);
+    wall.attached_component<wall_renderer>().change_material(material{SDL_Color{128, 128, 128, 255}});
 }
