@@ -19,4 +19,5 @@ void test_scene::initialize()
     snake.add_component<snake_renderer>(2, tile_size);
     snake.add_component<snake_controller>();
     snake.attached_component<::snake>().change_speed(50);
+    snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
 }
