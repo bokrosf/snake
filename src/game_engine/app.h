@@ -41,6 +41,7 @@ private:
     void handle_user_input();
     void update_game_state();
     void render();
+    static bool active_object_filter(const game_object *object);
 };
 
 #endif

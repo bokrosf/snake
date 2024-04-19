@@ -172,9 +172,8 @@ void app::update_game_state()
 {
     std::queue<game_object *> checked_objects;
     std::vector<updatable *> updatables;
-    auto active_object = [](const game_object *object) { return object->active(); };
 
-    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
+    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
     {
         checked_objects.push(root);
     }
@@ -191,7 +190,7 @@ void app::update_game_state()
             updatables.push_back(u);
         }
 
-        for (game_object *child : std::views::filter(object->children(), active_object))
+        for (game_object *child : std::views::filter(object->children(), active_object_filter))
         {
             checked_objects.push(child);
         }
@@ -207,9 +206,8 @@ void app::render()
 {
     std::queue<const game_object *> checked_objects;
     std::map<int, std::vector<renderer *>> rendering_layers;
-    auto active_object = [](game_object *object) { return object->active(); };
 
-    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
+    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
     {
         checked_objects.push(root);
     }
@@ -224,7 +222,7 @@ void app::render()
             rendering_layers[r->layer_order()].push_back(r);
         }
         
-        for (const game_object *child : std::views::filter(object->children(), active_object))
+        for (const game_object *child : std::views::filter(object->children(), active_object_filter))
         {
             checked_objects.push(child);
         }
@@ -242,4 +240,9 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
+}
+
+bool app::active_object_filter(const game_object *object)
+{
+    return object->active();
 }
