@@ -39,7 +39,7 @@ void test_scene::initialize()
     snake.add_component<tiled_movement_system>(tile_size);
     snake.add_component<snake_renderer>(snake_layer, tile_size);
     snake.add_component<snake_controller>();
-    snake.attached_component<::snake>().change_speed(50);
+    snake.attached_component<::snake>().adjust_speed(50);
     snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
 
     game_object &food = game_object::create();

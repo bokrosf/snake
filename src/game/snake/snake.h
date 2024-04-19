@@ -14,7 +14,7 @@ public:
     void initialize() override;
     void update() override;
     void look_in_direction(const vector2 &direction);
-    void change_speed(float speed);
+    void adjust_speed(float speed);
     const std::list<vector2> &segments() const;
 private:
     vector2 _head_direction;

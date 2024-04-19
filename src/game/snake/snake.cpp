@@ -59,7 +59,7 @@ void snake::look_in_direction(const vector2 &direction)
     }
 }
 
-void snake::change_speed(float speed)
+void snake::adjust_speed(float speed)
 {
     if (speed < 0)
     {
