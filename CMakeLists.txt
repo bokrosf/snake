@@ -13,6 +13,7 @@ add_executable(snake
   src/game_engine/scene.cpp
   src/game_engine/subsystem_initialization_failed.cpp
   src/game_engine/vector2.cpp
+  src/game_engine/collision/box_collider.cpp
   src/game_engine/component/behavior.cpp
   src/game_engine/component/component.cpp
   src/game_engine/component/component_not_found.cpp
