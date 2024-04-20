@@ -96,7 +96,12 @@ float vector2::y() const
 
 float vector2::magnitude() const
 {
-    return std::sqrt(_x * _x + _y * _y);
+    return std::sqrt(square_magnitude());
+}
+
+float vector2::square_magnitude() const
+{
+    return _x * _x + _y * _y;
 }
 
 vector2 vector2::normalize() const

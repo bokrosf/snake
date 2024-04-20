@@ -20,6 +20,7 @@ public:
     float x() const;
     float y() const;
     float magnitude() const;
+    float square_magnitude() const;
     vector2 normalize() const;
     vector2 points_to(const vector2 &position) const;
     float distance_from(const vector2 &position) const;
