@@ -6,7 +6,7 @@ box_collider::box_collider(game_object &attached_to, const vector2 &center)
 }
 
 box_collider::box_collider(game_object &attached_to, const vector2 &center, const vector2 &area)
-    : component(attached_to)
+    : behavior(attached_to)
     , _center(center)
     , _area(area)
 {

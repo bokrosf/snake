@@ -2,9 +2,9 @@
 #define SNAKE_GAMEENGINE_COLLISION_BOXCOLLIDER_H
 
 #include <game_engine/vector2.h>
-#include <game_engine/component/component.h>
+#include <game_engine/component/behavior.h>
 
-class box_collider : public component
+class box_collider : public behavior
 {
 public:
     box_collider(game_object &attached_to, const vector2 &center);
