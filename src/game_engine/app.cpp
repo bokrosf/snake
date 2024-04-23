@@ -128,8 +128,8 @@ void app::shutdown_subsystems()
 
 void app::handle_user_input()
 {
-    SDL_Event current_event;
     std::vector<SDL_Event> events;
+    SDL_Event current_event;
 
     while (SDL_PollEvent(&current_event))
     {
