@@ -30,7 +30,7 @@ void collision_engine::detect_collisions(const scene *scene)
     }
 }
 
-std::vector<box_collider *> collision_engine::collect_colliders(const scene *scene)
+std::vector<box_collider *> collision_engine::collect_colliders(const scene *scene) const
 {
     std::queue<game_object *> checked_objects;
     std::vector<box_collider *> colliders;
