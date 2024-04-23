@@ -15,9 +15,12 @@ void collision_engine::detect_collisions(const scene *scene)
         
         for (box_collider *other : colliders | std::views::filter([current](box_collider *c) { return c != current; }))
         {
-            vector2 difference = 0.5F * (current->center() + current->area()).points_to(other->center() + other->area());
+            vector2 difference = current->center().points_to(other->center());
             
-            if (difference.square_magnitude() < std::max(other->area().square_magnitude(), current->area().square_magnitude()))
+            float max_x = std::max(std::abs(other->area().x()), std::abs(current->area().x()));
+            float max_y = std::max(std::abs(other->area().y()), std::abs(current->area().y()));
+
+            if (std::abs(difference.x()) < max_x && std::abs(difference.y()) < max_y)
             {
                 collided_objects.insert(&other->attached_to());
             }
