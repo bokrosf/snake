@@ -96,7 +96,12 @@ float vector2::y() const
 
 float vector2::magnitude() const
 {
-    return std::sqrt(_x * _x + _y * _y);
+    return std::sqrt(square_magnitude());
+}
+
+float vector2::square_magnitude() const
+{
+    return _x * _x + _y * _y;
 }
 
 vector2 vector2::normalize() const
@@ -112,6 +117,11 @@ vector2 vector2::points_to(const vector2 &position) const
 float vector2::distance_from(const vector2 &position) const
 {
     return points_to(position).magnitude();
+}
+
+float vector2::square_distance_from(const vector2 &position) const
+{
+    return points_to(position).square_magnitude();
 }
 
 vector2 vector2::perpendicular() const

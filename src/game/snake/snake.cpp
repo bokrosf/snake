@@ -5,6 +5,7 @@
 snake::snake(game_object &attached_to, const vector2 &head, const vector2 &tail)
     : behavior(attached_to)
     , _movement_system(nullptr)
+    , _collider(nullptr)
     , _speed(0)
 {
     if (head.distance_from(tail) <= 0)
@@ -19,6 +20,7 @@ snake::snake(game_object &attached_to, const vector2 &head, const vector2 &tail)
 
 void snake::initialize()
 {    
+    _collider = &attached_to().attached_component<box_collider>();
     _movement_system = &attached_to().attached_component<movement_system>();
     segment_correction correction = _movement_system->correct_segments(_segments.front(), _segments.back());
     _head_direction = correction.end.points_to(correction.start).normalize();
@@ -29,6 +31,7 @@ void snake::initialize()
 void snake::update()
 {
     move_forward();
+    _collider->reposition(_segments.front() - (_collider->area().y() * _head_direction));
 }
 
 void snake::look_in_direction(const vector2 &direction)
@@ -59,7 +62,7 @@ void snake::look_in_direction(const vector2 &direction)
     }
 }
 
-void snake::change_speed(float speed)
+void snake::adjust_speed(float speed)
 {
     if (speed < 0)
     {

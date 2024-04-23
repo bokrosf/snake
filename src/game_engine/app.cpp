@@ -41,20 +41,8 @@ void app::run()
 
     while (_running)
     {
-        // TODO 2024-04-10 Implement GameLoop.
-        // [x] Frame start time recording.
-        // [x] Initialize components.
-        // [] Detect collisions
-        // [x] Handle user input.
-        // [x] Logic:
-        //      [x] Update game state by traversing the game_object tree.
-        //      [x] Don't process Inactive game_object subtree.
-        //      [x] Only active behaviors updated.
-        // [x] Delete game_objects marked for deletion.
-        // [x] Graphical rendering.
-        // [x] Frame end time recording.
-        // [x] Delta-time update.
         _active_scene->initialize_components();
+        _collision_engine.detect_collisions(_active_scene);
         handle_user_input();
         update_game_state();
         _active_scene->destroy_marked_objects();
@@ -138,11 +126,6 @@ void app::shutdown_subsystems()
     SDL_Quit();
 }
 
-void app::detect_collisions()
-{
-    // TODO 2024-04-10 Implement.
-}
-
 void app::handle_user_input()
 {
     SDL_Event current_event;
@@ -172,9 +155,8 @@ void app::update_game_state()
 {
     std::queue<game_object *> checked_objects;
     std::vector<updatable *> updatables;
-    auto active_object = [](const game_object *object) { return object->active(); };
 
-    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
+    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
     {
         checked_objects.push(root);
     }
@@ -191,7 +173,7 @@ void app::update_game_state()
             updatables.push_back(u);
         }
 
-        for (game_object *child : std::views::filter(object->children(), active_object))
+        for (game_object *child : std::views::filter(object->children(), active_object_filter))
         {
             checked_objects.push(child);
         }
@@ -207,9 +189,8 @@ void app::render()
 {
     std::queue<const game_object *> checked_objects;
     std::map<int, std::vector<renderer *>> rendering_layers;
-    auto active_object = [](game_object *object) { return object->active(); };
 
-    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object))
+    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
     {
         checked_objects.push(root);
     }
@@ -219,12 +200,12 @@ void app::render()
         const game_object *object = checked_objects.front();
         checked_objects.pop();
 
-        if (renderer *r = object->find_component<renderer>())
+        for (renderer *r : object->all_attached_components<renderer>())
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
         
-        for (const game_object *child : std::views::filter(object->children(), active_object))
+        for (const game_object *child : std::views::filter(object->children(), active_object_filter))
         {
             checked_objects.push(child);
         }
@@ -242,4 +223,9 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
+}
+
+bool app::active_object_filter(const game_object *object)
+{
+    return object->active();
 }
