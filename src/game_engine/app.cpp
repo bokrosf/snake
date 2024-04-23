@@ -147,7 +147,7 @@ void app::handle_user_input()
         events.push_back(current_event);
     }
 
-    input::update_events(events);
+    input::update_events(std::move(events));
 }
 
 void app::update_game_state()
