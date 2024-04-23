@@ -24,6 +24,7 @@ public:
     vector2 normalize() const;
     vector2 points_to(const vector2 &position) const;
     float distance_from(const vector2 &position) const;
+    float square_distance_from(const vector2 &position) const;
     vector2 perpendicular() const;
     static vector2 zero();
     static vector2 up();
