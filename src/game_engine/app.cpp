@@ -133,7 +133,6 @@ void app::handle_user_input()
 
     while (SDL_PollEvent(&current_event))
     {
-        
         if (current_event.type == SDL_EventType::SDL_QUIT)
         {
             _running = false;
