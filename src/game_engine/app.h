@@ -10,6 +10,7 @@
 #include "game_object_destroyed.h"
 #include "component_added.h"
 #include "game_object_parent_changed.h"
+#include "collision/collision_engine.h"
 
 class app : 
     public recipient<game_object_created>,
@@ -33,6 +34,7 @@ private:
     SDL_Renderer *_renderer;
     scene *_active_scene;
     bool _running;
+    collision_engine _collision_engine;
     const std::string _app_name;
     void initialize_subsystems();
     void shutdown();

@@ -44,7 +44,7 @@ void app::run()
         // TODO 2024-04-10 Implement GameLoop.
         // [x] Frame start time recording.
         // [x] Initialize components.
-        // [] Detect collisions
+        // [x] Detect collisions
         // [x] Handle user input.
         // [x] Logic:
         //      [x] Update game state by traversing the game_object tree.
@@ -55,6 +55,7 @@ void app::run()
         // [x] Frame end time recording.
         // [x] Delta-time update.
         _active_scene->initialize_components();
+        detect_collisions();
         handle_user_input();
         update_game_state();
         _active_scene->destroy_marked_objects();
@@ -140,7 +141,7 @@ void app::shutdown_subsystems()
 
 void app::detect_collisions()
 {
-    // TODO 2024-04-10 Implement.
+    _collision_engine.detect_collisions(_active_scene);
 }
 
 void app::handle_user_input()
