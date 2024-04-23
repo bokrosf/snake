@@ -218,7 +218,7 @@ void app::render()
         const game_object *object = checked_objects.front();
         checked_objects.pop();
 
-        if (renderer *r = object->find_component<renderer>())
+        for (renderer *r : object->all_attached_components<renderer>())
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
