@@ -3,6 +3,7 @@
 
 #include <list>
 #include <game_engine/vector2.h>
+#include <game_engine/collision/box_collider.h>
 #include <game_engine/component/behavior.h>
 #include <game_engine/component/updatable.h>
 #include "movement_system.h"
@@ -20,6 +21,7 @@ private:
     vector2 _head_direction;
     std::list<vector2> _segments;
     movement_system *_movement_system;
+    box_collider *_collider;
     float _speed;
     void move_forward();
     void shrink_tail(float removed_length);
