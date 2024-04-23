@@ -39,7 +39,6 @@ private:
     void initialize_subsystems();
     void shutdown();
     void shutdown_subsystems();
-    void detect_collisions();
     void handle_user_input();
     void update_game_state();
     void render();

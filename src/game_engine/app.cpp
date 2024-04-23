@@ -55,7 +55,7 @@ void app::run()
         // [x] Frame end time recording.
         // [x] Delta-time update.
         _active_scene->initialize_components();
-        detect_collisions();
+        _collision_engine.detect_collisions(_active_scene);
         handle_user_input();
         update_game_state();
         _active_scene->destroy_marked_objects();
@@ -137,11 +137,6 @@ void app::shutdown_subsystems()
     }
 
     SDL_Quit();
-}
-
-void app::detect_collisions()
-{
-    _collision_engine.detect_collisions(_active_scene);
 }
 
 void app::handle_user_input()
