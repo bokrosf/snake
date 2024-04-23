@@ -35,10 +35,7 @@ void app::run()
     _active_scene = create_start_scene();
     _active_scene->initialize();
     _running = true;
-
-    Uint64 frame_started_at = 0;
-    Uint64 frame_ended_at = 0;
-
+    
     while (_running)
     {
         _active_scene->initialize_components();
@@ -47,9 +44,7 @@ void app::run()
         update_game_state();
         _active_scene->destroy_marked_objects();
         render();
-        frame_ended_at = SDL_GetTicks64();
-        game_time::update_delta_time(frame_started_at, frame_ended_at);
-        frame_started_at = frame_ended_at;
+        game_time::end_frame();
     }
 
     shutdown();
@@ -128,12 +123,11 @@ void app::shutdown_subsystems()
 
 void app::handle_user_input()
 {
-    SDL_Event current_event;
     std::vector<SDL_Event> events;
+    SDL_Event current_event;
 
     while (SDL_PollEvent(&current_event))
     {
-        
         if (current_event.type == SDL_EventType::SDL_QUIT)
         {
             _running = false;
@@ -148,7 +142,7 @@ void app::handle_user_input()
         events.push_back(current_event);
     }
 
-    input::update_events(events);
+    input::update_events(std::move(events));
 }
 
 void app::update_game_state()

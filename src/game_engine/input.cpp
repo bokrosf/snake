@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <utility>
 #include "input.h"
 
 namespace
@@ -6,9 +7,9 @@ namespace
     std::vector<SDL_Event> events;
 }
 
-void input::update_events(const std::vector<SDL_Event> &events)
+void input::update_events(std::vector<SDL_Event> &&events)
 {
-    ::events = events;
+    ::events = std::forward<std::vector<SDL_Event>>(events);
 }
 
 bool input::key_down(SDL_KeyCode key)

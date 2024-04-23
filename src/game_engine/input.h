@@ -6,7 +6,7 @@
 
 namespace input
 {
-    void update_events(const std::vector<SDL_Event> &events);
+    void update_events(std::vector<SDL_Event> &&events);
     bool key_down(SDL_KeyCode key);
 }
 

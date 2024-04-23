@@ -6,7 +6,7 @@
 namespace game_time
 {
     float delta_time();
-    void update_delta_time(Uint64 frame_started_at, Uint64 frame_ended_at);
+    void end_frame();
 }
 
 #endif

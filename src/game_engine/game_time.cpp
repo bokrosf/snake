@@ -2,6 +2,8 @@
 
 namespace
 {
+    Uint64 frame_started_at = 0;
+    Uint64 frame_ended_at = 0;
     float delta = 0;
 }
 
@@ -10,7 +12,9 @@ float game_time::delta_time()
     return delta;
 }
 
-void game_time::update_delta_time(Uint64 frame_started_at, Uint64 frame_ended_at)
+void game_time::end_frame()
 {
+    frame_ended_at = SDL_GetTicks64();
     delta = 0.001F * (frame_ended_at - frame_started_at);
+    frame_started_at = frame_ended_at;
 }
