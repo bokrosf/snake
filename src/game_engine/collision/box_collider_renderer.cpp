@@ -33,5 +33,4 @@ void box_collider_renderer::render(SDL_Renderer *renderer)
     start = _collider->center();
     end = _collider->center() + _collider->area();
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
-
 }
