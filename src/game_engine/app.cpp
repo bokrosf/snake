@@ -77,7 +77,7 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
     }
 
-    SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+    SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_SHOWN);
 
     if (!window)
     {
