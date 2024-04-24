@@ -15,10 +15,10 @@ public:
     void send(const Message &message);
 
     template<typename Message>
-    void subscribe(const recipient<Message> &recipient);
+    void subscribe(recipient<Message> &recipient);
 
     template<typename Message>
-    void unsubscribe(const recipient<Message> &recipient);
+    void unsubscribe(recipient<Message> &recipient);
 private:
     using registration_set = std::unordered_set<void *>;
     
@@ -47,14 +47,14 @@ void messenger::send(const Message &message)
 }
 
 template<typename Message>
-void messenger::subscribe(const recipient<Message> &recipient)
+void messenger::subscribe(recipient<Message> &recipient)
 {
     std::type_index key = std::type_index(typeid(Message));
-    _registrations[key].insert(const_cast<void *>(reinterpret_cast<const void *>(&recipient)));
+    _registrations[key].insert(&recipient);
 }
 
 template<typename Message>
-void messenger::unsubscribe(const recipient<Message> &recipient)
+void messenger::unsubscribe(recipient<Message> &recipient)
 {
     std::type_index key = std::type_index(typeid(Message));
 
@@ -63,7 +63,7 @@ void messenger::unsubscribe(const recipient<Message> &recipient)
         return;
     }
     
-    _registrations[key].erase(const_cast<void *>(reinterpret_cast<const void *>(&recipient)));
+    _registrations[key].erase(&recipient);
 
     if (_registrations[key].empty())
     {
