@@ -13,6 +13,10 @@ void component::initialize()
 {
 }
 
+void component::detach()
+{
+}
+
 void component::destroy()
 {
     attached_to().erase_component(*this);

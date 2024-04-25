@@ -10,6 +10,7 @@ class component
 public:
     virtual ~component();
     virtual void initialize();
+    virtual void detach();
     void destroy();
     game_object &attached_to() const;
 protected:

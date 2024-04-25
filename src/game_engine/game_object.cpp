@@ -91,8 +91,10 @@ void game_object::erase_component(const component &erased)
 
     if (it != _components.end())
     {
-        _messenger.send(component_destroyed(**it));
+        component *c = *it;
         _components.erase(it);
+        _messenger.send(component_destroyed(*c));
+        c->detach();
     }
 }
 
