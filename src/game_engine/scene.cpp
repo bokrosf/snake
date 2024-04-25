@@ -39,7 +39,26 @@ void scene::mark_as_destroyed(game_object &object)
     _objects_to_destroy.insert(&object);
 }
 
+void scene::mark_as_destroyed(component &component)
+{
+    _components_to_destroy.insert(&component);
+}
+
 void scene::destroy_marked_objects()
+{
+    destroy_components();
+    destroy_game_objects();
+}
+
+void scene::destroy_components()
+{
+    while (!_components_to_destroy.empty())
+    {
+        delete _components_to_destroy.extract(*_components_to_destroy.begin()).value();
+    }
+}
+
+void scene::destroy_game_objects()
 {
     for (auto destroyed : _objects_to_destroy)
     {

@@ -9,13 +9,15 @@
 #include "game_object_created.h"
 #include "game_object_destroyed.h"
 #include "component_added.h"
+#include "component_destroyed.h"
 #include "game_object_parent_changed.h"
 #include "collision/collision_engine.h"
 
 class app : 
     public recipient<game_object_created>,
     public recipient<game_object_destroyed>,
-    public recipient<component_added>, 
+    public recipient<component_added>,
+    public recipient<component_destroyed>,
     public recipient<game_object_parent_changed>
 {
 public:
@@ -25,6 +27,7 @@ public:
     void receive(const game_object_created &message) final;
     void receive(const game_object_destroyed &message) final;
     void receive(const component_added &message) final;
+    void receive(const component_destroyed &message) final;
     void receive(const game_object_parent_changed &message) final;
 protected:
     messenger &_messenger;

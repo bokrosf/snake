@@ -2,6 +2,7 @@
 #include "game_object_created.h"
 #include "game_object_destroyed.h"
 #include "game_object_parent_changed.h"
+#include "component_destroyed.h"
 
 game_object::game_object()
     : _messenger(messenger::instance())
@@ -90,7 +91,7 @@ void game_object::erase_component(const component &erased)
 
     if (it != _components.end())
     {
-        delete *it;
+        _messenger.send(component_destroyed(**it));
         _components.erase(it);
     }
 }
