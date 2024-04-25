@@ -14,6 +14,7 @@ public:
     void collide(const collision &collision) final;
 protected:
     virtual void eat(snake &snake);
+    void feed_snake(snake &snake);
 private:
     vector2 _position;
     float _nutritional_value;

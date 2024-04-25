@@ -31,5 +31,10 @@ void food::collide(const collision &collision)
 
 void food::eat(snake &snake)
 {
+    feed_snake(snake);
+}
+
+void food::feed_snake(snake &snake)
+{
     snake.grow(_nutritional_value);
 }
