@@ -9,7 +9,7 @@ food::food(game_object &attached_to, const vector2 &position, float nutritional_
 {
     if (nutritional_value < 0)
     {
-        throw std::invalid_argument("Nutritional value must be greater than zero.");
+        throw std::invalid_argument("Nutritional value must be greater than or equal to zero.");
     }
 
     _nutritional_value = nutritional_value;
