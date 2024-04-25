@@ -31,7 +31,7 @@ public:
 
     template<typename T, typename... Args>
         requires std::derived_from<T, component>
-    void add_component(Args&&... args);
+    T &add_component(Args&&... args);
 
     template<typename T>
         requires std::derived_from<T, component>
@@ -67,7 +67,7 @@ private:
 
 template<typename T, typename... Args>
     requires std::derived_from<T, component>
-void game_object::add_component(Args&&... args)
+T &game_object::add_component(Args&&... args)
 {
     T *component = nullptr;
     
@@ -83,6 +83,8 @@ void game_object::add_component(Args&&... args)
 
     _components.push_back(component);
     _messenger.send(component_added(*component));
+
+    return *component;
 }
 
 template<typename T>

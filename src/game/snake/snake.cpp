@@ -77,6 +77,12 @@ const std::list<vector2> &snake::segments() const
     return _segments;
 }
 
+void snake::grow(float length)
+{
+    vector2 tail_direction = (++_segments.crbegin())->points_to(*_segments.crbegin()).normalize();
+    _segments.back() += length * tail_direction;
+}
+
 void snake::move_forward()
 {
     float moved_distance = game_time::delta_time() * _speed;

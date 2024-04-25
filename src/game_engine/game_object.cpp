@@ -2,6 +2,7 @@
 #include "game_object_created.h"
 #include "game_object_destroyed.h"
 #include "game_object_parent_changed.h"
+#include "component_destroyed.h"
 
 game_object::game_object()
     : _messenger(messenger::instance())
@@ -88,11 +89,15 @@ void game_object::erase_component(const component &erased)
 {
     auto it = std::find(_components.begin(), _components.end(), &erased);
 
-    if (it != _components.end())
+    if (it == _components.end())
     {
-        delete *it;
-        _components.erase(it);
+        return;
     }
+
+    component *c = *it;
+    _components.erase(it);
+    _messenger.send(component_destroyed(*c));
+    c->detach();
 }
 
 game_object *game_object::find_descendant_tree_root(game_object *descendant) const

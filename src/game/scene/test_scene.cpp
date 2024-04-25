@@ -12,24 +12,6 @@
 #include <game/wall/wall.h>
 #include <game/wall/wall_renderer.h>
 
-class test_food : public food, public collision_handler
-{
-public:
-    test_food(game_object &attached_to, const vector2 &position)
-        : food(attached_to, position)
-    {
-    }
-
-    void eat(snake &snake) override
-    {
-    }
-
-    void collide(const collision &collision) override
-    {
-        attached_to().destroy();
-    }
-};
-
 void test_scene::initialize()
 {
     // Write logic to test.
@@ -54,7 +36,7 @@ void test_scene::initialize()
 
     game_object &food = game_object::create();
     vector2 food_position = 8.5F * tile_size * vector2(1, 1);
-    food.add_component<::test_food>(food_position);
+    food.add_component<::food>(food_position, tile_size);
     food.add_component<food_renderer>(food_layer, tile_size);
     food.add_component<box_collider>(food_position, 0.5F * vector2(3 * tile_size, 6 * tile_size));
     food.add_component<box_collider_renderer>(99);

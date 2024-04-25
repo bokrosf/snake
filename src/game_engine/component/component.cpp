@@ -13,6 +13,15 @@ void component::initialize()
 {
 }
 
+void component::detach()
+{
+}
+
+void component::destroy()
+{
+    attached_to().erase_component(*this);
+}
+
 game_object &component::attached_to() const
 {
     return _attached_to;

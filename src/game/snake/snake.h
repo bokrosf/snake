@@ -17,6 +17,7 @@ public:
     void look_in_direction(const vector2 &direction);
     void adjust_speed(float speed);
     const std::list<vector2> &segments() const;
+    void grow(float length);
 private:
     vector2 _head_direction;
     std::list<vector2> _segments;

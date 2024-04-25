@@ -31,6 +31,7 @@ void app::run()
     _messenger.subscribe<game_object_created>(*this);
     _messenger.subscribe<game_object_destroyed>(*this);
     _messenger.subscribe<component_added>(*this);
+    _messenger.subscribe<component_destroyed>(*this);
     _messenger.subscribe<game_object_parent_changed>(*this);
     _active_scene = create_start_scene();
     _active_scene->initialize();
@@ -63,6 +64,11 @@ void app::receive(const game_object_destroyed &message)
 void app::receive(const component_added &message)
 {
     _active_scene->register_added_component(message.added);
+}
+
+void app::receive(const component_destroyed &message)
+{
+    _active_scene->mark_as_destroyed(message.component);
 }
 
 void app::receive(const game_object_parent_changed &message)
@@ -100,6 +106,7 @@ void app::shutdown()
     _messenger.unsubscribe<game_object_created>(*this);
     _messenger.unsubscribe<game_object_destroyed>(*this);
     _messenger.unsubscribe<component_added>(*this);
+    _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<game_object_parent_changed>(*this);
     shutdown_subsystems();
 }

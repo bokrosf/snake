@@ -15,6 +15,7 @@ public:
     void update_root_status(game_object &object);
     void register_added_component(component &added);
     void initialize_components();    
+    void mark_as_destroyed(component &component);
     void mark_as_destroyed(game_object &object);
     void destroy_marked_objects();
 
@@ -27,7 +28,10 @@ protected:
 private:
     std::unordered_set<game_object *> _root_objects;
     std::queue<component *> _components_to_initialize;
+    std::unordered_set<component *> _components_to_destroy;
     std::unordered_set<game_object *> _objects_to_destroy;
+    void destroy_components();
+    void destroy_game_objects();
 };
 
 #endif

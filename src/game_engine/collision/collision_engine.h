@@ -13,7 +13,7 @@ public:
     void detect_collisions(const scene *scene);
 private:
     std::vector<box_collider *> collect_colliders(const scene *scene) const;
-    void notify_collided_objects(game_object &object, const std::unordered_set<game_object *> &collided_objects) const;
+    void notify_collided_objects(box_collider &collider, const std::unordered_set<game_object *> &collided_objects) const;
 };
 
 #endif
