@@ -1,11 +1,11 @@
 #ifndef SNAKE_GAMEENGINE_COLLISION_COLLISION_H
 #define SNAKE_GAMEENGINE_COLLISION_COLLISION_H
 
-#include <game_engine/game_object.h>
+#include "box_collider.h"
 
 struct collision
 {
-    game_object &collided_with;
+    box_collider &collider;
 };
 
 #endif

@@ -25,7 +25,7 @@ void collision_engine::detect_collisions(const scene *scene)
             }
         }
 
-        notify_collided_objects(current->attached_to(), collided_objects);
+        notify_collided_objects(*current, collided_objects);
     }
 }
 
@@ -60,9 +60,9 @@ std::vector<box_collider *> collision_engine::collect_colliders(const scene *sce
     return colliders;
 }
 
-void collision_engine::notify_collided_objects(game_object &object, const std::unordered_set<game_object *> &collided_objects) const
+void collision_engine::notify_collided_objects(box_collider &collider, const std::unordered_set<game_object *> &collided_objects) const
 {
-    collision collision{object};
+    collision collision{collider};
 
     for (game_object *collided_with : collided_objects)
     {
