@@ -89,13 +89,15 @@ void game_object::erase_component(const component &erased)
 {
     auto it = std::find(_components.begin(), _components.end(), &erased);
 
-    if (it != _components.end())
+    if (it == _components.end())
     {
-        component *c = *it;
-        _components.erase(it);
-        _messenger.send(component_destroyed(*c));
-        c->detach();
+        return;
     }
+
+    component *c = *it;
+    _components.erase(it);
+    _messenger.send(component_destroyed(*c));
+    c->detach();
 }
 
 game_object *game_object::find_descendant_tree_root(game_object *descendant) const
