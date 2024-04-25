@@ -8,7 +8,8 @@ class special_ability_slot : public component
 {
 public:
     special_ability_slot(game_object &attached_to);
-    ~special_ability_slot();
+    ~special_ability_slot() = default;
+    void detach() override;
     void remove();
 
     template<typename Ability>
