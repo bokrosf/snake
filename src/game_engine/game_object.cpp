@@ -5,7 +5,8 @@
 #include "component_destroyed.h"
 
 game_object::game_object()
-    : _messenger(messenger::instance())
+    : _life_state(life_state::alive)
+    , _messenger(messenger::instance())
     , _parent(nullptr)
 {
 }
@@ -44,7 +45,18 @@ game_object &game_object::create()
 
 void game_object::destroy()
 {
+    if (_life_state == life_state::destroyed)
+    {
+        return;
+    }
+    
+    _life_state = life_state::destroyed;
     _messenger.send(game_object_destroyed(*this));
+}
+
+life_state game_object::life_state() const
+{
+    return _life_state;
 }
 
 game_object *game_object::parent() const

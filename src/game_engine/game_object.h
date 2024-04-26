@@ -10,6 +10,7 @@
 #include "activatable.h"
 #include "component/component.h"
 #include "component/component_not_found.h"
+#include "life_state.h"
 #include "messaging/messenger.h"
 #include "component_added.h"
 
@@ -21,6 +22,7 @@ public:
     ~game_object();
     static game_object &create();
     void destroy();
+    life_state life_state() const;
     game_object *parent() const;
     void attach_to(game_object *new_parent);
     
@@ -57,6 +59,7 @@ public:
     void erase_component();
 private:
     game_object();
+    ::life_state _life_state;
     messenger &_messenger;
     game_object *_parent;
     std::vector<game_object *> _children;
