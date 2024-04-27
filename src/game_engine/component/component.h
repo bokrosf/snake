@@ -9,7 +9,7 @@ class game_object;
 class component
 {
 public:
-    virtual ~component();
+    virtual ~component() = default;
     virtual void initialize();
     void destroy();
     life_state life_state() const;

@@ -8,10 +8,6 @@ component::component(game_object &attached_to)
 {
 }
 
-component::~component()
-{
-}
-
 void component::initialize()
 {
 }
