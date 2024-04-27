@@ -4,8 +4,9 @@
 #include <unordered_set>
 #include <queue>
 #include <ranges>
-#include "game_object.h"
 #include "component/component.h"
+
+class game_object;
 
 class scene
 {
@@ -28,10 +29,11 @@ protected:
 private:
     std::unordered_set<game_object *> _root_objects;
     std::queue<component *> _components_to_initialize;
-    std::unordered_set<component *> _components_to_destroy;
+    std::unordered_set<game_object *> _objects_with_destroyed_component;
     std::unordered_set<game_object *> _objects_to_destroy;
     void destroy_components();
     void destroy_game_objects();
+    friend game_object;
 };
 
 #endif

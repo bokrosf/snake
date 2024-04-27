@@ -1,3 +1,4 @@
+#include <game_engine/game_object.h>
 #include "scene.h"
 
 scene::~scene()
@@ -41,7 +42,7 @@ void scene::mark_as_destroyed(game_object &object)
 
 void scene::mark_as_destroyed(component &component)
 {
-    _components_to_destroy.insert(&component);
+    _objects_with_destroyed_component.insert(&component.attached_to());
 }
 
 void scene::destroy_marked_objects()
@@ -52,10 +53,15 @@ void scene::destroy_marked_objects()
 
 void scene::destroy_components()
 {
-    while (!_components_to_destroy.empty())
+    for (game_object *object : _objects_with_destroyed_component)
     {
-        delete _components_to_destroy.extract(*_components_to_destroy.begin()).value();
+        if (!_objects_to_destroy.contains(object))
+        {
+            object->erase_destroyed_components();
+        }
     }
+    
+    _objects_with_destroyed_component.clear();
 }
 
 void scene::destroy_game_objects()

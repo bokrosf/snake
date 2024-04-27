@@ -3,6 +3,7 @@
 
 #include <concepts>
 #include <game_engine/component/component.h>
+#include <game_engine/game_object.h>
 
 class special_ability_slot : public component
 {

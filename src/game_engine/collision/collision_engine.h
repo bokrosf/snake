@@ -3,6 +3,7 @@
 
 #include <unordered_set>
 #include <game_engine/scene.h>
+#include <game_engine/game_object.h>
 #include "box_collider.h"
 #include "collision_handler.h"
 

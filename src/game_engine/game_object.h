@@ -13,6 +13,7 @@
 #include "life_state.h"
 #include "messaging/messenger.h"
 #include "component_added.h"
+#include <game_engine/scene.h>
 
 class game_object : public activatable 
 {
@@ -52,11 +53,9 @@ public:
         return _components | std::views::filter(conversion) | std::views::transform(conversion);
     }
 
-    void erase_component(const component &erased);
-
     template<typename T>
         requires std::derived_from<T, component>
-    void erase_component();
+    void destroy_component();
 private:
     game_object();
     ::life_state _life_state;
@@ -66,6 +65,8 @@ private:
     std::vector<component *> _components;
     game_object *find_descendant_tree_root(game_object *descendant) const;
     void change_parent(game_object *object, game_object *new_parent);
+    void erase_destroyed_components();
+    friend void scene::destroy_components();
 };
 
 template<typename T, typename... Args>
@@ -111,11 +112,11 @@ T &game_object::attached_component() const
 
 template<typename T>
     requires std::derived_from<T, component>
-void game_object::erase_component()
+void game_object::destroy_component()
 {
-    if (T *component = find_component<T>())
+    if (component *component = find_component<T>())
     {
-        erase_component(component);
+        component->destroy();
     }
 }
 
