@@ -9,6 +9,7 @@
 #include "game_time.h"
 #include "input.h"
 #include "subsystem_initialization_failed.h"
+#include "scene_traversal.h"
 
 app::app(const std::string &app_name)
     : _messenger(messenger::instance())
@@ -154,18 +155,10 @@ void app::handle_user_input()
 
 void app::update_game_state()
 {
-    std::queue<game_object *> checked_objects;
     std::vector<updatable *> updatables;
-
-    for (game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
+    
+    auto add_updatable = [&updatables](game_object *object)
     {
-        checked_objects.push(root);
-    }
-
-    while (!checked_objects.empty())
-    {
-        game_object *object = checked_objects.front();
-        checked_objects.pop();
         auto cast_to_updatable = [](behavior *b) { return dynamic_cast<updatable *>(b); };
         auto filter = [cast_to_updatable](behavior *b) { return cast_to_updatable(b) && b->active(); };
         
@@ -173,12 +166,9 @@ void app::update_game_state()
         {
             updatables.push_back(u);
         }
+    };
 
-        for (game_object *child : std::views::filter(object->children(), active_object_filter))
-        {
-            checked_objects.push(child);
-        }
-    }
+    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_object, add_updatable);
 
     for (updatable *u : updatables)
     {
@@ -188,30 +178,17 @@ void app::update_game_state()
 
 void app::render()
 {
-    std::queue<const game_object *> checked_objects;
     std::map<int, std::vector<renderer *>> rendering_layers;
-
-    for (const game_object *root : std::views::filter(_active_scene->root_objects(), active_object_filter))
+    
+    auto add_layer = [&rendering_layers](game_object *object)
     {
-        checked_objects.push(root);
-    }
-
-    while (!checked_objects.empty())
-    {
-        const game_object *object = checked_objects.front();
-        checked_objects.pop();
-
         for (renderer *r : object->all_attached_components<renderer>())
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
-        
-        for (const game_object *child : std::views::filter(object->children(), active_object_filter))
-        {
-            checked_objects.push(child);
-        }
-    }
+    };
 
+    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_object, add_layer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
 
@@ -224,9 +201,4 @@ void app::render()
     }
 
     SDL_RenderPresent(_renderer);
-}
-
-bool app::active_object_filter(const game_object *object)
-{
-    return object->active();
 }
