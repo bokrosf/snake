@@ -2,6 +2,7 @@
 #define SNAKE_GAME_SNAKE_SNAKE_H
 
 #include <list>
+#include <game_engine/game_object.h>
 #include <game_engine/vector2.h>
 #include <game_engine/collision/box_collider.h>
 #include <game_engine/component/behavior.h>

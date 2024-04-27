@@ -3,6 +3,7 @@
 
 #include <game_engine/component/behavior.h>
 #include <game_engine/collision/collision_handler.h>
+#include <game_engine/game_object.h>
 #include <game_engine/vector2.h>
 #include <game/snake/snake.h>
 

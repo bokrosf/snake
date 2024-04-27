@@ -2,6 +2,7 @@
 #define SNAKE_GAME_WALL_WALLRENDERER_H
 
 #include <game_engine/component/renderer.h>
+#include <game_engine/game_object.h>
 #include "wall.h"
 
 class wall_renderer : public renderer
