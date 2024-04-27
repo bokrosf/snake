@@ -21,7 +21,6 @@ class app :
     public recipient<game_object_parent_changed>
 {
 public:
-    app(const std::string &app_name);
     virtual ~app();
     void run();
     void receive(const game_object_created &message) final;
@@ -30,6 +29,7 @@ public:
     void receive(const component_destroyed &message) final;
     void receive(const game_object_parent_changed &message) final;
 protected:
+    app(const std::string &app_name);
     messenger &_messenger;
     virtual scene *create_start_scene() = 0;
 private:

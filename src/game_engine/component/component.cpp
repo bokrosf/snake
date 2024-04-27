@@ -8,15 +8,7 @@ component::component(game_object &attached_to)
 {
 }
 
-component::~component()
-{
-}
-
 void component::initialize()
-{
-}
-
-void component::detach()
 {
 }
 
@@ -40,4 +32,8 @@ life_state component::life_state() const
 game_object &component::attached_to() const
 {
     return _attached_to;
+}
+
+void component::detach()
+{
 }
