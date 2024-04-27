@@ -16,10 +16,6 @@ void component::initialize()
 {
 }
 
-void component::detach()
-{
-}
-
 void component::destroy()
 {
     if (_life_state == life_state::destroyed)
@@ -40,4 +36,8 @@ life_state component::life_state() const
 game_object &component::attached_to() const
 {
     return _attached_to;
+}
+
+void component::detach()
+{
 }
