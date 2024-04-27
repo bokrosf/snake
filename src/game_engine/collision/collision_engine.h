@@ -11,9 +11,9 @@ class collision_engine
 {
 public:
     collision_engine() = default;
-    void detect_collisions(const scene *scene);
+    void detect_collisions(const scene &scene);
 private:
-    std::vector<box_collider *> collect_colliders(const scene *scene) const;
+    std::vector<box_collider *> collect_colliders(const scene &scene) const;
     void notify_collided_objects(box_collider &collider, const std::unordered_set<game_object *> &collided_objects) const;
 };
 

@@ -41,7 +41,7 @@ void app::run()
     while (_running)
     {
         _active_scene->initialize_components();
-        _collision_engine.detect_collisions(_active_scene);
+        _collision_engine.detect_collisions(*_active_scene);
         handle_user_input();
         update_game_state();
         _active_scene->destroy_marked_objects();
