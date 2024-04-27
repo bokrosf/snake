@@ -38,7 +38,7 @@ game_object &game_object::create()
         throw;
     }
 
-    messenger::instance().send(game_object_created(*object));
+    messenger::instance().send(game_object_created{*object});
 
     return *object;
 }
@@ -51,7 +51,7 @@ void game_object::destroy()
     }
     
     _life_state = life_state::destroyed;
-    _messenger.send(game_object_destroyed(*this));
+    _messenger.send(game_object_destroyed{*this});
 }
 
 life_state game_object::life_state() const
@@ -89,11 +89,11 @@ void game_object::attach_to(game_object *new_parent)
     }
 
     change_parent(this, new_parent);
-    _messenger.send(game_object_parent_changed(*this));
+    _messenger.send(game_object_parent_changed{*this});
 
     if (descendant_tree_root)
     {
-        _messenger.send(game_object_parent_changed(*descendant_tree_root));
+        _messenger.send(game_object_parent_changed{*descendant_tree_root});
     }
 }
 

@@ -6,11 +6,6 @@
 struct game_object_destroyed
 {
     game_object &object;
-
-    game_object_destroyed(game_object &object)
-        : object(object)
-    {
-    }
 };
 
 #endif
