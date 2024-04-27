@@ -2,10 +2,11 @@
 #include <algorithm>
 #include <ranges>
 #include <game_engine/activatable.h>
+#include <game_engine/scene_traversal.h>
 #include "collision.h"
 #include "collision_engine.h"
 
-void collision_engine::detect_collisions(const scene *scene)
+void collision_engine::detect_collisions(const scene &scene)
 {
     std::vector<box_collider *> colliders = collect_colliders(scene);
 
@@ -29,33 +30,21 @@ void collision_engine::detect_collisions(const scene *scene)
     }
 }
 
-std::vector<box_collider *> collision_engine::collect_colliders(const scene *scene) const
+std::vector<box_collider *> collision_engine::collect_colliders(const scene &scene) const
 {
-    std::queue<game_object *> checked_objects;
     std::vector<box_collider *> colliders;
-    auto active_object_filter = [](const game_object *object) { return object->active(); };
-    
-    for (game_object *object : scene->root_objects() | std::views::filter(active_object_filter))
-    {
-        checked_objects.push(object);
-    }
 
-    while (!checked_objects.empty())
+    auto add_collider = [&colliders](game_object *object)
     {
-        game_object *object = checked_objects.front();
-        checked_objects.pop();
         auto collider_filter = [](box_collider *c) { return c->active(); };
 
         for (box_collider *c : object->all_attached_components<box_collider>() | std::views::filter(collider_filter))
         {
             colliders.push_back(c);
         }
+    };
 
-        for (game_object *child : object->children() | std::views::filter(active_object_filter))
-        {
-            checked_objects.push(child);
-        }
-    }
+    scene_traversal::traverse(scene, scene_traversal::filter_active_object, add_collider);
 
     return colliders;
 }
