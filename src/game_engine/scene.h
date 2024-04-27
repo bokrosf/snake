@@ -5,8 +5,7 @@
 #include <queue>
 #include <ranges>
 #include "component/component.h"
-
-class game_object;
+#include <game_engine/game_object.h>
 
 class scene
 {
@@ -33,7 +32,6 @@ private:
     std::unordered_set<game_object *> _objects_to_destroy;
     void destroy_components();
     void destroy_game_objects();
-    friend game_object;
 };
 
 #endif

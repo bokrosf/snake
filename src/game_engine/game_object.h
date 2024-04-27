@@ -13,7 +13,8 @@
 #include "life_state.h"
 #include "messaging/messenger.h"
 #include "component_added.h"
-#include <game_engine/scene.h>
+
+class scene;
 
 class game_object : public activatable 
 {
@@ -66,7 +67,7 @@ private:
     game_object *find_descendant_tree_root(game_object *descendant) const;
     void change_parent(game_object *object, game_object *new_parent);
     void erase_destroyed_components();
-    friend void scene::destroy_components();
+    friend scene;
 };
 
 template<typename T, typename... Args>
