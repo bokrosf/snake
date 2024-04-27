@@ -87,7 +87,7 @@ T &game_object::add_component(Args&&... args)
     }
 
     _components.push_back(component);
-    _messenger.send(component_added(*component));
+    _messenger.send(component_added{*component});
 
     return *component;
 }

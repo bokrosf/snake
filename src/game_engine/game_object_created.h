@@ -6,11 +6,6 @@
 struct game_object_created
 {
     game_object &created;
-    
-    game_object_created(game_object &created)
-        : created(created)
-    {
-    }
 };
 
 #endif
