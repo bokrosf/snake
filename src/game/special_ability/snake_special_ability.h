@@ -10,6 +10,7 @@ public:
     virtual ~snake_special_ability();
 protected:
     snake_special_ability(entity &attached_to);
+    
     snake *snake() const;
 };
 

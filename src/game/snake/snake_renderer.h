@@ -11,10 +11,11 @@ public:
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:
-    const snake *_snake;
-    const float _thickness;
     void draw_segment(SDL_Renderer *renderer, const vector2 &start, const vector2 &end) const;
     int half_thickness() const;
+
+    const snake *_snake;
+    const float _thickness;
 };
 
 #endif
