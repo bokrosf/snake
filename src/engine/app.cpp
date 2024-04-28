@@ -1,12 +1,12 @@
 #include <map>
 #include <queue>
 #include <ranges>
-#include <sstream>
 #include <vector>
 #include <engine/app.h>
 #include <engine/component/behavior.h>
 #include <engine/component/renderer.h>
 #include <engine/component/updatable.h>
+#include <engine/display.h>
 #include <engine/game_time.h>
 #include <engine/input.h>
 #include <engine/scene_traversal.h>
@@ -85,22 +85,8 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
     }
 
-    if (int display_count = SDL_GetNumVideoDisplays(); display_count < 1)
-    {
-        throw subsystem_initialization_failed(std::string("No video display available.").append(SDL_GetError()));
-    }
-    
-    int display_index = 0;
-    SDL_DisplayMode display_mode;
-
-    if (SDL_GetCurrentDisplayMode(display_index, &display_mode) != 0)
-    {
-        std::stringstream error("Current display mode querying failed.");
-        error << "display: " << display_index << " " << SDL_GetError();
-        
-        throw subsystem_initialization_failed(error.str());
-    }
-
+    display::initialize();
+    SDL_DisplayMode display_mode = display::current_mode();
     SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, display_mode.w, display_mode.h, SDL_WINDOW_SHOWN);
 
     if (!window)
