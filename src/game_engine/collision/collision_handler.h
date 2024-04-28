@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAMEENGINE_COLLISION_COLLISIONHANDLER_H
 #define SNAKE_GAMEENGINE_COLLISION_COLLISIONHANDLER_H
 
-#include "collision.h"
+#include <game_engine/collision/collision.h>
 
 class collision_handler
 {

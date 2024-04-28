@@ -1,4 +1,4 @@
-#include "box_collider.h"
+#include <game_engine/collision/box_collider.h>
 
 box_collider::box_collider(entity &attached_to, const vector2 &center)
     : box_collider(attached_to, center, vector2::zero())

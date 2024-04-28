@@ -1,8 +1,8 @@
 #ifndef SNAKE_GAMEENGINE_COLLISION_BOXCOLLIDER_H
 #define SNAKE_GAMEENGINE_COLLISION_BOXCOLLIDER_H
 
-#include <game_engine/vector2.h>
 #include <game_engine/component/behavior.h>
+#include <game_engine/vector2.h>
 
 class box_collider : public behavior
 {

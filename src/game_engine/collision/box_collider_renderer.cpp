@@ -1,4 +1,4 @@
-#include "box_collider_renderer.h"
+#include <game_engine/collision/box_collider_renderer.h>
 
 box_collider_renderer::box_collider_renderer(entity &attached_to, int layer_order)
     : renderer(attached_to, layer_order)

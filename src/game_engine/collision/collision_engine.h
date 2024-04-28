@@ -2,10 +2,10 @@
 #define SNAKE_GAMEENGINE_COLLISION_COLLISIONENGINE_H
 
 #include <unordered_set>
-#include <game_engine/scene.h>
+#include <game_engine/collision/box_collider.h>
+#include <game_engine/collision/collision_handler.h>
 #include <game_engine/entity.h>
-#include "box_collider.h"
-#include "collision_handler.h"
+#include <game_engine/scene.h>
 
 class collision_engine
 {

@@ -1,10 +1,10 @@
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 #include <ranges>
 #include <game_engine/activatable.h>
+#include <game_engine/collision/collision.h>
+#include <game_engine/collision/collision_engine.h>
 #include <game_engine/scene_traversal.h>
-#include "collision.h"
-#include "collision_engine.h"
 
 void collision_engine::detect_collisions(const scene &scene)
 {
