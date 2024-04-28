@@ -80,7 +80,7 @@ void app::receive(const entity_parent_changed &message)
 
 void app::initialize_subsystems()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) == -1)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
     }
