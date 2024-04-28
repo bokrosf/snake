@@ -22,9 +22,10 @@ public:
 private:
     using registration_set = std::unordered_set<void *>;
     
+    messenger() = default;
+    
     static messenger *_instance;
     std::unordered_map<std::type_index, registration_set> _registrations;
-    messenger() = default;
 };
 
 template<typename Message>

@@ -10,10 +10,11 @@ public:
     segment_correction correct_segments(const vector2 &start, const vector2 &end) const override;
     turning_correction correct_turning(const vector2 &head_position, const vector2 &turn_direction) const override;
 private:
-    const float _tile_size;
     vector2 tile_center(const vector2 &position) const;
     vector2 project_longer_axis(const vector2 &position) const;
     float half_tile_size() const;
+    
+    const float _tile_size;
 };
 
 #endif

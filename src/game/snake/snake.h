@@ -20,13 +20,14 @@ public:
     const std::list<vector2> &segments() const;
     void grow(float length);
 private:
+    void move_forward();
+    void shrink_tail(float removed_length);
+
     vector2 _head_direction;
     std::list<vector2> _segments;
     movement_system *_movement_system;
     box_collider *_collider;
     float _speed;
-    void move_forward();
-    void shrink_tail(float removed_length);
 };
 
 #endif
