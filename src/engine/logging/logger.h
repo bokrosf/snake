@@ -30,13 +30,14 @@ private:
         error
     };
 
-    static logger *_instance;
-    std::ostream *_destination;
     logger();
     std::string level_name(log_level level);
-
+    
     template<typename... Args>
     void write(log_level level, Args&&... args);
+
+    static logger *_instance;
+    std::ostream *_destination;
 };
 
 template<typename... Args>

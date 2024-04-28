@@ -30,21 +30,23 @@ public:
     void receive(const entity_parent_changed &message) final;
 protected:
     app(const std::string &app_name);
-    messenger &_messenger;
     virtual scene *create_start_scene() = 0;
+    
+    messenger &_messenger;
 private:
-    SDL_Window *_window;
-    SDL_Renderer *_renderer;
-    scene *_active_scene;
-    bool _running;
-    collision_engine _collision_engine;
-    const std::string _app_name;
     void initialize_subsystems();
     void shutdown();
     void shutdown_subsystems();
     void handle_user_input();
     void update_game_state();
     void render();
+    
+    SDL_Window *_window;
+    SDL_Renderer *_renderer;
+    scene *_active_scene;
+    bool _running;
+    collision_engine _collision_engine;
+    const std::string _app_name;
 };
 
 #endif
