@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include <game_engine/component/renderer.h>
 
 renderer::renderer(entity &attached_to, int layer_order)
     : component(attached_to)

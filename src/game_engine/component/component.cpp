@@ -1,5 +1,5 @@
 #include <game_engine/component_destroyed.h>
-#include "component.h"
+#include <game_engine/component/component.h>
 
 component::component(entity &attached_to)
     : _life_state(life_state::alive)
