@@ -1,6 +1,6 @@
 #include <cmath>
-#include "movement_system.h"
-#include "tiled_movement_system.h"
+#include <game/snake/movement_system.h>
+#include <game/snake/tiled_movement_system.h>
 
 tiled_movement_system::tiled_movement_system(entity &attached_to, float tile_size)
     : movement_system(attached_to)

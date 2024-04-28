@@ -3,7 +3,7 @@
 
 #include <game_engine/component/behavior.h>
 #include <game_engine/component/updatable.h>
-#include "snake.h"
+#include <game/snake/snake.h>
 
 class snake_controller : public behavior, public updatable
 {
