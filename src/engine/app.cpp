@@ -6,6 +6,7 @@
 #include <engine/component/behavior.h>
 #include <engine/component/renderer.h>
 #include <engine/component/updatable.h>
+#include <engine/display.h>
 #include <engine/game_time.h>
 #include <engine/input.h>
 #include <engine/scene_traversal.h>
@@ -79,12 +80,14 @@ void app::receive(const entity_parent_changed &message)
 
 void app::initialize_subsystems()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) == -1)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
-        throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
+        throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
-    SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_SHOWN);
+    display::initialize();
+    SDL_DisplayMode display_mode = display::current_mode();
+    SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, display_mode.w, display_mode.h, SDL_WINDOW_SHOWN);
 
     if (!window)
     {
