@@ -4,11 +4,11 @@
 #include <vector>
 #include <engine/app.h>
 #include <engine/component/behavior.h>
-#include <engine/component/renderer.h>
 #include <engine/component/updatable.h>
 #include <engine/display.h>
 #include <engine/game_time.h>
 #include <engine/input.h>
+#include <engine/rendering/renderer.h>
 #include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 

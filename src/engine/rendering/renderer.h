@@ -1,10 +1,10 @@
-#ifndef SNAKE_ENGINE_COMPONENT_RENDERER_H
-#define SNAKE_ENGINE_COMPONENT_RENDERER_H
+#ifndef SNAKE_ENGINE_RENDERING_RENDERER_H
+#define SNAKE_ENGINE_RENDERING_RENDERER_H
 
 #include <optional>
 #include <SDL2/SDL.h>
 #include <engine/component/component.h>
-#include <engine/component/material.h>
+#include <engine/rendering/material.h>
 
 class renderer : public component
 {
