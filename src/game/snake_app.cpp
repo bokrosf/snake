@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
-#include "snake_app.h"
-#include "game/scene/test_scene.h"
+#include <game/scene/test_scene.h>
+#include <game/snake_app.h>
 
 snake_app::snake_app()
     : app("Snake SDL")
