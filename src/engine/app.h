@@ -11,6 +11,7 @@
 #include <engine/entity_parent_changed.h>
 #include <engine/messaging/messenger.h>
 #include <engine/messaging/recipient.h>
+#include <engine/rendering/rendering_engine.h>
 #include <engine/scene.h>
 
 class app : 
@@ -39,13 +40,11 @@ private:
     void shutdown_subsystems();
     void handle_user_input();
     void update_game_state();
-    void render();
-    
-    SDL_Window *_window;
-    SDL_Renderer *_renderer;
+        
     scene *_active_scene;
     bool _running;
     collision_engine _collision_engine;
+    rendering_engine _rendering_engine;
     const std::string _app_name;
 };
 

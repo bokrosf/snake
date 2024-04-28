@@ -1,6 +1,3 @@
-#include <map>
-#include <queue>
-#include <ranges>
 #include <vector>
 #include <engine/app.h>
 #include <engine/component/behavior.h>
@@ -8,14 +5,11 @@
 #include <engine/display.h>
 #include <engine/game_time.h>
 #include <engine/input.h>
-#include <engine/rendering/renderer.h>
 #include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 
 app::app(const std::string &app_name)
     : _messenger(messenger::instance())
-    , _window(nullptr)
-    , _renderer(nullptr)
     , _active_scene(nullptr)
     , _running(false)
     , _app_name(app_name)
@@ -46,7 +40,7 @@ void app::run()
         handle_user_input();
         update_game_state();
         _active_scene->destroy_marked_objects();
-        render();
+        _rendering_engine.render(*_active_scene);
         game_time::end_frame();
     }
 
@@ -85,24 +79,8 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
-    display::initialize();
-    SDL_DisplayMode display_mode = display::current_mode();
-    SDL_Window *window = SDL_CreateWindow(_app_name.c_str(), 0, 0, display_mode.w, display_mode.h, SDL_WINDOW_SHOWN);
-
-    if (!window)
-    {
-        throw subsystem_initialization_failed(std::string("SDL Window creation failed. ").append(SDL_GetError()));
-    }
-
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-    if (!renderer)
-    {
-        throw subsystem_initialization_failed(std::string("SDL Renderer creation failed. ").append(SDL_GetError()));
-    }
-
-    _window = window;
-    _renderer = renderer;
+    display::initialize(_app_name);
+    _rendering_engine.initialize(display::window());
 }
 
 void app::shutdown()
@@ -117,18 +95,7 @@ void app::shutdown()
 
 void app::shutdown_subsystems()
 {
-    if (_renderer)
-    {
-        SDL_DestroyRenderer(_renderer);
-        _renderer = nullptr;
-    }
-
-    if (_window)
-    {
-        SDL_DestroyWindow(_window);
-        _window = nullptr;
-    }
-
+    display::shutdown();
     SDL_Quit();
 }
 
@@ -177,31 +144,4 @@ void app::update_game_state()
     {
         u->update();
     }
-}
-
-void app::render()
-{
-    std::map<int, std::vector<renderer *>> rendering_layers;
-    
-    auto add_layer = [&rendering_layers](entity *entity)
-    {
-        for (renderer *r : entity->all_attached_components<renderer>())
-        {
-            rendering_layers[r->layer_order()].push_back(r);
-        }
-    };
-
-    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_entity, add_layer);
-    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-    SDL_RenderClear(_renderer);
-
-    for (const auto &[layer, renderers] : rendering_layers)
-    {
-        for (renderer *r : renderers)
-        {
-            r->render(_renderer);
-        }
-    }
-
-    SDL_RenderPresent(_renderer);
 }
