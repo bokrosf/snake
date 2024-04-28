@@ -1,10 +1,10 @@
 #ifndef SNAKE_GAMEENGINE_MESSAGING_MESSENGER_H
 #define SNAKE_GAMEENGINE_MESSAGING_MESSENGER_H
 
+#include <typeindex>
 #include <unordered_map>
 #include <unordered_set>
-#include <typeindex>
-#include "recipient.h"
+#include <game_engine/messaging/recipient.h>
 
 class messenger
 {

@@ -1,4 +1,4 @@
-#include "messenger.h"
+#include <game_engine/messaging/messenger.h>
 
 messenger *messenger::_instance = nullptr;
 
