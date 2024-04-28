@@ -59,15 +59,16 @@ public:
     void destroy_component();
 private:
     entity();
+    entity *find_descendant_tree_root(entity *descendant) const;
+    void change_parent(entity *entity, ::entity *new_parent);
+    void erase_destroyed_components();
+    friend scene;
+    
     ::life_state _life_state;
     messenger &_messenger;
     entity *_parent;
     std::vector<entity *> _children;
     std::vector<component *> _components;
-    entity *find_descendant_tree_root(entity *descendant) const;
-    void change_parent(entity *entity, ::entity *new_parent);
-    void erase_destroyed_components();
-    friend scene;
 };
 
 template<typename T, typename... Args>

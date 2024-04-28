@@ -12,6 +12,76 @@ vector2::vector2(float x, float y)
 {
 }
 
+float vector2::x() const
+{
+    return _x;
+}
+
+float vector2::y() const
+{
+    return _y;
+}
+
+float vector2::magnitude() const
+{
+    return std::sqrt(square_magnitude());
+}
+
+float vector2::square_magnitude() const
+{
+    return _x * _x + _y * _y;
+}
+
+vector2 vector2::normalize() const
+{
+    return (*this) / magnitude();
+}
+
+vector2 vector2::points_to(const vector2 &position) const
+{
+    return position - *this;
+}
+
+float vector2::distance_from(const vector2 &position) const
+{
+    return points_to(position).magnitude();
+}
+
+float vector2::square_distance_from(const vector2 &position) const
+{
+    return points_to(position).square_magnitude();
+}
+
+vector2 vector2::perpendicular() const
+{
+    return vector2(_y, -_x);
+}
+
+vector2 vector2::zero()
+{
+    return vector2(0, 0);
+}
+
+vector2 vector2::up()
+{
+    return vector2(0, 1);
+}
+
+vector2 vector2::down()
+{
+    return vector2(0, -1);
+}
+
+vector2 vector2::left()
+{
+    return vector2(-1, 0);
+}
+
+vector2 vector2::right()
+{
+    return vector2(1, 0);
+}
+
 bool operator==(const vector2 &lhs, const vector2 &rhs)
 {
     return lhs._x == rhs._x && lhs._y == rhs._y;
@@ -82,74 +152,4 @@ vector2 vector2::operator/(float rhs) const
 vector2 vector2::operator-() const
 {
     return *this * -1;
-}
-
-float vector2::x() const
-{
-    return _x;
-}
-
-float vector2::y() const
-{
-    return _y;
-}
-
-float vector2::magnitude() const
-{
-    return std::sqrt(square_magnitude());
-}
-
-float vector2::square_magnitude() const
-{
-    return _x * _x + _y * _y;
-}
-
-vector2 vector2::normalize() const
-{
-    return (*this) / magnitude();
-}
-
-vector2 vector2::points_to(const vector2 &position) const
-{
-    return position - *this;
-}
-
-float vector2::distance_from(const vector2 &position) const
-{
-    return points_to(position).magnitude();
-}
-
-float vector2::square_distance_from(const vector2 &position) const
-{
-    return points_to(position).square_magnitude();
-}
-
-vector2 vector2::perpendicular() const
-{
-    return vector2(_y, -_x);
-}
-
-vector2 vector2::zero()
-{
-    return vector2(0, 0);
-}
-
-vector2 vector2::up()
-{
-    return vector2(0, 1);
-}
-
-vector2 vector2::down()
-{
-    return vector2(0, -1);
-}
-
-vector2 vector2::left()
-{
-    return vector2(-1, 0);
-}
-
-vector2 vector2::right()
-{
-    return vector2(1, 0);
 }
