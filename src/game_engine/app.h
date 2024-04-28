@@ -3,15 +3,15 @@
 
 #include <string>
 #include <SDL2/SDL.h>
-#include "messaging/messenger.h"
-#include "messaging/recipient.h"
-#include "scene.h"
-#include "entity_created.h"
-#include "entity_destroyed.h"
-#include "component_added.h"
-#include "component_destroyed.h"
-#include "entity_parent_changed.h"
-#include "collision/collision_engine.h"
+#include <game_engine/collision/collision_engine.h>
+#include <game_engine/component_added.h>
+#include <game_engine/component_destroyed.h>
+#include <game_engine/entity_created.h>
+#include <game_engine/entity_destroyed.h>
+#include <game_engine/entity_parent_changed.h>
+#include <game_engine/messaging/messenger.h>
+#include <game_engine/messaging/recipient.h>
+#include <game_engine/scene.h>
 
 class app : 
     public recipient<entity_created>,

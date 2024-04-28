@@ -1,4 +1,4 @@
-#include "component_not_found.h"
+#include <game_engine/component/component_not_found.h>
 
 component_not_found::component_not_found(const std::string &what_arg)
     : logic_error(what_arg)

@@ -3,7 +3,7 @@
 
 #include <game_engine/component/renderer.h>
 #include <game_engine/entity.h>
-#include "wall.h"
+#include <game/wall/wall.h>
 
 class wall_renderer : public renderer
 {

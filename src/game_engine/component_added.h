@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAMEENGINE_COMPONENTADDED_H
 #define SNAKE_GAMEENGINE_COMPONENTADDED_H
 
-class component;
+#include <game_engine/component/component.h>
 
 struct component_added
 {

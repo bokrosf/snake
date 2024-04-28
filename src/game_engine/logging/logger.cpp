@@ -1,5 +1,5 @@
 #include <sstream>
-#include "logger.h"
+#include <game_engine/logging/logger.h>
 
 logger *logger::_instance = nullptr;
 

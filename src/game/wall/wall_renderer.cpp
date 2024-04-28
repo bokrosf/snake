@@ -1,4 +1,4 @@
-#include "wall_renderer.h"
+#include <game/wall/wall_renderer.h>
 
 wall_renderer::wall_renderer(entity &attached_to, int layer_order)
     : renderer(attached_to, layer_order)

@@ -2,7 +2,7 @@
 #define SNAKE_GAME_SNAKE_SNAKERENDERER_H
 
 #include <game_engine/component/renderer.h>
-#include "snake.h"
+#include <game/snake/snake.h>
 
 class snake_renderer : public renderer
 {

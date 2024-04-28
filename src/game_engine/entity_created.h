@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAMEENGINE_ENTITYCREATED_H
 #define SNAKE_GAMEENGINE_ENTITYCREATED_H
 
-#include "entity.h"
+#include <game_engine/entity.h>
 
 struct entity_created
 {

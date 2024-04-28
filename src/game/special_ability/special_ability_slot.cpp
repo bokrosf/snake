@@ -1,4 +1,4 @@
-#include "special_ability_slot.h"
+#include <game/special_ability/special_ability_slot.h>
 
 special_ability_slot::special_ability_slot(entity &attached_to)
     : component(attached_to)

@@ -3,8 +3,8 @@
 
 #include <optional>
 #include <SDL2/SDL.h>
-#include "component.h"
-#include "material.h"
+#include <game_engine/component/component.h>
+#include <game_engine/component/material.h>
 
 class renderer : public component
 {

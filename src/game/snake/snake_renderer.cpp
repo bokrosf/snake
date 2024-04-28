@@ -1,4 +1,4 @@
-#include "snake_renderer.h"
+#include <game/snake/snake_renderer.h>
 
 snake_renderer::snake_renderer(entity& attached_to, int layer_order, float thickness)
     : renderer(attached_to, layer_order)

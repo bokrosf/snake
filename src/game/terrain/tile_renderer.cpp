@@ -1,4 +1,4 @@
-#include "tile_renderer.h"
+#include <game/terrain/tile_renderer.h>
 
 tile_renderer::tile_renderer(entity &attached_to, int layer_order, float tile_size)
     : renderer(attached_to, layer_order)

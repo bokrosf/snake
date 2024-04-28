@@ -3,11 +3,11 @@
 
 #include <list>
 #include <game_engine/entity.h>
-#include <game_engine/vector2.h>
 #include <game_engine/collision/box_collider.h>
 #include <game_engine/component/behavior.h>
 #include <game_engine/component/updatable.h>
-#include "movement_system.h"
+#include <game_engine/vector2.h>
+#include <game/snake/movement_system.h>
 
 class snake : public behavior, public updatable
 {

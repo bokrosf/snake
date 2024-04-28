@@ -1,9 +1,9 @@
 #ifndef SNAKE_GAMEENGINE_COLLISION_BOXCOLLIDERRENDERER_H
 #define SNAKE_GAMEENGINE_COLLISION_BOXCOLLIDERRENDERER_H
 
+#include <game_engine/collision/box_collider.h>
 #include <game_engine/component/renderer.h>
 #include <game_engine/entity.h>
-#include "box_collider.h"
 
 class box_collider_renderer : public renderer
 {

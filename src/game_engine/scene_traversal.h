@@ -2,7 +2,7 @@
 #define SNAKE_GAMEENGINE_SCENETRAVERSAL_H
 
 #include <functional>
-#include "scene.h"
+#include <game_engine/scene.h>
 
 namespace scene_traversal
 {

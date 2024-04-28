@@ -1,5 +1,5 @@
 #include <game_engine/entity.h>
-#include "scene.h"
+#include <game_engine/scene.h>
 
 scene::~scene()
 {

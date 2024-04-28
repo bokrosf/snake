@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAME_SNAKE_TILEDMOVEMENTSYSTEM_H
 #define SNAKE_GAME_SNAKE_TILEDMOVEMENTSYSTEM_H
 
-#include "movement_system.h"
+#include <game/snake/movement_system.h>
 
 class tiled_movement_system : public movement_system
 {

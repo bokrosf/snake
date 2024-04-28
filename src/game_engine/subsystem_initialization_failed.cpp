@@ -1,4 +1,4 @@
-#include "subsystem_initialization_failed.h"
+#include <game_engine/subsystem_initialization_failed.h>
 
 subsystem_initialization_failed::subsystem_initialization_failed(const std::string &what_arg)
     : runtime_error(what_arg)

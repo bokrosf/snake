@@ -1,8 +1,8 @@
-#include "entity.h"
-#include "entity_created.h"
-#include "entity_destroyed.h"
-#include "entity_parent_changed.h"
-#include "component_destroyed.h"
+#include <game_engine/entity.h>
+#include <game_engine/entity_created.h>
+#include <game_engine/entity_destroyed.h>
+#include <game_engine/entity_parent_changed.h>
+#include <game_engine/component_destroyed.h>
 
 entity::entity()
     : _life_state(life_state::alive)
