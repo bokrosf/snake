@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAME_SPECIALABILITY_SNAKESPECIALABILITY_H
 #define SNAKE_GAME_SPECIALABILITY_SNAKESPECIALABILITY_H
 
-#include <game_engine/component/component.h>
+#include <engine/component/component.h>
 #include <game/snake/snake.h>
 
 class snake_special_ability : public component

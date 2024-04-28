@@ -1,7 +1,7 @@
 #ifndef SNAKE_GAME_TERRAIN_TILERENDERER_H
 #define SNAKE_GAME_TERRAIN_TILERENDERER_H
 
-#include <game_engine/component/renderer.h>
+#include <engine/component/renderer.h>
 
 class tile_renderer : public renderer
 {

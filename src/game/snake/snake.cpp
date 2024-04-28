@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <game_engine/game_time.h>
+#include <engine/game_time.h>
 #include <game/snake/snake.h>
 
 snake::snake(entity &attached_to, const vector2 &head, const vector2 &tail)

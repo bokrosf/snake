@@ -2,8 +2,8 @@
 #define SNAKE_GAME_SPECIALABILITY_SPECIALABILITYSLOT_H
 
 #include <concepts>
-#include <game_engine/component/component.h>
-#include <game_engine/entity.h>
+#include <engine/component/component.h>
+#include <engine/entity.h>
 
 class special_ability_slot : public component
 {

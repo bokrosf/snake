@@ -1,5 +1,5 @@
-#include <game_engine/input.h>
-#include <game_engine/vector2.h>
+#include <engine/input.h>
+#include <engine/vector2.h>
 #include <game/snake/snake_controller.h>
 
 snake_controller::snake_controller(entity &attached_to)

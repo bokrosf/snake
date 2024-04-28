@@ -5,24 +5,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(snake
   src/main.cpp
-  src/game_engine/activatable.cpp
-  src/game_engine/app.cpp
-  src/game_engine/entity.cpp
-  src/game_engine/game_time.cpp
-  src/game_engine/input.cpp
-  src/game_engine/scene_traversal.cpp
-  src/game_engine/scene.cpp
-  src/game_engine/subsystem_initialization_failed.cpp
-  src/game_engine/vector2.cpp
-  src/game_engine/collision/box_collider.cpp
-  src/game_engine/collision/box_collider_renderer.cpp
-  src/game_engine/collision/collision_engine.cpp
-  src/game_engine/component/behavior.cpp
-  src/game_engine/component/component.cpp
-  src/game_engine/component/component_not_found.cpp
-  src/game_engine/component/renderer.cpp  
-  src/game_engine/logging/logger.cpp
-  src/game_engine/messaging/messenger.cpp
+  src/engine/activatable.cpp
+  src/engine/app.cpp
+  src/engine/entity.cpp
+  src/engine/game_time.cpp
+  src/engine/input.cpp
+  src/engine/scene_traversal.cpp
+  src/engine/scene.cpp
+  src/engine/subsystem_initialization_failed.cpp
+  src/engine/vector2.cpp
+  src/engine/collision/box_collider.cpp
+  src/engine/collision/box_collider_renderer.cpp
+  src/engine/collision/collision_engine.cpp
+  src/engine/component/behavior.cpp
+  src/engine/component/component.cpp
+  src/engine/component/component_not_found.cpp
+  src/engine/component/renderer.cpp  
+  src/engine/logging/logger.cpp
+  src/engine/messaging/messenger.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/snake_app.cpp

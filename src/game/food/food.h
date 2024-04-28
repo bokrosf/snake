@@ -1,10 +1,10 @@
 #ifndef SNAKE_GAME_FOOD_FOOD_H
 #define SNAKE_GAME_FOOD_FOOD_H
 
-#include <game_engine/collision/collision_handler.h>
-#include <game_engine/component/behavior.h>
-#include <game_engine/entity.h>
-#include <game_engine/vector2.h>
+#include <engine/collision/collision_handler.h>
+#include <engine/component/behavior.h>
+#include <engine/entity.h>
+#include <engine/vector2.h>
 #include <game/snake/snake.h>
 
 class food : public behavior, public collision_handler

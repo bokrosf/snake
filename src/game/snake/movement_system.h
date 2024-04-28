@@ -2,8 +2,8 @@
 #define SNAKE_GAME_SNAKE_MOVEMENTSYSTEM_H
 
 #include <vector>
-#include <game_engine/component/component.h>
-#include <game_engine/vector2.h>
+#include <engine/component/component.h>
+#include <engine/vector2.h>
 
 struct segment_correction
 {
