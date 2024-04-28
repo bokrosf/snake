@@ -1,6 +1,6 @@
 #include <stdexcept>
+#include <game/food/food.h>
 #include <game/snake/snake.h>
-#include "food.h"
 
 food::food(entity &attached_to, const vector2 &position, float nutritional_value)
     : behavior(attached_to)

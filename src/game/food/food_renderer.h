@@ -2,7 +2,7 @@
 #define SNAKE_GAME_FOOD_FOODRENDERER_H
 
 #include <game_engine/component/renderer.h>
-#include "food.h"
+#include <game/food/food.h>
 
 class food_renderer : public renderer
 {

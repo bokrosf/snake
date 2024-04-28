@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "food_renderer.h"
+#include <game/food/food_renderer.h>
 
 food_renderer::food_renderer(entity &attached_to, int layer_order, float thickness)
     : renderer(attached_to, layer_order)

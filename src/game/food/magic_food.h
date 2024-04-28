@@ -2,7 +2,7 @@
 #define SNAKE_GAME_FOOD_MAGICFOOD_H
 
 #include <concepts>
-#include "food.h"
+#include <game/food/food.h>
 #include <game/special_ability/special_ability_slot.h>
 
 template<typename Ability>
