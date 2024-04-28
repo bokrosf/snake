@@ -82,7 +82,7 @@ void app::initialize_subsystems()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
-        throw subsystem_initialization_failed(std::string("SDL Video initialization failed. ").append(SDL_GetError()));
+        throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
     display::initialize();
