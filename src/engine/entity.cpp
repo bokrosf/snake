@@ -78,7 +78,7 @@ void entity::attach_to(entity *new_parent)
 
     if (_parent)
     {
-        _children.erase(std::find(_children.begin(), _children.end(), this));
+        std::erase(_children, this);
     }
 
     entity *descendant_tree_root = find_descendant_tree_root(new_parent);
