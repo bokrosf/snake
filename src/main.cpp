@@ -1,7 +1,7 @@
 #include <exception>
 #include <iostream>
-#include <game_engine/app.h>
-#include <game_engine/logging/logger.h>
+#include <engine/app.h>
+#include <engine/logging/logger.h>
 #include <game/snake_app.h>
 
 int main(int argc, char *argv[])

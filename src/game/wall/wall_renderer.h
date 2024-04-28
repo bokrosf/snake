@@ -1,8 +1,8 @@
 #ifndef SNAKE_GAME_WALL_WALLRENDERER_H
 #define SNAKE_GAME_WALL_WALLRENDERER_H
 
-#include <game_engine/component/renderer.h>
-#include <game_engine/entity.h>
+#include <engine/component/renderer.h>
+#include <engine/entity.h>
 #include <game/wall/wall.h>
 
 class wall_renderer : public renderer

@@ -1,8 +1,8 @@
 #ifndef SNAKE_GAME_WALL_WALL_H
 #define SNAKE_GAME_WALL_WALL_H
 
-#include <game_engine/component/behavior.h>
-#include <game_engine/vector2.h>
+#include <engine/component/behavior.h>
+#include <engine/vector2.h>
 
 class wall : public behavior
 {

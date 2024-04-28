@@ -1,7 +1,7 @@
-#include <game_engine/collision/box_collider.h>
-#include <game_engine/collision/box_collider_renderer.h>
-#include <game_engine/collision/collision_handler.h>
-#include <game_engine/entity.h>
+#include <engine/collision/box_collider.h>
+#include <engine/collision/box_collider_renderer.h>
+#include <engine/collision/collision_handler.h>
+#include <engine/entity.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/scene/test_scene.h>

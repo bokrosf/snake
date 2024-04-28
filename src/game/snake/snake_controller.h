@@ -1,8 +1,8 @@
 #ifndef SNAKE_GAME_SNAKE_SNAKECONTROLLER_H
 #define SNAKE_GAME_SNAKE_SNAKECONTROLLER_H
 
-#include <game_engine/component/behavior.h>
-#include <game_engine/component/updatable.h>
+#include <engine/component/behavior.h>
+#include <engine/component/updatable.h>
 #include <game/snake/snake.h>
 
 class snake_controller : public behavior, public updatable
