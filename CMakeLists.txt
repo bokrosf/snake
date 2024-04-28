@@ -7,24 +7,25 @@ add_executable(snake
   src/main.cpp
   src/engine/activatable.cpp
   src/engine/app.cpp
-  src/engine/entity.cpp
-  src/engine/game_time.cpp
-  src/engine/input.cpp
-  src/engine/scene_traversal.cpp
-  src/engine/scene.cpp
-  src/engine/subsystem_initialization_failed.cpp
-  src/engine/vector2.cpp
   src/engine/collision/box_collider.cpp
   src/engine/collision/box_collider_renderer.cpp
   src/engine/collision/collision_engine.cpp
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
-  src/engine/component/renderer.cpp  
+  src/engine/component/renderer.cpp
+  src/engine/entity.cpp
+  src/engine/game_time.cpp
+  src/engine/input.cpp
   src/engine/logging/logger.cpp
   src/engine/messaging/messenger.cpp
+  src/engine/scene_traversal.cpp
+  src/engine/scene.cpp
+  src/engine/subsystem_initialization_failed.cpp
+  src/engine/vector2.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
+  src/game/scene/test_scene.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
@@ -33,7 +34,6 @@ add_executable(snake
   src/game/snake/tiled_movement_system.cpp
   src/game/special_ability/snake_special_ability.cpp
   src/game/special_ability/special_ability_slot.cpp
-  src/game/scene/test_scene.cpp
   src/game/terrain/tile_renderer.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
