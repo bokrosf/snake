@@ -3,14 +3,14 @@
 
 #include <game_engine/component/behavior.h>
 #include <game_engine/collision/collision_handler.h>
-#include <game_engine/game_object.h>
+#include <game_engine/entity.h>
 #include <game_engine/vector2.h>
 #include <game/snake/snake.h>
 
 class food : public behavior, public collision_handler
 {
 public:
-    food(game_object &attached_to, const vector2 &position, float nutritional_value);
+    food(entity &attached_to, const vector2 &position, float nutritional_value);
     const vector2 &position() const;
     void collide(const collision &collision) final;
 protected:

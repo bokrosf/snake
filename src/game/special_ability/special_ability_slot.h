@@ -3,12 +3,12 @@
 
 #include <concepts>
 #include <game_engine/component/component.h>
-#include <game_engine/game_object.h>
+#include <game_engine/entity.h>
 
 class special_ability_slot : public component
 {
 public:
-    special_ability_slot(game_object &attached_to);
+    special_ability_slot(entity &attached_to);
     ~special_ability_slot() = default;
     void detach() override;
     void remove();

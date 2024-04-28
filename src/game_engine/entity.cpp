@@ -1,17 +1,17 @@
-#include "game_object.h"
-#include "game_object_created.h"
-#include "game_object_destroyed.h"
-#include "game_object_parent_changed.h"
+#include "entity.h"
+#include "entity_created.h"
+#include "entity_destroyed.h"
+#include "entity_parent_changed.h"
 #include "component_destroyed.h"
 
-game_object::game_object()
+entity::entity()
     : _life_state(life_state::alive)
     , _messenger(messenger::instance())
     , _parent(nullptr)
 {
 }
 
-game_object::~game_object()
+entity::~entity()
 {
     for (auto c : _components)
     {
@@ -24,26 +24,26 @@ game_object::~game_object()
     }
 }
 
-game_object &game_object::create()
+entity &entity::create()
 {
-    game_object *object = nullptr;
+    entity *entity = nullptr;
 
     try
     {
-        object = new game_object();
+        entity = new ::entity();
     }
     catch (...)
     {
-        delete object;
+        delete entity;
         throw;
     }
 
-    messenger::instance().send(game_object_created{*object});
+    messenger::instance().send(entity_created{*entity});
 
-    return *object;
+    return *entity;
 }
 
-void game_object::destroy()
+void entity::destroy()
 {
     if (_life_state == life_state::destroyed)
     {
@@ -51,20 +51,20 @@ void game_object::destroy()
     }
     
     _life_state = life_state::destroyed;
-    _messenger.send(game_object_destroyed{*this});
+    _messenger.send(entity_destroyed{*this});
 }
 
-life_state game_object::life_state() const
+life_state entity::life_state() const
 {
     return _life_state;
 }
 
-game_object *game_object::parent() const
+entity *entity::parent() const
 {
     return _parent;
 }
 
-void game_object::attach_to(game_object *new_parent)
+void entity::attach_to(entity *new_parent)
 {
     if (new_parent == this)
     {
@@ -81,7 +81,7 @@ void game_object::attach_to(game_object *new_parent)
         _children.erase(std::find(_children.begin(), _children.end(), this));
     }
 
-    game_object *descendant_tree_root = find_descendant_tree_root(new_parent);
+    entity *descendant_tree_root = find_descendant_tree_root(new_parent);
 
     if (descendant_tree_root)
     {
@@ -89,15 +89,15 @@ void game_object::attach_to(game_object *new_parent)
     }
 
     change_parent(this, new_parent);
-    _messenger.send(game_object_parent_changed{*this});
+    _messenger.send(entity_parent_changed{*this});
 
     if (descendant_tree_root)
     {
-        _messenger.send(game_object_parent_changed{*descendant_tree_root});
+        _messenger.send(entity_parent_changed{*descendant_tree_root});
     }
 }
 
-game_object *game_object::find_descendant_tree_root(game_object *descendant) const
+entity *entity::find_descendant_tree_root(entity *descendant) const
 {
     while (descendant && descendant->parent() != this)
     {
@@ -107,17 +107,17 @@ game_object *game_object::find_descendant_tree_root(game_object *descendant) con
     return descendant;
 }
 
-void game_object::change_parent(game_object *object, game_object *new_parent)
+void entity::change_parent(entity *entity, ::entity *new_parent)
 {
-    object->_parent = new_parent;
+    entity->_parent = new_parent;
 
     if (new_parent)
     {
-        new_parent->_children.push_back(object);
+        new_parent->_children.push_back(entity);
     }
 }
 
-void game_object::erase_destroyed_components()
+void entity::erase_destroyed_components()
 {
     auto removed_begin = std::remove_if(_components.begin(), _components.end(), [](component *c) { return c->life_state() == life_state::destroyed; });
     std::for_each(removed_begin, _components.end(), [](component *c) { delete c; });

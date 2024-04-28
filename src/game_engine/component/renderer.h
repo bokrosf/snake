@@ -15,7 +15,7 @@ public:
     void change_material(const ::material &material);
 protected:
     std::optional<::material> _material;
-    renderer(game_object &attached_to, int layer_order);
+    renderer(entity &attached_to, int layer_order);
 private:
     const int _layer_order;
 };

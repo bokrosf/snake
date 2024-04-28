@@ -2,7 +2,7 @@
 #include <game_engine/input.h>
 #include "snake_controller.h"
 
-snake_controller::snake_controller(game_object &attached_to)
+snake_controller::snake_controller(entity &attached_to)
     : behavior(attached_to)
     , _snake(nullptr)
 {

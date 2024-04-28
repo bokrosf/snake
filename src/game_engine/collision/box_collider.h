@@ -7,8 +7,8 @@
 class box_collider : public behavior
 {
 public:
-    box_collider(game_object &attached_to, const vector2 &center);
-    box_collider(game_object &attached_to, const vector2 &center, const vector2 &area);
+    box_collider(entity &attached_to, const vector2 &center);
+    box_collider(entity &attached_to, const vector2 &center, const vector2 &area);
     const vector2 &center() const;
     void reposition(const vector2 &center);
     const vector2 &area() const;

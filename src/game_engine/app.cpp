@@ -29,11 +29,11 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
-    _messenger.subscribe<game_object_created>(*this);
-    _messenger.subscribe<game_object_destroyed>(*this);
+    _messenger.subscribe<entity_created>(*this);
+    _messenger.subscribe<entity_destroyed>(*this);
     _messenger.subscribe<component_added>(*this);
     _messenger.subscribe<component_destroyed>(*this);
-    _messenger.subscribe<game_object_parent_changed>(*this);
+    _messenger.subscribe<entity_parent_changed>(*this);
     _active_scene = create_start_scene();
     _active_scene->initialize();
     _running = true;
@@ -52,14 +52,14 @@ void app::run()
     shutdown();
 }
 
-void app::receive(const game_object_created &message)
+void app::receive(const entity_created &message)
 {
     _active_scene->update_root_status(message.created);
 }
 
-void app::receive(const game_object_destroyed &message)
+void app::receive(const entity_destroyed &message)
 {
-    _active_scene->mark_as_destroyed(message.object);
+    _active_scene->mark_as_destroyed(message.entity);
 }
 
 void app::receive(const component_added &message)
@@ -72,9 +72,9 @@ void app::receive(const component_destroyed &message)
     _active_scene->mark_as_destroyed(message.component);
 }
 
-void app::receive(const game_object_parent_changed &message)
+void app::receive(const entity_parent_changed &message)
 {
-    _active_scene->update_root_status(message.object);
+    _active_scene->update_root_status(message.entity);
 }
 
 void app::initialize_subsystems()
@@ -104,11 +104,11 @@ void app::initialize_subsystems()
 
 void app::shutdown()
 {
-    _messenger.unsubscribe<game_object_created>(*this);
-    _messenger.unsubscribe<game_object_destroyed>(*this);
+    _messenger.unsubscribe<entity_created>(*this);
+    _messenger.unsubscribe<entity_destroyed>(*this);
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
-    _messenger.unsubscribe<game_object_parent_changed>(*this);
+    _messenger.unsubscribe<entity_parent_changed>(*this);
     shutdown_subsystems();
 }
 
@@ -157,18 +157,18 @@ void app::update_game_state()
 {
     std::vector<updatable *> updatables;
     
-    auto add_updatable = [&updatables](game_object *object)
+    auto add_updatable = [&updatables](entity *entity)
     {
         auto cast_to_updatable = [](behavior *b) { return dynamic_cast<updatable *>(b); };
         auto filter = [cast_to_updatable](behavior *b) { return cast_to_updatable(b) && b->active(); };
         
-        for (updatable *u : object->all_attached_components<behavior>() | std::views::filter(filter) | std::views::transform(cast_to_updatable))
+        for (updatable *u : entity->all_attached_components<behavior>() | std::views::filter(filter) | std::views::transform(cast_to_updatable))
         {
             updatables.push_back(u);
         }
     };
 
-    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_object, add_updatable);
+    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_entity, add_updatable);
 
     for (updatable *u : updatables)
     {
@@ -180,15 +180,15 @@ void app::render()
 {
     std::map<int, std::vector<renderer *>> rendering_layers;
     
-    auto add_layer = [&rendering_layers](game_object *object)
+    auto add_layer = [&rendering_layers](entity *entity)
     {
-        for (renderer *r : object->all_attached_components<renderer>())
+        for (renderer *r : entity->all_attached_components<renderer>())
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
     };
 
-    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_object, add_layer);
+    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_entity, add_layer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
 

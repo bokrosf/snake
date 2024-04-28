@@ -12,7 +12,7 @@ void collision_engine::detect_collisions(const scene &scene)
 
     for (box_collider *current : colliders)
     {
-        std::unordered_set<game_object *> collided_objects;
+        std::unordered_set<entity *> collided_entities;
         
         for (box_collider *other : colliders | std::views::filter([current](box_collider *c) { return c != current; }))
         {
@@ -22,11 +22,11 @@ void collision_engine::detect_collisions(const scene &scene)
             
             if (std::abs(difference.x()) < x_threshold && std::abs(difference.y()) < y_threshold)
             {
-                collided_objects.insert(&other->attached_to());
+                collided_entities.insert(&other->attached_to());
             }
         }
 
-        notify_collided_objects(*current, collided_objects);
+        notify_collided_entities(*current, collided_entities);
     }
 }
 
@@ -34,26 +34,26 @@ std::vector<box_collider *> collision_engine::collect_colliders(const scene &sce
 {
     std::vector<box_collider *> colliders;
 
-    auto add_collider = [&colliders](game_object *object)
+    auto add_collider = [&colliders](entity *entity)
     {
         auto collider_filter = [](box_collider *c) { return c->active(); };
 
-        for (box_collider *c : object->all_attached_components<box_collider>() | std::views::filter(collider_filter))
+        for (box_collider *c : entity->all_attached_components<box_collider>() | std::views::filter(collider_filter))
         {
             colliders.push_back(c);
         }
     };
 
-    scene_traversal::traverse(scene, scene_traversal::filter_active_object, add_collider);
+    scene_traversal::traverse(scene, scene_traversal::filter_active_entity, add_collider);
 
     return colliders;
 }
 
-void collision_engine::notify_collided_objects(box_collider &collider, const std::unordered_set<game_object *> &collided_objects) const
+void collision_engine::notify_collided_entities(box_collider &collider, const std::unordered_set<entity *> &collided_entities) const
 {
     collision collision{collider};
 
-    for (game_object *collided_with : collided_objects)
+    for (entity *collided_with : collided_entities)
     {
         for (component *c : collided_with->all_attached_components<component>())
         {

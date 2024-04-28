@@ -1,6 +1,6 @@
 #include "wall.h"
 
-wall::wall(game_object &attached_to, const vector2 &position, const vector2 &area)
+wall::wall(entity &attached_to, const vector2 &position, const vector2 &area)
     : behavior(attached_to)
     , _position(position)
     , _area(area)

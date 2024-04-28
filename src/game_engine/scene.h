@@ -5,33 +5,33 @@
 #include <queue>
 #include <ranges>
 #include "component/component.h"
-#include <game_engine/game_object.h>
+#include <game_engine/entity.h>
 
 class scene
 {
 public:
     virtual ~scene();
     virtual void initialize() = 0;
-    void update_root_status(game_object &object);
+    void update_root_status(entity &entity);
     void register_added_component(component &added);
     void initialize_components();    
     void mark_as_destroyed(component &component);
-    void mark_as_destroyed(game_object &object);
+    void mark_as_destroyed(entity &entity);
     void destroy_marked_objects();
 
-    auto root_objects() const
+    auto root_entities() const
     {
-        return std::views::all(_root_objects);
+        return std::views::all(_root_entities);
     }
 protected:
     scene() = default;
 private:
-    std::unordered_set<game_object *> _root_objects;
+    std::unordered_set<entity *> _root_entities;
     std::queue<component *> _components_to_initialize;
-    std::unordered_set<game_object *> _objects_with_destroyed_component;
-    std::unordered_set<game_object *> _objects_to_destroy;
+    std::unordered_set<entity *> _entities_with_destroyed_component;
+    std::unordered_set<entity *> _entities_to_destroy;
     void destroy_components();
-    void destroy_game_objects();
+    void destroy_entities();
 };
 
 #endif

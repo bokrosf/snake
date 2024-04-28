@@ -8,7 +8,7 @@
 class snake_controller : public behavior, public updatable
 {
 public:
-    snake_controller(game_object &attached_to);
+    snake_controller(entity &attached_to);
     void initialize() override;
     void update() override;
 private:

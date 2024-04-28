@@ -1,23 +1,23 @@
-#include <game_engine/game_object.h>
+#include <game_engine/entity.h>
 #include "scene.h"
 
 scene::~scene()
 {
-    for (auto root : _root_objects)
+    for (auto root : _root_entities)
     {
         delete root;
     }
 }
 
-void scene::update_root_status(game_object &object)
+void scene::update_root_status(entity &entity)
 {
-    if (object.parent())
+    if (entity.parent())
     {
-        _root_objects.erase(&object);
+        _root_entities.erase(&entity);
     }
     else
     {
-        _root_objects.insert(&object);
+        _root_entities.insert(&entity);
     }
 }
 
@@ -35,51 +35,51 @@ void scene::initialize_components()
     }
 }
 
-void scene::mark_as_destroyed(game_object &object)
+void scene::mark_as_destroyed(entity &entity)
 {
-    _objects_to_destroy.insert(&object);
+    _entities_to_destroy.insert(&entity);
 }
 
 void scene::mark_as_destroyed(component &component)
 {
-    _objects_with_destroyed_component.insert(&component.attached_to());
+    _entities_with_destroyed_component.insert(&component.attached_to());
 }
 
 void scene::destroy_marked_objects()
 {
     destroy_components();
-    destroy_game_objects();
+    destroy_entities();
 }
 
 void scene::destroy_components()
 {
-    for (game_object *object : _objects_with_destroyed_component)
+    for (entity *entity : _entities_with_destroyed_component)
     {
-        if (!_objects_to_destroy.contains(object))
+        if (!_entities_to_destroy.contains(entity))
         {
-            object->erase_destroyed_components();
+            entity->erase_destroyed_components();
         }
     }
     
-    _objects_with_destroyed_component.clear();
+    _entities_with_destroyed_component.clear();
 }
 
-void scene::destroy_game_objects()
+void scene::destroy_entities()
 {
-    for (auto destroyed : _objects_to_destroy)
+    for (auto destroyed : _entities_to_destroy)
     {
         destroyed->attach_to(nullptr);
     }
 
-    for (auto destroyed : _objects_to_destroy)
+    for (auto destroyed : _entities_to_destroy)
     {
-        _root_objects.erase(destroyed);
+        _root_entities.erase(destroyed);
     }
 
-    for (auto destroyed : _objects_to_destroy)
+    for (auto destroyed : _entities_to_destroy)
     {
         delete destroyed;
     }
 
-    _objects_to_destroy.clear();
+    _entities_to_destroy.clear();
 }

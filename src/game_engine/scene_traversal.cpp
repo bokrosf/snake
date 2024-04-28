@@ -2,29 +2,29 @@
 #include <ranges>
 #include "scene_traversal.h"
 
-bool scene_traversal::filter_active_object(const game_object *object)
+bool scene_traversal::filter_active_entity(const entity *entity)
 {
-    return object->active();
+    return entity->active();
 }
 
-void scene_traversal::traverse(const scene &scene, std::function<bool(const game_object *)> filter, std::function<void(game_object *)> operation)
+void scene_traversal::traverse(const scene &scene, std::function<bool(const entity *)> filter, std::function<void(entity *)> operation)
 {
-    std::queue<game_object *> checked_objects;
+    std::queue<entity *> checked_entities;
 
-    for (game_object *object : scene.root_objects() | std::views::filter(filter))
+    for (entity *entity : scene.root_entities() | std::views::filter(filter))
     {
-        checked_objects.push(object);
+        checked_entities.push(entity);
     }
 
-    while (!checked_objects.empty())
+    while (!checked_entities.empty())
     {
-        game_object *object = checked_objects.front();
-        checked_objects.pop();
-        operation(object);
+        entity *entity = checked_entities.front();
+        checked_entities.pop();
+        operation(entity);
 
-        for (game_object *child : object->children() | std::views::filter(filter))
+        for (::entity *child : entity->children() | std::views::filter(filter))
         {
-            checked_objects.push(child);
+            checked_entities.push(child);
         }
     }
 }
