@@ -2,7 +2,7 @@
 #include <game_engine/game_time.h>
 #include "snake.h"
 
-snake::snake(game_object &attached_to, const vector2 &head, const vector2 &tail)
+snake::snake(entity &attached_to, const vector2 &head, const vector2 &tail)
     : behavior(attached_to)
     , _movement_system(nullptr)
     , _collider(nullptr)

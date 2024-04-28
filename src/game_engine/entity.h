@@ -1,5 +1,5 @@
-#ifndef SNAKE_GAMEENGINE_GAMEOBJECT_H
-#define SNAKE_GAMEENGINE_GAMEOBJECT_H
+#ifndef SNAKE_GAMEENGINE_ENTITY_H
+#define SNAKE_GAMEENGINE_ENTITY_H
 
 #include <vector>
 #include <algorithm>
@@ -16,17 +16,17 @@
 
 class scene;
 
-class game_object : public activatable 
+class entity : public activatable 
 {
 public:
-    game_object(const game_object &other) = delete;
-    game_object(game_object &&other) = delete;
-    ~game_object();
-    static game_object &create();
+    entity(const entity &other) = delete;
+    entity(entity &&other) = delete;
+    ~entity();
+    static entity &create();
     void destroy();
     life_state life_state() const;
-    game_object *parent() const;
-    void attach_to(game_object *new_parent);
+    entity *parent() const;
+    void attach_to(entity *new_parent);
     
     auto children() const
     {
@@ -58,21 +58,21 @@ public:
         requires std::derived_from<T, component>
     void destroy_component();
 private:
-    game_object();
+    entity();
     ::life_state _life_state;
     messenger &_messenger;
-    game_object *_parent;
-    std::vector<game_object *> _children;
+    entity *_parent;
+    std::vector<entity *> _children;
     std::vector<component *> _components;
-    game_object *find_descendant_tree_root(game_object *descendant) const;
-    void change_parent(game_object *object, game_object *new_parent);
+    entity *find_descendant_tree_root(entity *descendant) const;
+    void change_parent(entity *entity, ::entity *new_parent);
     void erase_destroyed_components();
     friend scene;
 };
 
 template<typename T, typename... Args>
     requires std::derived_from<T, component>
-T &game_object::add_component(Args&&... args)
+T &entity::add_component(Args&&... args)
 {
     T *component = nullptr;
     
@@ -94,7 +94,7 @@ T &game_object::add_component(Args&&... args)
 
 template<typename T>
     requires std::derived_from<T, component>
-T *game_object::find_component() const
+T *entity::find_component() const
 {
     auto predicate = [](component *c) { return dynamic_cast<T *>(c); };
     auto it = std::find_if(_components.begin() , _components.end(), predicate);
@@ -104,7 +104,7 @@ T *game_object::find_component() const
 
 template<typename T>
     requires std::derived_from<T, component>
-T &game_object::attached_component() const
+T &entity::attached_component() const
 {
     T *component = find_component<T>();
 
@@ -113,7 +113,7 @@ T &game_object::attached_component() const
 
 template<typename T>
     requires std::derived_from<T, component>
-void game_object::destroy_component()
+void entity::destroy_component()
 {
     if (component *component = find_component<T>())
     {

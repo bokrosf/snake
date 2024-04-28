@@ -1,6 +1,6 @@
 #include "tile_renderer.h"
 
-tile_renderer::tile_renderer(game_object &attached_to, int layer_order, float tile_size)
+tile_renderer::tile_renderer(entity &attached_to, int layer_order, float tile_size)
     : renderer(attached_to, layer_order)
     , _tile_size(tile_size)
 {

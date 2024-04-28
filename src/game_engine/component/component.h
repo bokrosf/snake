@@ -4,7 +4,7 @@
 #include <game_engine/life_state.h>
 #include <game_engine/messaging/messenger.h>
 
-class game_object;
+class entity;
 
 class component
 {
@@ -13,13 +13,13 @@ public:
     virtual void initialize();
     void destroy();
     life_state life_state() const;
-    game_object &attached_to() const;
+    entity &attached_to() const;
 protected:
-    component(game_object &attached_to);
+    component(entity &attached_to);
     virtual void detach();
 private:
     ::life_state _life_state;
-    game_object &_attached_to;
+    entity &_attached_to;
     messenger &_messenger;
 };
 

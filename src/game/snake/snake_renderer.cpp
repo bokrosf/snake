@@ -1,6 +1,6 @@
 #include "snake_renderer.h"
 
-snake_renderer::snake_renderer(game_object& attached_to, int layer_order, float thickness)
+snake_renderer::snake_renderer(entity& attached_to, int layer_order, float thickness)
     : renderer(attached_to, layer_order)
     , _snake(nullptr)
     , _thickness(thickness)

@@ -10,14 +10,14 @@ template<typename Ability>
 class magic_food : public food
 {
 public:
-    magic_food(game_object &attached_to, const vector2 &position, float nutritional_value);
+    magic_food(entity &attached_to, const vector2 &position, float nutritional_value);
 protected:
     void eat(snake &snake) override;
 };
 
 template<typename Ability>
     requires std::derived_from<Ability, component>
-magic_food<Ability>::magic_food(game_object &attached_to, const vector2 &position, float nutritional_value)
+magic_food<Ability>::magic_food(entity &attached_to, const vector2 &position, float nutritional_value)
     : food(attached_to, position, nutritional_value)
 {
 }

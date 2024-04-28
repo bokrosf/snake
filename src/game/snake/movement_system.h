@@ -20,7 +20,7 @@ struct turning_correction
 class movement_system : public component
 {
 public:
-    movement_system(game_object &attached_to);
+    movement_system(entity &attached_to);
     virtual segment_correction correct_segments(const vector2 &start, const vector2 &end) const = 0;
     virtual turning_correction correct_turning(const vector2& head_position, const vector2 &turn_direction) const = 0;
 };

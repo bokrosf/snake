@@ -7,7 +7,7 @@ add_executable(snake
   src/main.cpp
   src/game_engine/activatable.cpp
   src/game_engine/app.cpp
-  src/game_engine/game_object.cpp
+  src/game_engine/entity.cpp
   src/game_engine/game_time.cpp
   src/game_engine/input.cpp
   src/game_engine/scene_traversal.cpp

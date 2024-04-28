@@ -7,7 +7,7 @@
 class wall : public behavior
 {
 public:
-    wall(game_object &attached_to, const vector2 &position, const vector2 &area);
+    wall(entity &attached_to, const vector2 &position, const vector2 &area);
     const vector2 &position() const;
     const vector2 &area() const;
 private:

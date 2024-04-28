@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include "food_renderer.h"
 
-food_renderer::food_renderer(game_object &attached_to, int layer_order, float thickness)
+food_renderer::food_renderer(entity &attached_to, int layer_order, float thickness)
     : renderer(attached_to, layer_order)
     , _thickness(thickness)
     , _food(nullptr)

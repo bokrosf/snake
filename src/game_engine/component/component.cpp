@@ -1,7 +1,7 @@
 #include <game_engine/component_destroyed.h>
 #include "component.h"
 
-component::component(game_object &attached_to)
+component::component(entity &attached_to)
     : _life_state(life_state::alive)
     , _attached_to(attached_to)
     , _messenger(messenger::instance())
@@ -29,7 +29,7 @@ life_state component::life_state() const
     return _life_state;
 }
 
-game_object &component::attached_to() const
+entity &component::attached_to() const
 {
     return _attached_to;
 }

@@ -1,6 +1,6 @@
 #include "snake_special_ability.h"
 
-snake_special_ability::snake_special_ability(game_object &attached_to)
+snake_special_ability::snake_special_ability(entity &attached_to)
     : component(attached_to)
 {
 }

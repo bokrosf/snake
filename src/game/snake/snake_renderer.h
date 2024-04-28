@@ -7,7 +7,7 @@
 class snake_renderer : public renderer
 {
 public:
-    snake_renderer(game_object &attached_to, int layer_order, float thickness);
+    snake_renderer(entity &attached_to, int layer_order, float thickness);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

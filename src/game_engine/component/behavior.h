@@ -7,7 +7,7 @@
 class behavior : public component, public activatable
 {
 protected:
-    behavior(game_object &attached_to);
+    behavior(entity &attached_to);
 };
 
 #endif

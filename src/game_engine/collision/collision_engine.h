@@ -3,7 +3,7 @@
 
 #include <unordered_set>
 #include <game_engine/scene.h>
-#include <game_engine/game_object.h>
+#include <game_engine/entity.h>
 #include "box_collider.h"
 #include "collision_handler.h"
 
@@ -14,7 +14,7 @@ public:
     void detect_collisions(const scene &scene);
 private:
     std::vector<box_collider *> collect_colliders(const scene &scene) const;
-    void notify_collided_objects(box_collider &collider, const std::unordered_set<game_object *> &collided_objects) const;
+    void notify_collided_entities(box_collider &collider, const std::unordered_set<entity *> &collided_entities) const;
 };
 
 #endif

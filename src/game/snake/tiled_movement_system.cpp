@@ -2,7 +2,7 @@
 #include "movement_system.h"
 #include "tiled_movement_system.h"
 
-tiled_movement_system::tiled_movement_system(game_object &attached_to, float tile_size)
+tiled_movement_system::tiled_movement_system(entity &attached_to, float tile_size)
     : movement_system(attached_to)
     , _tile_size(tile_size)
 {
