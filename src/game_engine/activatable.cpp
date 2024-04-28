@@ -1,4 +1,4 @@
-#include "activatable.h"
+#include <game_engine/activatable.h>
 
 activatable::activatable()
     : _active(true)

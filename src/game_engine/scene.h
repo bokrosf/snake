@@ -1,10 +1,10 @@
 #ifndef SNAKE_GAMEENGINE_SCENE_H
 #define SNAKE_GAMEENGINE_SCENE_H
 
-#include <unordered_set>
 #include <queue>
 #include <ranges>
-#include "component/component.h"
+#include <unordered_set>
+#include <game_engine/component/component.h>
 #include <game_engine/entity.h>
 
 class scene

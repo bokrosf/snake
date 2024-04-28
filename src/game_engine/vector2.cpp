@@ -1,5 +1,5 @@
 #include <cmath>
-#include "vector2.h"
+#include <game_engine/vector2.h>
 
 vector2::vector2()
     : vector2(0, 0)

@@ -1,18 +1,18 @@
 #ifndef SNAKE_GAMEENGINE_ENTITY_H
 #define SNAKE_GAMEENGINE_ENTITY_H
 
-#include <vector>
 #include <algorithm>
+#include <concepts>
 #include <ranges>
 #include <stdexcept>
-#include <concepts>
+#include <vector>
 #include <utility>
-#include "activatable.h"
-#include "component/component.h"
-#include "component/component_not_found.h"
-#include "life_state.h"
-#include "messaging/messenger.h"
-#include "component_added.h"
+#include <game_engine/activatable.h>
+#include <game_engine/component_added.h>
+#include <game_engine/component/component.h>
+#include <game_engine/component/component_not_found.h>
+#include <game_engine/life_state.h>
+#include <game_engine/messaging/messenger.h>
 
 class scene;
 

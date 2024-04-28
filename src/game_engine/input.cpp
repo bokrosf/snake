@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <utility>
-#include "input.h"
+#include <game_engine/input.h>
 
 namespace
 {

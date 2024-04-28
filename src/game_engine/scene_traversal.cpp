@@ -1,6 +1,6 @@
 #include <queue>
 #include <ranges>
-#include "scene_traversal.h"
+#include <game_engine/scene_traversal.h>
 
 bool scene_traversal::filter_active_entity(const entity *entity)
 {

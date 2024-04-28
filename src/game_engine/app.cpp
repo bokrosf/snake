@@ -1,15 +1,15 @@
 #include <map>
 #include <queue>
-#include <vector>
 #include <ranges>
-#include "app.h"
-#include "component/behavior.h"
-#include "component/renderer.h"
-#include "component/updatable.h"
-#include "game_time.h"
-#include "input.h"
-#include "subsystem_initialization_failed.h"
-#include "scene_traversal.h"
+#include <vector>
+#include <game_engine/app.h>
+#include <game_engine/component/behavior.h>
+#include <game_engine/component/renderer.h>
+#include <game_engine/component/updatable.h>
+#include <game_engine/game_time.h>
+#include <game_engine/input.h>
+#include <game_engine/scene_traversal.h>
+#include <game_engine/subsystem_initialization_failed.h>
 
 app::app(const std::string &app_name)
     : _messenger(messenger::instance())
