@@ -2,8 +2,8 @@
 #define SNAKE_ENGINE_COLLISION_BOXCOLLIDERRENDERER_H
 
 #include <engine/collision/box_collider.h>
-#include <engine/component/renderer.h>
 #include <engine/entity.h>
+#include <engine/rendering/renderer.h>
 
 class box_collider_renderer : public renderer
 {

@@ -13,13 +13,14 @@ add_executable(snake
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
-  src/engine/component/renderer.cpp
   src/engine/display.cpp
   src/engine/entity.cpp
   src/engine/game_time.cpp
   src/engine/input.cpp
   src/engine/logging/logger.cpp
   src/engine/messaging/messenger.cpp
+  src/engine/rendering/renderer.cpp
+  src/engine/rendering/rendering_engine.cpp
   src/engine/scene_traversal.cpp
   src/engine/scene.cpp
   src/engine/subsystem_initialization_failed.cpp

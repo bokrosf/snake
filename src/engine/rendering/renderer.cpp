@@ -1,4 +1,4 @@
-#include <engine/component/renderer.h>
+#include <engine/rendering/renderer.h>
 
 renderer::renderer(entity &attached_to, int layer_order)
     : component(attached_to)

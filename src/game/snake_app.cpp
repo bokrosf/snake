@@ -2,8 +2,8 @@
 #include <game/scene/test_scene.h>
 #include <game/snake_app.h>
 
-snake_app::snake_app()
-    : app("Snake SDL")
+snake_app::snake_app(const app_configuration &configuration)
+    : app(configuration)
 {
 }
 
