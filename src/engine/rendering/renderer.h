@@ -14,6 +14,7 @@ public:
     void change_material(const ::material &material);
 protected:
     renderer(entity &attached_to, int layer_order);
+    bool use_material_color(SDL_Renderer *renderer);
     
     std::optional<::material> _material;
 private:
