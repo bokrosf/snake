@@ -19,13 +19,10 @@ void food_renderer::initialize()
 
 void food_renderer::render(SDL_Renderer *renderer)
 {
-    if (!_material)
+    if (!use_material_color(renderer))
     {
         return;
     }
-
-    const SDL_Color &color = _material->color;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
     float half_thickness = 0.5F * _thickness;
     vector2 draw_position = _food->position() - vector2(half_thickness - 1, half_thickness - 1);
