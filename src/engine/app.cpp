@@ -96,26 +96,12 @@ void app::shutdown()
 
 void app::handle_user_input()
 {
-    std::vector<SDL_Event> events;
-    SDL_Event current_event;
-
-    while (SDL_PollEvent(&current_event))
+    input::read_events();
+    
+    if (input::occured(SDL_QUIT) || input::key_down(SDLK_ESCAPE))
     {
-        if (current_event.type == SDL_EventType::SDL_QUIT)
-        {
-            _running = false;
-            return;
-        }
-        else if (current_event.key.keysym.sym == SDLK_ESCAPE)
-        {
-            _running = false;
-            return;
-        }
-
-        events.push_back(current_event);
+        _running = false;
     }
-
-    input::update_events(std::move(events));
 }
 
 void app::update_game_state()
