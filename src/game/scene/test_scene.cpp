@@ -22,7 +22,15 @@ void test_scene::initialize()
     const int snake_layer = food_layer + 1;
 
     entity &terrain = entity::create();
-    terrain.add_component<tile_renderer>(terrain_layer, tile_size);
+    tile_renderer_configuration tile_renderer_configuration
+    {
+        .tile_size = tile_size,
+        .center = 0.5F * vector2(1920, 1080),
+        .bounds = 0.5F * vector2(1920, 1080)
+    };
+
+    terrain.add_component<tile_renderer>(terrain_layer, tile_renderer_configuration);
+    terrain.attached_component<tile_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
     snake.add_component<::snake>(vector2(5.5F * tile_size, 5.0F * tile_size), vector2(8.0F * tile_size, 5.0F * tile_size));
