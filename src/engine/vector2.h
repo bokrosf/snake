@@ -15,6 +15,7 @@ public:
     float distance_from(const vector2 &position) const;
     float square_distance_from(const vector2 &position) const;
     vector2 perpendicular() const;
+    vector2 absolute() const;
     static vector2 zero();
     static vector2 up();
     static vector2 down();

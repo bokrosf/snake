@@ -57,6 +57,11 @@ vector2 vector2::perpendicular() const
     return vector2(_y, -_x);
 }
 
+vector2 vector2::absolute() const
+{
+    return vector2(std::abs(_x), std::abs(_y));
+}
+
 vector2 vector2::zero()
 {
     return vector2(0, 0);
