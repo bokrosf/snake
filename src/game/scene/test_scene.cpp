@@ -1,6 +1,8 @@
+#include <SDL2/SDL.h>
 #include <engine/collision/box_collider.h>
 #include <engine/collision/box_collider_renderer.h>
 #include <engine/collision/collision_handler.h>
+#include <engine/display.h>
 #include <engine/entity.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
@@ -15,7 +17,8 @@
 void test_scene::initialize()
 {
     // Write logic to test.
-    const float tile_size = 1920 / 30;
+    const SDL_DisplayMode &display_mode = display::current_mode();
+    const float tile_size = display_mode.w / 30;
     const int terrain_layer = 0;
     const int wall_layer = terrain_layer + 1;
     const int food_layer = terrain_layer + 1;
@@ -25,8 +28,8 @@ void test_scene::initialize()
     tile_renderer_configuration tile_renderer_configuration
     {
         .tile_size = tile_size,
-        .center = 0.5F * vector2(1920, 1080),
-        .bounds = 0.5F * vector2(1920, 1080)
+        .center = 0.5F * vector2(display_mode.w, display_mode.h),
+        .bounds = 0.5F * vector2(display_mode.w, display_mode.h)
     };
 
     terrain.add_component<tile_renderer>(terrain_layer, tile_renderer_configuration);
