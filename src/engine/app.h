@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SDL2/SDL.h>
+#include <engine/app_configuration.h>
 #include <engine/collision/collision_engine.h>
 #include <engine/component_added.h>
 #include <engine/component_destroyed.h>
@@ -30,7 +31,7 @@ public:
     void receive(const component_destroyed &message) final;
     void receive(const entity_parent_changed &message) final;
 protected:
-    app(const std::string &app_name);
+    app(const app_configuration &configuration);
     virtual scene *create_start_scene() = 0;
     
     messenger &_messenger;
@@ -41,11 +42,11 @@ private:
     void handle_user_input();
     void update_game_state();
         
+    const app_configuration _configuration;
     scene *_active_scene;
     bool _running;
     collision_engine _collision_engine;
     rendering_engine _rendering_engine;
-    const std::string _app_name;
 };
 
 #endif

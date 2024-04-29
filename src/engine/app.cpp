@@ -8,11 +8,11 @@
 #include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 
-app::app(const std::string &app_name)
-    : _messenger(messenger::instance())
+app::app(const app_configuration &configuration)
+    : _configuration(configuration)
+    , _messenger(messenger::instance())
     , _active_scene(nullptr)
     , _running(false)
-    , _app_name(app_name)
 {
 }
 
@@ -79,7 +79,7 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
-    display::initialize(_app_name);
+    display::initialize(_configuration.title);
     _rendering_engine.initialize(display::window());
 }
 
