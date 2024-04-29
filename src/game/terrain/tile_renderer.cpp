@@ -13,13 +13,10 @@ tile_renderer::tile_renderer(entity &attached_to, int layer_order, const tile_re
 
 void tile_renderer::render(SDL_Renderer *renderer)
 {
-    if (!_material)
+    if (!use_material_color(renderer))
     {
         return;
     }
-    
-    SDL_Color &color = _material->color;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     
     vector2 start = _configuration.center - _configuration.bounds.absolute();
     vector2 end = _configuration.center + _configuration.bounds.absolute();

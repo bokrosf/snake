@@ -12,13 +12,10 @@ void wall_renderer::initialize()
 
 void wall_renderer::render(SDL_Renderer *renderer)
 {
-    if (!_material)
+    if (!use_material_color(renderer))
     {
         return;
     }
-
-    SDL_Color &color = _material->color;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
     SDL_FRect rect;
     rect.x = _wall->position().x();
