@@ -38,7 +38,6 @@ protected:
 private:
     void initialize_subsystems();
     void shutdown();
-    void shutdown_subsystems();
     void handle_user_input();
     void update_game_state();
         

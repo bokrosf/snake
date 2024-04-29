@@ -90,11 +90,6 @@ void app::shutdown()
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
-    shutdown_subsystems();
-}
-
-void app::shutdown_subsystems()
-{
     display::shutdown();
     SDL_Quit();
 }
