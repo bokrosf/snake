@@ -1,4 +1,5 @@
 #include <cmath>
+#include <stdexcept>
 #include <engine/vector2.h>
 
 vector2::vector2()
@@ -34,6 +35,11 @@ float vector2::square_magnitude() const
 
 vector2 vector2::normalize() const
 {
+    if (*this == zero())
+    {
+        throw std::logic_error("Zero vector does not have a length. It can not be normalized.");
+    }
+    
     return (*this) / magnitude();
 }
 
