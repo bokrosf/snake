@@ -1,4 +1,5 @@
 #include <engine/component/initializable.h>
+#include <engine/component/startable.h>
 #include <engine/entity.h>
 #include <engine/scene.h>
 
@@ -30,10 +31,16 @@ void scene::register_added_component(component &added)
 void scene::initialize_components()
 {
     auto initializable_cast = [](component *c) { return dynamic_cast<initializable *>(c); };
-    
+    auto startable_cast = [](component *c) { return dynamic_cast<startable *>(c); };
+
     for (auto c : _components_to_initialize | std::views::filter(initializable_cast) | std::views::transform(initializable_cast))
     {
         c->initialize();
+    }
+
+    for (auto c : _components_to_initialize | std::views::filter(startable_cast) | std::views::transform(startable_cast))
+    {
+        c->start();
     }
 
     _components_to_initialize.clear();
