@@ -5,11 +5,12 @@
 #include <engine/entity.h>
 #include <engine/collision/box_collider.h>
 #include <engine/component/behavior.h>
+#include <engine/component/initializable.h>
 #include <engine/component/updatable.h>
 #include <engine/vector2.h>
 #include <game/snake/movement_system.h>
 
-class snake : public behavior, public updatable
+class snake : public behavior, public initializable, public updatable
 {
 public:
     snake(entity &attached_to, const vector2 &head, const vector2 &tail);

@@ -30,7 +30,7 @@ private:
     void destroy_entities();
     
     std::unordered_set<entity *> _root_entities;
-    std::queue<component *> _components_to_initialize;
+    std::unordered_set<component *> _components_to_initialize;
     std::unordered_set<entity *> _entities_with_destroyed_component;
     std::unordered_set<entity *> _entities_to_destroy;
 };
