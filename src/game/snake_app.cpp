@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include <game/scene/classic_scene.h>
 #include <game/snake_app.h>
 
