@@ -6,15 +6,17 @@
 #include <engine/collision/box_collider.h>
 #include <engine/component/behavior.h>
 #include <engine/component/initializable.h>
+#include <engine/component/startable.h>
 #include <engine/component/updatable.h>
 #include <engine/vector2.h>
 #include <game/snake/movement_system.h>
 
-class snake : public behavior, public initializable, public updatable
+class snake : public behavior, public initializable, public startable, public updatable
 {
 public:
     snake(entity &attached_to, const vector2 &head, const vector2 &tail);
     void initialize() override;
+    void start() override;
     void update() override;
     void look_in_direction(const vector2 &direction);
     void adjust_speed(float speed);

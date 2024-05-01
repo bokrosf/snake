@@ -17,6 +17,11 @@ vector2 tile_maze::center() const
     return _center;
 }
 
+float tile_maze::tile_size() const
+{
+    return _tile_size;
+}
+
 vector2 tile_maze::tile_center(const vector2 &position) const
 {
     vector2 difference = _center.points_to(position);

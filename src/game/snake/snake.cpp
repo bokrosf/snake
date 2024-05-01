@@ -22,6 +22,10 @@ void snake::initialize()
 {    
     _collider = &attached_to().attached_component<box_collider>();
     _movement_system = &attached_to().attached_component<movement_system>();
+}
+
+void snake::start()
+{
     segment_correction correction = _movement_system->correct_segments(_segments.front(), _segments.back());
     _head_direction = correction.end.points_to(correction.start).normalize();
     _segments.front() = correction.start;
