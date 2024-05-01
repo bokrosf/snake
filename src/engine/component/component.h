@@ -10,7 +10,6 @@ class component
 {
 public:
     virtual ~component() = default;
-    virtual void initialize();
     void destroy();
     life_state life_state() const;
     entity &attached_to() const;

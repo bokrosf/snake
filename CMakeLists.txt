@@ -27,7 +27,7 @@ add_executable(snake
   src/engine/vector2.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
-  src/game/scene/test_scene.cpp
+  src/game/scene/classic_scene.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
@@ -37,6 +37,7 @@ add_executable(snake
   src/game/special_ability/snake_special_ability.cpp
   src/game/special_ability/special_ability_slot.cpp
   src/game/terrain/tile_renderer.cpp
+  src/game/tile_maze.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 

@@ -1,3 +1,5 @@
+#include <engine/component/initializable.h>
+#include <engine/component/startable.h>
 #include <engine/entity.h>
 #include <engine/scene.h>
 
@@ -23,16 +25,25 @@ void scene::update_root_status(entity &entity)
 
 void scene::register_added_component(component &added)
 {
-    _components_to_initialize.push(&added);
+    _components_to_initialize.insert(&added);
 }
 
 void scene::initialize_components()
 {
-    while (!_components_to_initialize.empty())
+    auto initializable_cast = [](component *c) { return dynamic_cast<initializable *>(c); };
+    auto startable_cast = [](component *c) { return dynamic_cast<startable *>(c); };
+
+    for (auto c : _components_to_initialize | std::views::filter(initializable_cast) | std::views::transform(initializable_cast))
     {
-        _components_to_initialize.front()->initialize();
-        _components_to_initialize.pop();
+        c->initialize();
     }
+
+    for (auto c : _components_to_initialize | std::views::filter(startable_cast) | std::views::transform(startable_cast))
+    {
+        c->start();
+    }
+
+    _components_to_initialize.clear();
 }
 
 void scene::mark_as_destroyed(entity &entity)

@@ -8,10 +8,6 @@ component::component(entity &attached_to)
 {
 }
 
-void component::initialize()
-{
-}
-
 void component::destroy()
 {
     if (_life_state == life_state::destroyed)
