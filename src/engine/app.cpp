@@ -1,11 +1,7 @@
-#include <vector>
 #include <engine/app.h>
-#include <engine/component/behavior.h>
-#include <engine/component/updatable.h>
 #include <engine/display.h>
 #include <engine/game_time.h>
 #include <engine/input.h>
-#include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 
 app::app(const app_configuration &configuration)
@@ -38,7 +34,7 @@ void app::run()
         _active_scene->initialize_components();
         _collision_engine.detect_collisions(*_active_scene);
         handle_user_input();
-        update_game_state();
+        _gameplay_engine.update(*_active_scene);
         _active_scene->destroy_marked_objects();
         _rendering_engine.render(*_active_scene);
         game_time::end_frame();
@@ -101,28 +97,5 @@ void app::handle_user_input()
     if (input::occured(SDL_QUIT) || input::key_down(SDLK_ESCAPE))
     {
         _running = false;
-    }
-}
-
-void app::update_game_state()
-{
-    std::vector<updatable *> updatables;
-    
-    auto add_updatable = [&updatables](entity *entity)
-    {
-        auto cast_to_updatable = [](behavior *b) { return dynamic_cast<updatable *>(b); };
-        auto filter = [cast_to_updatable](behavior *b) { return cast_to_updatable(b) && b->active(); };
-        
-        for (updatable *u : entity->all_attached_components<behavior>() | std::views::filter(filter) | std::views::transform(cast_to_updatable))
-        {
-            updatables.push_back(u);
-        }
-    };
-
-    scene_traversal::traverse(*_active_scene, scene_traversal::filter_active_entity, add_updatable);
-
-    for (updatable *u : updatables)
-    {
-        u->update();
     }
 }
