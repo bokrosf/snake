@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_APP_H
-#define SNAKE_ENGINE_APP_H
+#ifndef ENGINE_APP_H
+#define ENGINE_APP_H
 
 #include <string>
 #include <SDL2/SDL.h>

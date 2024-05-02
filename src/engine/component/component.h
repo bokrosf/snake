@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COMPONENT_COMPONENT_H
-#define SNAKE_ENGINE_COMPONENT_COMPONENT_H
+#ifndef ENGINE_COMPONENT_COMPONENT_H
+#define ENGINE_COMPONENT_COMPONENT_H
 
 #include <engine/life_state.h>
 #include <engine/messaging/messenger.h>

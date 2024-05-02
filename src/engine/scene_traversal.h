@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_SCENETRAVERSAL_H
-#define SNAKE_ENGINE_SCENETRAVERSAL_H
+#ifndef ENGINE_SCENETRAVERSAL_H
+#define ENGINE_SCENETRAVERSAL_H
 
 #include <functional>
 #include <engine/scene.h>

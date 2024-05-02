@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COMPONENTADDED_H
-#define SNAKE_ENGINE_COMPONENTADDED_H
+#ifndef ENGINE_COMPONENTADDED_H
+#define ENGINE_COMPONENTADDED_H
 
 #include <engine/component/component.h>
 

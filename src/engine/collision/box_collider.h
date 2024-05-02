@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COLLISION_BOXCOLLIDER_H
-#define SNAKE_ENGINE_COLLISION_BOXCOLLIDER_H
+#ifndef ENGINE_COLLISION_BOXCOLLIDER_H
+#define ENGINE_COLLISION_BOXCOLLIDER_H
 
 #include <engine/component/behavior.h>
 #include <engine/vector2.h>

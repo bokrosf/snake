@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COLLISION_BOXCOLLIDERRENDERER_H
-#define SNAKE_ENGINE_COLLISION_BOXCOLLIDERRENDERER_H
+#ifndef ENGINE_COLLISION_BOXCOLLIDERRENDERER_H
+#define ENGINE_COLLISION_BOXCOLLIDERRENDERER_H
 
 #include <engine/collision/box_collider.h>
 #include <engine/component/initializable.h>

@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COLLISION_COLLISIONENGINE_H
-#define SNAKE_ENGINE_COLLISION_COLLISIONENGINE_H
+#ifndef ENGINE_COLLISION_COLLISIONENGINE_H
+#define ENGINE_COLLISION_COLLISIONENGINE_H
 
 #include <unordered_set>
 #include <engine/collision/box_collider.h>

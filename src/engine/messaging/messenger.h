@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_MESSAGING_MESSENGER_H
-#define SNAKE_ENGINE_MESSAGING_MESSENGER_H
+#ifndef ENGINE_MESSAGING_MESSENGER_H
+#define ENGINE_MESSAGING_MESSENGER_H
 
 #include <typeindex>
 #include <unordered_map>
