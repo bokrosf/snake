@@ -25,14 +25,8 @@ segment_correction tiled_movement_system::correct_segments(const vector2 &start,
 
 turning_correction tiled_movement_system::correct_turning(const vector2 &head_position, const vector2 &turn_direction) const
 {
-    vector2 corrected_look_direction = project_longer_axis(turn_direction).normalize();
     vector2 break_point = _tile_maze->tile_center(head_position);
-    
-    if (break_point.distance_from(head_position) > 0.5F * _tile_maze->tile_size())
-    {
-        break_point += _tile_maze->tile_size() * break_point.points_to(head_position).normalize();
-    }
-
+    vector2 corrected_look_direction = project_longer_axis(turn_direction).normalize();
     vector2 corrected_head_position = break_point + (0.5F * _tile_maze->tile_size() * corrected_look_direction);
     std::vector<vector2> head_segments = { break_point, corrected_head_position };
 

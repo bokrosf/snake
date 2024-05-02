@@ -25,7 +25,7 @@ float tile_maze::tile_size() const
 vector2 tile_maze::tile_center(const vector2 &position) const
 {
     vector2 difference = _center.points_to(position);
-    vector2 difference_in_tiles = (difference / _tile_size).truncate();
+    vector2 difference_in_tiles = (difference / _tile_size).round();
 
     return _center + _tile_size * difference_in_tiles;
 }
