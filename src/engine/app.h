@@ -1,8 +1,6 @@
 #ifndef ENGINE_APP_H
 #define ENGINE_APP_H
 
-#include <string>
-#include <SDL2/SDL.h>
 #include <engine/app_configuration.h>
 #include <engine/collision/collision_engine.h>
 #include <engine/component_added.h>
