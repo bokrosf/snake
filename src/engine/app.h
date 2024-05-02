@@ -1,8 +1,6 @@
 #ifndef ENGINE_APP_H
 #define ENGINE_APP_H
 
-#include <string>
-#include <SDL2/SDL.h>
 #include <engine/app_configuration.h>
 #include <engine/collision/collision_engine.h>
 #include <engine/component_added.h>
@@ -10,6 +8,7 @@
 #include <engine/entity_created.h>
 #include <engine/entity_destroyed.h>
 #include <engine/entity_parent_changed.h>
+#include <engine/gameplay_engine.h>
 #include <engine/messaging/messenger.h>
 #include <engine/messaging/recipient.h>
 #include <engine/rendering/rendering_engine.h>
@@ -39,12 +38,12 @@ private:
     void initialize_subsystems();
     void shutdown();
     void handle_user_input();
-    void update_game_state();
         
     const app_configuration _configuration;
     scene *_active_scene;
     bool _running;
     collision_engine _collision_engine;
+    gameplay_engine _gameplay_engine;
     rendering_engine _rendering_engine;
 };
 
