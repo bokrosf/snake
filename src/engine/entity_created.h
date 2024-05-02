@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_ENTITYCREATED_H
-#define SNAKE_ENGINE_ENTITYCREATED_H
+#ifndef ENGINE_ENTITYCREATED_H
+#define ENGINE_ENTITYCREATED_H
 
 #include <engine/entity.h>
 

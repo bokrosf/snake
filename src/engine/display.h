@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_DISPLAY_H
-#define SNAKE_ENGINE_DISPLAY_H
+#ifndef ENGINE_DISPLAY_H
+#define ENGINE_DISPLAY_H
 
 #include <string>
 #include <SDL2/SDL.h>

@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_ENTITY_H
-#define SNAKE_ENGINE_ENTITY_H
+#ifndef ENGINE_ENTITY_H
+#define ENGINE_ENTITY_H
 
 #include <algorithm>
 #include <concepts>

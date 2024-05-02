@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_INPUT_H
-#define SNAKE_ENGINE_INPUT_H
+#ifndef ENGINE_INPUT_H
+#define ENGINE_INPUT_H
 
 #include <SDL2/SDL.h>
 

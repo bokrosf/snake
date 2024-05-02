@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_SCENE_H
-#define SNAKE_ENGINE_SCENE_H
+#ifndef ENGINE_SCENE_H
+#define ENGINE_SCENE_H
 
 #include <queue>
 #include <ranges>

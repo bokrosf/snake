@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_VECTOR2_H
-#define SNAKE_ENGINE_VECTOR2_H
+#ifndef ENGINE_VECTOR2_H
+#define ENGINE_VECTOR2_H
 
 class vector2
 {
