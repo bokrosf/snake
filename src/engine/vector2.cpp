@@ -73,6 +73,11 @@ vector2 vector2::truncate() const
     return vector2(std::trunc(_x), std::trunc(_y));
 }
 
+vector2 vector2::round() const
+{
+    return vector2(std::round(_x), std::round(_y));
+}
+
 vector2 vector2::zero()
 {
     return vector2(0, 0);
