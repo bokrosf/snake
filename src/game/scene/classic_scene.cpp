@@ -28,7 +28,7 @@ namespace
         entity &wall = entity::create();
         wall.add_component<::wall>(position, area);
         wall.add_component<wall_renderer>(wall_layer);
-        wall.add_component<box_collider>(position + 0.5F * area, 0.5F * area);
+        wall.add_component<box_collider>(position, area);
         wall.add_component<box_collider_renderer>(collider_layer);
         wall.attached_component<wall_renderer>().change_material(material{SDL_Color{128, 128, 128, 255}});
     }
@@ -75,8 +75,8 @@ void classic_scene::initialize()
     food.add_component<box_collider_renderer>(99);
     food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
 
-    create_wall(maze.center() + vector2(-0.5F * horizontal_tile_count * tile_size, -0.5F * vertical_tile_count * tile_size), vector2(horizontal_tile_count * tile_size, tile_size));
-    create_wall(maze.center() + vector2(-0.5F * horizontal_tile_count * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size), vector2(horizontal_tile_count * tile_size, tile_size));
-    create_wall(maze.center() + vector2(-0.5F * horizontal_tile_count * tile_size, -0.5F * (vertical_tile_count - 2) * tile_size), vector2(tile_size, (vertical_tile_count - 2) * tile_size));
-    create_wall(maze.center() + vector2(0.5F * (horizontal_tile_count - 2) * tile_size, -0.5F * (vertical_tile_count - 2) * tile_size), vector2(tile_size, (vertical_tile_count - 2) * tile_size));
+    create_wall(maze.center() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+    create_wall(maze.center() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+    create_wall(maze.center() + vector2(-horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+    create_wall(maze.center() + vector2(horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
 }

@@ -17,11 +17,12 @@ void wall_renderer::render(SDL_Renderer *renderer)
         return;
     }
 
+    vector2 rect_position = _wall->position() - _wall->area();
     SDL_FRect rect;
-    rect.x = _wall->position().x();
-    rect.y = _wall->position().y();
-    rect.w = _wall->area().x();
-    rect.h = _wall->area().y();
+    rect.x = rect_position.x();
+    rect.y = rect_position.y();
+    rect.w = 2.0F * _wall->area().x();
+    rect.h = 2.0F * _wall->area().y();
 
     SDL_RenderFillRectF(renderer, &rect);
 }
