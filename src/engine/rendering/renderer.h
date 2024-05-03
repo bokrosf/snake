@@ -3,10 +3,10 @@
 
 #include <optional>
 #include <SDL2/SDL.h>
-#include <engine/component/component.h>
+#include <engine/component/behavior.h>
 #include <engine/rendering/material.h>
 
-class renderer : public component
+class renderer : public behavior
 {
 public:
     virtual void render(SDL_Renderer *renderer) = 0;
