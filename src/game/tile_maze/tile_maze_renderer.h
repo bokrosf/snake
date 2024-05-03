@@ -1,23 +1,21 @@
 #ifndef SNAKE_GAME_TILEMAZE_TILEMAZERENDERER_H
 #define SNAKE_GAME_TILEMAZE_TILEMAZERENDERER_H
 
+#include <engine/component/initializable.h>
+#include <engine/entity.h>
 #include <engine/rendering/renderer.h>
 #include <engine/vector2.h>
+#include <game/tile_maze/tile_maze.h>
 
-struct tile_maze_renderer_configuration
-{
-    const float tile_size;
-    const vector2 center;
-    const vector2 bounds;
-};
-
-class tile_maze_renderer : public renderer
+class tile_maze_renderer : public renderer, public initializable
 {
 public:
-    tile_maze_renderer(entity &attached_to, int layer_order, const tile_maze_renderer_configuration &configuration);
+    tile_maze_renderer(entity &attached_to, int layer_order, const vector2 &bounds);
+    void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:
-    const tile_maze_renderer_configuration _configuration;
+    const vector2 _bounds;
+    const tile_maze *_maze;
 };
 
 #endif

@@ -45,15 +45,8 @@ void classic_scene::initialize()
 
     entity &map = entity::create();
     tile_maze &maze = map.add_component<tile_maze>(0.5F * vector2(display_mode.w, display_mode.h), tile_size);
-
-    tile_maze_renderer_configuration tile_renderer_configuration
-    {
-        .tile_size = tile_size,
-        .center = maze.center(),
-        .bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size)
-    };
-
-    map.add_component<tile_maze_renderer>(terrain_layer, tile_renderer_configuration);
+    vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
+    map.add_component<tile_maze_renderer>(terrain_layer, tile_maze_rendering_bounds);
     map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
