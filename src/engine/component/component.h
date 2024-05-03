@@ -16,10 +16,11 @@ public:
 protected:
     component(entity &attached_to);
     virtual void detach();
+    
+    messenger &_messenger;
 private:
     ::life_state _life_state;
     entity &_attached_to;
-    messenger &_messenger;
 };
 
 #endif
