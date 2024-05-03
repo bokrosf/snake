@@ -1,7 +1,7 @@
 #include <engine/rendering/renderer.h>
 
 renderer::renderer(entity &attached_to, int layer_order)
-    : component(attached_to)
+    : behavior(attached_to)
     , _layer_order(layer_order)
 {
 }

@@ -3,12 +3,13 @@
 
 #include <optional>
 #include <SDL2/SDL.h>
-#include <engine/component/component.h>
+#include <engine/component/behavior.h>
 #include <engine/rendering/material.h>
 
-class renderer : public component
+class renderer : public behavior
 {
 public:
+    ~renderer() override = default;
     virtual void render(SDL_Renderer *renderer) = 0;
     int layer_order() const;
     void change_material(const ::material &material);
