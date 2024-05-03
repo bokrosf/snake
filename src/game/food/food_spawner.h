@@ -3,16 +3,20 @@
 
 #include <engine/component/component.h>
 #include <engine/entity.h>
+#include <engine/component/initializable.h>
 #include <game/game_event.h>
+#include <game/tile_maze/tile_maze.h>
 
-class food_spawner : public component
+class food_spawner : public component, public initializable
 {
 public:
     food_spawner(entity &attached_to, int food_count);
     ~food_spawner() override = default;
+    void initialize() override;
     void spawn();
 private:
     int _remaining_food_count;
+    const tile_maze *_tile_maze;
 };
 
 #endif

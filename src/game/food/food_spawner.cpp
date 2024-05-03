@@ -11,6 +11,11 @@ food_spawner::food_spawner(entity &attached_to, int food_count)
     }
 }
 
+void food_spawner::initialize()
+{
+    _tile_maze = &attached_to().attached_component<tile_maze>();
+}
+
 void food_spawner::spawn()
 {
     if (_remaining_food_count <= 0)
