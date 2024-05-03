@@ -3,7 +3,8 @@
 
 enum class game_event
 {
-    game_lost
+    game_lost,
+    food_eaten
 };
 
 #endif
