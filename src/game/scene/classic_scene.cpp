@@ -64,7 +64,7 @@ void classic_scene::initialize()
     const vector2 food_position = maze.tile_center(maze.center() + vector2(-3.0F * tile_size, 4.0F * tile_size));
     food.add_component<::food>(food_position, tile_size);
     food.add_component<food_renderer>(food_layer, tile_size);
-    food.add_component<box_collider>(food_position, 0.5F * vector2(3 * tile_size, 6 * tile_size));
+    food.add_component<box_collider>(food_position, 0.5F * vector2(tile_size, tile_size));
     food.add_component<box_collider_renderer>(99);
     food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
 
