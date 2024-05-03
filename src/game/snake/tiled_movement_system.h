@@ -4,7 +4,7 @@
 #include <engine/component/initializable.h>
 #include <engine/entity.h>
 #include <game/snake/movement_system.h>
-#include <game/tile_maze.h>
+#include <game/tile_maze/tile_maze.h>
 
 class tiled_movement_system : public movement_system, public initializable
 {

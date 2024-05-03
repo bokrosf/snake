@@ -1,5 +1,5 @@
-#ifndef SNAKE_GAME_TILEMAZE_H
-#define SNAKE_GAME_TILEMAZE_H
+#ifndef SNAKE_GAME_TILEMAZE_TILEMAZE_H
+#define SNAKE_GAME_TILEMAZE_TILEMAZE_H
 
 #include <engine/component/component.h>
 #include <engine/vector2.h>

@@ -37,8 +37,8 @@ add_executable(snake
   src/game/snake/tiled_movement_system.cpp
   src/game/special_ability/snake_special_ability.cpp
   src/game/special_ability/special_ability_slot.cpp
-  src/game/terrain/tile_renderer.cpp
-  src/game/tile_maze.cpp
+  src/game/tile_maze/tile_maze.cpp
+  src/game/tile_maze/tile_maze_renderer.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 

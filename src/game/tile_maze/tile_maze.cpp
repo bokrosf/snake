@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <game/tile_maze.h>
+#include <game/tile_maze/tile_maze.h>
 
 tile_maze::tile_maze(entity &attached_to, const vector2 &center, float tile_size)
     : component(attached_to)

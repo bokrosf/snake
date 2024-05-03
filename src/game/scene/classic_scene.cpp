@@ -10,8 +10,8 @@
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
 #include <game/snake/tiled_movement_system.h>
-#include <game/terrain/tile_renderer.h>
-#include <game/tile_maze.h>
+#include <game/tile_maze/tile_maze.h>
+#include <game/tile_maze/tile_maze_renderer.h>
 #include <game/wall/wall.h>
 #include <game/wall/wall_renderer.h>
 
@@ -46,15 +46,15 @@ void classic_scene::initialize()
     entity &map = entity::create();
     tile_maze &maze = map.add_component<tile_maze>(0.5F * vector2(display_mode.w, display_mode.h), tile_size);
 
-    tile_renderer_configuration tile_renderer_configuration
+    tile_maze_renderer_configuration tile_renderer_configuration
     {
         .tile_size = tile_size,
         .center = maze.center(),
         .bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size)
     };
 
-    map.add_component<tile_renderer>(terrain_layer, tile_renderer_configuration);
-    map.attached_component<tile_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
+    map.add_component<tile_maze_renderer>(terrain_layer, tile_renderer_configuration);
+    map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
     snake.add_component<::snake>(maze.center(), maze.tile_center(maze.center() + vector2(3.0F * tile_size, 0)));

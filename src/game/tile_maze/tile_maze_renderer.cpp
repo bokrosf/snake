@@ -1,7 +1,7 @@
 #include <stdexcept>
-#include <game/terrain/tile_renderer.h>
+#include <game/tile_maze/tile_maze_renderer.h>
 
-tile_renderer::tile_renderer(entity &attached_to, int layer_order, const tile_renderer_configuration &configuration)
+tile_maze_renderer::tile_maze_renderer(entity &attached_to, int layer_order, const tile_maze_renderer_configuration &configuration)
     : renderer(attached_to, layer_order)
     , _configuration(configuration)
 {
@@ -11,7 +11,7 @@ tile_renderer::tile_renderer(entity &attached_to, int layer_order, const tile_re
     }
 }
 
-void tile_renderer::render(SDL_Renderer *renderer)
+void tile_maze_renderer::render(SDL_Renderer *renderer)
 {
     if (!use_material_color(renderer))
     {
