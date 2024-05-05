@@ -21,6 +21,7 @@ void food_spawner::spawn()
     if (_remaining_food_count <= 0)
     {
         _messenger.send(game_event::food_storage_depleted);
+        return;
     }
     
     // TODO 2024-05-03 Generate food between the bounds of the tile_maze.
