@@ -5,6 +5,7 @@
 #include <engine/messaging/messenger.h>
 
 class entity;
+class object_initializer;
 
 class component
 {
@@ -19,6 +20,8 @@ protected:
     
     messenger &_messenger;
 private:
+    friend object_initializer;
+    
     ::life_state _life_state;
     entity &_attached_to;
 };

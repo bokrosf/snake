@@ -12,7 +12,12 @@ void gameplay_engine::update(const scene &scene)
     auto add_updatable = [&updatables](entity *entity)
     {
         auto cast_to_updatable = [](behavior *b) { return dynamic_cast<updatable *>(b); };
-        auto filter = [cast_to_updatable](behavior *b) { return cast_to_updatable(b) && b->active(); };
+        auto filter = [cast_to_updatable](behavior *b) 
+        { 
+            return cast_to_updatable(b) 
+                && b->active()
+                && (b->life_state() == life_state::alive || b->life_state() == life_state::destroyed);
+        };
         
         for (updatable *u : entity->all_attached_components<behavior>() | std::views::filter(filter) | std::views::transform(cast_to_updatable))
         {
@@ -20,7 +25,13 @@ void gameplay_engine::update(const scene &scene)
         }
     };
 
-    scene_traversal::traverse(scene, scene_traversal::filter_active_entity, add_updatable);
+    auto filter = [](const entity *e)
+    {
+        return e->active()
+            && (e->life_state() == life_state::alive || e->life_state() == life_state::destroyed);
+    };
+
+    scene_traversal::traverse(scene, filter, add_updatable);
 
     for (updatable *u : updatables)
     {

@@ -4,8 +4,7 @@
 #include <engine/collision/collision_handler.h>
 #include <engine/display.h>
 #include <engine/entity.h>
-#include <game/food/food.h>
-#include <game/food/food_renderer.h>
+#include <game/food/food_spawner.h>
 #include <game/scene/classic_scene.h>
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
@@ -60,13 +59,9 @@ void classic_scene::initialize()
     snake.attached_component<::snake>().adjust_speed(50);
     snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
 
-    entity &food = entity::create();
-    const vector2 food_position = maze.tile_center(maze.center() + vector2(-3.0F * tile_size, 4.0F * tile_size));
-    food.add_component<::food>(food_position, tile_size);
-    food.add_component<food_renderer>(food_layer, tile_size);
-    food.add_component<box_collider>(food_position, 0.5F * vector2(tile_size, tile_size));
-    food.add_component<box_collider_renderer>(99);
-    food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
+    entity &food_spawner = entity::create();
+    food_spawner.add_component<tile_maze>(0.5F * vector2(display_mode.w, display_mode.h), tile_size);
+    food_spawner.add_component<::food_spawner>(3);
 
     create_wall(maze.center() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
     create_wall(maze.center() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));

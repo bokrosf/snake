@@ -36,7 +36,7 @@ std::vector<box_collider *> collision_engine::collect_colliders(const scene &sce
 
     auto add_collider = [&colliders](entity *entity)
     {
-        auto collider_filter = [](box_collider *c) { return c->active(); };
+        auto collider_filter = [](box_collider *c) { return c->active() && c->life_state() == life_state::alive; };
 
         for (box_collider *c : entity->all_attached_components<box_collider>() | std::views::filter(collider_filter))
         {
@@ -44,7 +44,8 @@ std::vector<box_collider *> collision_engine::collect_colliders(const scene &sce
         }
     };
 
-    scene_traversal::traverse(scene, scene_traversal::filter_active_entity, add_collider);
+    auto filter = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
+    scene_traversal::traverse(scene, filter, add_collider);
 
     return colliders;
 }

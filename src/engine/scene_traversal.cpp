@@ -2,11 +2,6 @@
 #include <ranges>
 #include <engine/scene_traversal.h>
 
-bool scene_traversal::filter_active_entity(const entity *entity)
-{
-    return entity->active();
-}
-
 void scene_traversal::traverse(const scene &scene, std::function<bool(const entity *)> filter, std::function<void(entity *)> operation)
 {
     std::queue<entity *> checked_entities;

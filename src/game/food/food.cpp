@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <game/food/food.h>
+#include <game/game_event.h>
 #include <game/snake/snake.h>
 
 food::food(entity &attached_to, const vector2 &position, float nutritional_value)
@@ -37,4 +38,5 @@ void food::eat(snake &snake)
 void food::feed_snake(snake &snake)
 {
     snake.grow(_nutritional_value);
+    _messenger.send(game_event::food_eaten);
 }

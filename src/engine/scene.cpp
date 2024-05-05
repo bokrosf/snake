@@ -1,6 +1,7 @@
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/entity.h>
+#include <engine/life_state.h>
 #include <engine/scene.h>
 
 scene::~scene()
@@ -23,27 +24,20 @@ void scene::update_root_status(entity &entity)
     }
 }
 
-void scene::register_added_component(component &added)
+void scene::register_created_entity(entity &created)
 {
-    _components_to_initialize.insert(&added);
+    _initializer.add(created);
+    update_root_status(created);
 }
 
-void scene::initialize_components()
+void scene::register_added_component(component &added)
 {
-    auto initializable_cast = [](component *c) { return dynamic_cast<initializable *>(c); };
-    auto startable_cast = [](component *c) { return dynamic_cast<startable *>(c); };
+    _initializer.add(added);
+}
 
-    for (auto c : _components_to_initialize | std::views::filter(initializable_cast) | std::views::transform(initializable_cast))
-    {
-        c->initialize();
-    }
-
-    for (auto c : _components_to_initialize | std::views::filter(startable_cast) | std::views::transform(startable_cast))
-    {
-        c->start();
-    }
-
-    _components_to_initialize.clear();
+void scene::initialize_objects()
+{
+    _initializer.initialize_objects();
 }
 
 void scene::mark_as_destroyed(entity &entity)
