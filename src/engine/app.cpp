@@ -45,7 +45,7 @@ void app::run()
 
 void app::receive(const entity_created &message)
 {
-    _active_scene->register_created_entity(message.created);
+    _active_scene->add(message.created);
 }
 
 void app::receive(const entity_destroyed &message)
@@ -55,7 +55,7 @@ void app::receive(const entity_destroyed &message)
 
 void app::receive(const component_added &message)
 {
-    _active_scene->register_added_component(message.added);
+    _active_scene->add(message.added);
 }
 
 void app::receive(const component_destroyed &message)
