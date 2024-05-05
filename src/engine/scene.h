@@ -14,8 +14,8 @@ public:
     virtual ~scene();
     virtual void initialize() = 0;
     void update_root_status(entity &entity);
-    void register_created_entity(entity &created);
-    void register_added_component(component &added);
+    void add(entity &entity);
+    void add(component &component);
     void initialize_objects();
     void mark_as_destroyed(component &component);
     void mark_as_destroyed(entity &entity);

@@ -24,15 +24,15 @@ void scene::update_root_status(entity &entity)
     }
 }
 
-void scene::register_created_entity(entity &created)
+void scene::add(entity &entity)
 {
-    _initializer.add(created);
-    update_root_status(created);
+    _initializer.add(entity);
+    update_root_status(entity);
 }
 
-void scene::register_added_component(component &added)
+void scene::add(component &component)
 {
-    _initializer.add(added);
+    _initializer.add(component);
 }
 
 void scene::initialize_objects()
