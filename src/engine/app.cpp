@@ -31,7 +31,7 @@ void app::run()
     
     while (_running)
     {
-        _active_scene->initialize_components();
+        _active_scene->initialize_objects();
         _collision_engine.detect_collisions(*_active_scene);
         handle_user_input();
         _gameplay_engine.update(*_active_scene);
@@ -45,7 +45,7 @@ void app::run()
 
 void app::receive(const entity_created &message)
 {
-    _active_scene->update_root_status(message.created);
+    _active_scene->register_created_entity(message.created);
 }
 
 void app::receive(const entity_destroyed &message)

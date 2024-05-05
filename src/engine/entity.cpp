@@ -5,7 +5,7 @@
 #include <engine/component_destroyed.h>
 
 entity::entity()
-    : _life_state(life_state::alive)
+    : _life_state(life_state::initializing)
     , _messenger(messenger::instance())
     , _parent(nullptr)
 {

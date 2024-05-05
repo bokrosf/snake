@@ -2,7 +2,7 @@
 #include <engine/component/component.h>
 
 component::component(entity &attached_to)
-    : _life_state(life_state::alive)
+    : _life_state(life_state::initializing)
     , _attached_to(attached_to)
     , _messenger(messenger::instance())
 {

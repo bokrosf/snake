@@ -45,13 +45,16 @@ void rendering_engine::render(const scene &scene)
     
     auto add_layer = [&rendering_layers](entity *entity)
     {
-        for (renderer *r : entity->all_attached_components<renderer>())
+        auto filter = [](const renderer *r) { return r->active() && r->life_state() == life_state::alive; };
+        
+        for (renderer *r : entity->all_attached_components<renderer>() | std::views::filter(filter))
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
     };
 
-    scene_traversal::traverse(scene, scene_traversal::filter_active_entity, add_layer);
+    auto filter = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
+    scene_traversal::traverse(scene, filter, add_layer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
 

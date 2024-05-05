@@ -3,6 +3,7 @@
 
 enum class life_state
 {
+    initializing,
     alive,
     destroyed
 };
