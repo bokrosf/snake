@@ -7,6 +7,7 @@
 #include <engine/entity.h>
 #include <engine/messaging/recipient.h>
 #include <game/food/food_spawner.h>
+#include <game/game_ending_renderer.h>
 #include <game/game_event.h>
 
 class game_coordinator : public component, public initializable, public startable, public recipient<game_event>
@@ -22,6 +23,7 @@ private:
     void lose_game();
 
     food_spawner *_food_spawner;
+    renderer *_ending_renderer;
 };
 
 #endif
