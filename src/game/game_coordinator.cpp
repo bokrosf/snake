@@ -54,5 +54,11 @@ void game_coordinator::win_game()
 
 void game_coordinator::lose_game()
 {
-    // TODO 2024-05-06 Implement.
+    if (!_ending_renderer->material())
+    {
+        _ending_renderer->change_material(material());
+    }
+
+    _ending_renderer->material()->color = SDL_Color{255, 0, 0, 255};
+    _ending_renderer->activate(true);
 }
