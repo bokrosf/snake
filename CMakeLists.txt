@@ -13,19 +13,26 @@ add_executable(snake
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
-  src/engine/component/renderer.cpp
+  src/engine/display.cpp
   src/engine/entity.cpp
+  src/engine/gameplay_engine.cpp
   src/engine/game_time.cpp
   src/engine/input.cpp
   src/engine/logging/logger.cpp
   src/engine/messaging/messenger.cpp
+  src/engine/object_initializer.cpp
+  src/engine/rendering/renderer.cpp
+  src/engine/rendering/rendering_engine.cpp
   src/engine/scene_traversal.cpp
   src/engine/scene.cpp
   src/engine/subsystem_initialization_failed.cpp
   src/engine/vector2.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
-  src/game/scene/test_scene.cpp
+  src/game/food/food_spawner.cpp
+  src/game/game_coordinator.cpp
+  src/game/game_ending_renderer.cpp
+  src/game/scene/classic_scene.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
@@ -34,7 +41,8 @@ add_executable(snake
   src/game/snake/tiled_movement_system.cpp
   src/game/special_ability/snake_special_ability.cpp
   src/game/special_ability/special_ability_slot.cpp
-  src/game/terrain/tile_renderer.cpp
+  src/game/tile_maze/tile_maze.cpp
+  src/game/tile_maze/tile_maze_renderer.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 

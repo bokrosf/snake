@@ -1,4 +1,7 @@
+#include <engine/component/initializable.h>
+#include <engine/component/startable.h>
 #include <engine/entity.h>
+#include <engine/life_state.h>
 #include <engine/scene.h>
 
 scene::~scene()
@@ -21,18 +24,20 @@ void scene::update_root_status(entity &entity)
     }
 }
 
-void scene::register_added_component(component &added)
+void scene::add(entity &entity)
 {
-    _components_to_initialize.push(&added);
+    _initializer.add(entity);
+    update_root_status(entity);
 }
 
-void scene::initialize_components()
+void scene::add(component &component)
 {
-    while (!_components_to_initialize.empty())
-    {
-        _components_to_initialize.front()->initialize();
-        _components_to_initialize.pop();
-    }
+    _initializer.add(component);
+}
+
+void scene::initialize_objects()
+{
+    _initializer.initialize_objects();
 }
 
 void scene::mark_as_destroyed(entity &entity)

@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_GAMETIME_H
-#define SNAKE_ENGINE_GAMETIME_H
+#ifndef ENGINE_GAMETIME_H
+#define ENGINE_GAMETIME_H
 
 namespace game_time
 {

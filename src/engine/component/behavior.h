@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_COMPONENT_BEHAVIOR_H
-#define SNAKE_ENGINE_COMPONENT_BEHAVIOR_H
+#ifndef ENGINE_COMPONENT_BEHAVIOR_H
+#define ENGINE_COMPONENT_BEHAVIOR_H
 
 #include <engine/activatable.h>
 #include <engine/component/component.h>

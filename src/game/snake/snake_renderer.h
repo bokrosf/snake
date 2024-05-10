@@ -1,10 +1,11 @@
 #ifndef SNAKE_GAME_SNAKE_SNAKERENDERER_H
 #define SNAKE_GAME_SNAKE_SNAKERENDERER_H
 
-#include <engine/component/renderer.h>
+#include <engine/component/initializable.h>
+#include <engine/rendering/renderer.h>
 #include <game/snake/snake.h>
 
-class snake_renderer : public renderer
+class snake_renderer : public renderer, public initializable
 {
 public:
     snake_renderer(entity &attached_to, int layer_order, float thickness);

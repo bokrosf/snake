@@ -1,4 +1,5 @@
 #include <cmath>
+#include <stdexcept>
 #include <engine/vector2.h>
 
 vector2::vector2()
@@ -34,6 +35,11 @@ float vector2::square_magnitude() const
 
 vector2 vector2::normalize() const
 {
+    if (*this == zero())
+    {
+        throw std::logic_error("Zero vector does not have a length. It can not be normalized.");
+    }
+    
     return (*this) / magnitude();
 }
 
@@ -55,6 +61,16 @@ float vector2::square_distance_from(const vector2 &position) const
 vector2 vector2::perpendicular() const
 {
     return vector2(_y, -_x);
+}
+
+vector2 vector2::absolute() const
+{
+    return vector2(std::abs(_x), std::abs(_y));
+}
+
+vector2 vector2::round() const
+{
+    return vector2(std::round(_x), std::round(_y));
 }
 
 vector2 vector2::zero()

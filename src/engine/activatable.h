@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_ACTIVATABLE_H
-#define SNAKE_ENGINE_ACTIVATABLE_H
+#ifndef ENGINE_ACTIVATABLE_H
+#define ENGINE_ACTIVATABLE_H
 
 class activatable
 {

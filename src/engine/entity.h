@@ -1,5 +1,5 @@
-#ifndef SNAKE_ENGINE_ENTITY_H
-#define SNAKE_ENGINE_ENTITY_H
+#ifndef ENGINE_ENTITY_H
+#define ENGINE_ENTITY_H
 
 #include <algorithm>
 #include <concepts>
@@ -15,6 +15,7 @@
 #include <engine/messaging/messenger.h>
 
 class scene;
+class object_initializer;
 
 class entity : public activatable 
 {
@@ -63,6 +64,7 @@ private:
     void change_parent(entity *entity, ::entity *new_parent);
     void erase_destroyed_components();
     friend scene;
+    friend object_initializer;
     
     ::life_state _life_state;
     messenger &_messenger;
