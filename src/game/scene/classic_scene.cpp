@@ -58,7 +58,7 @@ void classic_scene::initialize()
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(maze.center(), vector2(5, 5));
     snake.add_component<box_collider_renderer>(collider_layer);
-    snake.attached_component<::snake>().adjust_speed(50);
+    snake.attached_component<::snake>().adjust_speed(tile_size);
     snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
 
     entity &coordinator = entity::create();
