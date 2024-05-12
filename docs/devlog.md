@@ -11,7 +11,15 @@ Topics to write about
 - app
 - scene
 - logging
-- messaging
+
+# 2024-04-03 | Messaging
+- Objects can send and receive messages from other objects.
+- It must be usable with different types of messages so a message type parameter is needed.
+- It can used when an object wants to notifiy another object but doesn't need to know about the other object.
+- Subscribers must implement the ```recipient<Message>``` interface and override it's ```void receive(const Message &message)``` method.
+- Subscriptions represented as sets of pointers per message types.
+- When a message is sent the set of subscribers is determined by the type of the message. Set of subscriber sets is indexed by the message type.
+Then the code iterates through the appropriate subscriber set and calls the ```receive()``` method on all of them.
 
 # 2024-03-25 | Entity and Component basics
 - I choose the model of Unity in terms of the entity-component architecture.
