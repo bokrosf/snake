@@ -25,8 +25,8 @@ public:
     void activate(scene_id id);
     scene &active() const;
 private:
-    scene_loader::scene_id _last_loaded_id;
-    std::unordered_map<scene_loader::scene_id, scene *> _loaded_scenes;
+    scene_id _last_loaded_id;
+    std::unordered_map<scene_id, scene *> _loaded_scenes;
     scene *_active_scene;
 };
 
