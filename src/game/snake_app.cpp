@@ -1,4 +1,5 @@
 #include <game/scene/classic_scene.h>
+#include <game/scene/scene_navigator.h>
 #include <game/snake_app.h>
 
 snake_app::snake_app(const app_configuration &configuration)
@@ -6,8 +7,13 @@ snake_app::snake_app(const app_configuration &configuration)
 {
 }
 
-scene *snake_app::create_start_scene()
+snake_app::~snake_app()
 {
-    // TODO 2024-04-11 Instantiate game_mode_selector scene.
-    return new classic_scene();
+    scene_navigator::shutdown();
+}
+
+void snake_app::load_start_scene(scene_loader &loader)
+{
+    scene_navigator::initialize(loader);
+    scene_navigator::instance().push<classic_scene>();
 }

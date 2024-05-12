@@ -23,8 +23,9 @@ add_executable(snake
   src/engine/object_initializer.cpp
   src/engine/rendering/renderer.cpp
   src/engine/rendering/rendering_engine.cpp
-  src/engine/scene_traversal.cpp
   src/engine/scene.cpp
+  src/engine/scene_traversal.cpp
+  src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
   src/engine/vector2.cpp
   src/game/food/food.cpp
@@ -33,6 +34,7 @@ add_executable(snake
   src/game/game_coordinator.cpp
   src/game/game_ending_renderer.cpp
   src/game/scene/classic_scene.cpp
+  src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
