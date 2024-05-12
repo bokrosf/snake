@@ -7,7 +7,6 @@
 app::app(const app_configuration &configuration)
     : _configuration(configuration)
     , _messenger(messenger::instance())
-    , _active_scene(nullptr)
     , _running(false)
 {
 }
@@ -25,18 +24,17 @@ void app::run()
     _messenger.subscribe<component_added>(*this);
     _messenger.subscribe<component_destroyed>(*this);
     _messenger.subscribe<entity_parent_changed>(*this);
-    _active_scene = create_start_scene();
-    _active_scene->initialize();
+    load_start_scene(_scene_loader);
     _running = true;
     
     while (_running)
     {
-        _active_scene->initialize_objects();
-        _collision_engine.detect_collisions(*_active_scene);
+        _scene_loader.active().initialize_objects();
+        _collision_engine.detect_collisions(_scene_loader.active());
         handle_user_input();
-        _gameplay_engine.update(*_active_scene);
-        _active_scene->destroy_marked_objects();
-        _rendering_engine.render(*_active_scene);
+        _gameplay_engine.update(_scene_loader.active());
+        _scene_loader.active().destroy_marked_objects();
+        _rendering_engine.render(_scene_loader.active());
         game_time::end_frame();
     }
 
@@ -45,27 +43,27 @@ void app::run()
 
 void app::receive(const entity_created &message)
 {
-    _active_scene->add(message.created);
+    _scene_loader.active().add(message.created);
 }
 
 void app::receive(const entity_destroyed &message)
 {
-    _active_scene->mark_as_destroyed(message.entity);
+    _scene_loader.active().mark_as_destroyed(message.entity);
 }
 
 void app::receive(const component_added &message)
 {
-    _active_scene->add(message.added);
+    _scene_loader.active().add(message.added);
 }
 
 void app::receive(const component_destroyed &message)
 {
-    _active_scene->mark_as_destroyed(message.component);
+    _scene_loader.active().mark_as_destroyed(message.component);
 }
 
 void app::receive(const entity_parent_changed &message)
 {
-    _active_scene->update_root_status(message.entity);
+    _scene_loader.active().update_root_status(message.entity);
 }
 
 void app::initialize_subsystems()

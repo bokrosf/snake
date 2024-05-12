@@ -8,8 +8,9 @@ class snake_app : public app
 {
 public:
     snake_app(const app_configuration &configuration);
+    ~snake_app() override;
 protected:
-    scene *create_start_scene() override;
+    void load_start_scene(scene_loader &loader) override;
 };
 
 #endif

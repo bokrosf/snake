@@ -12,7 +12,7 @@
 #include <engine/messaging/messenger.h>
 #include <engine/messaging/recipient.h>
 #include <engine/rendering/rendering_engine.h>
-#include <engine/scene.h>
+#include <engine/scene_loader.h>
 
 class app : 
     public recipient<entity_created>,
@@ -31,7 +31,7 @@ public:
     void receive(const entity_parent_changed &message) final;
 protected:
     app(const app_configuration &configuration);
-    virtual scene *create_start_scene() = 0;
+    virtual void load_start_scene(scene_loader &loader) = 0;
     
     messenger &_messenger;
 private:
@@ -40,7 +40,7 @@ private:
     void handle_user_input();
         
     const app_configuration _configuration;
-    scene *_active_scene;
+    scene_loader _scene_loader;
     bool _running;
     collision_engine _collision_engine;
     gameplay_engine _gameplay_engine;
