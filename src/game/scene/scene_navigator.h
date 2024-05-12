@@ -35,9 +35,10 @@ template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
 void scene_navigator::push(Args &&...args)
 {
-    scene_loader::scene_id id = _loader.load<Scene>(std::forward<Args>(args)...);
+    auto [id, scene] = _loader.load<Scene>(std::forward<Args>(args)...);
     _scenes.push(id);
     _loader.activate(id);
+    scene.initialize();
 }
 
 template<typename Scene, typename... Args>

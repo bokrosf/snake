@@ -18,7 +18,7 @@ public:
 
     template<typename Scene, typename... Args>
         requires std::derived_from<Scene, scene>
-    scene_id load(Args&&... args);
+    std::tuple<scene_id, Scene &> load(Args&&... args);
 
     void unload(scene_id id);
     void unload_all();
@@ -32,14 +32,13 @@ private:
 
 template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
-scene_loader::scene_id scene_loader::load(Args &&...args)
+std::tuple<scene_loader::scene_id, Scene &> scene_loader::load(Args &&...args)
 {
-    scene *scene = nullptr;
+    Scene *scene = nullptr;
 
     try
     {
         scene = new Scene(std::forward<Args>(args)...);
-        scene->initialize();
         _loaded_scenes[++_last_loaded_id] = scene;
     }
     catch (...)
@@ -48,7 +47,7 @@ scene_loader::scene_id scene_loader::load(Args &&...args)
         throw;
     }
 
-    return _last_loaded_id;
+    return std::make_tuple(_last_loaded_id, std::ref(*scene));
 }
 
 #endif
