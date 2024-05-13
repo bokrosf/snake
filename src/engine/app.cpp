@@ -103,7 +103,7 @@ void app::handle_user_input()
 {
     input::read_events();
     
-    if (input::occured(SDL_QUIT) || input::key_down(SDLK_ESCAPE))
+    if (input::occured(SDL_QUIT))
     {
         _running = false;
     }
