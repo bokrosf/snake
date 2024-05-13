@@ -30,6 +30,7 @@ void app::run()
     
     while (_running)
     {
+        const scene *original_scene = &_scene_loader.active(); 
         _scene_loader.active().initialize_objects();
         _collision_engine.detect_collisions(_scene_loader.active());
         handle_user_input();
@@ -37,7 +38,15 @@ void app::run()
         _scene_loader.active().destroy_marked_objects();
         _rendering_engine.render(_scene_loader.active());
         _scene_loader.commit();
-        game_time::end_frame();
+
+        if (&_scene_loader.active() == original_scene)
+        {
+            game_time::end_frame();
+        }
+        else
+        {
+            game_time::reset_delta_time();
+        }
     }
 
     shutdown();
