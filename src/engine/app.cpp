@@ -25,6 +25,7 @@ void app::run()
     _messenger.subscribe<component_destroyed>(*this);
     _messenger.subscribe<entity_parent_changed>(*this);
     load_start_scene(_scene_loader);
+    _scene_loader.commit();
     _running = true;
     
     while (_running)
@@ -35,6 +36,7 @@ void app::run()
         _gameplay_engine.update(_scene_loader.active());
         _scene_loader.active().destroy_marked_objects();
         _rendering_engine.render(_scene_loader.active());
+        _scene_loader.commit();
         game_time::end_frame();
     }
 

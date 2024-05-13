@@ -42,12 +42,15 @@ void scene_navigator::shutdown()
 
 void scene_navigator::pop()
 {
-    if (_scenes.empty())
+    _loader.queue([this](scene_loader &sl)
     {
-        return;
-    }
+        if (_scenes.empty())
+        {
+            return;
+        }
 
-    _loader.unload(_scenes.top());
-    _scenes.pop();
-    _loader.activate(_scenes.top());
+        sl.unload(_scenes.top());
+        _scenes.pop();
+        sl.activate(_scenes.top());
+    });
 }
