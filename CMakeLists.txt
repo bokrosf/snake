@@ -33,6 +33,7 @@ add_executable(snake
   src/game/food/food_spawner.cpp
   src/game/game_coordinator.cpp
   src/game/game_ending_renderer.cpp
+  src/game/pause_screen.cpp
   src/game/scene/classic_scene.cpp
   src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
