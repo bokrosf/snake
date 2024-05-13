@@ -3,6 +3,7 @@
 
 #include <concepts>
 #include <functional>
+#include <queue>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
@@ -12,6 +13,7 @@ class scene_loader final
 {
 public:
     using scene_id = int;
+    using operation = std::function<void(scene_loader &)>;
 
     scene_loader();
     ~scene_loader();    
@@ -24,10 +26,13 @@ public:
     void unload_all();
     void activate(scene_id id);
     scene &active() const;
+    void queue(operation operation);
+    void commit();
 private:
     scene_id _last_loaded_id;
     std::unordered_map<scene_id, scene *> _loaded_scenes;
     scene *_active_scene;
+    std::queue<operation> _operations;
 };
 
 template<typename Scene, typename... Args>

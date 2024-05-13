@@ -35,24 +35,30 @@ template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
 void scene_navigator::push(Args &&...args)
 {
-    auto [id, scene] = _loader.load<Scene>(std::forward<Args>(args)...);
-    _scenes.push(id);
-    _loader.activate(id);
-    scene.initialize();
+    _loader.queue([this, ...args = std::forward<Args>(args)](scene_loader &sl)
+    {
+        auto [id, scene] = sl.load<Scene>(std::forward<Args>(args)...);
+        _scenes.push(id);
+        sl.activate(id);
+        scene.initialize();
+    });
 }
 
 template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
 void scene_navigator::reset_root(Args &&...args)
 {
-    _loader.unload_all();
-    
-    while (!_scenes.empty())
+    _loader.queue([this, ...args = std::forward<Args>(args)](scene_loader &sl)
     {
-        _scenes.pop();
-    }
+        sl.unload_all();
 
-    push<Scene>(std::forward<Args>(args)...);
+        while (!_scenes.empty())
+        {
+            _scenes.pop();
+        }
+
+        push<Scene>(std::forward<Args>(args)...);
+    });
 }
 
 #endif

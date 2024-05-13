@@ -60,3 +60,17 @@ scene &scene_loader::active() const
 
     return *_active_scene;
 }
+
+void scene_loader::queue(operation operation)
+{
+    _operations.push(operation);
+}
+
+void scene_loader::commit()
+{
+    while (!_operations.empty())
+    {
+        _operations.front()(*this);
+        _operations.pop();
+    }
+}
