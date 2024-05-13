@@ -13,6 +13,13 @@ float game_time::delta_time()
     return delta;
 }
 
+void game_time::reset_delta_time()
+{
+    frame_started_at = SDL_GetTicks64();
+    frame_ended_at = frame_started_at;
+    delta = 0;
+}
+
 void game_time::end_frame()
 {
     frame_ended_at = SDL_GetTicks64();
