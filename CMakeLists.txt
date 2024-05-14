@@ -56,10 +56,12 @@ target_link_directories(snake
 target_link_libraries(snake
   PRIVATE "mingw32"
   PRIVATE "SDL2main"
-  PRIVATE "SDL2")
+  PRIVATE "SDL2"
+  PRIVATE "SDL2_image")
 
 target_include_directories(snake
   PRIVATE "src"
   PRIVATE "lib/SDL2-2.30.2/include")
 
 file(COPY "lib/SDL2-2.30.2/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+file(COPY "lib/SDL2-2.30.2/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
