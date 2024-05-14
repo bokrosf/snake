@@ -13,6 +13,7 @@ add_executable(snake
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
+  src/engine/component/transformation.cpp
   src/engine/display.cpp
   src/engine/entity.cpp
   src/engine/gameplay_engine.cpp
