@@ -66,3 +66,4 @@ target_include_directories(snake
 
 file(COPY "lib/SDL2-2.30.2/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
 file(COPY "lib/SDL2-2.30.2/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+file(COPY "src/game/assets" DESTINATION "${PROJECT_BINARY_DIR}")
