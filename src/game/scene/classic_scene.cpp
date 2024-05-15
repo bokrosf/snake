@@ -58,7 +58,7 @@ void classic_scene::initialize()
     snake.add_component<tiled_movement_system>();
     snake.add_component<snake_renderer>(snake_layer, tile_size);
     snake.add_component<snake_controller>();
-    snake.add_component<box_collider>(vector2(5, 5));
+    snake.add_component<box_collider>(vector2(1, 0.5F * tile_size));
     snake.add_component<box_collider_renderer>(collider_layer);
     snake.attached_component<::snake>().adjust_speed(tile_size);
     snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
