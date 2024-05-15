@@ -15,3 +15,8 @@ const vector2 &box_collider::area() const
 {
     return _area;
 }
+
+void box_collider::area(const vector2 area)
+{
+    _area = area;
+}

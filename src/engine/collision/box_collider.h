@@ -10,6 +10,7 @@ public:
     box_collider(entity &attached_to);
     box_collider(entity &attached_to, const vector2 &area);
     const vector2 &area() const;
+    void area(const vector2 area);
 private:
     vector2 _area;
 };
