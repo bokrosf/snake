@@ -15,7 +15,8 @@ public:
     void destroy();
     life_state life_state() const;
     entity &attached_to() const;
-    transformation &transformation();
+    const transformation &transformation() const;
+    ::transformation &transformation();
 protected:
     component(entity &attached_to);
     virtual void detach();

@@ -31,6 +31,11 @@ entity &component::attached_to() const
     return _attached_to;
 }
 
+const transformation &component::transformation() const
+{
+    return attached_to().transformation();
+}
+
 transformation &component::transformation()
 {
     return attached_to().transformation();
