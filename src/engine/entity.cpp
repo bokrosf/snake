@@ -8,6 +8,7 @@ entity::entity()
     : _life_state(life_state::initializing)
     , _messenger(messenger::instance())
     , _parent(nullptr)
+    , _transformation(nullptr)
 {
 }
 
