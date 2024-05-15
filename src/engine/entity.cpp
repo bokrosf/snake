@@ -1,16 +1,19 @@
+#include <engine/component_destroyed.h>
 #include <engine/entity.h>
 #include <engine/entity_created.h>
 #include <engine/entity_destroyed.h>
 #include <engine/entity_parent_changed.h>
-#include <engine/component_destroyed.h>
+#include <engine/scene.h>
 
-entity::entity()
-    : _life_state(life_state::initializing)
+entity::entity(const std::string &name)
+    : _scene(nullptr)
+    , _life_state(life_state::initializing)
     , _messenger(messenger::instance())
     , _parent(nullptr)
     , _transformation(nullptr)
-{
-}
+    , _name(name)
+    {
+    }
 
 entity::~entity()
 {
@@ -25,22 +28,21 @@ entity::~entity()
     }
 }
 
-entity &entity::create()
+entity &entity::create(const std::string &name)
 {
     entity *entity = nullptr;
 
     try
     {
-        entity = new ::entity();
+        entity = new ::entity(name);
+        messenger::instance().send(entity_created{*entity});
+        entity->_transformation = &entity->add_component<::transformation>();
     }
     catch (...)
     {
         delete entity;
         throw;
     }
-
-    messenger::instance().send(entity_created{*entity});
-    entity->_transformation = &entity->add_component<::transformation>();
 
     return *entity;
 }
@@ -69,6 +71,16 @@ entity *entity::parent() const
 transformation &entity::transformation()
 {
     return *_transformation;
+}
+
+const std::string &entity::name() const
+{
+    return _name;
+}
+
+entity *entity::find(const std::string &name) const
+{
+    return _scene->find_entity(name);
 }
 
 void entity::attach_to(entity *new_parent)

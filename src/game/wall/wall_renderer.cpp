@@ -17,7 +17,7 @@ void wall_renderer::render(SDL_Renderer *renderer)
         return;
     }
 
-    vector2 rect_position = _wall->position() - _wall->area();
+    vector2 rect_position = _wall->transformation().position() - _wall->area();
     SDL_FRect rect;
     rect.x = rect_position.x();
     rect.y = rect_position.y();

@@ -5,6 +5,7 @@
 #include <concepts>
 #include <ranges>
 #include <stdexcept>
+#include <string>
 #include <vector>
 #include <utility>
 #include <engine/activatable.h>
@@ -24,11 +25,13 @@ public:
     entity(const entity &other) = delete;
     entity(entity &&other) = delete;
     ~entity();
-    static entity &create();
+    static entity &create(const std::string &name = std::string());
     void destroy();
     life_state life_state() const;
     entity *parent() const;
     transformation &transformation();
+    const std::string &name() const;
+    entity *find(const std::string &name) const;
     void attach_to(entity *new_parent);
     
     auto children() const
@@ -61,19 +64,21 @@ public:
         requires std::derived_from<T, component>
     void destroy_component();
 private:
-    entity();
+    entity(const std::string &name);
     entity *find_descendant_tree_root(entity *descendant) const;
     void change_parent(entity *entity, ::entity *new_parent);
     void erase_destroyed_components();
     friend scene;
     friend object_initializer;
     
+    scene *_scene;
     ::life_state _life_state;
     messenger &_messenger;
     entity *_parent;
     std::vector<entity *> _children;
     std::vector<component *> _components;
     ::transformation *_transformation;
+    const std::string _name;
 };
 
 template<typename T, typename... Args>

@@ -1,4 +1,5 @@
 #include <cmath>
+#include <game/entity_names.h>
 #include <game/snake/movement_system.h>
 #include <game/snake/tiled_movement_system.h>
 
@@ -10,7 +11,7 @@ tiled_movement_system::tiled_movement_system(entity &attached_to)
 
 void tiled_movement_system::initialize()
 {
-    _tile_maze = &attached_to().attached_component<tile_maze>();
+    _tile_maze = &attached_to().find(entity_names::map)->attached_component<tile_maze>();
 }
 
 segment_correction tiled_movement_system::correct_segments(const vector2 &start, const vector2 &end) const

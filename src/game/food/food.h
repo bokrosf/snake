@@ -10,14 +10,12 @@
 class food : public behavior, public collision_handler
 {
 public:
-    food(entity &attached_to, const vector2 &position, float nutritional_value);
-    const vector2 &position() const;
+    food(entity &attached_to, float nutritional_value);
     void collide(const collision &collision) final;
 protected:
     virtual void eat(snake &snake);
     void feed_snake(snake &snake);
 private:
-    vector2 _position;
     float _nutritional_value;
 };
 

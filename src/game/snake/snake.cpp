@@ -30,12 +30,12 @@ void snake::start()
     _head_direction = correction.end.points_to(correction.start).normalize();
     _segments.front() = correction.start;
     _segments.back() = correction.end;
+    transformation().position(_segments.front());
 }
 
 void snake::update()
 {
     move_forward();
-    _collider->reposition(_segments.front() - (_collider->area().y() * _head_direction));
 }
 
 void snake::look_in_direction(const vector2 &direction)
@@ -58,6 +58,7 @@ void snake::look_in_direction(const vector2 &direction)
         _segments.push_front(position);
     }
 
+    transformation().position(_segments.front());
     float difference = new_head_length - original_head_length;
 
     if (difference > 0)
@@ -90,7 +91,8 @@ void snake::grow(float length)
 void snake::move_forward()
 {
     float moved_distance = game_time::delta_time() * _speed;
-    _segments.front() += moved_distance * _head_direction;
+    transformation().translate(moved_distance * _head_direction);
+    _segments.front() = transformation().position();
     shrink_tail(moved_distance);
 }
 

@@ -3,9 +3,8 @@
 #include <game/game_event.h>
 #include <game/snake/snake.h>
 
-food::food(entity &attached_to, const vector2 &position, float nutritional_value)
+food::food(entity &attached_to, float nutritional_value)
     : behavior(attached_to)
-    , _position(position)
     , _nutritional_value(0)
 {
     if (nutritional_value < 0)
@@ -14,11 +13,6 @@ food::food(entity &attached_to, const vector2 &position, float nutritional_value
     }
 
     _nutritional_value = nutritional_value;
-}
-
-const vector2 &food::position() const
-{
-    return _position;
 }
 
 void food::collide(const collision &collision)
