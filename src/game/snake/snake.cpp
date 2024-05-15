@@ -48,6 +48,7 @@ void snake::look_in_direction(const vector2 &direction)
     }
 
     _head_direction = correction.head_direction;
+    _collider->area(vector2(_collider->area().y(), _collider->area().x()));
     float original_head_length = _segments.cbegin()->distance_from(*++_segments.cbegin());
     _segments.pop_front();
     float new_head_length = 0;
