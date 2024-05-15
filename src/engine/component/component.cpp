@@ -1,5 +1,6 @@
 #include <engine/component_destroyed.h>
 #include <engine/component/component.h>
+#include <engine/entity.h>
 
 component::component(entity &attached_to)
     : _life_state(life_state::initializing)
@@ -28,6 +29,11 @@ life_state component::life_state() const
 entity &component::attached_to() const
 {
     return _attached_to;
+}
+
+transformation &component::transformation()
+{
+    return attached_to().transformation();
 }
 
 void component::detach()

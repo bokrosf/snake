@@ -11,12 +11,12 @@
 #include <engine/component_added.h>
 #include <engine/component/component.h>
 #include <engine/component/component_not_found.h>
-#include <engine/component/transformation.h>
 #include <engine/life_state.h>
 #include <engine/messaging/messenger.h>
 
 class scene;
 class object_initializer;
+class transformation;
 
 class entity : public activatable 
 {
