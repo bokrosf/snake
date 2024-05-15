@@ -16,6 +16,7 @@ add_executable(snake
   src/engine/component/transformation.cpp
   src/engine/display.cpp
   src/engine/entity.cpp
+  src/engine/entity_name_collision.cpp
   src/engine/gameplay_engine.cpp
   src/engine/game_time.cpp
   src/engine/input.cpp
