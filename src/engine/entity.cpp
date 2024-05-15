@@ -39,6 +39,7 @@ entity &entity::create()
     }
 
     messenger::instance().send(entity_created{*entity});
+    entity->_transformation = &entity->add_component<::transformation>();
 
     return *entity;
 }
@@ -62,6 +63,11 @@ life_state entity::life_state() const
 entity *entity::parent() const
 {
     return _parent;
+}
+
+transformation &entity::transformation()
+{
+    return *_transformation;
 }
 
 void entity::attach_to(entity *new_parent)

@@ -11,6 +11,7 @@
 #include <engine/component_added.h>
 #include <engine/component/component.h>
 #include <engine/component/component_not_found.h>
+#include <engine/component/transformation.h>
 #include <engine/life_state.h>
 #include <engine/messaging/messenger.h>
 
@@ -27,6 +28,7 @@ public:
     void destroy();
     life_state life_state() const;
     entity *parent() const;
+    transformation &transformation();
     void attach_to(entity *new_parent);
     
     auto children() const
@@ -71,6 +73,7 @@ private:
     entity *_parent;
     std::vector<entity *> _children;
     std::vector<component *> _components;
+    ::transformation *_transformation;
 };
 
 template<typename T, typename... Args>
