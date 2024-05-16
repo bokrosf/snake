@@ -22,6 +22,7 @@ private:
     };
 
     void add_menu_item(menu_option option, const std::string &image_path);
+    void select_item(size_t index);
 
     std::array<entity *, 2> _menu_items;
     size_t _selected_item_index;

@@ -35,6 +35,8 @@ void pause_screen::initialize()
     {
         _menu_items[i]->transformation().translate(vector2(0, i * (128 + 4 * border_thickness)));
     }
+
+    select_item(static_cast<size_t>(menu_option::resume));
 }
 
 void pause_screen::update()
@@ -42,6 +44,14 @@ void pause_screen::update()
     if (input::key_down(SDLK_ESCAPE) || input::key_down(SDLK_p))
     {
         scene_navigator::instance().pop();
+    }
+    else if (input::key_down(SDLK_UP))
+    {
+        select_item(_selected_item_index + 1);
+    }
+    else if (input::key_down(SDLK_DOWN))
+    {
+        select_item(_selected_item_index - 1);
     }
 }
 
@@ -62,4 +72,12 @@ void pause_screen::add_menu_item(menu_option option, const std::string &image_pa
     image_renderer.change_material(material{.texture_path = image_path});
 
     _menu_items[static_cast<size_t>(option)] = &item;
+}
+
+void pause_screen::select_item(size_t index)
+{
+    _menu_items[_selected_item_index]->attached_component<border_renderer>().activate(false);
+    index %= _menu_items.size();
+    _menu_items[index]->attached_component<border_renderer>().activate(true);
+    _selected_item_index = index;
 }
