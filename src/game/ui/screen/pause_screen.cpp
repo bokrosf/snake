@@ -1,5 +1,5 @@
 #include <engine/input.h>
-#include <game/pause_screen.h>
+#include <game/ui/screen/pause_screen.h>
 #include <game/scene/scene_navigator.h>
 
 pause_screen::pause_screen(entity &attached_to)

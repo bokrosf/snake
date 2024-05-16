@@ -1,5 +1,5 @@
-#ifndef SNAKE_GAME_PAUSESCREEN_H
-#define SNAKE_GAME_PAUSESCREEN_H
+#ifndef SNAKE_GAME_UI_SCREEN_PAUSESCREEN_H
+#define SNAKE_GAME_UI_SCREEN_PAUSESCREEN_H
 
 #include <engine/component/behavior.h>
 #include <engine/component/updatable.h>

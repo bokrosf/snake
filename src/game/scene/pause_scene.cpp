@@ -1,6 +1,6 @@
 #include <engine/entity.h>
 #include <game/scene/pause_scene.h>
-#include <game/pause_screen.h>
+#include <game/ui/screen/pause_screen.h>
 
 void pause_scene::initialize()
 {
