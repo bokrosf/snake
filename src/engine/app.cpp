@@ -1,3 +1,4 @@
+#include <SDL2/SDL.h>
 #include <engine/app.h>
 #include <engine/display.h>
 #include <engine/game_time.h>
