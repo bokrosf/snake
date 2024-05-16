@@ -7,6 +7,7 @@
 namespace asset_paths
 {
     const std::string root = std::filesystem::path("assets").string();
+    const std::string main_menu_image = std::filesystem::path(root).append("ui/main_menu.png").string();
     const std::string exit_image = std::filesystem::path(root).append("ui/exit.png").string();
     
     const std::string main_title_image = std::filesystem::path(root).append("ui/main_screen/title.png").string();
