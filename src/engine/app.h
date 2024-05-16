@@ -2,6 +2,7 @@
 #define ENGINE_APP_H
 
 #include <engine/app_configuration.h>
+#include <engine/app_event.h>
 #include <engine/collision/collision_engine.h>
 #include <engine/component_added.h>
 #include <engine/component_destroyed.h>
@@ -15,6 +16,7 @@
 #include <engine/scene_loader.h>
 
 class app : 
+    public recipient<app_event>,
     public recipient<entity_created>,
     public recipient<entity_destroyed>,
     public recipient<component_added>,
@@ -24,6 +26,7 @@ class app :
 public:
     virtual ~app();
     void run();
+    void receive(const app_event &message) final;
     void receive(const entity_created &message) final;
     void receive(const entity_destroyed &message) final;
     void receive(const component_added &message) final;

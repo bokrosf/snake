@@ -1,7 +1,10 @@
+#include <engine/input.h>
 #include <game/game_coordinator.h>
+#include <game/scene/pause_scene.h>
+#include <game/scene/scene_navigator.h>
 
 game_coordinator::game_coordinator(entity &attached_to)
-    : component(attached_to)
+    : behavior(attached_to)
     , _food_spawner(nullptr)
     , _ending_renderer(nullptr)
 {
@@ -23,6 +26,14 @@ void game_coordinator::start()
 {
     _food_spawner->spawn();
     _ending_renderer->activate(false);
+}
+
+void game_coordinator::update()
+{
+    if (input::key_down(SDLK_ESCAPE) || input::key_down(SDLK_p))
+    {
+        scene_navigator::instance().push<pause_scene>();
+    }
 }
 
 void game_coordinator::receive(const game_event &message)

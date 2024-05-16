@@ -1,6 +1,8 @@
+#include <utility>
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/entity.h>
+#include <engine/entity_name_collision.h>
 #include <engine/life_state.h>
 #include <engine/scene.h>
 
@@ -26,8 +28,14 @@ void scene::update_root_status(entity &entity)
 
 void scene::add(entity &entity)
 {
+    if (!entity.name().empty() && !_named_entities.insert(std::make_pair(entity.name(), &entity)).second)
+    {
+        throw entity_name_collision(std::string("Already exists an entity with name: ").append(entity.name()));
+    }
+    
     _initializer.add(entity);
     update_root_status(entity);
+    entity._scene = this;
 }
 
 void scene::add(component &component)
@@ -56,6 +64,13 @@ void scene::destroy_marked_objects()
     destroy_entities();
 }
 
+entity *scene::find_entity(const std::string &name) const
+{
+    auto it = _named_entities.find(name);
+
+    return it != _named_entities.end() ? it->second : nullptr;
+}
+
 void scene::destroy_components()
 {
     for (entity *entity : _entities_with_destroyed_component)
@@ -74,6 +89,11 @@ void scene::destroy_entities()
     for (auto destroyed : _entities_to_destroy)
     {
         destroyed->attach_to(nullptr);
+        
+        if (!destroyed->name().empty())
+        {
+            _named_entities.erase(destroyed->name());
+        }
     }
 
     for (auto destroyed : _entities_to_destroy)

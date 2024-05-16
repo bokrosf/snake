@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <engine/app.h>
 #include <engine/display.h>
 #include <engine/game_time.h>
@@ -19,6 +21,7 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
+    _messenger.subscribe<app_event>(*this);
     _messenger.subscribe<entity_created>(*this);
     _messenger.subscribe<entity_destroyed>(*this);
     _messenger.subscribe<component_added>(*this);
@@ -30,6 +33,7 @@ void app::run()
     
     while (_running)
     {
+        const scene *original_scene = &_scene_loader.active(); 
         _scene_loader.active().initialize_objects();
         _collision_engine.detect_collisions(_scene_loader.active());
         handle_user_input();
@@ -37,10 +41,26 @@ void app::run()
         _scene_loader.active().destroy_marked_objects();
         _rendering_engine.render(_scene_loader.active());
         _scene_loader.commit();
-        game_time::end_frame();
+
+        if (&_scene_loader.active() == original_scene)
+        {
+            game_time::end_frame();
+        }
+        else
+        {
+            game_time::reset_delta_time();
+        }
     }
 
     shutdown();
+}
+
+void app::receive(const app_event &message)
+{
+    if (message == app_event::exit_requested)
+    {
+        _running = false;
+    }
 }
 
 void app::receive(const entity_created &message)
@@ -75,18 +95,31 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
+    int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
+
+    if (int initialized_flags = IMG_Init(img_flags); initialized_flags != img_flags)
+    {
+        throw subsystem_initialization_failed(
+            std::string("SDL Image initilaization failed. requested: ")
+                .append(std::to_string(img_flags))
+                .append("initialized: ")
+                .append(std::to_string(initialized_flags)));
+    }
+
     display::initialize(_configuration.title);
     _rendering_engine.initialize(display::window());
 }
 
 void app::shutdown()
 {
+    _messenger.unsubscribe<app_event>(*this);
     _messenger.unsubscribe<entity_created>(*this);
     _messenger.unsubscribe<entity_destroyed>(*this);
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
     display::shutdown();
+    IMG_Quit();
     SDL_Quit();
 }
 
@@ -94,7 +127,7 @@ void app::handle_user_input()
 {
     input::read_events();
     
-    if (input::occured(SDL_QUIT) || input::key_down(SDLK_ESCAPE))
+    if (input::occured(SDL_QUIT))
     {
         _running = false;
     }

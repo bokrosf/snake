@@ -13,7 +13,7 @@ public:
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:
-    box_collider *_collider;
+    const box_collider *_collider;
 };
 
 #endif

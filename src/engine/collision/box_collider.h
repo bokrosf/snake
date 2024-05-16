@@ -7,13 +7,11 @@
 class box_collider : public behavior
 {
 public:
-    box_collider(entity &attached_to, const vector2 &center);
-    box_collider(entity &attached_to, const vector2 &center, const vector2 &area);
-    const vector2 &center() const;
-    void reposition(const vector2 &center);
+    box_collider(entity &attached_to);
+    box_collider(entity &attached_to, const vector2 &area);
     const vector2 &area() const;
+    void area(const vector2 area);
 private:
-    vector2 _center;
     vector2 _area;
 };
 

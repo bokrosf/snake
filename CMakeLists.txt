@@ -13,14 +13,17 @@ add_executable(snake
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
+  src/engine/component/transformation.cpp
   src/engine/display.cpp
   src/engine/entity.cpp
+  src/engine/entity_name_collision.cpp
   src/engine/gameplay_engine.cpp
   src/engine/game_time.cpp
   src/engine/input.cpp
   src/engine/logging/logger.cpp
   src/engine/messaging/messenger.cpp
   src/engine/object_initializer.cpp
+  src/engine/rendering/image_renderer.cpp
   src/engine/rendering/renderer.cpp
   src/engine/rendering/rendering_engine.cpp
   src/engine/scene.cpp
@@ -34,6 +37,7 @@ add_executable(snake
   src/game/game_coordinator.cpp
   src/game/game_ending_renderer.cpp
   src/game/scene/classic_scene.cpp
+  src/game/scene/pause_scene.cpp
   src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
   src/game/snake/movement_system.cpp
@@ -45,6 +49,9 @@ add_executable(snake
   src/game/special_ability/special_ability_slot.cpp
   src/game/tile_maze/tile_maze.cpp
   src/game/tile_maze/tile_maze_renderer.cpp
+  src/game/ui/border.cpp
+  src/game/ui/border_renderer.cpp
+  src/game/ui/screen/pause_screen.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 
@@ -54,10 +61,13 @@ target_link_directories(snake
 target_link_libraries(snake
   PRIVATE "mingw32"
   PRIVATE "SDL2main"
-  PRIVATE "SDL2")
+  PRIVATE "SDL2"
+  PRIVATE "SDL2_image")
 
 target_include_directories(snake
   PRIVATE "src"
   PRIVATE "lib/SDL2-2.30.2/include")
 
 file(COPY "lib/SDL2-2.30.2/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+file(COPY "lib/SDL2-2.30.2/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+file(COPY "src/game/assets" DESTINATION "${PROJECT_BINARY_DIR}")

@@ -16,7 +16,7 @@ void collision_engine::detect_collisions(const scene &scene)
         
         for (box_collider *other : colliders | std::views::filter([current](box_collider *c) { return c != current; }))
         {
-            vector2 difference = current->center().points_to(other->center());
+            vector2 difference = current->transformation().position().points_to(other->transformation().position());
             float x_threshold = std::abs(current->area().x()) + std::abs(other->area().x());
             float y_threshold = std::abs(current->area().y()) + std::abs(other->area().y());
             

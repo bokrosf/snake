@@ -14,23 +14,23 @@ void box_collider_renderer::render(SDL_Renderer *renderer)
 {
     SDL_SetRenderDrawColor(renderer, 255, 0, 243, 255);
     
-    vector2 start = _collider->center() + _collider->area();
-    vector2 end = _collider->center() + vector2(-_collider->area().x(), _collider->area().y());
+    vector2 start = _collider->transformation().position() + _collider->area();
+    vector2 end = _collider->transformation().position() + vector2(-_collider->area().x(), _collider->area().y());
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
 
     start = end;
-    end = _collider->center() + vector2(-_collider->area().x(), -_collider->area().y());
+    end = _collider->transformation().position() + vector2(-_collider->area().x(), -_collider->area().y());
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
     
     start = end;
-    end = _collider->center() + vector2(_collider->area().x(), -_collider->area().y());
+    end = _collider->transformation().position() + vector2(_collider->area().x(), -_collider->area().y());
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
     
     start = end;
-    end = _collider->center() + vector2(_collider->area().x(), _collider->area().y());
+    end = _collider->transformation().position() + vector2(_collider->area().x(), _collider->area().y());
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
 
-    start = _collider->center();
-    end = _collider->center() + _collider->area();
+    start = _collider->transformation().position();
+    end = _collider->transformation().position() + _collider->area();
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
 }
