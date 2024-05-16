@@ -50,6 +50,7 @@ add_executable(snake
   src/game/tile_maze/tile_maze.cpp
   src/game/tile_maze/tile_maze_renderer.cpp
   src/game/ui/border.cpp
+  src/game/ui/border_renderer.cpp
   src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 
