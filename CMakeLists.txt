@@ -37,6 +37,7 @@ add_executable(snake
   src/game/game_coordinator.cpp
   src/game/game_ending_renderer.cpp
   src/game/scene/classic_scene.cpp
+  src/game/scene/main_scene.cpp
   src/game/scene/pause_scene.cpp
   src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
