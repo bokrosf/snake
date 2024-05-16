@@ -50,11 +50,11 @@ void menu_screen::interact()
 {
     if (input::key_down(SDLK_UP))
     {
-        select_item(_selected_item_index + 1);
+        select_item(_selected_item_index > 0 ? _selected_item_index - 1 : _menu_items.size() - 1);
     }
     else if (input::key_down(SDLK_DOWN))
     {
-        select_item(_selected_item_index - 1);
+        select_item(_selected_item_index + 1);
     }
     else if (input::key_down(SDLK_RETURN) || input::key_down(SDLK_SPACE))
     {
