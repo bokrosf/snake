@@ -5,6 +5,7 @@
 #include <game/assets/asset_paths.h>
 #include <game/scene/scene_navigator.h>
 #include <game/scene/classic_scene.h>
+#include <game/scene/magic_food_scene.h>
 #include <game/ui/screen/main_screen.h>
 
 namespace
@@ -52,7 +53,7 @@ void main_screen::confirm()
             scene_navigator::instance().reset_root<classic_scene>();
             break;
         case menu_option::magic_food:
-            // TODO 2024-05-16 Navigate to the magic_food scene.
+            scene_navigator::instance().reset_root<magic_food_scene>();
             break;
         case menu_option::exit:
             _messenger.send(app_event::exit_requested);
