@@ -43,7 +43,7 @@ void pause_screen::update()
 {
     if (input::key_down(SDLK_ESCAPE) || input::key_down(SDLK_p))
     {
-        scene_navigator::instance().pop();
+        resume();
     }
     else if (input::key_down(SDLK_UP))
     {
@@ -52,6 +52,10 @@ void pause_screen::update()
     else if (input::key_down(SDLK_DOWN))
     {
         select_item(_selected_item_index - 1);
+    }
+    else if (input::key_down(SDLK_RETURN) || input::key_down(SDLK_SPACE))
+    {
+        confirm();
     }
 }
 
@@ -80,4 +84,21 @@ void pause_screen::select_item(size_t index)
     index %= _menu_items.size();
     _menu_items[index]->attached_component<border_renderer>().activate(true);
     _selected_item_index = index;
+}
+
+void pause_screen::confirm()
+{
+    switch (static_cast<menu_option>(_selected_item_index))
+    {
+        case menu_option::resume:
+            resume();
+            break;
+        case menu_option::exit:
+            break;
+    }
+}
+
+void pause_screen::resume()
+{
+    scene_navigator::instance().pop();
 }
