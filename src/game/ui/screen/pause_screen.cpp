@@ -1,3 +1,4 @@
+#include <engine/app_event.h>
 #include <engine/input.h>
 #include <engine/rendering/image_renderer.h>
 #include <engine/rendering/material.h>
@@ -94,6 +95,7 @@ void pause_screen::confirm()
             resume();
             break;
         case menu_option::exit:
+            _messenger.send(app_event::exit_requested);
             break;
     }
 }
