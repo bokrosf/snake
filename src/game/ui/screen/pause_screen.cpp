@@ -5,6 +5,7 @@
 #include <engine/rendering/material.h>
 #include <game/assets/asset_paths.h>
 #include <game/ui/screen/pause_screen.h>
+#include <game/scene/main_scene.h>
 #include <game/scene/scene_navigator.h>
 
 namespace
@@ -12,6 +13,7 @@ namespace
     enum class menu_option
     {
         resume = 0,
+        main_menu,
         exit
     };
 }
@@ -32,6 +34,7 @@ void pause_screen::initialize()
     title_renderer.change_material(material{.texture_path = asset_paths::pause_title_image});
 
     add_menu_item(asset_paths::resume_image);
+    add_menu_item(asset_paths::main_menu_image);
     add_menu_item(asset_paths::exit_image);
 
     select_item(static_cast<size_t>(menu_option::resume));
@@ -55,6 +58,9 @@ void pause_screen::confirm()
     {
         case menu_option::resume:
             resume();
+            break;
+        case menu_option::main_menu:
+            scene_navigator::instance().reset_root<main_scene>();
             break;
         case menu_option::exit:
             _messenger.send(app_event::exit_requested);
