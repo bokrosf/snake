@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <engine/app.h>
 #include <engine/display.h>
 #include <engine/game_time.h>
@@ -85,6 +86,17 @@ void app::initialize_subsystems()
         throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
 
+    int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
+
+    if (int initialized_flags = IMG_Init(img_flags); initialized_flags != img_flags)
+    {
+        throw subsystem_initialization_failed(
+            std::string("SDL Image initilaization failed. requested: ")
+                .append(std::to_string(img_flags))
+                .append("initialized: ")
+                .append(std::to_string(initialized_flags)));
+    }
+
     display::initialize(_configuration.title);
     _rendering_engine.initialize(display::window());
 }
@@ -97,6 +109,7 @@ void app::shutdown()
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
     display::shutdown();
+    IMG_Quit();
     SDL_Quit();
 }
 
