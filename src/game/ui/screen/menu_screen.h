@@ -12,9 +12,9 @@
 class menu_screen : public behavior, public initializable, public updatable
 {
 public:
-    menu_screen(entity &attached_to, const screen_configuration &configuration);
     virtual ~menu_screen() = default;
 protected:
+    menu_screen(entity &attached_to, const screen_configuration &configuration);
     void add_menu_item(const std::string &image_path);
     size_t selected_item_index() const;
     void select_item(size_t index);
