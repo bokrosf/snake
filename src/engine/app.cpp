@@ -21,6 +21,7 @@ app::~app()
 void app::run()
 {
     initialize_subsystems();
+    _messenger.subscribe<app_event>(*this);
     _messenger.subscribe<entity_created>(*this);
     _messenger.subscribe<entity_destroyed>(*this);
     _messenger.subscribe<component_added>(*this);
@@ -52,6 +53,14 @@ void app::run()
     }
 
     shutdown();
+}
+
+void app::receive(const app_event &message)
+{
+    if (message == app_event::exit_requested)
+    {
+        _running = false;
+    }
 }
 
 void app::receive(const entity_created &message)
@@ -103,6 +112,7 @@ void app::initialize_subsystems()
 
 void app::shutdown()
 {
+    _messenger.unsubscribe<app_event>(*this);
     _messenger.unsubscribe<entity_created>(*this);
     _messenger.unsubscribe<entity_destroyed>(*this);
     _messenger.unsubscribe<component_added>(*this);
