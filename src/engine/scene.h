@@ -22,6 +22,7 @@ public:
     void mark_as_destroyed(component &component);
     void mark_as_destroyed(entity &entity);
     void destroy_marked_objects();
+    void reset();
     entity *find_entity(const std::string &name) const;
 
     auto root_entities() const
