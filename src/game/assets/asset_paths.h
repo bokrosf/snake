@@ -16,6 +16,10 @@ namespace asset_paths
     
     const std::string pause_title_image = std::filesystem::path(root).append("ui/pause_screen/title.png").string();
     const std::string resume_image = std::filesystem::path(root).append("ui/pause_screen/resume.png").string();
+
+    const std::string game_won_title = std::filesystem::path(root).append("ui/game_ending/game_won_title.png").string();
+    const std::string game_lost_title = std::filesystem::path(root).append("ui/game_ending/game_lost_title.png").string();
+    const std::string restart_image = std::filesystem::path(root).append("ui/game_ending/restart.png").string();
 }
 
 #endif
