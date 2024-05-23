@@ -7,7 +7,6 @@
 game_coordinator::game_coordinator(entity &attached_to)
     : behavior(attached_to)
     , _food_spawner(nullptr)
-    , _ending_renderer(nullptr)
 {
 }
 
@@ -19,14 +18,12 @@ game_coordinator::~game_coordinator()
 void game_coordinator::initialize()
 {
     _food_spawner = &attached_to().attached_component<food_spawner>();
-    _ending_renderer = &attached_to().attached_component<game_ending_renderer>();
     _messenger.subscribe<game_event>(*this);
 }
 
 void game_coordinator::start()
 {
     _food_spawner->spawn();
-    _ending_renderer->activate(false);
 }
 
 void game_coordinator::update()

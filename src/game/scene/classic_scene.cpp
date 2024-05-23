@@ -7,7 +7,6 @@
 #include <game/entity_names.h>
 #include <game/food/food_spawner.h>
 #include <game/game_coordinator.h>
-#include <game/game_ending_renderer.h>
 #include <game/scene/classic_scene.h>
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
@@ -70,7 +69,6 @@ void classic_scene::initialize()
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();
     coordinator.add_component<food_spawner>(3);
-    coordinator.add_component<game_ending_renderer>(collider_layer + 1);
 
     create_wall(maze.transformation().position() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
     create_wall(maze.transformation().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
