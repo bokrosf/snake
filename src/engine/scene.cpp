@@ -6,12 +6,22 @@
 #include <engine/life_state.h>
 #include <engine/scene.h>
 
+scene::scene(int id)
+    : _id(id)
+{
+}
+
 scene::~scene()
 {
     for (auto root : _root_entities)
     {
         delete root;
     }
+}
+
+int scene::id() const
+{
+    return _id;
 }
 
 void scene::update_root_status(entity &entity)

@@ -26,9 +26,6 @@ public:
     void update() override;
     void receive(const game_event &message) override;
 private:
-    void win_game();
-    void lose_game();
-
     food_spawner *_food_spawner;
     renderer *_ending_renderer;
 };

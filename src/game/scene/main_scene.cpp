@@ -4,6 +4,11 @@
 #include <game/ui/screen/main_screen.h>
 #include <game/ui/screen/screen_configuration.h>
 
+main_scene::main_scene(int id)
+    : scene(id)
+{
+}
+
 void main_scene::initialize()
 {
     SDL_DisplayMode display_mode = display::current_mode();

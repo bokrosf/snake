@@ -6,6 +6,7 @@
 class classic_scene : public scene
 {
 public:
+    classic_scene(int id);
     void initialize() override;
 };
 

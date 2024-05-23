@@ -15,6 +15,7 @@ class scene
 public:
     virtual ~scene();
     virtual void initialize() = 0;
+    int id() const;
     void update_root_status(entity &entity);
     void add(entity &entity);
     void add(component &component);
@@ -30,11 +31,12 @@ public:
         return std::views::all(_root_entities);
     }
 protected:
-    scene() = default;
+    scene(int id);
 private:
     void destroy_components();
     void destroy_entities();
     
+    const int _id;
     std::unordered_set<entity *> _root_entities;
     std::unordered_set<entity *> _entities_with_destroyed_component;
     std::unordered_set<entity *> _entities_to_destroy;

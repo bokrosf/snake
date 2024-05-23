@@ -37,6 +37,7 @@ add_executable(snake
   src/game/game_coordinator.cpp
   src/game/game_ending_renderer.cpp
   src/game/scene/classic_scene.cpp
+  src/game/scene/game_ending_scene.cpp
   src/game/scene/magic_food_scene.cpp
   src/game/scene/main_scene.cpp
   src/game/scene/pause_scene.cpp
@@ -53,6 +54,7 @@ add_executable(snake
   src/game/tile_maze/tile_maze_renderer.cpp
   src/game/ui/border.cpp
   src/game/ui/border_renderer.cpp
+  src/game/ui/screen/game_ending_screen.cpp
   src/game/ui/screen/main_screen.cpp
   src/game/ui/screen/menu_screen.cpp
   src/game/ui/screen/pause_screen.cpp

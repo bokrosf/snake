@@ -6,6 +6,7 @@
 class main_scene : public scene
 {
 public:
+    main_scene(int id);
     void initialize() override;
 };
 

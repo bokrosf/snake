@@ -1,5 +1,6 @@
 #include <engine/input.h>
 #include <game/game_coordinator.h>
+#include <game/scene/game_ending_scene.h>
 #include <game/scene/pause_scene.h>
 #include <game/scene/scene_navigator.h>
 
@@ -44,32 +45,10 @@ void game_coordinator::receive(const game_event &message)
             _food_spawner->spawn();
             break;
         case game_event::food_storage_depleted:
-            win_game();
+            scene_navigator::instance().push<game_ending_scene>(true);
             break;
         case game_event::game_lost:
-            lose_game();
+            scene_navigator::instance().push<game_ending_scene>(false);
             break;
     }
-}
-
-void game_coordinator::win_game()
-{
-    if (!_ending_renderer->material())
-    {
-        _ending_renderer->change_material(material());
-    }
-
-    _ending_renderer->material()->color = SDL_Color{0, 255, 0, 255};
-    _ending_renderer->activate(true);
-}
-
-void game_coordinator::lose_game()
-{
-    if (!_ending_renderer->material())
-    {
-        _ending_renderer->change_material(material());
-    }
-
-    _ending_renderer->material()->color = SDL_Color{255, 0, 0, 255};
-    _ending_renderer->activate(true);
 }

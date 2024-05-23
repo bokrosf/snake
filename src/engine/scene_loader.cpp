@@ -13,7 +13,7 @@ scene_loader::~scene_loader()
     unload_all();
 }
 
-void scene_loader::unload(scene_loader::scene_id id)
+void scene_loader::unload(int id)
 {
     if (!_loaded_scenes.contains(id))
     {
@@ -41,7 +41,7 @@ void scene_loader::unload_all()
     _active_scene = nullptr;
 }
 
-void scene_loader::activate(scene_loader::scene_id id)
+void scene_loader::activate(int id)
 {
     if (!_loaded_scenes.contains(id))
     {

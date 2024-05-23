@@ -6,6 +6,7 @@
 class magic_food_scene : public scene
 {
 public:
+    magic_food_scene(int id);
     void initialize() override;
 };
 

@@ -37,6 +37,10 @@ namespace
     }
 }
 
+classic_scene::classic_scene(int id)
+    : scene(id)
+{
+}
 
 void classic_scene::initialize()
 {

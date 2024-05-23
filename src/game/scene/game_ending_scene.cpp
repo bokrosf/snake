@@ -1,16 +1,16 @@
 #include <engine/display.h>
 #include <engine/entity.h>
-#include <engine/vector2.h>
-#include <game/scene/pause_scene.h>
-#include <game/ui/screen/pause_screen.h>
+#include <game/scene/game_ending_scene.h>
+#include <game/ui/screen/game_ending_screen.h>
 #include <game/ui/screen/screen_configuration.h>
 
-pause_scene::pause_scene(int id)
+game_ending_scene::game_ending_scene(int id, bool won)
     : scene(id)
+    , _won(won)
 {
 }
 
-void pause_scene::initialize()
+void game_ending_scene::initialize()
 {
     SDL_DisplayMode display_mode = display::current_mode();
     
@@ -23,6 +23,7 @@ void pause_scene::initialize()
     };
 
     configuration.item_spacing = display_mode.h * (128.0F / 1080.0F) + 4.0F * configuration.border_thickness;
+    
     entity &screen = entity::create();
-    screen.add_component<pause_screen>(configuration);
+    screen.add_component<game_ending_screen>(configuration, _won);
 }
