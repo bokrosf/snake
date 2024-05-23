@@ -4,7 +4,6 @@
 #include <concepts>
 #include <functional>
 #include <queue>
-#include <tuple>
 #include <unordered_map>
 #include <utility>
 #include <engine/scene.h>
@@ -12,7 +11,6 @@
 class scene_loader final
 {
 public:
-    using scene_id = int;
     using operation = std::function<void(scene_loader &)>;
 
     scene_loader();
@@ -20,31 +18,31 @@ public:
 
     template<typename Scene, typename... Args>
         requires std::derived_from<Scene, scene>
-    std::tuple<scene_id, Scene &> load(Args&&... args);
+    Scene &load(Args&&... args);
 
-    void unload(scene_id id);
+    void unload(int id);
     void unload_all();
-    void activate(scene_id id);
+    void activate(int id);
     scene &active() const;
     void queue(operation operation);
     void commit();
 private:
-    scene_id _last_loaded_id;
-    std::unordered_map<scene_id, scene *> _loaded_scenes;
+    int _last_loaded_id;
+    std::unordered_map<int, scene *> _loaded_scenes;
     scene *_active_scene;
     std::queue<operation> _operations;
 };
 
 template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
-std::tuple<scene_loader::scene_id, Scene &> scene_loader::load(Args &&...args)
+Scene &scene_loader::load(Args &&...args)
 {
     Scene *scene = nullptr;
 
     try
     {
-        scene = new Scene(std::forward<Args>(args)...);
-        _loaded_scenes[++_last_loaded_id] = scene;
+        scene = new Scene(++_last_loaded_id, std::forward<Args>(args)...);
+        _loaded_scenes[scene->id()] = scene;
     }
     catch (...)
     {
@@ -52,7 +50,7 @@ std::tuple<scene_loader::scene_id, Scene &> scene_loader::load(Args &&...args)
         throw;
     }
 
-    return std::make_tuple(_last_loaded_id, std::ref(*scene));
+    return *scene;
 }
 
 #endif

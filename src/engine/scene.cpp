@@ -6,12 +6,22 @@
 #include <engine/life_state.h>
 #include <engine/scene.h>
 
+scene::scene(int id)
+    : _id(id)
+{
+}
+
 scene::~scene()
 {
     for (auto root : _root_entities)
     {
         delete root;
     }
+}
+
+int scene::id() const
+{
+    return _id;
 }
 
 void scene::update_root_status(entity &entity)
@@ -69,6 +79,22 @@ entity *scene::find_entity(const std::string &name) const
     auto it = _named_entities.find(name);
 
     return it != _named_entities.end() ? it->second : nullptr;
+}
+
+void scene::reset()
+{
+    for (auto e : _root_entities)
+    {
+        delete e;
+    }
+
+    _root_entities.clear();
+    _entities_with_destroyed_component.clear();
+    _entities_to_destroy.clear();
+    _initializer = object_initializer();
+    _named_entities.clear();
+
+    initialize();
 }
 
 void scene::destroy_components()

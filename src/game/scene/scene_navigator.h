@@ -19,6 +19,7 @@ public:
     void push(Args &&...args);
 
     void pop();
+    void reset_top();
 
     template<typename Scene, typename... Args>
         requires std::derived_from<Scene, scene>
@@ -28,19 +29,19 @@ private:
     
     static scene_navigator *_instance;
     scene_loader &_loader;
-    std::stack<scene_loader::scene_id> _scenes;
+    std::stack<scene *> _scenes;
 };
 
 template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
 void scene_navigator::push(Args &&...args)
 {
-    _loader.queue([this, ...args = std::forward<Args>(args)](scene_loader &sl)
+    _loader.queue([this, args...](scene_loader &sl)
     {
-        auto [id, scene] = sl.load<Scene>(std::forward<Args>(args)...);
-        _scenes.push(id);
-        sl.activate(id);
-        scene.initialize();
+        scene &loaded = sl.load<Scene>(args...);
+        _scenes.push(&loaded);
+        sl.activate(loaded.id());
+        loaded.initialize();
     });
 }
 
@@ -48,7 +49,7 @@ template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
 void scene_navigator::reset_root(Args &&...args)
 {
-    _loader.queue([this, ...args = std::forward<Args>(args)](scene_loader &sl)
+    _loader.queue([this, args...](scene_loader &sl)
     {
         sl.unload_all();
 

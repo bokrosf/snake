@@ -6,6 +6,7 @@
 class pause_scene : public scene
 {
 public:
+    pause_scene(int id);
     void initialize() override;
 };
 

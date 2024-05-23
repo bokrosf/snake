@@ -1,16 +1,15 @@
 #include <engine/display.h>
 #include <engine/entity.h>
-#include <engine/vector2.h>
-#include <game/scene/pause_scene.h>
-#include <game/ui/screen/pause_screen.h>
+#include <game/scene/main_scene.h>
+#include <game/ui/screen/main_screen.h>
 #include <game/ui/screen/screen_configuration.h>
 
-pause_scene::pause_scene(int id)
+main_scene::main_scene(int id)
     : scene(id)
 {
 }
 
-void pause_scene::initialize()
+void main_scene::initialize()
 {
     SDL_DisplayMode display_mode = display::current_mode();
     
@@ -24,5 +23,5 @@ void pause_scene::initialize()
 
     configuration.item_spacing = display_mode.h * (128.0F / 1080.0F) + 4.0F * configuration.border_thickness;
     entity &screen = entity::create();
-    screen.add_component<pause_screen>(configuration);
+    screen.add_component<main_screen>(configuration);
 }
