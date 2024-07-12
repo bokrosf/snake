@@ -5,7 +5,7 @@
 
 struct component_destroyed
 {
-    component &component;
+    ::component &component;
 };
 
 #endif

@@ -12,7 +12,7 @@ public:
     ~renderer() override = default;
     virtual void render(SDL_Renderer *renderer) = 0;
     int layer_order() const;
-    material *material();
+    ::material *material();
     void change_material(const ::material &material);
 protected:
     renderer(entity &attached_to, int layer_order);

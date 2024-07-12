@@ -5,7 +5,7 @@
 
 struct entity_parent_changed
 {
-    entity &entity;
+    ::entity &entity;
 };
 
 #endif
