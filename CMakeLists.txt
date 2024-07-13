@@ -3,7 +3,7 @@ project(snake)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(BUILD_RPATH "../lib/SDL2-2.30.2/")
+set(BUILD_RPATH "../lib/SDL")
 
 add_executable("${PROJECT_NAME}"
   src/main.cpp
@@ -63,7 +63,7 @@ add_executable("${PROJECT_NAME}"
   src/game/wall/wall_renderer.cpp)
 
 target_link_directories("${PROJECT_NAME}"
-  PRIVATE "lib/SDL2-2.30.2")
+  PRIVATE "lib/SDL")
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
   target_link_libraries("${PROJECT_NAME}"
@@ -77,11 +77,11 @@ target_link_libraries("${PROJECT_NAME}"
 
 target_include_directories("${PROJECT_NAME}"
   PRIVATE "src"
-  PRIVATE "lib/SDL2-2.30.2/include")
+  PRIVATE "lib/SDL/include")
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
-  file(COPY "lib/SDL2-2.30.2/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
-  file(COPY "lib/SDL2-2.30.2/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+  file(COPY "lib/SDL/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+  file(COPY "lib/SDL/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
 endif()
 
 file(COPY "src/game/assets" DESTINATION "${PROJECT_BINARY_DIR}")
