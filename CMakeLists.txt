@@ -63,8 +63,12 @@ add_executable(snake
 target_link_directories(snake
   PRIVATE "lib/SDL2-2.30.2")
 
+if(CMAKE_HOST_SYSTEM MATCHES Windows)
+  target_link_libraries(snake
+    PRIVATE "mingw32")
+endif()
+
 target_link_libraries(snake
-  PRIVATE "mingw32"
   PRIVATE "SDL2main"
   PRIVATE "SDL2"
   PRIVATE "SDL2_image")
