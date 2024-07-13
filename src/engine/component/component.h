@@ -13,9 +13,9 @@ class component
 public:
     virtual ~component() = default;
     void destroy();
-    life_state life_state() const;
+    ::life_state life_state() const;
     entity &attached_to() const;
-    const transformation &transformation() const;
+    const ::transformation &transformation() const;
     ::transformation &transformation();
 protected:
     component(entity &attached_to);

@@ -5,7 +5,7 @@
 
 struct entity_destroyed
 {
-    entity &entity;
+    ::entity &entity;
 };
 
 #endif

@@ -27,9 +27,9 @@ public:
     ~entity();
     static entity &create(const std::string &name = std::string());
     void destroy();
-    life_state life_state() const;
+    ::life_state life_state() const;
     entity *parent() const;
-    transformation &transformation();
+    ::transformation &transformation();
     const std::string &name() const;
     entity *find(const std::string &name) const;
     void attach_to(entity *new_parent);
