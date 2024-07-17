@@ -2,20 +2,32 @@
 
 echo "Initializing project..."
 original_path=$(pwd)
-script_path="$(dirname "$(readlink -f "$0")")"
+script_path="$(dirname "$(realpath "$0")")"
 cd $script_path;
 cd ../..
 project_path=$(pwd)
 echo "Creating directories..."
 mkdir build
-mkdir -p lib/SDL/include/SDL2
+mkdir -p lib/SDL
 mkdir dependencies
 echo "Finished creating directories."
 
 echo "Obtaining dependencies..."
 cd dependencies
-$script_path/obtain_dependency.sh "SDL" "release-2.30.2" "https://github.com/libsdl-org/SDL" "$project_path/lib/SDL/" "$project_path/lib/SDL/include/SDL2/"
-$script_path/obtain_dependency.sh "SDL_image" "release-2.8.2" "https://github.com/libsdl-org/SDL_image" "$project_path/lib/SDL/" "$project_path/lib/SDL/include/SDL2/"
+
+$script_path/obtain_dependency.sh \
+  "SDL" \
+  "release-2.30.2" \
+  "https://github.com/libsdl-org/SDL" \
+  "$project_path/lib/SDL/" \
+
+$script_path/obtain_dependency.sh \
+  "SDL_image" \
+  "release-2.8.2" \
+  "https://github.com/libsdl-org/SDL_image" \
+  "$project_path/lib/SDL/" \
+  "SDL"
+
 cd $project_path
 echo "Finished obtaining dependencies."
 
