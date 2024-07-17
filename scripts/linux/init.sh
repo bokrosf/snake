@@ -1,7 +1,9 @@
 #!/bin/sh
 
 echo "Initializing project..."
-script_path=$(pwd)
+original_path=$(pwd)
+script_path="$(dirname "$(readlink -f "$0")")"
+cd $script_path;
 cd ../..
 project_path=$(pwd)
 echo "Creating directories..."
@@ -24,4 +26,5 @@ cd $project_path
 echo "Finished creating build system."
 
 rm -rf $project_path/dependencies
+cd $original_path
 echo "Finished project initialization."
