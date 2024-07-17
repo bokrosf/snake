@@ -2,7 +2,7 @@
 
 echo "Initializing project..."
 script_path=$(pwd)
-cd ..
+cd ../..
 project_path=$(pwd)
 echo "Creating directories..."
 mkdir build
