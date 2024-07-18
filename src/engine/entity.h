@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include <concepts>
-#include <ranges>
+#include <generator>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -33,11 +33,7 @@ public:
     const std::string &name() const;
     entity *find(const std::string &name) const;
     void attach_to(entity *new_parent);
-    
-    auto children() const
-    {
-        return std::views::all(_children);
-    }
+    std::generator<entity *> children() const;
 
     template<typename T, typename... Args>
         requires std::derived_from<T, component>
@@ -53,12 +49,7 @@ public:
 
     template<typename T>
         requires std::derived_from<T, component>
-    auto all_attached_components() const
-    {
-        auto conversion = [](component *c) { return dynamic_cast<T *>(c); };
-        
-        return _components | std::views::filter(conversion) | std::views::transform(conversion);
-    }
+    std::generator<T *> all_attached_components() const;
 
     template<typename T>
         requires std::derived_from<T, component>
@@ -120,6 +111,18 @@ T &entity::attached_component() const
     T *component = find_component<T>();
 
     return component ? *component : throw component_not_found(std::string("Not found component of type: ").append(typeid(T).name()));
+}
+
+template<typename T>
+    requires std::derived_from<T, component>
+std::generator<T *> entity::all_attached_components() const
+{
+    auto conversion = [](component *c) { return dynamic_cast<T *>(c); };
+
+    for (auto c : _components | std::views::filter(conversion) | std::views::transform(conversion))
+    {
+        co_yield c;
+    }
 }
 
 template<typename T>

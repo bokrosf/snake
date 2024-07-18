@@ -116,6 +116,14 @@ void entity::attach_to(entity *new_parent)
     }
 }
 
+std::generator<entity *> entity::children() const
+{
+    for (auto c : _children)
+    {
+        co_yield c;
+    }
+}
+
 entity *entity::find_descendant_tree_root(entity *descendant) const
 {
     while (descendant && descendant->parent() != this)

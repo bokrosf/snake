@@ -1,9 +1,9 @@
 #ifndef ENGINE_SCENE_H
 #define ENGINE_SCENE_H
 
+#include <generator>
 #include <map>
 #include <queue>
-#include <ranges>
 #include <string>
 #include <unordered_set>
 #include <engine/component/component.h>
@@ -25,11 +25,7 @@ public:
     void destroy_marked_objects();
     void reset();
     entity *find_entity(const std::string &name) const;
-
-    auto root_entities() const
-    {
-        return std::views::all(_root_entities);
-    }
+    std::generator<entity *> root_entities() const;
 protected:
     scene(int id);
 private:
