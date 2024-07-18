@@ -81,6 +81,14 @@ entity *scene::find_entity(const std::string &name) const
     return it != _named_entities.end() ? it->second : nullptr;
 }
 
+std::generator<entity *> scene::root_entities() const
+{
+    for (auto e : _root_entities)
+    {
+        co_yield e;
+    }
+}
+
 void scene::reset()
 {
     for (auto e : _root_entities)

@@ -1,5 +1,4 @@
 #include <queue>
-#include <ranges>
 #include <engine/scene_traversal.h>
 
 void scene_traversal::traverse(const scene &scene, std::function<bool(const entity *)> filter, std::function<void(entity *)> operation)

@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <cmath>
-#include <ranges>
 #include <engine/activatable.h>
 #include <engine/collision/collision.h>
 #include <engine/collision/collision_engine.h>
