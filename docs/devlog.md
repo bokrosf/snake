@@ -10,7 +10,12 @@ Topics to write about
 - entity hierarchy traversal
 - app
 - scene
-- logging
+
+# 2024-04-13 Logging
+- Different kind of levels
+- Write output to a stream
+- Ability to change output destination
+- Templated writer method for varargs. This way it's more convenient to specify a message with different type of parameters. Parameter types must define an override for ```operator<<```.
 
 # 2024-04-03 | Messaging
 - Objects can send and receive messages from other objects.
