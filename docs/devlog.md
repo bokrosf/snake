@@ -9,7 +9,16 @@ Topics to write about
 - render
 - entity hierarchy traversal
 - app
-- scene
+
+# 2024-04-17 Scene
+- Responsible for entities' lifetime
+- Every created entity belongs to the current scene
+- Acts as a container of entities
+- Processing of entities will query only the root entities and traverse their trees
+- Only root entities' pointers need to be stored because each entity represents a tree hierarchy
+- Root object's container must be updated whenever an entity has been created or it's parent changed
+- Whenever a component has been created it's pointer must be stored in a container to be able to call their ```initialize``` method
+- Abstract ```initialize``` method needed for creating the entities and their components when a scene is created. Currently have no plans for a scene editor or persisting and loading a scene's state. It's easier to define a specialized scene's content by code.
 
 # 2024-04-13 Logging
 - Different kind of levels
