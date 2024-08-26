@@ -8,7 +8,14 @@ Topics to write about
 - update
 - render
 - entity hierarchy traversal
-- app
+
+# 2024-04-15 App
+- Entrypoint of the application
+- Initializes the engine and subsystems
+- Starts and stops the main loop
+- Captures and forwards user input
+- Stores the scene created by the abstract ```create_scene``` method.
+- Handles entity and component events. For example **creation**, **component addition**, **parent change**.
 
 # 2024-04-17 Scene
 - Responsible for entities' lifetime
