@@ -9,6 +9,13 @@ Topics to write about
 - render
 - entity hierarchy traversal
 
+# 2024-04-15 Component addition
+- Can only be created by ```entity::add_component``` method. This ensures that the component only belongs to exactly one entity and triggers the component added event.
+- Each initialization is scheduled to the beginning of the next frame.
+- ```app``` class handles the component added event and registers the component to the currently active scene.
+- ```scene``` registers the component for initialization by adding it to a collection.
+- ```app``` class calls the component initialization method on the currently active scene at the beginning of every frame.
+
 # 2024-04-15 Entity lifetime management
 ### Creation
   - Can only be created by the ```entity::create``` static method. This is important because the currently active scene must register the entity to it's root objects. This method triggers the creation event that can be handled.
