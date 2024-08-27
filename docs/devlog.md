@@ -9,6 +9,24 @@ Topics to write about
 - render
 - entity hierarchy traversal
 
+# 2024-04-15 Entity lifetime management
+### Creation
+  - Can only be created by the ```entity::create``` static method. This is important because the currently active scene must register the entity to it's root objects. This method triggers the creation event that can be handled.
+  - ```app``` class handles the entity creation event and adds the entity to the currently active scene.
+  - ```scene``` handles the addition by checking if the specified entity is a root object and adds it to the root objects.
+
+### Deletion
+  - ```entity::destroy``` method must be called for deletion. This method triggers the destroy requested event that can be handled.
+  - Can not be reverted. If an entity once marked for destroyal then it will be destroyed.
+  - This is needed because the destroyal isn't immediate but occurs after update and before the rendering phase. It ensures that entities deleted exactly once. Entities must be alive during the different instances's update calls. Updates called in undefined order. If an entity destroyed during an update call then that's the result of the update if it's interpreted as a program state transition. Therefore it doesn't need to be rendered to reflect the destroyed state.
+  - ```app``` class handles the entity deletion event and marks the entity for deletion in the currently active scene.
+  - ```scene::mark_as_destroyed``` marks the entities to be destroyed by adding them to a dictionary.
+  - ```scene::destroy_marked_objects``` executes the concrete freeing up. It's invoked by the ```app``` class before the rendering phase.
+    - Detaches each marked entities from their parents. This way they become root entities and they also removed from their parents' children collection.
+    - They removed from the root objects because they are not part of the scene anymore.
+    - Concrete delete operator called on each marked entities that frees them up by calling their constructor.
+    - The marked object collection cleared.
+
 # 2024-04-15 App
 - Entrypoint of the application
 - Initializes the engine and subsystems
