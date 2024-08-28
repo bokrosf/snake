@@ -7,7 +7,19 @@ Topics to write about
 - input
 - update
 - render
-- entity hierarchy traversal
+
+# Entity hierarchy traversal
+2024-04-15
+- Entities traversed from the root elements.
+- Root entities queried from the scene and they are queued for traversal.
+- When an entity selected from a queue and only processed further if it's active and alive. This way it's easy to deactivate a child tree of an entity and it's temporarily appears as inactive or non existent.
+- After that it's active child entities queried and added to the traversal queue.
+- This process repeated until no more entities to be processed.
+- Entities can be processed in random order. Not any special use case for using in depth graph traversal. It's simply just a convinient way of pushing to and popping from the queue.
+- After querying the entities the proper subengine's operation executed to each entity. Subengine's can use their own predicates and traversal algorythms to traverse the entity trees, but they are similar.
+- Improvement ideas:
+  - If a need arises for prioritizing the entities then an additional priority metadata needed and an ordered map can be used. The ordered map indexed by the priority and contains a set of entities that at the specified priority level can be processed in random order.
+  - Subengine's can have the same collection for each scene to not allocate a new one. But they can also use some kind of caching strategy for entities to be processed.
 
 # Main loop
 2024-04-15
