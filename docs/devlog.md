@@ -9,14 +9,16 @@ Topics to write about
 - render
 - entity hierarchy traversal
 
-# 2024-04-15 Component addition
+# Component addition
+2024-04-15
 - Can only be created by ```entity::add_component``` method. This ensures that the component only belongs to exactly one entity and triggers the component added event.
 - Each initialization is scheduled to the beginning of the next frame.
 - ```app``` class handles the component added event and registers the component to the currently active scene.
 - ```scene``` registers the component for initialization by adding it to a collection.
 - ```app``` class calls the component initialization method on the currently active scene at the beginning of every frame.
 
-# 2024-04-15 Entity lifetime management
+# Entity lifetime management
+2024-04-15
 ### Creation
   - Can only be created by the ```entity::create``` static method. This is important because the currently active scene must register the entity to it's root objects. This method triggers the creation event that can be handled.
   - ```app``` class handles the entity creation event and adds the entity to the currently active scene.
@@ -34,7 +36,8 @@ Topics to write about
     - Concrete delete operator called on each marked entities that frees them up by calling their constructor.
     - The marked object collection cleared.
 
-# 2024-04-15 App
+# App
+2024-04-15
 - Entrypoint of the application
 - Initializes the engine and subsystems
 - Starts and stops the main loop
@@ -42,7 +45,8 @@ Topics to write about
 - Stores the scene created by the abstract ```create_scene``` method.
 - Handles entity and component events. For example **creation**, **component addition**, **parent change**.
 
-# 2024-04-17 Scene
+# Scene
+2024-04-17
 - Responsible for entities' lifetime
 - Every created entity belongs to the current scene
 - Acts as a container of entities
@@ -52,13 +56,15 @@ Topics to write about
 - Whenever a component has been created it's pointer must be stored in a container to be able to call their ```initialize``` method
 - Abstract ```initialize``` method needed for creating the entities and their components when a scene is created. Currently have no plans for a scene editor or persisting and loading a scene's state. It's easier to define a specialized scene's content by code.
 
-# 2024-04-13 Logging
+# Logging
+2024-04-13
 - Different kind of levels
 - Write output to a stream
 - Ability to change output destination
 - Templated writer method for varargs. This way it's more convenient to specify a message with different type of parameters. Parameter types must define an override for ```operator<<```.
 
-# 2024-04-03 | Messaging
+# Messaging
+2024-04-03
 - Objects can send and receive messages from other objects.
 - It must be usable with different types of messages so a message type parameter is needed.
 - It can used when an object wants to notifiy another object but doesn't need to know about the other object.
@@ -67,7 +73,8 @@ Topics to write about
 - When a message is sent the set of subscribers is determined by the type of the message. Set of subscriber sets is indexed by the message type.
 Then the code iterates through the appropriate subscriber set and calls the ```receive()``` method on all of them.
 
-# 2024-03-25 | Entity and Component basics
+# Entity and Component basics
+2024-03-25
 - I choose the model of Unity in terms of the entity-component architecture.
 - Needed a class that can represent a single object in the game world.
 - Also needed a way to be able to add, remove different functionalities during runtime.
@@ -84,5 +91,6 @@ Represents data or functionality that entities can be dynamically extended with 
 This is more flexible than a classical inheritance focused OOP approach.
 Always belongs to the entity it was created by. It can access the entity by referencing it.
 
-# 2024-03-24 | Start of the project
+# Start of the project
+2024-03-24
 - Added the gitignore and main.cpp.
