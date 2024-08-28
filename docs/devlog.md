@@ -1,4 +1,6 @@
-Summary of project evolution. Contains architectural decisions, problems, future ideas.
+Summary of project evolution. Contains architectural decisions, problems, improvement ideas.
+
+For improvement ideas search the following text for each section: **Improvement ideas**
 
 Topics to write about
 - entity, component destroy request queueing instead of immediate destroyal
