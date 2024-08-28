@@ -5,6 +5,14 @@ Topics to write about
 - unsubscribe all
 - collision
 
+# Material rendering
+2024-04-17
+- Material class describes the surface properties of the rendered object. Kind of like arguments for rendering.
+- Entities only rendered if a material is assigned to the renderer.
+- Currently only stores the **drawing color**.
+- Improvement ideas:
+  - Shaders can be attached to the material.
+
 # Input handling
 2024-04-15
 - Chose the free function approach and creation of the input namespace. Current inputs should be accessible by any behavior or the app class without it being their dependencies.
