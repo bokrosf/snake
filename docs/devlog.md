@@ -6,7 +6,15 @@ Topics to write about
 - collision
 - input
 - update
-- render
+
+# Rendering
+2024-04-15
+- Active renderer components must be queried from entities.
+- If two rendered images overlap than the one rendered later will be fully visible. To have control over the rendering order a layer order must be defined for renderers. The higher order drawn over the lower layers.
+- Renderers must be grouped by ```renderer::layer_order``` and drawn in order. This can be easily achieved if every renderer is stored in an ordered map with a key of the layer and with the value of a set of renderers. The ordering of the elements guaranteed by the container's type invariant. This ensures that iterating over it's elements happens in the wanted order. After that each renderer within the layer group can be drawn in random order.
+- Before rendering the current frame the rendering context must be cleared with a single color to clear the previously rendered image.
+- Rendering methods can be called by taking into account the rendering order.
+- Frame rendering must be commited that invokes the swapping of the back buffer and the front buffer that presents the rendered frame to the user.
 
 # Entity hierarchy traversal
 2024-04-15
