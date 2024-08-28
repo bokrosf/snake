@@ -5,7 +5,50 @@ For improvement ideas search the following text for each section: **Improvement 
 Topics to write about
 - entity, component destroy request queueing instead of immediate destroyal
 - unsubscribe all
-- collision
+
+# Collision detection
+2024-04-17
+- Two entities collide when their colliders intersect eachother in 2D space. Except when only the collider's edges touching. In this case it's not detected because the snake game is tile based and it would detect false collisions if the snake's body can occupy the whole tile area.
+- Collision engine's brief working:
+  - Specified entities can contain any number of colliders.
+  - The collision engine checks for intersecting colliders. When a collision detected the collided entities notified about the collision.
+  - Collision details passed to the collision notification.
+  - Collision handlers receive the collision notification and handles them.
+
+### BoxCollider
+- 2D rectangular area that describes the area checked for collisions. Described by a 2D vector as width and height.
+- Also has a world position that is the center of the collider.
+
+### Collision
+- Information passed to the collision handler.
+- Holds a reference to the entity that the notified entity collided with.
+
+### Collision handler
+- Interface with the ```collision_handler::collide``` method that has a ```collision``` parameter.
+- Usually behaviors implement the ```collision_handler``` interface. The collision parameter represents the entity that the current behavior's owner entity collided with.
+
+### Collision engine
+- Traverses the root entity trees by querying the active entity nodes and their active ```box_collider``` components.
+- Checks every box_collider with every other box_collider components which is a O(n^2) operation. It's slow in theory but the snake game contains only a few number of objects at a given time so it doesn't run slowly.
+- When a collision detected between two entities their ```collision_handler``` capability is queried and the ```collide``` method called if they support it.
+- If entity A collides with { X1, X2, ..., Xn } entities then **collisions** :=
+{
+  (A, X1),
+  (A, X2),
+  ...
+  (A, Xn),
+  (X1, A),
+  (X2, A),
+  ...
+  (Xn, A)
+}
+- This implies:
+    - **collisions** is a set of ordered entity pairs.
+    - Both entities of the collision pair must be notified if they implement the handler.
+    - This model only cares about entity collisions, so at the implementation level collisions with the same entity's different colliders must be treated as one collision.
+- Improvement ideas:
+  - Reduce the O(n^2) complexity.
+  - The game world could be divided to fix sized disjunct rectangle areas that represent possible collision hotspots. Called **hotspot tiles**. This way the spacial position could be used as a hash function. Each collider would be hashed by their position and added to the spacial buckets they overlap O(n) operation but the collider area tiled subdivisions should be taken into account too. The algorythm should check those buckets that contains more than one collider O(n) operation. Approximately it's an O(n + tile_subdivision) + O(n) = O(2n + tile_subdivision) operation.
 
 # Material rendering
 2024-04-17
