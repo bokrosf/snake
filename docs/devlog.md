@@ -9,6 +9,20 @@ Topics to write about
 - render
 - entity hierarchy traversal
 
+# Main loop
+2024-04-15
+
+Executes when the application is ready to be used by the user and stops when requested by the user.
+1. Frame start time recording
+2. Initializing components
+3. Detecting collisions
+4. Handling user input
+5. Advancing game logic
+6. Deleting entities marked for deletion
+7. Graphical rendering
+8. Frame end time recording
+9. Updating delta time
+
 # Delta time
 2024-04-15
 - Storing the time elapsed since the rendering of the last frame.
