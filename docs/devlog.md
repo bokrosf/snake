@@ -5,7 +5,11 @@ Topics to write about
 - unsubscribe all
 - collision
 - input
-- update
+
+# Update game state
+2024-04-15
+- Active updatable behaviors must be queried from entities by traversing the entity tree.
+- Update methods called in random order.
 
 # Rendering
 2024-04-15
