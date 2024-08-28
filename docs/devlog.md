@@ -4,7 +4,15 @@ Topics to write about
 - entity, component destroy request queueing instead of immediate destroyal
 - unsubscribe all
 - collision
-- input
+
+# Input handling
+2024-04-15
+- Chose the free function approach and creation of the input namespace. Current inputs should be accessible by any behavior or the app class without it being their dependencies.
+- More convenient to implement this way than using a singleton approach.
+- In every frame previous input is cleared and then the current input read from the input queue.
+- The current input added to the static collection inside the input namespace.
+- Each behavior or the app class can query if an input type or keypress has been occured and react to it.
+- Input querying usually implemented inside update methods. This approach is much simpler than the first thought of triggering events when input read. This way only the active behaviors react that are part of an active entity subtree. Pause automatically handled no need to implement any check. If the game paused no unwanted update method will be scheduled for execution. No need for event subscription management and event occurance can be simply queried only whenever it's needed.
 
 # Update game state
 2024-04-15
