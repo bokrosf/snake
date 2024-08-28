@@ -9,6 +9,18 @@ Topics to write about
 - render
 - entity hierarchy traversal
 
+# Delta time
+2024-04-15
+- Storing the time elapsed since the rendering of the last frame.
+- Chose the namespace and static storage approach instead of the static class approach.
+- The elapsed time value needed since the start of the main loop.
+- It must be queryable or updatable from the calling place without it being a dependency.
+- Static class using approach would be almost the same but a static class is almost like just a namespace, so it's an unnecessary abstraction and inconvinent for internal implementation.
+- It's value must be zero during the first frame's cycle, because that's the starting time point and the application state must be projected exactly as it is at the given time point.
+- After rendering it's value must be updated to contain the time elapsed between starting the frame and finishing the rendering.
+- Each frame's timeline position in real time can be calculated by accumulating each delta time until that time point. So if each cycle applies the delta time to the required components they are exactly at the state where they should be at the time of the start of the cycle.
+- It was useful, to convert elapsed milliseconds int value returned by SDL, to a float value that represents seconds. This way it can be used as a fractional value for example applying to movement speed, and realtime movement easily achievable.
+
 # Component addition
 2024-04-15
 - Can only be created by ```entity::add_component``` method. This ensures that the component only belongs to exactly one entity and triggers the component added event.
