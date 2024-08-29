@@ -4,7 +4,20 @@ For improvement ideas search the following text for each section: **Improvement 
 
 Topics to write about
 - entity, component destroy request queueing instead of immediate destroyal
-- unsubscribe all
+
+# Unsubscribe all
+2024-04-17
+- The current model of the messenger class does not support the implementation of the ```messenger::unsubscribe_all``` method. It should be used when an object no longer wants to receive any notifications. Useful in destructors or other cleanup code because of the open-closed principle.
+- Problem:
+  - ```message``` class stores the subscribed recipient as a **void \*** that is the value of a **recipient<Message> \***, but it should store the pointer of the base class to find all subscriptions of the actual object.
+  - In C++ when a pointer to a base class **dynamic_cast**ed to a subclass then the subclass' address maybe different from the base class'.
+  - Moreover dynamic_cast is not available for **void \*** type because technically it can be converted to any type and it would always return true, but it does not have a base class with the target type. If the base class' address stored as **void \*** and **reinterpret_cast**ed to a subclass, then it would return the original address of the base class.
+- Improvement ideas:
+  - The pointer of the base class should be stored alongside the address of the subscribed **recipient<Message>**.
+  - The subscription must be searchable by the concrete **recipient\<message\>** type and also by the base class type.
+  - A struct or class with template specialized inheritance or storing base and reciever class pointers could be used to store data. Also it must implement the **==** and **!=** comparison operators for set searching. Maybe even a hash_code too.
+  - Subscription must call the appropriate **receive\<message\>** method on the dereferenced pointer.
+  - It should not contain runtime polymorphism if there is a direct sane way of notifying the subscribed object. But the runtime polymorphism in this case shouldn't cause that much of an overhead so it's also a reasonable path .
 
 # Collision detection
 2024-04-17
