@@ -3,7 +3,15 @@ Summary of project evolution. Contains architectural decisions, problems, improv
 For improvement ideas search the following text for each section: **Improvement ideas**
 
 Topics to write about
-- entity, component destroy request queueing instead of immediate destroyal
+- transform property of entity
+- querying entity by name
+- app handles scene navigation, batched scene navigation, delta time
+- scene navigation
+- scene loading
+- pausing the game
+- awake
+- rendering engine
+- life_state/component destroy request queueing instead of immediate destroyal
 
 # Unsubscribe all
 2024-04-17
