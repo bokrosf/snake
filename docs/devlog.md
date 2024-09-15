@@ -8,7 +8,26 @@ Topics to write about
 - app handles scene navigation, batched scene navigation, delta time
 - scene navigation
 - scene loading
-- pausing the game
+
+# Pausing the game
+2024-05-12
+
+### Problem
+- When the game is paused these conditions must be met:
+  - Don't execute ```update``` or if it's executed then it should act like as time frozen.
+  - Specific entities don't handle user input.
+
+### Possible solutions
+- Deactivate objects
+  - Search specific objects by name, tag or type and deactivate them.
+  - Subscribe to specific events and in their handlers deactivate the objects.
+  - This adds additional complexity, state and event handling to game logic.
+- **Switching active scene to another scene.** I chose this.
+  - Only the currently active scene passed to collision detection, update and rendering. The previous scene stays at the same state as it was before switching scenes.
+  - Input never handled when the scene is inactive because it occures inside ```update``` by checking the return value of the ```input::key_down(<key>)``` bool function.
+  - Games usually have a pause screen or a menu that is independent of the game world. Moreover stacked UI can be built with this technique.
+  - This seems a to be a good candidate for this and future games. It results in a more easily maintainable game logic codebase by not adding additional complexity to it.
+  - If popups or the need for rendering multiple scenes arises then it must be solved, but until then don't want to solve a not existing problem.
 
 # Start method and initialization refactoring
 2024-05-05
