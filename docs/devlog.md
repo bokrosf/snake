@@ -11,7 +11,30 @@ Topics to write about
 - pausing the game
 - awake
 - rendering engine
-- life_state/component destroy request queueing instead of immediate destroyal
+
+# Component destroy request queueing
+2024-04-27
+
+### Problem
+- Components should be deallocated after each operation performed on them and before rendering.
+- Entity must differentiate between marking a component destroyed and deallocating them.
+- Entity's destructor must deallocate components not marking them for destroyal.
+- Components be able to signal eachother or execute specific cleanup when they marked for removal. It's called **detaching**. This needed when a component controls other component's lifetime. For example a slot component that ensures addition and removal of a special kind of component and enforce that only one component can be present at a time. So whenever a new component added it removes the previously added one.
+- Marking for destroyal, detaching, deallocation of components mustn't cause recursive execution.
+
+### Solution
+- ```life_state``` enum introduction for storing the state of the component and entity. This way it can be detected if the object marked for destroyal or in any other state. Values are:
+  - alive
+  - destroyed
+- component and entity classes store their life state.
+- ```component::destroy``` checks whether the component has already been
+marked for destroyal and returns if it has. If it's alive then changes life state to destroyed, detaching and notifies the scene about destroyal. Changing the life state eliminates recursive detaching and unnecessary event triggering.
+- ```entity::destroy_component<T>``` only calls ```component::destroy``` on the component if it's attached.
+- Scene receives the message and adds the component's entity to a set that stores entities whose have a removed component. This way the destroyed state only stored at one place at the component, moreover the entity class is responsible for removing the marked component that it can query. Deallocation can be optimized because if an entity is marked for destroyal and it also has a marked component then there's no need for a seperate component deallocation the entity will deallocate all of it's components either way.
+- Concrete deallocation occures by the ```entity::erase_destroyed_components``` method that filters components by their life states and it's called by the ```scene::destroy_components``` method.
+
+### Remarks
+- When ```entity::destroy``` called then no further ```entity::destroy``` or ```component::destroy``` called on it's children or components. This is because performance reasons to not traverse the entire tree. It also seems a rare use case where a non child component's detach should be called. A workaround could be to query the specific component or trigger a specific event that specific components can subscribe to.
 
 # Unsubscribe all
 2024-04-17
