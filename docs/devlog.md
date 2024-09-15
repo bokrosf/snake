@@ -10,7 +10,13 @@ Topics to write about
 - scene loading
 - pausing the game
 - awake
-- rendering engine
+
+# Rendering engine
+2024-04-29
+- ```rendering_engine``` class created to encapsulate the ```app::render``` method's funcionality and store rendering context.
+- Must be initialized at app startup.
+- Stores the SDL_Renderer renderer.
+- Renders the specified scene. Active and alive entities and components rendered only by traversing the root entity trees.
 
 # Component destroy request queueing
 2024-04-27
