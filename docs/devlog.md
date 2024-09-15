@@ -9,7 +9,30 @@ Topics to write about
 - scene navigation
 - scene loading
 - pausing the game
-- awake
+
+# Start method and initialization refactoring
+2024-05-05
+
+### Problem
+- Components reference another component in ```initializable::initialize``` method and also call a method on it or treat as already initialized. For example A->B means component A depends on B. When A->B and B->C and A::initialize calls B::method and B::method calls C::method, then B::C reference might not be initialized and this can cause invalid dereferencing.
+- Initialization must be split into two phases **setup** and **performing action**.
+- When a new entity, component created during initialization phase it must be also initialized at the start of the same frame, moreover objects created by them too and so on.
+
+### Solution
+- Defining the ```life_state::initializing``` enum value. This is the value setted by the entity and component class' constructors.
+- Splitting the initialization phase into two:
+  - ```initialize::initialize```: Used for querying other components, field initialization.
+  - ```startable::start```: Perform an action before the first update when the component is already in an initialized state and can use the components it depends on. Also useful for not having to handle a flag in update and check for the first execution. This way the update method can keep it's original function and performance.
+- Introduction of ```object_initializer``` class. It's responsible for registering the entity and component initialization requests, and performing the two staged initialization.
+  - Initializes every object created during the initialization phase of the current frame.
+  - Uses double buffering per entities and per components too. One buffer used to process the currently batched objects. The other buffer used to collect the new objects that created during the first buffer's processing. They are swapped in every cycle. The process ends when there are no more objects to initialize.
+  - entity initialization:
+    - Sets the life_state: initializing -> **alive**
+  - component initialization:
+    - Calls **initialize** on each component
+    - Calls **start** on each component. This **order is important because** every component must be initialized before executing it's start method. For example A->B->C component dependency.
+    - Sets the life_state: initializing -> **alive**
+  - If a new object created then it's added to the **scheduled_object** buffer and will be initialized in the next initialization cycle within the current frame.
 
 # Rendering engine
 2024-04-29
