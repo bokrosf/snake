@@ -6,7 +6,21 @@ Topics to write about
 - transform property of entity
 - querying entity by name
 - app handles scene navigation, batched scene navigation, delta time
-- scene navigation
+
+# Scene navigation
+2024-05-12
+
+- Scene navigation must use the scene loader and loader must be independent of the navigation.
+- Each navigation mode should have it's own class for example stacked or other kinds of.
+- I chose stack navigation mode because it fits having a menu and a game scene and switching between them. It seems to be usable by other games too.
+
+### Stack navigation
+- It's similar to navigation between mobile app screens. Only one scene visible at the full screen.
+- Operations:
+  - **push**: Loads the scene specified by a template type argument and forwards arguments required for the scene's constructor. Activates the newly loaded scene. Initializes the scene that must occure after activating it, because the created entities, components will be added to the active scene.
+  - **pop**: Unloads the active scene and activates the previous scene.
+  - **active**: Queries the active scene that is at the top of the stack.
+  - **reset_root**: Unloads all scenes and loads the provided scene with the same arguments as push and activates it.
 
 # Scene loading
 2024-05-12
