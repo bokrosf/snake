@@ -7,7 +7,23 @@ Topics to write about
 - querying entity by name
 - app handles scene navigation, batched scene navigation, delta time
 - scene navigation
-- scene loading
+
+# Scene loading
+2024-05-12
+
+- Need a class that can load/unload scenes into memory, manages their lifetime and can mark a scene as active. This class is ```scene_loader```.
+- Every scene has an int id. Id's start from 0 and increased by 1 after a scene loaded. Unloading a scene does not effect the next id's value.
+- Currently scenes are not serialized and stored as assets. Because of this they are defined by code first approach, and must be loaded by providing a type template parameter to the loading method. Optionally scene arguments can be provided to the loading method that forwards them to the scene's constructor.
+- Marking a scene as active is a manual instruction.
+- Active scene's significance:
+  - Only one scene can be marked as active.
+  - Entities and components will be added only to the active scene.
+  - Only applied to the active scene:
+    - collision detection
+    - update
+    - rendering
+    - entity, component lifetime
+- Unloading a scene requires an int id parameter. Removes the scene from the container and deallocates it.
 
 # Pausing the game
 2024-05-12
