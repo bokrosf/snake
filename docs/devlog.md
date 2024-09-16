@@ -4,7 +4,14 @@ For improvement ideas search the following text for each section: **Improvement 
 
 Topics to write about
 - transform property of entity
-- querying entity by name
+
+# Querying entity by name
+2024-05-15
+
+- Entity must have a name field. It's default value is empty but it can contain any string. A specific value must be passed to the ```entity::create``` method.
+- Entity names must be unique per scene except the empty string. If the scene's entity creation handler detects an already existing name then it throws an ```entity_name_collision``` exception.
+- ```scene``` stores unique names in a hash set container. Container item's lifetime is the same as the entity's.
+- ```scene::find_entity``` method can be used to retrieve and entity by name. If not found it returns **nullptr**.
 
 # Handling scene navigation
 2024-05-13
