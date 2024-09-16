@@ -18,7 +18,7 @@ public:
 
     template<typename Scene, typename... Args>
         requires std::derived_from<Scene, scene>
-    Scene &load(Args&&... args);
+    Scene &load(Args &&...args);
 
     void unload(int id);
     void unload_all();
