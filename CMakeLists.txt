@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(BUILD_RPATH "${CMAKE_SOURCE_DIR}/lib/SDL")
 
 add_executable("${PROJECT_NAME}"
-  src/main.cpp
   src/engine/activatable.cpp
   src/engine/app.cpp
   src/engine/collision/box_collider.cpp
@@ -37,6 +36,7 @@ add_executable("${PROJECT_NAME}"
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
   src/game/game_coordinator.cpp
+  src/game/main.cpp
   src/game/scene/classic_scene.cpp
   src/game/scene/game_ending_scene.cpp
   src/game/scene/magic_food_scene.cpp
