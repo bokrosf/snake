@@ -41,7 +41,7 @@ void scene_navigator::push(Args &&...args)
         scene &loaded = sl.load<Scene>(args...);
         _scenes.push(&loaded);
         sl.activate(loaded.id());
-        loaded.initialize();
+        sl.active().initialize();
     });
 }
 
