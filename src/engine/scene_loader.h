@@ -18,7 +18,7 @@ public:
 
     template<typename Scene, typename... Args>
         requires std::derived_from<Scene, scene>
-    Scene &load(Args &&...args);
+    int load(Args &&...args);
 
     void unload(int id);
     void unload_all();
@@ -35,7 +35,7 @@ private:
 
 template<typename Scene, typename... Args>
     requires std::derived_from<Scene, scene>
-Scene &scene_loader::load(Args &&...args)
+int scene_loader::load(Args &&...args)
 {
     Scene *scene = nullptr;
 
@@ -50,7 +50,7 @@ Scene &scene_loader::load(Args &&...args)
         throw;
     }
 
-    return *scene;
+    return scene->id();
 }
 
 #endif

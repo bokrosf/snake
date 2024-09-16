@@ -38,9 +38,9 @@ void scene_navigator::push(Args &&...args)
 {
     _loader.queue([this, args...](scene_loader &sl)
     {
-        scene &loaded = sl.load<Scene>(args...);
-        _scenes.push(loaded.id());
-        sl.activate(loaded.id());
+        int scene_id = sl.load<Scene>(args...);
+        _scenes.push(scene_id);
+        sl.activate(scene_id);
         sl.active().initialize();
     });
 }
