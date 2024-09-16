@@ -2,8 +2,14 @@ Summary of project evolution. Contains architectural decisions, problems, improv
 
 For improvement ideas search the following text for each section: **Improvement ideas**
 
-Topics to write about
-- transform property of entity
+# Transformation component
+2024-05-15
+
+- ```transformation``` is a component that stores the world position of the entity and applies transformation to move the entity with an offset to another position.
+- It's a necessary component, every entity has it when constructed, and initialized with the (0, 0) world position.
+- Improvement ideas:
+  - Child entities' position always relative to their parent's position. This must be calculated when a child attached to a parent or a transformation applied to the child.
+  - Adding rotation and scaling functionality.
 
 # Querying entity by name
 2024-05-15
