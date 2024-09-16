@@ -2,6 +2,17 @@ Summary of project evolution. Contains architectural decisions, problems, improv
 
 For improvement ideas search the following text for each section: **Improvement ideas**
 
+# Resetting scene
+2024-05-21
+
+- Resetting scene's state to initial state. It's useful if the player wants to restart the game at the current scene.
+- ```scene::reset``` method introduced and it cleans up the scene's state, destroys every entity and calls ```scene::initialize``` on itself.
+- Reset operation must be queued and executed by **commiting** to not interfere with the current frame's scene processing.
+- Improvement ideas:
+  - Implementation could use the copy-swap idiom. This would create and empty uninitialized scene object and copies it's contents into the already existing scene's address. The old scene instance would be copied into the new address and it's destructor will be called when the swap operation finished.
+  - Content should be moved instead of copying. This way the performance penalty would be as minimal as it can be.
+  - This way the reset operation is open for addition and closed for modification because all of it's automatically handled and resetted properly.
+
 # Transformation component
 2024-05-15
 
