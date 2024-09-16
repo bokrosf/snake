@@ -1,6 +1,6 @@
-Summary of project evolution. Contains architectural decisions, problems, improvement ideas.
+# Project evolution
 
-For improvement ideas search the following text for each section: **Improvement ideas**
+Contains architectural decisions, problems. Used as a development diary to look back later on the process.
 
 # Resetting scene
 2024-05-21
@@ -8,19 +8,12 @@ For improvement ideas search the following text for each section: **Improvement 
 - Resetting scene's state to initial state. It's useful if the player wants to restart the game at the current scene.
 - ```scene::reset``` method introduced and it cleans up the scene's state, destroys every entity and calls ```scene::initialize``` on itself.
 - Reset operation must be queued and executed by **commiting** to not interfere with the current frame's scene processing.
-- Improvement ideas:
-  - Implementation could use the copy-swap idiom. This would create and empty uninitialized scene object and copies it's contents into the already existing scene's address. The old scene instance would be copied into the new address and it's destructor will be called when the swap operation finished.
-  - Content should be moved instead of copying. This way the performance penalty would be as minimal as it can be.
-  - This way the reset operation is open for addition and closed for modification because all of it's automatically handled and resetted properly.
 
 # Transformation component
 2024-05-15
 
 - ```transformation``` is a component that stores the world position of the entity and applies transformation to move the entity with an offset to another position.
 - It's a necessary component, every entity has it when constructed, and initialized with the (0, 0) world position.
-- Improvement ideas:
-  - Child entities' position always relative to their parent's position. This must be calculated when a child attached to a parent or a transformation applied to the child.
-  - Adding rotation and scaling functionality.
 
 # Querying entity by name
 2024-05-15
@@ -163,12 +156,6 @@ marked for destroyal and returns if it has. If it's alive then changes life stat
   - ```message``` class stores the subscribed recipient as a **void \*** that is the value of a **recipient<Message> \***, but it should store the pointer of the base class to find all subscriptions of the actual object.
   - In C++ when a pointer to a base class **dynamic_cast**ed to a subclass then the subclass' address maybe different from the base class'.
   - Moreover dynamic_cast is not available for **void \*** type because technically it can be converted to any type and it would always return true, but it does not have a base class with the target type. If the base class' address stored as **void \*** and **reinterpret_cast**ed to a subclass, then it would return the original address of the base class.
-- Improvement ideas:
-  - The pointer of the base class should be stored alongside the address of the subscribed **recipient<Message>**.
-  - The subscription must be searchable by the concrete **recipient\<message\>** type and also by the base class type.
-  - A struct or class with template specialized inheritance or storing base and reciever class pointers could be used to store data. Also it must implement the **==** and **!=** comparison operators for set searching. Maybe even a hash_code too.
-  - Subscription must call the appropriate **receive\<message\>** method on the dereferenced pointer.
-  - It should not contain runtime polymorphism if there is a direct sane way of notifying the subscribed object. But the runtime polymorphism in this case shouldn't cause that much of an overhead so it's also a reasonable path .
 
 # Collision detection
 2024-04-17
@@ -210,17 +197,12 @@ marked for destroyal and returns if it has. If it's alive then changes life stat
     - **collisions** is a set of ordered entity pairs.
     - Both entities of the collision pair must be notified if they implement the handler.
     - This model only cares about entity collisions, so at the implementation level collisions with the same entity's different colliders must be treated as one collision.
-- Improvement ideas:
-  - Reduce the O(n^2) complexity.
-  - The game world could be divided to fix sized disjunct rectangle areas that represent possible collision hotspots. Called **hotspot tiles**. This way the spacial position could be used as a hash function. Each collider would be hashed by their position and added to the spacial buckets they overlap O(n) operation but the collider area tiled subdivisions should be taken into account too. The algorythm should check those buckets that contains more than one collider O(n) operation. Approximately it's an O(n + tile_subdivision) + O(n) = O(2n + tile_subdivision) operation.
 
 # Material rendering
 2024-04-17
 - Material class describes the surface properties of the rendered object. Kind of like arguments for rendering.
 - Entities only rendered if a material is assigned to the renderer.
 - Currently only stores the **drawing color**.
-- Improvement ideas:
-  - Shaders can be attached to the material.
 
 # Input handling
 2024-04-15
@@ -254,9 +236,6 @@ marked for destroyal and returns if it has. If it's alive then changes life stat
 - This process repeated until no more entities to be processed.
 - Entities can be processed in random order. Not any special use case for using in depth graph traversal. It's simply just a convinient way of pushing to and popping from the queue.
 - After querying the entities the proper subengine's operation executed to each entity. Subengine's can use their own predicates and traversal algorythms to traverse the entity trees, but they are similar.
-- Improvement ideas:
-  - If a need arises for prioritizing the entities then an additional priority metadata needed and an ordered map can be used. The ordered map indexed by the priority and contains a set of entities that at the specified priority level can be processed in random order.
-  - Subengine's can have the same collection for each scene to not allocate a new one. But they can also use some kind of caching strategy for entities to be processed.
 
 # Main loop
 2024-04-15
