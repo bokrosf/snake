@@ -37,7 +37,7 @@ public:
 
     template<typename T, typename... Args>
         requires std::derived_from<T, component>
-    T &add_component(Args&&... args);
+    T &add_component(Args&& ...args);
 
     template<typename T>
         requires std::derived_from<T, component>
@@ -74,7 +74,7 @@ private:
 
 template<typename T, typename... Args>
     requires std::derived_from<T, component>
-T &entity::add_component(Args&&... args)
+T &entity::add_component(Args &&...args)
 {
     T *component = nullptr;
     
