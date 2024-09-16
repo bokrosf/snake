@@ -29,7 +29,7 @@ private:
     
     static scene_navigator *_instance;
     scene_loader &_loader;
-    std::stack<scene *> _scenes;
+    std::stack<int> _scenes;
 };
 
 template<typename Scene, typename... Args>
@@ -39,7 +39,7 @@ void scene_navigator::push(Args &&...args)
     _loader.queue([this, args...](scene_loader &sl)
     {
         scene &loaded = sl.load<Scene>(args...);
-        _scenes.push(&loaded);
+        _scenes.push(loaded.id());
         sl.activate(loaded.id());
         sl.active().initialize();
     });

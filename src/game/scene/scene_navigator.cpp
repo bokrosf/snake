@@ -49,9 +49,9 @@ void scene_navigator::pop()
             return;
         }
 
-        sl.unload(_scenes.top()->id());
+        sl.unload(_scenes.top());
         _scenes.pop();
-        sl.activate(_scenes.top()->id());
+        sl.activate(_scenes.top());
     });
 }
 
