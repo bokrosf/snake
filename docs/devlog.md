@@ -5,7 +5,25 @@ For improvement ideas search the following text for each section: **Improvement 
 Topics to write about
 - transform property of entity
 - querying entity by name
-- app handles scene navigation, batched scene navigation, delta time
+
+# Handling scene navigation
+2024-05-13
+
+- Switching to another scene must be executed after the current scene processed in the current frame.
+- Scene switching and activation requests must be queued in a form of a function, because they will happen later in time not simultaneously when the request created. The parameter lambda has a ```scene_loader``` parameter that is used to specify the operation to be executed. Other parameters must be passed by value because the caller's stack will be already destroyed when **committed** by ```app::run```.
+- Scene manipulation requests processed in queueing order and processed as a batch. Signaling the start of execution called **committing** the scene loader.
+- When the active scene changed **delta time** must be **reset to zero**. This is because each scene represents another simulated world. It's simulation must be continued from the exact time point when it's switched to. Moreover when switching back to a previous scene the previous scene must continue from the time point where it has been left. The exact time point can not be achieved but the delta time being zero has the same effect.
+- ```app``` class contians an instance of the ```scene_loader``` class.
+- Scene manipulation in order:
+  1. ```app::run``` calls the abstract ```app::load_start_scene``` method. ```app::create_start_scene``` method renamed to this and return type changed to void.
+  2. Concrete implementation of ```app``` class defines the abstract loader method and initializes it's scene navigator and loads necessary scenes and marks one active.
+  3. ```app::run``` commits the scene loader that executes the scene manipulation requests in order and then starts the main loop.
+  4. At the beginning of each frame the active scene is queried.
+  5. Collision detection, input reading, logic update and other main loop processes executed.
+  6. After the rendering phase **committing** occures and the scenes are loaded, activated as they have been requested.
+  7. Delta time updated according to if the scene stayed the same or changed.
+     - Stayed the same: Stores the elapsed time of processing the current scene.
+     - Changed: Elapsed time set to zero.
 
 # Scene navigation
 2024-05-12
