@@ -57,5 +57,5 @@ void scene_navigator::pop()
 
 void scene_navigator::reset_top()
 {
-    _loader.queue([this](scene_loader &sl) { _scenes.top()->reset(); });
+    _loader.queue([this](scene_loader &sl) { sl.active().reset(); });
 }
