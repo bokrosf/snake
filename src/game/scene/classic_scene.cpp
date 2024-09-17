@@ -57,11 +57,15 @@ void classic_scene::initialize()
     map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
-    snake.add_component<::snake>(maze.transformation().position(), maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)));
+    snake.add_component<::snake>(
+        maze.transformation().position(),
+        maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)),
+        tile_size);
+
     snake.add_component<tiled_movement_system>();
     snake.add_component<snake_renderer>(snake_layer, tile_size);
     snake.add_component<snake_controller>();
-    snake.add_component<box_collider>(vector2(1, 0.5F * tile_size));
+    snake.add_component<box_collider>(vector2(0.0F, 0.5F * tile_size));
     snake.add_component<box_collider_renderer>(collider_layer);
     snake.attached_component<::snake>().adjust_speed(tile_size);
     snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});

@@ -1,18 +1,25 @@
 #include <stdexcept>
 #include <engine/game_time.h>
+#include <game/game_event.h>
 #include <game/snake/snake.h>
 
-snake::snake(entity &attached_to, const vector2 &head, const vector2 &tail)
+snake::snake(entity &attached_to, const vector2 &head, const vector2 &tail, float thickness)
     : behavior(attached_to)
     , _movement_system(nullptr)
     , _collider(nullptr)
     , _speed(0)
+    , _thickness(thickness)
 {
+    if (_thickness < 0)
+    {
+        throw std::invalid_argument("Thickness must be greater than or equal to zero.");
+    }
+
     if (head.distance_from(tail) <= 0)
     {
         throw std::invalid_argument("Head and tail can not be the same position. Segment's length must be greater than zero.");
     }
-    
+
     _head_direction = vector2::left();
     _segments.push_front(head);
     _segments.push_back(tail);
@@ -36,6 +43,7 @@ void snake::start()
 void snake::update()
 {
     move_forward();
+    check_self_collision();
 }
 
 void snake::look_in_direction(const vector2 &direction)
@@ -66,6 +74,8 @@ void snake::look_in_direction(const vector2 &direction)
     {
         shrink_tail(difference);
     }
+
+    check_self_collision();
 }
 
 void snake::adjust_speed(float speed)
@@ -119,5 +129,28 @@ void snake::shrink_tail(float cut_off_length)
         float removed_length = std::min(tail_length, cut_off_length);
         shrinking = cut_off_length - removed_length < cut_off_length;
         cut_off_length -= removed_length;   
+    }
+}
+
+void snake::check_self_collision() const
+{
+    auto end = ++_segments.begin();
+    auto start = end++;
+
+    while (end != _segments.end())
+    {
+        vector2 segment = start->points_to(*end);
+        vector2 center = *start + 0.5F * segment;
+        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().perpendicular();
+        vector2 threshold = area.absolute() + _collider->area().absolute();
+        vector2 difference = center.points_to(_segments.front()).absolute();
+
+        if (difference.x() < threshold.x() && difference.y() < threshold.y())
+        {
+            _messenger.send(game_event::game_lost);
+            return;
+        }
+
+        start = end++;
     }
 }
