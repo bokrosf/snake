@@ -82,16 +82,28 @@ entity *scene::find_entity(const std::string &name) const
     return it != _named_entities.end() ? it->second : nullptr;
 }
 
-std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
+entity *scene::find_tagged_entity(const std::string &tag) const
 {
-    std::vector<entity *> found_entities;
+    entity *found = nullptr;
 
     scene_traversal::traverse(
         *this,
         [&tag](const entity *e) { return e->tag() == tag; },
-        [&found_entities](entity *e) { found_entities.push_back(e); });
+        [&found](entity *e) { found = e; });
 
-    return found_entities;
+    return found;
+}
+
+std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
+{
+    std::vector<entity *> found;
+
+    scene_traversal::traverse(
+        *this,
+        [&tag](const entity *e) { return e->tag() == tag; },
+        [&found](entity *e) { found.push_back(e); });
+
+    return found;
 }
 
 std::generator<entity *> scene::root_entities() const

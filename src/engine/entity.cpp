@@ -99,6 +99,11 @@ entity *entity::find(const std::string &name) const
     return _scene->find_entity(name);
 }
 
+entity *entity::find_tagged(const std::string &tag) const
+{
+    return _scene->find_tagged_entity(tag);
+}
+
 std::vector<entity *> entity::find_all_tagged(const std::string &tag) const
 {
     return _scene->find_all_tagged_entity(tag);

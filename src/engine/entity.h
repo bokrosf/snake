@@ -34,6 +34,7 @@ public:
     const std::string &tag() const;
     void tag(const std::string &name);
     void clear_tag();
+    entity *find_tagged(const std::string &name) const;
     entity *find(const std::string &name) const;
     std::vector<entity *> find_all_tagged(const std::string &tag) const;
     void attach_to(entity *new_parent);

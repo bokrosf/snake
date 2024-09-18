@@ -26,6 +26,7 @@ public:
     void destroy_marked_objects();
     void reset();
     entity *find_entity(const std::string &name) const;
+    entity *find_tagged_entity(const std::string &tag) const;
     std::vector<entity *> find_all_tagged_entity(const std::string &tag) const;
     std::generator<entity *> root_entities() const;
 protected:
