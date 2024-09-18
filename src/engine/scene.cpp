@@ -5,6 +5,7 @@
 #include <engine/entity_name_collision.h>
 #include <engine/life_state.h>
 #include <engine/scene.h>
+#include <engine/scene_traversal.h>
 
 scene::scene(int id)
     : _id(id)
@@ -79,6 +80,30 @@ entity *scene::find_entity(const std::string &name) const
     auto it = _named_entities.find(name);
 
     return it != _named_entities.end() ? it->second : nullptr;
+}
+
+entity *scene::find_tagged_entity(const std::string &tag) const
+{
+    entity *found = nullptr;
+
+    scene_traversal::traverse(
+        *this,
+        [&tag](const entity *e) { return e->tag() == tag; },
+        [&found](entity *e) { found = e; });
+
+    return found;
+}
+
+std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
+{
+    std::vector<entity *> found;
+
+    scene_traversal::traverse(
+        *this,
+        [&tag](const entity *e) { return e->tag() == tag; },
+        [&found](entity *e) { found.push_back(e); });
+
+    return found;
 }
 
 std::generator<entity *> scene::root_entities() const
