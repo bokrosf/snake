@@ -12,6 +12,7 @@ entity::entity(const std::string &name)
     , _parent(nullptr)
     , _transformation(nullptr)
     , _name(name)
+    , _tag("")
     {
     }
 
@@ -76,6 +77,21 @@ transformation &entity::transformation()
 const std::string &entity::name() const
 {
     return _name;
+}
+
+const std::string &entity::tag() const
+{
+    return _tag;
+}
+
+void entity::tag(const std::string &name)
+{
+    _tag = name;
+}
+
+void entity::clear_tag()
+{
+    _tag = "";
 }
 
 entity *entity::find(const std::string &name) const

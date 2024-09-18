@@ -31,6 +31,9 @@ public:
     entity *parent() const;
     ::transformation &transformation();
     const std::string &name() const;
+    const std::string &tag() const;
+    void tag(const std::string &name);
+    void clear_tag();
     entity *find(const std::string &name) const;
     void attach_to(entity *new_parent);
     std::generator<entity *> children() const;
@@ -70,6 +73,7 @@ private:
     std::vector<component *> _components;
     ::transformation *_transformation;
     const std::string _name;
+    std::string _tag;
 };
 
 template<typename T, typename... Args>
