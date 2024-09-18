@@ -99,6 +99,11 @@ entity *entity::find(const std::string &name) const
     return _scene->find_entity(name);
 }
 
+std::vector<entity *> entity::find_all_tagged(const std::string &tag) const
+{
+    return _scene->find_all_tagged_entity(tag);
+}
+
 void entity::attach_to(entity *new_parent)
 {
     if (new_parent == this)
