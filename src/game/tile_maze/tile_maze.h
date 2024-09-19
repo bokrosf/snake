@@ -13,6 +13,8 @@ public:
     float tile_size() const;
     vector2 tile_center(const vector2 &position) const;
 private:
+    vector2 difference_in_tiles(const vector2 &a, const vector2 &b) const;
+
     const float _tile_size;
 };
 
