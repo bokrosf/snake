@@ -73,6 +73,13 @@ vector2 vector2::round() const
     return vector2(std::round(_x), std::round(_y));
 }
 
+vector2 vector2::sign() const
+{
+    return vector2(
+        _x < 0 ? -1 : 1,
+        _y < 0 ? -1 : 1);
+}
+
 vector2 vector2::zero()
 {
     return vector2(0, 0);

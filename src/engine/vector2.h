@@ -17,6 +17,7 @@ public:
     vector2 perpendicular() const;
     vector2 absolute() const;
     vector2 round() const;
+    vector2 sign() const;
     static vector2 zero();
     static vector2 up();
     static vector2 down();
