@@ -59,6 +59,7 @@ void classic_scene::initialize()
     map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
+    snake.tag(tag::snake);
     snake.add_component<::snake>(
         maze.transformation().position(),
         maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)),

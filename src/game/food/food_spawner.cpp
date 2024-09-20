@@ -19,6 +19,7 @@ food_spawner::food_spawner(entity &attached_to, int food_count)
 void food_spawner::initialize()
 {
     _tile_maze = &attached_to().find(entity_names::map)->attached_component<tile_maze>();
+    _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
 }
 
 void food_spawner::start()
@@ -55,4 +56,24 @@ void food_spawner::spawn()
     food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
     --_remaining_food_count;
     y_sign *= -1;
+}
+
+std::generator<vector2> food_spawner::snake_tiles() const
+{
+    auto end = _snake->segments().begin();
+    auto start = end++;
+
+    while (end != _snake->segments().end())
+    {
+        vector2 segment = start->points_to(*end);
+        vector2 area = segment + 0.5F * _tile_maze->tile_size() * segment.normalize().perpendicular();
+        vector2 center = *start + 0.5F * segment;
+
+        for (const auto &tile_center : _tile_maze->tiles_of_area(center, area))
+        {
+            co_yield tile_center;
+        }
+
+        start = end++;
+    }
 }
