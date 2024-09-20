@@ -52,7 +52,7 @@ void classic_scene::initialize()
     const float tile_size = display_mode.w / 30;
 
     entity &map = entity::create(entity_names::map);
-    tile_maze &maze = map.add_component<tile_maze>(tile_size);
+    tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
     maze.transformation().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
     map.add_component<tile_maze_renderer>(terrain_layer, tile_maze_rendering_bounds);

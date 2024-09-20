@@ -1,9 +1,11 @@
 #include <stdexcept>
 #include <game/tile_maze/tile_maze.h>
 
-tile_maze::tile_maze(entity &attached_to, float tile_size)
+tile_maze::tile_maze(entity &attached_to, float tile_size, uint width, uint height)
     : component(attached_to)
     , _tile_size(tile_size)
+    , _width(width)
+    , _height(height)
 {
     if (tile_size <= 0)
     {
@@ -14,6 +16,16 @@ tile_maze::tile_maze(entity &attached_to, float tile_size)
 float tile_maze::tile_size() const
 {
     return _tile_size;
+}
+
+uint tile_maze::width() const
+{
+    return _width;
+}
+
+uint tile_maze::height() const
+{
+    return _height;
 }
 
 vector2 tile_maze::tile_center(const vector2 &position) const
