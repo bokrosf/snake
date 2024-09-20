@@ -11,6 +11,7 @@
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
 #include <game/snake/tiled_movement_system.h>
+#include <game/tag.h>
 #include <game/tile_maze/tile_maze.h>
 #include <game/tile_maze/tile_maze_renderer.h>
 #include <game/wall/wall.h>
@@ -27,6 +28,7 @@ namespace
     void create_wall(const vector2 &position, const vector2 &area)
     {
         entity &wall = entity::create();
+        wall.tag(tag::wall);
         wall.transformation().position(position);
         wall.add_component<::wall>(area);
         wall.add_component<wall_renderer>(wall_layer);

@@ -1,10 +1,10 @@
 #include <stdexcept>
-#include <engine/vector2.h>
 #include <engine/collision/box_collider.h>
 #include <game/entity_names.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
+#include <game/tag.h>
 
 food_spawner::food_spawner(entity &attached_to, int food_count)
     : component(attached_to)
@@ -19,6 +19,19 @@ food_spawner::food_spawner(entity &attached_to, int food_count)
 void food_spawner::initialize()
 {
     _tile_maze = &attached_to().find(entity_names::map)->attached_component<tile_maze>();
+}
+
+void food_spawner::start()
+{
+    for (entity *wall : attached_to().find_all_tagged(tag::wall))
+    {
+        box_collider &collider = wall->attached_component<box_collider>();
+
+        for (const auto &tile_center : _tile_maze->tiles_of_area(wall->transformation().position(), 2.0F * collider.area()))
+        {
+            _wall_tiles.insert(tile_center);
+        }
+    }
 }
 
 void food_spawner::spawn()
