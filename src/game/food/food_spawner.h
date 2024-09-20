@@ -1,7 +1,6 @@
 #ifndef SNAKE_GAME_FOOD_FOODSPAWNER_H
 #define SNAKE_GAME_FOOD_FOODSPAWNER_H
 
-#include <generator>
 #include <unordered_set>
 #include <engine/component/component.h>
 #include <engine/entity.h>
@@ -21,7 +20,7 @@ public:
     void start() override;
     void spawn();
 private:
-    std::generator<vector2> snake_tiles() const;
+    std::unordered_set<vector2> snake_tiles() const;
 
     std::unordered_set<vector2> _wall_tiles;
     int _remaining_food_count;

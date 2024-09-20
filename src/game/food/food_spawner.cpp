@@ -59,10 +59,11 @@ void food_spawner::spawn()
     y_sign *= -1;
 }
 
-std::generator<vector2> food_spawner::snake_tiles() const
+std::unordered_set<vector2> food_spawner::snake_tiles() const
 {
-    auto end = _snake->segments().begin();
-    auto start = end++;
+    std::unordered_set<vector2> tiles;
+    auto start = _snake->segments().begin();
+    auto end = ++_snake->segments().begin();
 
     while (end != _snake->segments().end())
     {
@@ -72,9 +73,11 @@ std::generator<vector2> food_spawner::snake_tiles() const
 
         for (const auto &tile_center : _tile_maze->tiles_of_area(center, area))
         {
-            co_yield tile_center;
+            tiles.insert(tile_center);
         }
 
         start = end++;
     }
+
+    return tiles;
 }
