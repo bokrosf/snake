@@ -1,6 +1,7 @@
 #ifndef SNAKE_GAME_TILEMAZE_TILEMAZE_H
 #define SNAKE_GAME_TILEMAZE_TILEMAZE_H
 
+#include <generator>
 #include <engine/component/component.h>
 #include <engine/entity.h>
 #include <engine/vector2.h>
@@ -12,6 +13,7 @@ public:
     ~tile_maze() = default;
     float tile_size() const;
     vector2 tile_center(const vector2 &position) const;
+    std::generator<vector2> tiles_of_area(const vector2 &center, const vector2 &area) const;
 private:
     vector2 difference_in_tiles(const vector2 &a, const vector2 &b) const;
 
