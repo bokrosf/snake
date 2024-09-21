@@ -28,6 +28,11 @@ uint tile_maze::height() const
     return _height;
 }
 
+uint tile_maze::tile_count() const
+{
+    return _width * _height;
+}
+
 vector2 tile_maze::tile_center(const vector2 &position) const
 {
     return transformation().position() + _tile_size * difference_in_tiles(transformation().position(), position);

@@ -3,7 +3,7 @@
 
 enum class game_start_requirement
 {
-    food_spawner_initialized
+    food_spawner_ready
 };
 
 #endif

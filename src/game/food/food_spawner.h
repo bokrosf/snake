@@ -1,6 +1,7 @@
 #ifndef SNAKE_GAME_FOOD_FOODSPAWNER_H
 #define SNAKE_GAME_FOOD_FOODSPAWNER_H
 
+#include <random>
 #include <unordered_set>
 #include <engine/component/component.h>
 #include <engine/entity.h>
@@ -14,7 +15,7 @@
 class food_spawner : public component, public initializable, public startable
 {
 public:
-    food_spawner(entity &attached_to, int food_count);
+    food_spawner(entity &attached_to);
     ~food_spawner() override = default;
     void initialize() override;
     void start() override;
@@ -23,7 +24,9 @@ private:
     std::unordered_set<vector2> snake_tiles() const;
 
     std::unordered_set<vector2> _wall_tiles;
-    int _remaining_food_count;
+    std::random_device _random_generator;
+    std::uniform_int_distribution<uint> _tile_distribution;
+    uint _remaining_food_count;
     const tile_maze *_tile_maze;
     const snake *_snake;
 };

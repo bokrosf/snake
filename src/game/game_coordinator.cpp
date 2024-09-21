@@ -8,22 +8,20 @@ game_coordinator::game_coordinator(entity &attached_to)
     : behavior(attached_to)
     , _food_spawner(nullptr)
 {
+    _start_requirements.insert(game_start_requirement::food_spawner_ready);
 }
 
 game_coordinator::~game_coordinator()
 {
     _messenger.unsubscribe<game_event>(*this);
+    _messenger.unsubscribe<game_start_requirement>(*this);
 }
 
 void game_coordinator::initialize()
 {
     _food_spawner = &attached_to().attached_component<food_spawner>();
     _messenger.subscribe<game_event>(*this);
-}
-
-void game_coordinator::start()
-{
-    _food_spawner->spawn();
+    _messenger.subscribe<game_start_requirement>(*this);
 }
 
 void game_coordinator::update()
@@ -48,4 +46,29 @@ void game_coordinator::receive(const game_event &message)
             scene_navigator::instance().push<game_ending_scene>(false);
             break;
     }
+}
+
+void game_coordinator::receive(const game_start_requirement &message)
+{
+    if (_start_requirements.empty())
+    {
+        return;
+    }
+    
+    _start_requirements.erase(message);
+    
+    if (_start_requirements.empty())
+    {
+        start_game();
+    }
+}
+
+void game_coordinator::start_game()
+{
+    if (!_start_requirements.empty())
+    {
+        return;
+    }
+
+    _food_spawner->spawn();
 }

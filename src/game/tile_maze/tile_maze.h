@@ -14,6 +14,7 @@ public:
     float tile_size() const;
     uint width() const;
     uint height() const;
+    uint tile_count() const;
     vector2 tile_center(const vector2 &position) const;
     vector2 tile_center(uint row, uint column) const;
     std::generator<vector2> tiles_of_area(const vector2 &center, const vector2 &area) const;
