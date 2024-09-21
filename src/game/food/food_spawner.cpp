@@ -1,10 +1,12 @@
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
+#include <game/color.h>
 #include <game/entity_names.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
 #include <game/game_start_requirement.h>
+#include <game/render_layer.h>
 #include <game/tag.h>
 
 food_spawner::food_spawner(entity &attached_to)
@@ -61,13 +63,12 @@ void food_spawner::spawn()
         if (!_wall_tiles.contains(food_position) && !snake_positions.contains(food_position))
         {
             found = true;
-            const int food_layer = 1;
             entity &food = entity::create();
             food.transformation().position(food_position);
             food.add_component<::food>(_tile_maze->tile_size());
-            food.add_component<food_renderer>(food_layer, _tile_maze->tile_size());
+            food.add_component<food_renderer>(render_layer::food, _tile_maze->tile_size());
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
-            food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
+            food.attached_component<food_renderer>().change_material(material{color::food});
             --_remaining_food_count;
         }
 
