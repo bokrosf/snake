@@ -33,6 +33,13 @@ vector2 tile_maze::tile_center(const vector2 &position) const
     return transformation().position() + _tile_size * difference_in_tiles(transformation().position(), position);
 }
 
+vector2 tile_maze::tile_center(uint row, uint column) const
+{
+    vector2 upper_left_corner = transformation().position() - _tile_size * vector2(_width / 2, _height / 2);
+    
+    return upper_left_corner + _tile_size * vector2(column, row);
+}
+
 std::generator<vector2> tile_maze::tiles_of_area(const vector2 &center, const vector2 &area) const
 {
     vector2 tile_count = (area.absolute() / _tile_size).round();
