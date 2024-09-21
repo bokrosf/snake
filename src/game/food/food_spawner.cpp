@@ -1,45 +1,99 @@
 #include <stdexcept>
-#include <engine/vector2.h>
 #include <engine/collision/box_collider.h>
 #include <game/entity_names.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
+#include <game/game_start_requirement.h>
+#include <game/tag.h>
 
-food_spawner::food_spawner(entity &attached_to, int food_count)
+food_spawner::food_spawner(entity &attached_to)
     : component(attached_to)
-    , _remaining_food_count(food_count)
+    , _remaining_food_count(0)
 {
-    if (food_count < 1)
-    {
-        throw std::invalid_argument("Food count must be greater than zero.");
-    }
 }
 
 void food_spawner::initialize()
 {
     _tile_maze = &attached_to().find(entity_names::map)->attached_component<tile_maze>();
+    _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
+}
+
+void food_spawner::start()
+{
+    for (entity *wall : attached_to().find_all_tagged(tag::wall))
+    {
+        box_collider &collider = wall->attached_component<box_collider>();
+        vector2 overlapped_area = 2.0F * collider.area();
+
+        for (const auto &tile_center : _tile_maze->tiles_of_area(wall->transformation().position(), overlapped_area))
+        {
+            _wall_tiles.insert(tile_center);
+        }
+    }
+
+    _tile_distribution = std::uniform_int_distribution<uint>(0, _tile_maze->tile_count() - 1);
+    _remaining_food_count = _tile_maze->tile_count() - 1 - _wall_tiles.size() - snake_tiles().size();
+    _messenger.send(game_start_requirement::food_spawner_ready);
 }
 
 void food_spawner::spawn()
 {
-    if (_remaining_food_count <= 0)
+    if (_remaining_food_count == 0)
     {
         _messenger.send(game_event::food_storage_depleted);
         return;
     }
-    
-    // TODO 2024-05-03 Generate food between the bounds of the tile_maze.
-    // A temporary solution for testing the component and game ending.
-    static int y_sign = 1;
-    const int food_layer = 1;
-    vector2 food_position = _tile_maze->tile_center(_tile_maze->transformation().position() + vector2(0, y_sign * _tile_maze->tile_size()));
-    entity &food = entity::create();
-    food.transformation().position(food_position);
-    food.add_component<::food>(_tile_maze->tile_size());
-    food.add_component<food_renderer>(food_layer, _tile_maze->tile_size());
-    food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
-    food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
-    --_remaining_food_count;
-    y_sign *= -1;
+
+    uint tile_index = _tile_distribution(_random_generator);
+    uint i = 0;
+    bool found = false;
+    std::unordered_set<vector2> snake_positions = snake_tiles();
+
+    while (!found && i < _tile_maze->tile_count())
+    {
+        ++tile_index;
+        tile_index %= _tile_maze->tile_count();
+        uint row = tile_index / _tile_maze->width();
+        uint column = tile_index % _tile_maze->width();
+        vector2 food_position = _tile_maze->tile_center(row, column);
+
+        if (!_wall_tiles.contains(food_position) && !snake_positions.contains(food_position))
+        {
+            found = true;
+            const int food_layer = 1;
+            entity &food = entity::create();
+            food.transformation().position(food_position);
+            food.add_component<::food>(_tile_maze->tile_size());
+            food.add_component<food_renderer>(food_layer, _tile_maze->tile_size());
+            food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
+            food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
+            --_remaining_food_count;
+        }
+
+        ++i;
+    }
+}
+
+std::unordered_set<vector2> food_spawner::snake_tiles() const
+{
+    std::unordered_set<vector2> tiles;
+    auto start = _snake->segments().begin();
+    auto end = ++_snake->segments().begin();
+
+    while (end != _snake->segments().end())
+    {
+        vector2 segment = start->points_to(*end);
+        vector2 area = segment + 0.5F * _tile_maze->tile_size() * segment.normalize().perpendicular();
+        vector2 center = *start + 0.5F * segment;
+
+        for (const auto &tile_center : _tile_maze->tiles_of_area(center, area))
+        {
+            tiles.insert(tile_center);
+        }
+
+        start = end++;
+    }
+
+    return tiles;
 }

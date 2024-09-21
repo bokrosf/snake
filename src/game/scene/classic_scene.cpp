@@ -11,6 +11,7 @@
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
 #include <game/snake/tiled_movement_system.h>
+#include <game/tag.h>
 #include <game/tile_maze/tile_maze.h>
 #include <game/tile_maze/tile_maze_renderer.h>
 #include <game/wall/wall.h>
@@ -27,6 +28,7 @@ namespace
     void create_wall(const vector2 &position, const vector2 &area)
     {
         entity &wall = entity::create();
+        wall.tag(tag::wall);
         wall.transformation().position(position);
         wall.add_component<::wall>(area);
         wall.add_component<wall_renderer>(wall_layer);
@@ -50,13 +52,14 @@ void classic_scene::initialize()
     const float tile_size = display_mode.w / 30;
 
     entity &map = entity::create(entity_names::map);
-    tile_maze &maze = map.add_component<tile_maze>(tile_size);
+    tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
     maze.transformation().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
     map.add_component<tile_maze_renderer>(terrain_layer, tile_maze_rendering_bounds);
     map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
 
     entity &snake = entity::create();
+    snake.tag(tag::snake);
     snake.add_component<::snake>(
         maze.transformation().position(),
         maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)),
@@ -72,7 +75,7 @@ void classic_scene::initialize()
 
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();
-    coordinator.add_component<food_spawner>(3);
+    coordinator.add_component<food_spawner>();
 
     create_wall(maze.transformation().position() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
     create_wall(maze.transformation().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));

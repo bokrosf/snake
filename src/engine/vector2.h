@@ -1,6 +1,11 @@
 #ifndef ENGINE_VECTOR2_H
 #define ENGINE_VECTOR2_H
 
+#include <functional>
+
+class vector2;
+struct std::hash<vector2>;
+
 class vector2
 {
 public:
@@ -17,6 +22,7 @@ public:
     vector2 perpendicular() const;
     vector2 absolute() const;
     vector2 round() const;
+    vector2 sign() const;
     static vector2 zero();
     static vector2 up();
     static vector2 down();
@@ -34,8 +40,21 @@ public:
     vector2 operator/(float rhs) const;
     vector2 operator-() const;
 private:
+    friend std::hash<vector2>;
+
     float _x;
     float _y;
+};
+
+template<>
+struct std::hash<vector2>
+{
+    size_t operator()(const vector2 &v) const noexcept
+    {
+        std::hash<float> hash;
+
+        return hash(v._x) * hash(v._x) + hash(v._y);
+    }
 };
 
 #endif
