@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
+#include <game/color.h>
 #include <game/entity_names.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
@@ -67,7 +68,7 @@ void food_spawner::spawn()
             food.add_component<::food>(_tile_maze->tile_size());
             food.add_component<food_renderer>(food_layer, _tile_maze->tile_size());
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
-            food.attached_component<food_renderer>().change_material(material{SDL_Color{255, 0, 0, 255}});
+            food.attached_component<food_renderer>().change_material(material{color::food});
             --_remaining_food_count;
         }
 

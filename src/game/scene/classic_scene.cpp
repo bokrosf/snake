@@ -4,6 +4,7 @@
 #include <engine/collision/collision_handler.h>
 #include <engine/display.h>
 #include <engine/entity.h>
+#include <game/color.h>
 #include <game/entity_names.h>
 #include <game/food/food_spawner.h>
 #include <game/game_coordinator.h>
@@ -34,7 +35,7 @@ namespace
         wall.add_component<wall_renderer>(wall_layer);
         wall.add_component<box_collider>(area);
         wall.add_component<box_collider_renderer>(collider_layer);
-        wall.attached_component<wall_renderer>().change_material(material{SDL_Color{128, 128, 128, 255}});
+        wall.attached_component<wall_renderer>().change_material(material{color::wall});
     }
 }
 
@@ -56,7 +57,7 @@ void classic_scene::initialize()
     maze.transformation().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
     map.add_component<tile_maze_renderer>(terrain_layer, tile_maze_rendering_bounds);
-    map.attached_component<tile_maze_renderer>().change_material(material{SDL_Color{0, 0, 255, 255}});
+    map.attached_component<tile_maze_renderer>().change_material(material{color::tile_maze});
 
     entity &snake = entity::create();
     snake.tag(tag::snake);
@@ -71,7 +72,7 @@ void classic_scene::initialize()
     snake.add_component<box_collider>(vector2(0.0F, 0.5F * tile_size));
     snake.add_component<box_collider_renderer>(collider_layer);
     snake.attached_component<::snake>().adjust_speed(tile_size);
-    snake.attached_component<snake_renderer>().change_material(material{SDL_Color{0, 255, 0, 255}});
+    snake.attached_component<snake_renderer>().change_material(material{color::snake});
 
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();
