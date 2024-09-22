@@ -85,14 +85,14 @@ entity *scene::find_entity(const std::string &name) const
 
 entity *scene::find_tagged_entity(const std::string &tag) const
 {
-    entity *found = nullptr;
+    auto filter = [&tag](const entity *e) { return e->tag() == tag; };
 
-    scene_traversal::traverse(
-        *this,
-        [&tag](const entity *e) { return e->tag() == tag; },
-        [&found](entity *e) { found = e; });
+    for (entity &e : traverse(filter))
+    {
+        return &e;
+    }
 
-    return found;
+    return nullptr;
 }
 
 std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
