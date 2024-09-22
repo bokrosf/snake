@@ -19,21 +19,21 @@ void tile_maze_renderer::render(SDL_Renderer *renderer)
         return;
     }
     
-    vector2 start = _maze->transformation().position() - _bounds.absolute();
+    vector2 begin = _maze->transformation().position() - _bounds.absolute();
     vector2 end = _maze->transformation().position() + _bounds.absolute();
     float tile_size = _maze->tile_size();
-    int x_sections = (end.x() - start.x()) / tile_size;
-    int y_sections = (end.y() - start.y()) / tile_size;
+    int x_sections = (end.x() - begin.x()) / tile_size;
+    int y_sections = (end.y() - begin.y()) / tile_size;
 
     for (int i = 0; i <= x_sections; ++i)
     {
-        float x = start.x() + i * tile_size;
-        SDL_RenderDrawLineF(renderer, x, start.y(), x, end.y());
+        float x = begin.x() + i * tile_size;
+        SDL_RenderDrawLineF(renderer, x, begin.y(), x, end.y());
     }
 
     for (int i = 0; i <= y_sections; ++i)
     {
-        float y = start.y() + i * tile_size;
-        SDL_RenderDrawLineF(renderer, start.x(), y, end.x(), y);
+        float y = begin.y() + i * tile_size;
+        SDL_RenderDrawLineF(renderer, begin.x(), y, end.x(), y);
     }
 }

@@ -19,33 +19,33 @@ void snake_renderer::render(SDL_Renderer *renderer)
         return;
     }
     
-    auto segment_start = _snake->segments().cbegin();
-    auto segment_end = ++_snake->segments().cbegin();
+    auto begin = _snake->segments().cbegin();
+    auto end = ++_snake->segments().cbegin();
 
-    draw_segment(renderer, *segment_start, *segment_end);
-    segment_start = segment_end++;
+    draw_segment(renderer, *begin, *end);
+    begin = end++;
 
-    while (segment_end != _snake->segments().cend())
+    while (end != _snake->segments().cend())
     {
-        vector2 offset = (half_thickness() - 1) * segment_start->points_to(*segment_end).normalize();
-        draw_segment(renderer, *segment_start - offset, *segment_end);
-        segment_start = segment_end++;
+        vector2 offset = (half_thickness() - 1) * begin->points_to(*end).normalize();
+        draw_segment(renderer, *begin - offset, *end);
+        begin = end++;
     }
 }
 
-void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &start, const vector2 &end) const
+void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &begin, const vector2 &end) const
 {
-    vector2 perpendicular = start.points_to(end).perpendicular().normalize();
+    vector2 perpendicular = begin.points_to(end).perpendicular().normalize();
 
     for (int i = 0; i < half_thickness(); ++i)
     {
-        vector2 line_start = start - i * perpendicular;
+        vector2 line_begin = begin - i * perpendicular;
         vector2 line_end = end - i * perpendicular;
-        SDL_RenderDrawLine(renderer, line_start.x(), line_start.y(), line_end.x(), line_end.y());
+        SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
         
-        line_start = start + i * perpendicular;
+        line_begin = begin + i * perpendicular;
         line_end = end + i * perpendicular;
-        SDL_RenderDrawLine(renderer, line_start.x(), line_start.y(), line_end.x(), line_end.y());
+        SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
     }
 }
 
