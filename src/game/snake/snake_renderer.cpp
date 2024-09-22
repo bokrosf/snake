@@ -35,16 +35,16 @@ void snake_renderer::render(SDL_Renderer *renderer)
 
 void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &begin, const vector2 &end) const
 {
-    vector2 perpendicular = begin.points_to(end).orthogonal().normalize();
+    vector2 thickness_direction = begin.points_to(end).orthogonal().normalize();
 
     for (int i = 0; i < half_thickness(); ++i)
     {
-        vector2 line_begin = begin - i * perpendicular;
-        vector2 line_end = end - i * perpendicular;
+        vector2 line_begin = begin - i * thickness_direction;
+        vector2 line_end = end - i * thickness_direction;
         SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
         
-        line_begin = begin + i * perpendicular;
-        line_end = end + i * perpendicular;
+        line_begin = begin + i * thickness_direction;
+        line_end = end + i * thickness_direction;
         SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
     }
 }
