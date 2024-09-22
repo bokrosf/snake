@@ -16,7 +16,7 @@ public:
     vector2 points_to(const vector2 &position) const;
     float distance_from(const vector2 &position) const;
     float square_distance_from(const vector2 &position) const;
-    vector2 perpendicular() const;
+    vector2 orthogonal() const;
     vector2 absolute() const;
     vector2 round() const;
     vector2 sign() const;

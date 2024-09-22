@@ -58,7 +58,7 @@ float vector2::square_distance_from(const vector2 &position) const
     return points_to(position).square_magnitude();
 }
 
-vector2 vector2::perpendicular() const
+vector2 vector2::orthogonal() const
 {
     return vector2(_y, -_x);
 }

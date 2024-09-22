@@ -85,7 +85,7 @@ std::unordered_set<vector2> food_spawner::snake_tiles() const
     while (end != _snake->segments().end())
     {
         vector2 segment = begin->points_to(*end);
-        vector2 area = segment + 0.5F * _tile_maze->tile_size() * segment.normalize().perpendicular();
+        vector2 area = segment + 0.5F * _tile_maze->tile_size() * segment.normalize().orthogonal();
         vector2 center = *begin + 0.5F * segment;
 
         for (const auto &tile_center : _tile_maze->tiles_of_area(center, area))

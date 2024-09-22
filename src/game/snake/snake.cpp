@@ -141,7 +141,7 @@ void snake::check_self_collision() const
     {
         vector2 segment = begin->points_to(*end);
         vector2 center = *begin + 0.5F * segment;
-        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().perpendicular();
+        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().orthogonal();
         vector2 threshold = area.absolute() + _collider->area().absolute();
         vector2 difference = center.points_to(_segments.front()).absolute();
 

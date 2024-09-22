@@ -35,7 +35,7 @@ void snake_renderer::render(SDL_Renderer *renderer)
 
 void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &begin, const vector2 &end) const
 {
-    vector2 perpendicular = begin.points_to(end).perpendicular().normalize();
+    vector2 perpendicular = begin.points_to(end).orthogonal().normalize();
 
     for (int i = 0; i < half_thickness(); ++i)
     {
