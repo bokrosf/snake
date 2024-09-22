@@ -40,10 +40,10 @@ public:
     vector2 operator/(float rhs) const;
     vector2 operator-() const;
 private:
-    friend std::hash<vector2>;
-
     float _x;
     float _y;
+
+    friend std::hash<vector2>;
 };
 
 template<>
