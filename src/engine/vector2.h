@@ -3,9 +3,6 @@
 
 #include <functional>
 
-class vector2;
-struct std::hash<vector2>;
-
 class vector2
 {
 public:
@@ -40,10 +37,10 @@ public:
     vector2 operator/(float rhs) const;
     vector2 operator-() const;
 private:
-    friend std::hash<vector2>;
-
     float _x;
     float _y;
+
+    friend struct std::hash<vector2>;
 };
 
 template<>

@@ -17,7 +17,6 @@
 #include <engine/messaging/messenger.h>
 
 class scene;
-class object_initializer;
 
 class entity : public activatable 
 {
@@ -64,8 +63,6 @@ private:
     entity *find_descendant_tree_root(entity *descendant) const;
     void change_parent(entity *entity, ::entity *new_parent);
     void erase_destroyed_components();
-    friend scene;
-    friend object_initializer;
     
     scene *_scene;
     ::life_state _life_state;
@@ -76,6 +73,9 @@ private:
     ::transformation *_transformation;
     const std::string _name;
     std::string _tag;
+
+    friend scene;
+    friend class object_initializer;
 };
 
 template<typename T, typename... Args>
