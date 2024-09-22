@@ -3,13 +3,10 @@
 
 #include <functional>
 
-class vector2
+struct vector2
 {
-public:
     vector2();
     vector2(float x, float y);
-    float x() const;
-    float y() const;
     float magnitude() const;
     float square_magnitude() const;
     vector2 normalize() const;
@@ -36,9 +33,9 @@ public:
     vector2 &operator/=(float rhs);
     vector2 operator/(float rhs) const;
     vector2 operator-() const;
-private:
-    float _x;
-    float _y;
+
+    float x;
+    float y;
 
     friend struct std::hash<vector2>;
 };
@@ -50,7 +47,7 @@ struct std::hash<vector2>
     {
         std::hash<float> hash;
 
-        return hash(v._x) * hash(v._x) + hash(v._y);
+        return hash(v.x) * hash(v.x) + hash(v.y);
     }
 };
 

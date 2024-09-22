@@ -27,8 +27,8 @@ void food_renderer::render(SDL_Renderer *renderer)
     float half_thickness = 0.5F * _thickness;
     vector2 draw_position = _food->transformation().position() - vector2(half_thickness - 1, half_thickness - 1);
     SDL_FRect rect;
-    rect.x = draw_position.x();
-    rect.y = draw_position.y();
+    rect.x = draw_position.x;
+    rect.y = draw_position.y;
     rect.w = _thickness;
     rect.h = _thickness;
     SDL_RenderFillRectF(renderer, &rect);

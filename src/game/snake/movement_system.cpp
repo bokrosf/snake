@@ -35,7 +35,7 @@ turning_correction movement_system::correct_turning(const vector2 &head_position
 
 vector2 movement_system::project_longer_axis(const vector2 &position) const
 {
-    return std::abs(position.x()) > std::abs(position.y())
-        ? vector2(position.x(), 0)
-        : vector2(0, position.y());
+    return std::abs(position.x) > std::abs(position.y)
+        ? vector2(position.x, 0)
+        : vector2(0, position.y);
 }

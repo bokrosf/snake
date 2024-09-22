@@ -8,19 +8,9 @@ vector2::vector2()
 }
 
 vector2::vector2(float x, float y)
-    : _x(x)
-    , _y(y)
+    : x(x)
+    , y(y)
 {
-}
-
-float vector2::x() const
-{
-    return _x;
-}
-
-float vector2::y() const
-{
-    return _y;
 }
 
 float vector2::magnitude() const
@@ -30,7 +20,7 @@ float vector2::magnitude() const
 
 float vector2::square_magnitude() const
 {
-    return _x * _x + _y * _y;
+    return x * x + y * y;
 }
 
 vector2 vector2::normalize() const
@@ -60,24 +50,24 @@ float vector2::square_distance_from(const vector2 &position) const
 
 vector2 vector2::orthogonal() const
 {
-    return vector2(_y, -_x);
+    return vector2(y, -x);
 }
 
 vector2 vector2::absolute() const
 {
-    return vector2(std::abs(_x), std::abs(_y));
+    return vector2(std::abs(x), std::abs(y));
 }
 
 vector2 vector2::round() const
 {
-    return vector2(std::round(_x), std::round(_y));
+    return vector2(std::round(x), std::round(y));
 }
 
 vector2 vector2::sign() const
 {
     return vector2(
-        _x < 0 ? -1 : 1,
-        _y < 0 ? -1 : 1);
+        x < 0 ? -1 : 1,
+        y < 0 ? -1 : 1);
 }
 
 vector2 vector2::zero()
@@ -107,7 +97,7 @@ vector2 vector2::right()
 
 bool operator==(const vector2 &lhs, const vector2 &rhs)
 {
-    return lhs._x == rhs._x && lhs._y == rhs._y;
+    return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
 bool operator!=(const vector2 &lhs, const vector2 &rhs)
@@ -117,8 +107,8 @@ bool operator!=(const vector2 &lhs, const vector2 &rhs)
 
 vector2 &vector2::operator+=(const vector2 &rhs)
 {
-    _x += rhs._x;
-    _y += rhs._y;
+    x += rhs.x;
+    y += rhs.y;
 
     return *this;
 }
@@ -130,8 +120,8 @@ vector2 vector2::operator+(const vector2 &rhs) const
 
 vector2 &vector2::operator-=(const vector2 &rhs)
 {
-    _x -= rhs._x;
-    _y -= rhs._y;
+    x -= rhs.x;
+    y -= rhs.y;
 
     return *this;
 }
@@ -143,8 +133,8 @@ vector2 vector2::operator-(const vector2 &rhs) const
 
 vector2 &vector2::operator*=(float rhs)
 {
-    _x *= rhs;
-    _y *= rhs;
+    x *= rhs;
+    y *= rhs;
 
     return *this;
 }
@@ -161,8 +151,8 @@ vector2 operator*(float lhs, const vector2 &rhs)
 
 vector2 &vector2::operator/=(float rhs)
 {
-    _x /= rhs;
-    _y /= rhs;
+    x /= rhs;
+    y /= rhs;
 
     return *this;
 }

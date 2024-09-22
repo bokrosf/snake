@@ -41,11 +41,11 @@ void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &begin, 
     {
         vector2 line_begin = begin - i * thickness_direction;
         vector2 line_end = end - i * thickness_direction;
-        SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
+        SDL_RenderDrawLine(renderer, line_begin.x, line_begin.y, line_end.x, line_end.y);
         
         line_begin = begin + i * thickness_direction;
         line_end = end + i * thickness_direction;
-        SDL_RenderDrawLine(renderer, line_begin.x(), line_begin.y(), line_end.x(), line_end.y());
+        SDL_RenderDrawLine(renderer, line_begin.x, line_begin.y, line_end.x, line_end.y);
     }
 }
 
