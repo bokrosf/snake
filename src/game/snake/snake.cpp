@@ -56,7 +56,7 @@ void snake::look_in_direction(const vector2 &direction)
     }
 
     _head_direction = correction.head_direction;
-    _collider->area(vector2(_collider->area().y(), _collider->area().x()));
+    _collider->area(vector2(_collider->area().y, _collider->area().x));
     float original_head_length = _segments.cbegin()->distance_from(*++_segments.cbegin());
     _segments.pop_front();
     float new_head_length = 0;
@@ -141,11 +141,11 @@ void snake::check_self_collision() const
     {
         vector2 segment = begin->points_to(*end);
         vector2 center = *begin + 0.5F * segment;
-        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().perpendicular();
+        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().orthogonal();
         vector2 threshold = area.absolute() + _collider->area().absolute();
         vector2 difference = center.points_to(_segments.front()).absolute();
 
-        if (difference.x() < threshold.x() && difference.y() < threshold.y())
+        if (difference.x < threshold.x && difference.y < threshold.y)
         {
             _messenger.send(game_event::game_lost);
             return;

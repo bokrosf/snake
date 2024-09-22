@@ -51,9 +51,9 @@ std::generator<vector2> tile_maze::tiles_of_area(const vector2 &center, const ve
     vector2 upper_left_corner = center - 0.5 * area.absolute();
     upper_left_corner += 0.5F * vector2(_tile_size, _tile_size);
 
-    for (int row = 0; row < tile_count.y(); ++row)
+    for (int row = 0; row < tile_count.y; ++row)
     {
-        for (int column = 0; column < tile_count.x(); ++column)
+        for (int column = 0; column < tile_count.x; ++column)
         {
             vector2 tile(column * _tile_size, row * _tile_size);
             co_yield tile_center(upper_left_corner + tile);
