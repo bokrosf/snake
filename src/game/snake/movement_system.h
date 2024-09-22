@@ -10,7 +10,7 @@
 
 struct segment_correction
 {
-    vector2 start;
+    vector2 begin;
     vector2 end;
 };
 
@@ -25,7 +25,7 @@ class movement_system : public component, public initializable
 public:
     movement_system(entity &attached_to);
     void initialize() override;
-    segment_correction correct_segment(const vector2 &start, const vector2 &end) const;
+    segment_correction correct_segment(const vector2 &begin, const vector2 &end) const;
     turning_correction correct_turning(const vector2& head_position, const vector2 &turn_direction) const;
 private:
     vector2 project_longer_axis(const vector2 &position) const;

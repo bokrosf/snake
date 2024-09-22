@@ -34,8 +34,8 @@ void snake::initialize()
 void snake::start()
 {
     segment_correction correction = _movement_system->correct_segment(_segments.front(), _segments.back());
-    _head_direction = correction.end.points_to(correction.start).normalize();
-    _segments.front() = correction.start;
+    _head_direction = correction.end.points_to(correction.begin).normalize();
+    _segments.front() = correction.begin;
     _segments.back() = correction.end;
     transformation().position(_segments.front());
 }
@@ -134,13 +134,13 @@ void snake::shrink_tail(float cut_off_length)
 
 void snake::check_self_collision() const
 {
-    auto end = ++_segments.begin();
-    auto start = end++;
+    auto begin = ++_segments.begin();
+    auto end = ++++_segments.begin();
 
     while (end != _segments.end())
     {
-        vector2 segment = start->points_to(*end);
-        vector2 center = *start + 0.5F * segment;
+        vector2 segment = begin->points_to(*end);
+        vector2 center = *begin + 0.5F * segment;
         vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().perpendicular();
         vector2 threshold = area.absolute() + _collider->area().absolute();
         vector2 difference = center.points_to(_segments.front()).absolute();
@@ -151,6 +151,6 @@ void snake::check_self_collision() const
             return;
         }
 
-        start = end++;
+        begin = end++;
     }
 }
