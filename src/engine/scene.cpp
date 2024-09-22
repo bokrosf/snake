@@ -115,7 +115,7 @@ std::generator<entity *> scene::root_entities() const
     }
 }
 
-std::generator<const entity &> scene::traverse(const std::function<bool(const entity *entity)> &filter) const
+std::generator<entity &> scene::traverse(const std::function<bool(const entity *entity)> &filter) const
 {
     std::queue<entity *> entities;
 
