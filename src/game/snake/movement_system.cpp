@@ -13,7 +13,7 @@ void movement_system::initialize()
     _tile_maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
 }
 
-segment_correction movement_system::correct_segments(const vector2 &start, const vector2 &end) const
+segment_correction movement_system::correct_segment(const vector2 &start, const vector2 &end) const
 {
     vector2 start_corrected = _tile_maze->tile_center(start);
     vector2 end_corrected = _tile_maze->tile_center(end);
