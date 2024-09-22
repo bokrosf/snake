@@ -1,3 +1,4 @@
+#include <queue>
 #include <utility>
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
@@ -111,6 +112,29 @@ std::generator<entity *> scene::root_entities() const
     for (auto e : _root_entities)
     {
         co_yield e;
+    }
+}
+
+std::generator<const entity &> scene::traverse(const std::function<bool(const entity *entity)> &filter) const
+{
+    std::queue<entity *> entities;
+
+    for (entity *root : _root_entities | std::views::filter(filter))
+    {
+        entities.push(root);
+    }
+
+    while (!entities.empty())
+    {
+        entity *current = entities.front();
+        entities.pop();
+
+        co_yield *current;
+
+        for (entity *child : current->children() | std::views::filter(filter))
+        {
+            entities.push(child);
+        }
     }
 }
 

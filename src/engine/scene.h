@@ -1,6 +1,7 @@
 #ifndef ENGINE_SCENE_H
 #define ENGINE_SCENE_H
 
+#include <functional>
 #include <generator>
 #include <map>
 #include <queue>
@@ -29,6 +30,7 @@ public:
     entity *find_tagged_entity(const std::string &tag) const;
     std::vector<entity *> find_all_tagged_entity(const std::string &tag) const;
     std::generator<entity *> root_entities() const;
+    std::generator<const entity &> traverse(const std::function<bool(const entity *entity)> &filter) const;
 protected:
     scene(int id);
 private:
