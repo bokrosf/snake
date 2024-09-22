@@ -5,7 +5,7 @@
 #include <engine/display.h>
 #include <engine/entity.h>
 #include <game/color.h>
-#include <game/entity_names.h>
+#include <game/entity_name.h>
 #include <game/food/food_spawner.h>
 #include <game/game_coordinator.h>
 #include <game/render_layer.h>
@@ -47,7 +47,7 @@ void classic_scene::initialize()
     const int vertical_tile_count = 11;
     const float tile_size = display_mode.w / 30;
 
-    entity &map = entity::create(entity_names::map);
+    entity &map = entity::create(entity_name::map);
     tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
     maze.transformation().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);

@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
 #include <game/color.h>
-#include <game/entity_names.h>
+#include <game/entity_name.h>
 #include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
@@ -17,7 +17,7 @@ food_spawner::food_spawner(entity &attached_to)
 
 void food_spawner::initialize()
 {
-    _tile_maze = &attached_to().find(entity_names::map)->attached_component<tile_maze>();
+    _tile_maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
     _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
 }
 
