@@ -134,8 +134,8 @@ void snake::shrink_tail(float cut_off_length)
 
 void snake::check_self_collision() const
 {
-    auto end = ++_segments.begin();
-    auto begin = end++;
+    auto begin = ++_segments.begin();
+    auto end = ++++_segments.begin();
 
     while (end != _segments.end())
     {
