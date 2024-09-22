@@ -17,7 +17,6 @@
 #include <engine/messaging/messenger.h>
 
 class scene;
-class object_initializer;
 
 class entity : public activatable 
 {
@@ -76,7 +75,7 @@ private:
     std::string _tag;
 
     friend scene;
-    friend object_initializer;
+    friend class object_initializer;
 };
 
 template<typename T, typename... Args>

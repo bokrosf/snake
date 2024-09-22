@@ -3,9 +3,6 @@
 
 #include <functional>
 
-class vector2;
-struct std::hash<vector2>;
-
 class vector2
 {
 public:
@@ -43,7 +40,7 @@ private:
     float _x;
     float _y;
 
-    friend std::hash<vector2>;
+    friend struct std::hash<vector2>;
 };
 
 template<>

@@ -5,7 +5,6 @@
 #include <engine/messaging/messenger.h>
 
 class entity;
-class object_initializer;
 class transformation;
 
 class component
@@ -26,7 +25,7 @@ private:
     ::life_state _life_state;
     entity &_attached_to;
 
-    friend object_initializer;
+    friend class object_initializer;
 };
 
 #endif
