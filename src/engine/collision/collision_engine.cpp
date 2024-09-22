@@ -3,7 +3,6 @@
 #include <engine/activatable.h>
 #include <engine/collision/collision.h>
 #include <engine/collision/collision_engine.h>
-#include <engine/scene_traversal.h>
 
 void collision_engine::detect_collisions(const scene &scene)
 {
@@ -32,19 +31,17 @@ void collision_engine::detect_collisions(const scene &scene)
 std::vector<box_collider *> collision_engine::collect_colliders(const scene &scene) const
 {
     std::vector<box_collider *> colliders;
+    auto filter_entity = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
 
-    auto add_collider = [&colliders](entity *entity)
+    for (const entity &entity : scene.traverse(filter_entity))
     {
         auto collider_filter = [](box_collider *c) { return c->active() && c->life_state() == life_state::alive; };
 
-        for (box_collider *c : entity->all_attached_components<box_collider>() | std::views::filter(collider_filter))
+        for (box_collider *c : entity.all_attached_components<box_collider>() | std::views::filter(collider_filter))
         {
             colliders.push_back(c);
         }
-    };
-
-    auto filter = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
-    scene_traversal::traverse(scene, filter, add_collider);
+    }
 
     return colliders;
 }

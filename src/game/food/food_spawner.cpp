@@ -23,12 +23,12 @@ void food_spawner::initialize()
 
 void food_spawner::start()
 {
-    for (entity *wall : attached_to().find_all_tagged(tag::wall))
+    for (entity &wall : attached_to().find_all_tagged(tag::wall))
     {
-        box_collider &collider = wall->attached_component<box_collider>();
+        box_collider &collider = wall.attached_component<box_collider>();
         vector2 overlapped_area = 2.0F * collider.area();
 
-        for (const auto &tile_center : _tile_maze->tiles_of_area(wall->transformation().position(), overlapped_area))
+        for (const auto &tile_center : _tile_maze->tiles_of_area(wall.transformation().position(), overlapped_area))
         {
             _wall_tiles.insert(tile_center);
         }

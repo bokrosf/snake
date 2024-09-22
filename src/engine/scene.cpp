@@ -1,3 +1,4 @@
+#include <queue>
 #include <utility>
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
@@ -5,7 +6,6 @@
 #include <engine/entity_name_collision.h>
 #include <engine/life_state.h>
 #include <engine/scene.h>
-#include <engine/scene_traversal.h>
 
 scene::scene(int id)
     : _id(id)
@@ -84,33 +84,46 @@ entity *scene::find_entity(const std::string &name) const
 
 entity *scene::find_tagged_entity(const std::string &tag) const
 {
-    entity *found = nullptr;
+    auto filter = [&tag](const entity *e) { return e->tag() == tag; };
 
-    scene_traversal::traverse(
-        *this,
-        [&tag](const entity *e) { return e->tag() == tag; },
-        [&found](entity *e) { found = e; });
+    for (entity &e : traverse(filter))
+    {
+        return &e;
+    }
 
-    return found;
+    return nullptr;
 }
 
-std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
+std::generator<entity &> scene::find_all_tagged_entity(const std::string &tag) const
 {
-    std::vector<entity *> found;
+    auto filter = [&tag](const entity *e) { return e->tag() == tag; };
 
-    scene_traversal::traverse(
-        *this,
-        [&tag](const entity *e) { return e->tag() == tag; },
-        [&found](entity *e) { found.push_back(e); });
-
-    return found;
-}
-
-std::generator<entity *> scene::root_entities() const
-{
-    for (auto e : _root_entities)
+    for (entity &e : traverse(filter))
     {
         co_yield e;
+    }
+}
+
+std::generator<entity &> scene::traverse(std::function<bool(const entity *entity)> filter) const
+{
+    std::queue<entity *> entities;
+
+    for (entity *root : _root_entities | std::views::filter(filter))
+    {
+        entities.push(root);
+    }
+
+    while (!entities.empty())
+    {
+        entity *current = entities.front();
+        entities.pop();
+
+        co_yield *current;
+
+        for (entity *child : current->children() | std::views::filter(filter))
+        {
+            entities.push(child);
+        }
     }
 }
 

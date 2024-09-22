@@ -4,7 +4,6 @@
 #include <engine/entity.h>
 #include <engine/rendering/renderer.h>
 #include <engine/rendering/rendering_engine.h>
-#include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 
 rendering_engine::rendering_engine()
@@ -42,19 +41,18 @@ void rendering_engine::initialize(SDL_Window &window)
 void rendering_engine::render(const scene &scene)
 {
     std::map<int, std::vector<renderer *>> rendering_layers;
+    auto entity_filter = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
     
-    auto add_layer = [&rendering_layers](entity *entity)
+    for (const entity &entity : scene.traverse(entity_filter))
     {
-        auto filter = [](const renderer *r) { return r->active() && r->life_state() == life_state::alive; };
+        auto filter_renderer = [](const renderer *r) { return r->active() && r->life_state() == life_state::alive; };
         
-        for (renderer *r : entity->all_attached_components<renderer>() | std::views::filter(filter))
+        for (renderer *r : entity.all_attached_components<renderer>() | std::views::filter(filter_renderer))
         {
             rendering_layers[r->layer_order()].push_back(r);
         }
-    };
+    }
 
-    auto filter = [](const entity *e) { return e->active() && e->life_state() == life_state::alive; };
-    scene_traversal::traverse(scene, filter, add_layer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
 
