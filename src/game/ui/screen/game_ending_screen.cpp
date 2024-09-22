@@ -2,7 +2,7 @@
 #include <engine/display.h>
 #include <engine/rendering/image_renderer.h>
 #include <engine/rendering/material.h>
-#include <game/assets/asset_paths.h>
+#include <game/assets/asset_path.h>
 #include <game/scene/main_scene.h>
 #include <game/scene/scene_navigator.h>
 #include <game/ui/screen/game_ending_screen.h>
@@ -31,11 +31,11 @@ void game_ending_screen::initialize()
     title.attach_to(&attached_to());
     title.transformation().position(vector2(display_mode.w / 2, display_mode.h / 4));
     image_renderer &title_renderer = title.add_component<image_renderer>(_default_rendering_layer);
-    title_renderer.change_material(material{.texture_path = _won ? asset_paths::game_won_title : asset_paths::game_lost_title});
+    title_renderer.change_material(material{.texture_path = _won ? asset_path::game_won_title : asset_path::game_lost_title});
 
-    add_menu_item(asset_paths::restart_image);
-    add_menu_item(asset_paths::main_menu_image);
-    add_menu_item(asset_paths::exit_image);
+    add_menu_item(asset_path::restart_image);
+    add_menu_item(asset_path::main_menu_image);
+    add_menu_item(asset_path::exit_image);
 
     select_item(static_cast<size_t>(menu_option::restart));
 }

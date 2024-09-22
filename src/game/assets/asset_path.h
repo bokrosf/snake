@@ -1,10 +1,10 @@
-#ifndef SNAKE_GAME_ASSETS_ASSETPATHS_H
-#define SNAKE_GAME_ASSETS_ASSETPATHS_H
+#ifndef SNAKE_GAME_ASSETS_ASSETPATH_H
+#define SNAKE_GAME_ASSETS_ASSETPATH_H
 
 #include <string>
 #include <filesystem>
 
-namespace asset_paths
+namespace asset_path
 {
     const std::string root = std::filesystem::path("assets").string();
     const std::string main_menu_image = std::filesystem::path(root).append("ui/main_menu.png").string();
