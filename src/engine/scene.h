@@ -7,7 +7,6 @@
 #include <queue>
 #include <string>
 #include <unordered_set>
-#include <vector>
 #include <engine/component/component.h>
 #include <engine/entity.h>
 #include <engine/object_initializer.h>
@@ -28,9 +27,9 @@ public:
     void reset();
     entity *find_entity(const std::string &name) const;
     entity *find_tagged_entity(const std::string &tag) const;
-    std::vector<entity *> find_all_tagged_entity(const std::string &tag) const;
+    std::generator<entity &> find_all_tagged_entity(const std::string &tag) const;
     std::generator<entity *> root_entities() const;
-    std::generator<entity &> traverse(const std::function<bool(const entity *entity)> &filter) const;
+    std::generator<entity &> traverse(std::function<bool(const entity *entity)> filter) const;
 protected:
     scene(int id);
 private:

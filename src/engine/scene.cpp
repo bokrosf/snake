@@ -95,17 +95,14 @@ entity *scene::find_tagged_entity(const std::string &tag) const
     return nullptr;
 }
 
-std::vector<entity *> scene::find_all_tagged_entity(const std::string &tag) const
+std::generator<entity &> scene::find_all_tagged_entity(const std::string &tag) const
 {
-    std::vector<entity *> found;
     auto filter = [&tag](const entity *e) { return e->tag() == tag; };
 
     for (entity &e : traverse(filter))
     {
-        found.push_back(&e);
+        co_yield e;
     }
-
-    return found;
 }
 
 std::generator<entity *> scene::root_entities() const
@@ -116,7 +113,7 @@ std::generator<entity *> scene::root_entities() const
     }
 }
 
-std::generator<entity &> scene::traverse(const std::function<bool(const entity *entity)> &filter) const
+std::generator<entity &> scene::traverse(std::function<bool(const entity *entity)> filter) const
 {
     std::queue<entity *> entities;
 
