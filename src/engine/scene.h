@@ -28,7 +28,6 @@ public:
     entity *find_entity(const std::string &name) const;
     entity *find_tagged_entity(const std::string &tag) const;
     std::generator<entity &> find_all_tagged_entity(const std::string &tag) const;
-    std::generator<entity *> root_entities() const;
     std::generator<entity &> traverse(std::function<bool(const entity *entity)> filter) const;
 protected:
     scene(int id);

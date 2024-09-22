@@ -104,14 +104,6 @@ std::generator<entity &> scene::find_all_tagged_entity(const std::string &tag) c
     }
 }
 
-std::generator<entity *> scene::root_entities() const
-{
-    for (auto e : _root_entities)
-    {
-        co_yield e;
-    }
-}
-
 std::generator<entity &> scene::traverse(std::function<bool(const entity *entity)> filter) const
 {
     std::queue<entity *> entities;
