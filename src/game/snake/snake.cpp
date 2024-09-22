@@ -33,7 +33,7 @@ void snake::initialize()
 
 void snake::start()
 {
-    segment_correction correction = _movement_system->correct_segments(_segments.front(), _segments.back());
+    segment_correction correction = _movement_system->correct_segment(_segments.front(), _segments.back());
     _head_direction = correction.end.points_to(correction.start).normalize();
     _segments.front() = correction.start;
     _segments.back() = correction.end;
