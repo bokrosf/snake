@@ -4,7 +4,6 @@
 #include <engine/entity.h>
 #include <engine/rendering/renderer.h>
 #include <engine/rendering/rendering_engine.h>
-#include <engine/scene_traversal.h>
 #include <engine/subsystem_initialization_failed.h>
 
 rendering_engine::rendering_engine()

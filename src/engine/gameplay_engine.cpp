@@ -3,7 +3,6 @@
 #include <engine/component/updatable.h>
 #include <engine/entity.h>
 #include <engine/gameplay_engine.h>
-#include <engine/scene_traversal.h>
 
 void gameplay_engine::update(const scene &scene)
 {

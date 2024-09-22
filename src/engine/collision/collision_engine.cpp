@@ -3,7 +3,6 @@
 #include <engine/activatable.h>
 #include <engine/collision/collision.h>
 #include <engine/collision/collision_engine.h>
-#include <engine/scene_traversal.h>
 
 void collision_engine::detect_collisions(const scene &scene)
 {
