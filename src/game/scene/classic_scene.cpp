@@ -10,9 +10,9 @@
 #include <game/game_coordinator.h>
 #include <game/render_layer.h>
 #include <game/scene/classic_scene.h>
+#include <game/snake/movement_system.h>
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
-#include <game/snake/tiled_movement_system.h>
 #include <game/tag.h>
 #include <game/tile_maze/tile_maze.h>
 #include <game/tile_maze/tile_maze_renderer.h>
@@ -61,7 +61,7 @@ void classic_scene::initialize()
         maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)),
         tile_size);
 
-    snake.add_component<tiled_movement_system>();
+    snake.add_component<movement_system>();
     snake.add_component<snake_renderer>(render_layer::snake, tile_size);
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(vector2(0.0F, 0.5F * tile_size));
