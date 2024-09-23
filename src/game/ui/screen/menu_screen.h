@@ -16,8 +16,8 @@ public:
 protected:
     menu_screen(entity &attached_to, const screen_configuration &configuration);
     void add_menu_item(const std::string &image_path);
-    size_t selected_item_index() const;
-    void select_item(size_t index);
+    unsigned int selected_item_index() const;
+    void select_item(unsigned int index);
     void interact();
     virtual void confirm() = 0;
 
@@ -25,7 +25,7 @@ protected:
     const int _default_rendering_layer;
 private:
     std::vector<entity *> _menu_items;
-    size_t _selected_item_index;
+    unsigned int _selected_item_index;
 };
 
 #endif

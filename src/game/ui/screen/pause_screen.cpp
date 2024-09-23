@@ -37,7 +37,7 @@ void pause_screen::initialize()
     add_menu_item(asset_path::main_menu_image);
     add_menu_item(asset_path::exit_image);
 
-    select_item(static_cast<size_t>(menu_option::resume));
+    select_item(static_cast<unsigned int>(menu_option::resume));
 }
 
 void pause_screen::update()

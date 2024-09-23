@@ -37,7 +37,7 @@ void game_ending_screen::initialize()
     add_menu_item(asset_path::main_menu_image);
     add_menu_item(asset_path::exit_image);
 
-    select_item(static_cast<size_t>(menu_option::restart));
+    select_item(static_cast<unsigned int>(menu_option::restart));
 }
 
 void game_ending_screen::update()

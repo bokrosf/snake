@@ -33,12 +33,12 @@ void menu_screen::add_menu_item(const std::string &image_path)
     _menu_items.push_back(&item);
 }
 
-size_t menu_screen::selected_item_index() const
+unsigned int menu_screen::selected_item_index() const
 {
     return _selected_item_index;
 }
 
-void menu_screen::select_item(size_t index)
+void menu_screen::select_item(unsigned int index)
 {
     _menu_items[_selected_item_index]->attached_component<border_renderer>().activate(false);
     index %= _menu_items.size();
