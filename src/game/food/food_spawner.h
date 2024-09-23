@@ -25,8 +25,8 @@ private:
 
     std::unordered_set<vector2> _wall_tiles;
     std::random_device _random_generator;
-    std::uniform_int_distribution<uint> _tile_distribution;
-    uint _remaining_food_count;
+    std::uniform_int_distribution<unsigned int> _tile_distribution;
+    unsigned int _remaining_food_count;
     const tile_maze *_tile_maze;
     const snake *_snake;
 };

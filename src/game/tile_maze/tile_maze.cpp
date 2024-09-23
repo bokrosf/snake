@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <game/tile_maze/tile_maze.h>
 
-tile_maze::tile_maze(entity &attached_to, float tile_size, uint width, uint height)
+tile_maze::tile_maze(entity &attached_to, float tile_size, unsigned int width, unsigned int height)
     : component(attached_to)
     , _tile_size(tile_size)
     , _width(width)
@@ -18,17 +18,17 @@ float tile_maze::tile_size() const
     return _tile_size;
 }
 
-uint tile_maze::width() const
+unsigned int tile_maze::width() const
 {
     return _width;
 }
 
-uint tile_maze::height() const
+unsigned int tile_maze::height() const
 {
     return _height;
 }
 
-uint tile_maze::tile_count() const
+unsigned int tile_maze::tile_count() const
 {
     return _width * _height;
 }
@@ -38,7 +38,7 @@ vector2 tile_maze::tile_center(const vector2 &position) const
     return transformation().position() + _tile_size * difference_in_tiles(transformation().position(), position);
 }
 
-vector2 tile_maze::tile_center(uint row, uint column) const
+vector2 tile_maze::tile_center(unsigned int row, unsigned int column) const
 {
     vector2 upper_left_corner = transformation().position() - _tile_size * vector2(_width / 2, _height / 2);
     
