@@ -37,7 +37,7 @@ void main_screen::initialize()
     add_menu_item(asset_path::magic_food_image);
     add_menu_item(asset_path::exit_image);
 
-    select_item(static_cast<size_t>(menu_option::classic));
+    select_item(static_cast<unsigned int>(menu_option::classic));
 }
 
 void main_screen::update()

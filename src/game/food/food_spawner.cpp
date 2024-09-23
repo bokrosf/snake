@@ -34,7 +34,7 @@ void food_spawner::start()
         }
     }
 
-    _tile_distribution = std::uniform_int_distribution<uint>(0, _tile_maze->tile_count() - 1);
+    _tile_distribution = std::uniform_int_distribution<unsigned int>(0, _tile_maze->tile_count() - 1);
     _remaining_food_count = _tile_maze->tile_count() - 1 - _wall_tiles.size() - snake_tiles().size();
     _messenger.send(game_start_requirement::food_spawner_ready);
 }
@@ -47,8 +47,8 @@ void food_spawner::spawn()
         return;
     }
 
-    uint tile_index = _tile_distribution(_random_generator);
-    uint i = 0;
+    unsigned int tile_index = _tile_distribution(_random_generator);
+    unsigned int i = 0;
     bool found = false;
     std::unordered_set<vector2> snake_positions = snake_tiles();
 
@@ -56,8 +56,8 @@ void food_spawner::spawn()
     {
         ++tile_index;
         tile_index %= _tile_maze->tile_count();
-        uint row = tile_index / _tile_maze->width();
-        uint column = tile_index % _tile_maze->width();
+        unsigned int row = tile_index / _tile_maze->width();
+        unsigned int column = tile_index % _tile_maze->width();
         vector2 food_position = _tile_maze->tile_center(row, column);
 
         if (!_wall_tiles.contains(food_position) && !snake_positions.contains(food_position))

@@ -1,6 +1,7 @@
 #ifndef ENGINE_VECTOR2_H
 #define ENGINE_VECTOR2_H
 
+#include <cstddef>
 #include <functional>
 
 struct vector2
@@ -43,7 +44,7 @@ struct vector2
 template<>
 struct std::hash<vector2>
 {
-    size_t operator()(const vector2 &v) const noexcept
+    std::size_t operator()(const vector2 &v) const noexcept
     {
         std::hash<float> hash;
 
