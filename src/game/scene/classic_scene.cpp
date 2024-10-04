@@ -41,7 +41,6 @@ classic_scene::classic_scene(int id)
 
 void classic_scene::initialize()
 {
-    // Write logic to test.
     const SDL_DisplayMode &display_mode = display::current_mode();
     const int horizontal_tile_count = 19;
     const int vertical_tile_count = 11;
