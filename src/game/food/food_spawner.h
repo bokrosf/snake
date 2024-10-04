@@ -16,7 +16,6 @@ class food_spawner : public component, public initializable, public startable
 {
 public:
     food_spawner(entity &attached_to);
-    ~food_spawner() override = default;
     void initialize() override;
     void start() override;
     void spawn();

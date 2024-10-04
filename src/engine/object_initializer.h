@@ -8,8 +8,6 @@
 class object_initializer
 {
 public:
-    object_initializer() = default;
-    ~object_initializer() = default;
     void add(entity &entity);
     void add(component &component);
     void initialize_objects();

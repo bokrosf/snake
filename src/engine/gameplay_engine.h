@@ -6,8 +6,6 @@
 class gameplay_engine
 {
 public:
-    gameplay_engine() = default;
-    ~gameplay_engine() = default;
     void update(const scene &scene);
 };
 

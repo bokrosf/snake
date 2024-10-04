@@ -10,7 +10,6 @@ class tile_maze : public component
 {
 public:
     tile_maze(entity &attached_to, float tile_size, unsigned int width, unsigned int height);
-    ~tile_maze() = default;
     float tile_size() const;
     unsigned int width() const;
     unsigned int height() const;
