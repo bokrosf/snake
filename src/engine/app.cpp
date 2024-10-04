@@ -90,7 +90,7 @@ void app::receive(const entity_parent_changed &message)
 
 void app::initialize_subsystems()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS | SDL_INIT_VIDEO) != 0)
     {
         throw subsystem_initialization_failed(std::string("SDL initialization failed.").append(SDL_GetError()));
     }
@@ -118,6 +118,7 @@ void app::shutdown()
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
+    _rendering_engine.shutdown();
     display::shutdown();
     IMG_Quit();
     SDL_Quit();

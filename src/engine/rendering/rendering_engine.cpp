@@ -14,10 +14,7 @@ rendering_engine::rendering_engine()
 
 rendering_engine::~rendering_engine()
 {
-    if (_renderer)
-    {
-        SDL_DestroyRenderer(_renderer);
-    }
+    shutdown();
 }
 
 void rendering_engine::initialize(SDL_Window &window)
@@ -36,6 +33,15 @@ void rendering_engine::initialize(SDL_Window &window)
 
     _renderer = renderer;
     _initialized = true;
+}
+
+void rendering_engine::shutdown()
+{
+    if (_renderer)
+    {
+        SDL_DestroyRenderer(_renderer);
+        _renderer = nullptr;
+    }
 }
 
 void rendering_engine::render(const scene &scene)

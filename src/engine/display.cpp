@@ -53,6 +53,7 @@ void display::shutdown()
     if (active_window)
     {
         SDL_DestroyWindow(active_window);
+        active_window = nullptr;
     }
 
     initialized = false;
