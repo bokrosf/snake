@@ -10,7 +10,6 @@ class wall : public behavior, public collision_handler
 {
 public:
     wall(entity &attached_to, const vector2 &area);
-    ~wall() override = default;
     const vector2 &area() const;
     void collide(const collision &collision) override;
 private:

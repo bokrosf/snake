@@ -7,7 +7,6 @@
 class logger
 {  
 public:
-    ~logger() = default;
     static logger &instance();
     void change_destination(std::ostream &destination);
     

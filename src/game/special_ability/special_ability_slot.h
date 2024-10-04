@@ -9,7 +9,6 @@ class special_ability_slot : public component
 {
 public:
     special_ability_slot(entity &attached_to);
-    ~special_ability_slot() = default;
     void detach() override;
     void remove();
 
