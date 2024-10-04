@@ -118,6 +118,7 @@ void app::shutdown()
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
+    _rendering_engine.shutdown();
     display::shutdown();
     IMG_Quit();
     SDL_Quit();
