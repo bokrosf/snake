@@ -11,6 +11,7 @@ public:
     rendering_engine();
     ~rendering_engine();
     void initialize(SDL_Window &window);
+    void shutdown();
     void render(const scene &scene);
 private:
     bool _initialized;
