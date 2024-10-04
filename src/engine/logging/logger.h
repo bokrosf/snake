@@ -1,6 +1,7 @@
 #ifndef ENGINE_LOGGING_LOGGER_H
 #define ENGINE_LOGGING_LOGGER_H
 
+#include <chrono>
 #include <ostream>
 
 class logger
@@ -67,8 +68,8 @@ void logger::error(Args &&...args)
 template<typename... Args>
 void logger::write(log_level level, Args &&...args)
 {
-    // TODO 2024-04-12 TimeStamp part needed.
-    *_destination << "<TimeStamp>|" << level_name(level) << "|";
+    *_destination << std::format("{:%H:%M:%S}", std::chrono::system_clock::now());
+    *_destination << "|" << level_name(level) << "|";
     (*_destination << ... << args) << std::endl;
 }
 
