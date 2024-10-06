@@ -51,6 +51,7 @@ add_executable("${PROJECT_NAME}"
   src/game/special_ability/special_ability_slot.cpp
   src/game/tile_maze/tile_maze.cpp
   src/game/tile_maze/tile_maze_renderer.cpp
+  src/game/tile_maze/tile_position.cpp
   src/game/ui/border.cpp
   src/game/ui/border_renderer.cpp
   src/game/ui/screen/game_ending_screen.cpp
