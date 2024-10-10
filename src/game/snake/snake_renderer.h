@@ -4,19 +4,19 @@
 #include <engine/component/initializable.h>
 #include <engine/rendering/renderer.h>
 #include <game/snake/snake.h>
+#include <game/tile_maze/tile_maze.h>
 
 class snake_renderer : public renderer, public initializable
 {
 public:
-    snake_renderer(entity &attached_to, int layer_order, float thickness);
+    snake_renderer(entity &attached_to, int layer_order);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:
-    void draw_segment(SDL_Renderer *renderer, const vector2 &begin, const vector2 &end) const;
-    int half_thickness() const;
+    int thickness() const;
 
     const snake *_snake;
-    const float _thickness;
+    const tile_maze *_maze;
 };
 
 #endif

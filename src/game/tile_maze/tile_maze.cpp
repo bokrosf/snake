@@ -33,35 +33,47 @@ unsigned int tile_maze::tile_count() const
     return _width * _height;
 }
 
-vector2 tile_maze::tile_center(const vector2 &position) const
-{
-    return transformation().position() + _tile_size * difference_in_tiles(transformation().position(), position);
-}
-
 vector2 tile_maze::tile_center(unsigned int row, unsigned int column) const
 {
-    vector2 upper_left_corner = transformation().position() - _tile_size * vector2(_width / 2, _height / 2);
+    vector2 tile_position = vector2(column * _tile_size, row * _tile_size);
+    vector2 center_offset = 0.5F * vector2(_tile_size, _tile_size);
+
+    return upper_left() + tile_position + center_offset;
+}
+
+tile_area tile_maze::tiles_of_area(const vector2 &upper_left, const vector2 &lower_right) const
+{
+    vector2 maze_upper_left = this->upper_left();
     
-    return upper_left_corner + _tile_size * vector2(column, row);
-}
-
-std::generator<vector2> tile_maze::tiles_of_area(const vector2 &center, const vector2 &area) const
-{
-    vector2 tile_count = (area.absolute() / _tile_size).round();
-    vector2 upper_left_corner = center - 0.5 * area.absolute();
-    upper_left_corner += 0.5F * vector2(_tile_size, _tile_size);
-
-    for (int row = 0; row < tile_count.y; ++row)
+    if (upper_left.x < maze_upper_left.x && upper_left.y < maze_upper_left.y)
     {
-        for (int column = 0; column < tile_count.x; ++column)
-        {
-            vector2 tile(column * _tile_size, row * _tile_size);
-            co_yield tile_center(upper_left_corner + tile);
-        }
+        throw std::invalid_argument("Upper left position must be inside the maze.");
     }
+
+    vector2 maze_lower_right = maze_upper_left + _tile_size * vector2(_width, _height);
+
+    if (lower_right.x > maze_lower_right.x && lower_right.y > maze_lower_right.y)
+    {
+        throw std::invalid_argument("Lower right position must be inside the maze.");
+    }
+
+    tile_area area;
+    area.upper_left = world_to_tile(upper_left);
+    area.lower_right = world_to_tile(lower_right);
+
+    return area;
 }
 
-vector2 tile_maze::difference_in_tiles(const vector2 &a, const vector2 &b) const
+vector2 tile_maze::upper_left() const
 {
-    return (a.points_to(b) / _tile_size).round();
+    return transformation().position() - 0.5F * _tile_size * vector2(_width, _height);
+}
+
+ivector2 tile_maze::world_to_tile(const vector2 &world_position) const
+{
+    vector2 difference = (upper_left().points_to(world_position) / _tile_size).trunc();
+
+    return ivector2(
+        static_cast<int>(difference.x),
+        static_cast<int>(difference.y));
 }

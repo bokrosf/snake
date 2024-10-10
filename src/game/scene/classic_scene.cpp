@@ -10,7 +10,6 @@
 #include <game/game_coordinator.h>
 #include <game/render_layer.h>
 #include <game/scene/classic_scene.h>
-#include <game/snake/movement_system.h>
 #include <game/snake/snake_controller.h>
 #include <game/snake/snake_renderer.h>
 #include <game/tag.h>
@@ -45,6 +44,7 @@ void classic_scene::initialize()
     const int horizontal_tile_count = 19;
     const int vertical_tile_count = 11;
     const float tile_size = display_mode.w / 30;
+    const unsigned int snake_length = 3;
 
     entity &map = entity::create(entity_name::map);
     tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
@@ -55,17 +55,17 @@ void classic_scene::initialize()
 
     entity &snake = entity::create();
     snake.tag(tag::snake);
-    snake.add_component<::snake>(
-        maze.transformation().position(),
-        maze.tile_center(maze.transformation().position() + vector2(3.0F * tile_size, 0)),
-        tile_size);
 
-    snake.add_component<movement_system>();
-    snake.add_component<snake_renderer>(render_layer::snake, tile_size);
+    tile_area snake_area = maze.tiles_of_area(
+        maze.transformation().position(),
+        maze.transformation().position() + vector2((snake_length - 1) * tile_size, 0));
+
+    snake.add_component<::snake>(snake_area.upper_left, snake_area.lower_right);
+    snake.add_component<snake_renderer>(render_layer::snake);
     snake.add_component<snake_controller>();
-    snake.add_component<box_collider>(vector2(0.0F, 0.5F * tile_size));
+    snake.add_component<box_collider>(0.5F * vector2(tile_size, tile_size));
     snake.add_component<box_collider_renderer>(render_layer::collider);
-    snake.attached_component<::snake>().adjust_speed(tile_size);
+    snake.attached_component<::snake>().adjust_speed(4);
     snake.attached_component<snake_renderer>().change_material(material{color::snake});
 
     entity &coordinator = entity::create();
