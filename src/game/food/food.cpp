@@ -3,7 +3,7 @@
 #include <game/game_event.h>
 #include <game/snake/snake.h>
 
-food::food(entity &attached_to, float nutritional_value)
+food::food(entity &attached_to, unsigned int nutritional_value)
     : behavior(attached_to)
     , _nutritional_value(0)
 {

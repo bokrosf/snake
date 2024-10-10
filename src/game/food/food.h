@@ -10,13 +10,13 @@
 class food : public behavior, public collision_handler
 {
 public:
-    food(entity &attached_to, float nutritional_value);
+    food(entity &attached_to, unsigned int nutritional_value);
     void collide(const collision &collision) final;
 protected:
     virtual void eat(snake &snake);
     void feed_snake(snake &snake);
 private:
-    float _nutritional_value;
+    unsigned int _nutritional_value;
 };
 
 #endif

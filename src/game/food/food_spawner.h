@@ -20,9 +20,9 @@ public:
     void start() override;
     void spawn();
 private:
-    std::unordered_set<vector2> snake_tiles() const;
-
-    std::unordered_set<vector2> _wall_tiles;
+    std::unordered_set<ivector2> snake_tiles() const;
+    
+    std::unordered_set<ivector2> _wall_tiles;
     std::random_device _random_generator;
     std::uniform_int_distribution<unsigned int> _tile_distribution;
     unsigned int _remaining_food_count;

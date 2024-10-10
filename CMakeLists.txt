@@ -43,7 +43,6 @@ add_executable("${PROJECT_NAME}"
   src/game/scene/pause_scene.cpp
   src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
-  src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
   src/game/snake/snake_controller.cpp
   src/game/snake/snake_renderer.cpp
