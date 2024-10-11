@@ -73,7 +73,7 @@ void snake::look_in_direction(const ivector2 &direction)
     check_self_collision();
 }
 
-void snake::adjust_speed(unsigned int tiles_per_second)
+void snake::speed(unsigned int tiles_per_second)
 {
     _speed = 1.0F / tiles_per_second;
 }

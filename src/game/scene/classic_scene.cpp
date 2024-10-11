@@ -65,7 +65,7 @@ void classic_scene::initialize()
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(0.5F * vector2(tile_size, tile_size));
     snake.add_component<box_collider_renderer>(render_layer::collider);
-    snake.attached_component<::snake>().adjust_speed(4);
+    snake.attached_component<::snake>().speed(4);
     snake.attached_component<snake_renderer>().change_material(material{color::snake});
 
     entity &coordinator = entity::create();

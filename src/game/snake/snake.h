@@ -28,7 +28,7 @@ public:
     void start() override;
     void update() override;
     void look_in_direction(const ivector2 &direction);
-    void adjust_speed(unsigned int tiles_per_second);
+    void speed(unsigned int tiles_per_second);
     std::generator<const segment &> segments() const;
     void grow(unsigned int length);
 private:
