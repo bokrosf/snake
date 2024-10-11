@@ -30,7 +30,6 @@ add_executable("${PROJECT_NAME}"
   src/engine/scene.cpp
   src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
-  src/engine/vector2.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
