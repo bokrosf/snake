@@ -30,7 +30,6 @@ add_executable("${PROJECT_NAME}"
   src/engine/scene.cpp
   src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
-  src/engine/vector2.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
@@ -43,7 +42,6 @@ add_executable("${PROJECT_NAME}"
   src/game/scene/pause_scene.cpp
   src/game/scene/scene_navigator.cpp
   src/game/snake_app.cpp
-  src/game/snake/movement_system.cpp
   src/game/snake/snake.cpp
   src/game/snake/snake_controller.cpp
   src/game/snake/snake_renderer.cpp

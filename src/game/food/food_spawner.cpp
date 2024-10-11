@@ -1,3 +1,4 @@
+#include <cmath>
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
 #include <game/color.h>
@@ -26,11 +27,16 @@ void food_spawner::start()
     for (entity &wall : attached_to().find_all_tagged(tag::wall))
     {
         box_collider &collider = wall.attached_component<box_collider>();
-        vector2 overlapped_area = 2.0F * collider.area();
+        vector2 upper_left = wall.transformation().position() - collider.area();
+        vector2 lower_right = wall.transformation().position() + collider.area();
+        tile_area area = _tile_maze->tiles_of_area(upper_left, lower_right);
 
-        for (const auto &tile_center : _tile_maze->tiles_of_area(wall.transformation().position(), overlapped_area))
+        for (int row = area.upper_left.y; row < area.lower_right.y; ++row)
         {
-            _wall_tiles.insert(tile_center);
+            for (int column = area.upper_left.x; column < area.lower_right.x; ++column)
+            {
+                _wall_tiles.insert(ivector2(column, row));
+            }
         }
     }
 
@@ -50,7 +56,7 @@ void food_spawner::spawn()
     unsigned int tile_index = _tile_distribution(_random_generator);
     unsigned int i = 0;
     bool found = false;
-    std::unordered_set<vector2> snake_positions = snake_tiles();
+    std::unordered_set<ivector2> snake_positions = snake_tiles();
 
     while (!found && i < _tile_maze->tile_count())
     {
@@ -58,15 +64,16 @@ void food_spawner::spawn()
         tile_index %= _tile_maze->tile_count();
         unsigned int row = tile_index / _tile_maze->width();
         unsigned int column = tile_index % _tile_maze->width();
-        vector2 food_position = _tile_maze->tile_center(row, column);
+        ivector2 food_position(column, row);
 
         if (!_wall_tiles.contains(food_position) && !snake_positions.contains(food_position))
         {
             found = true;
+            const int nutritional_value = 1;
             entity &food = entity::create();
-            food.transformation().position(food_position);
-            food.add_component<::food>(_tile_maze->tile_size());
-            food.add_component<food_renderer>(render_layer::food, _tile_maze->tile_size());
+            food.transformation().position(_tile_maze->tile_center(food_position.y, food_position.x));
+            food.add_component<::food>(nutritional_value);
+            food.add_component<food_renderer>(render_layer::food, 0.75F *_tile_maze->tile_size());
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
             food.attached_component<food_renderer>().change_material(material{color::food});
             --_remaining_food_count;
@@ -76,24 +83,19 @@ void food_spawner::spawn()
     }
 }
 
-std::unordered_set<vector2> food_spawner::snake_tiles() const
+std::unordered_set<ivector2> food_spawner::snake_tiles() const
 {
-    std::unordered_set<vector2> tiles;
-    auto begin = _snake->segments().begin();
-    auto end = ++_snake->segments().begin();
+    std::unordered_set<ivector2> tiles;
 
-    while (end != _snake->segments().end())
+    for (auto &segment : _snake->segments())
     {
-        vector2 segment = begin->points_to(*end);
-        vector2 area = segment + 0.5F * _tile_maze->tile_size() * segment.normalize().orthogonal();
-        vector2 center = *begin + 0.5F * segment;
+        ivector2 direction = segment.direction_or(ivector2::right());
+        unsigned int length = std::round(segment.begin.distance_from(segment.end));
 
-        for (const auto &tile_center : _tile_maze->tiles_of_area(center, area))
+        for (unsigned int i = 0; i <= length; ++i)
         {
-            tiles.insert(tile_center);
+            tiles.insert(segment.begin + i * direction);
         }
-
-        begin = end++;
     }
 
     return tiles;

@@ -1,15 +1,17 @@
+#include <game/entity_name.h>
 #include <game/snake/snake_renderer.h>
 
-snake_renderer::snake_renderer(entity& attached_to, int layer_order, float thickness)
+snake_renderer::snake_renderer(entity& attached_to, int layer_order)
     : renderer(attached_to, layer_order)
     , _snake(nullptr)
-    , _thickness(thickness)
+    , _maze(nullptr)
 {
 }
 
 void snake_renderer::initialize()
 {
     _snake = &attached_to().attached_component<snake>();
+    _maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
 }
 
 void snake_renderer::render(SDL_Renderer *renderer)
@@ -19,37 +21,33 @@ void snake_renderer::render(SDL_Renderer *renderer)
         return;
     }
     
-    auto begin = _snake->segments().cbegin();
-    auto end = ++_snake->segments().cbegin();
-
-    draw_segment(renderer, *begin, *end);
-    begin = end++;
-
-    while (end != _snake->segments().cend())
+    for (const auto &segment : _snake->segments())
     {
-        vector2 offset = (half_thickness() - 1) * begin->points_to(*end).normalize();
-        draw_segment(renderer, *begin - offset, *end);
-        begin = end++;
-    }
-}
-
-void snake_renderer::draw_segment(SDL_Renderer *renderer, const vector2 &begin, const vector2 &end) const
-{
-    vector2 thickness_direction = begin.points_to(end).orthogonal().normalize();
-
-    for (int i = 0; i < half_thickness(); ++i)
-    {
-        vector2 line_begin = begin - i * thickness_direction;
-        vector2 line_end = end - i * thickness_direction;
-        SDL_RenderDrawLine(renderer, line_begin.x, line_begin.y, line_end.x, line_end.y);
+        vector2 begin = _maze->tile_center(segment.begin.y, segment.begin.x);
+        vector2 end = _maze->tile_center(segment.end.y, segment.end.x);
         
-        line_begin = begin + i * thickness_direction;
-        line_end = end + i * thickness_direction;
-        SDL_RenderDrawLine(renderer, line_begin.x, line_begin.y, line_end.x, line_end.y);
+        vector2 direction = begin.square_distance_from(end) > 0
+            ? begin.points_to(end).normalize()
+            : vector2::left();
+
+        vector2 corner_offset = thickness() * (direction + direction.orthogonal());
+        begin -= corner_offset;
+        end += corner_offset;
+        vector2 area = begin.points_to(end);
+
+        SDL_FRect body_part
+        {
+            .x = begin.x,
+            .y = begin.y,
+            .w = area.x,
+            .h = area.y
+        };
+
+        SDL_RenderFillRectF(renderer, &body_part);
     }
 }
 
-int snake_renderer::half_thickness() const
+int snake_renderer::thickness() const
 {
-    return _thickness / 2;
+    return 0.25F * _maze->tile_size();
 }

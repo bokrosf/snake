@@ -1,156 +1,175 @@
+#include <cmath>
+#include <ranges>
 #include <stdexcept>
 #include <engine/game_time.h>
+#include <game/entity_name.h>
 #include <game/game_event.h>
 #include <game/snake/snake.h>
 
-snake::snake(entity &attached_to, const vector2 &head, const vector2 &tail, float thickness)
+ivector2 snake::segment::direction_or(const ivector2 &default_value) const
+{
+    return begin != end
+        ? begin.points_to(end).normalize()
+        : default_value;
+}
+
+snake::snake(entity &attached_to, const ivector2 &head, const ivector2 &tail)
     : behavior(attached_to)
-    , _movement_system(nullptr)
+    , _maze(nullptr)
     , _collider(nullptr)
     , _speed(0)
-    , _thickness(thickness)
+    , _last_moved(0)
 {
-    if (_thickness < 0)
+    if (head.x != tail.x && head.y != tail.y)
     {
-        throw std::invalid_argument("Thickness must be greater than or equal to zero.");
+        throw std::invalid_argument("Head and tail must be on the same axis.");
     }
 
-    if (head.distance_from(tail) <= 0)
-    {
-        throw std::invalid_argument("Head and tail can not be the same position. Segment's length must be greater than zero.");
-    }
-
-    _head_direction = vector2::left();
-    _segments.push_front(head);
-    _segments.push_back(tail);
+    _segments.push_front(segment{head, tail});
+    _head_direction = -_segments.front().direction_or(ivector2::right());
+    _last_tail_direction = -_head_direction;
 }
 
 void snake::initialize()
 {    
     _collider = &attached_to().attached_component<box_collider>();
-    _movement_system = &attached_to().attached_component<movement_system>();
+    _maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
 }
 
 void snake::start()
 {
-    segment_correction correction = _movement_system->correct_segment(_segments.front(), _segments.back());
-    _head_direction = correction.end.points_to(correction.begin).normalize();
-    _segments.front() = correction.begin;
-    _segments.back() = correction.end;
-    transformation().position(_segments.front());
+    transformation().position(_maze->tile_center(head().y, head().x));
+    _last_moved = game_time::now();
 }
 
 void snake::update()
 {
-    move_forward();
+    if (_last_moved > game_time::now())
+    {
+        return;
+    }
+    
+    float last_moved_delta = game_time::now() - _last_moved;
+    unsigned int moved_tiles = last_moved_delta / _speed;
+    move_forward(moved_tiles);
     check_self_collision();
 }
 
-void snake::look_in_direction(const vector2 &direction)
+void snake::look_in_direction(const ivector2 &direction)
 {
-    turning_correction correction = _movement_system->correct_turning(_segments.front(), direction.normalize());
-
-    if (correction.head_direction == _head_direction || correction.head_direction == -_head_direction)
+    if (direction == _head_direction || direction == -_head_direction)
     {
         return;
     }
 
-    _head_direction = correction.head_direction;
-    _collider->area(vector2(_collider->area().y, _collider->area().x));
-    float original_head_length = _segments.cbegin()->distance_from(*++_segments.cbegin());
-    _segments.pop_front();
-    float new_head_length = 0;
-
-    for (const auto &position : correction.head_segments)
+    if (_segments.front().begin != _segments.front().end)
     {
-        new_head_length += _segments.cbegin()->distance_from(position);
-        _segments.push_front(position);
+        _segments.push_front(segment{head(), head()});
     }
 
-    transformation().position(_segments.front());
-    float difference = new_head_length - original_head_length;
-
-    if (difference > 0)
-    {
-        shrink_tail(difference);
-    }
-
+    _head_direction = direction;
+    move_forward(1);
+    _last_moved = game_time::real_now();
     check_self_collision();
 }
 
-void snake::adjust_speed(float speed)
+void snake::speed(unsigned int tiles_per_second)
 {
-    if (speed < 0)
+    _speed = 1.0F / tiles_per_second;
+}
+
+std::generator<const snake::segment &> snake::segments() const
+{
+    for (auto &s : _segments)
     {
-        throw std::invalid_argument("Speed must be greater than or equal to zero.");
+        co_yield s;
+    }
+}
+
+void snake::grow(unsigned int length)
+{
+    ivector2 tail_direction = _segments.back().direction_or(-_head_direction);
+
+    if (tail_direction == _last_tail_direction)
+    {
+        _segments.back().end += length * _last_tail_direction;
+    }
+    else
+    {
+        ivector2 tail_end = _segments.back().end;
+        _segments.push_back(segment{tail_end, tail_end + _last_tail_direction});
     }
 
-    _speed = speed;
 }
 
-const std::list<vector2> &snake::segments() const
+ivector2 &snake::head()
 {
-    return _segments;
+    return _segments.front().begin;
 }
 
-void snake::grow(float length)
-{
-    vector2 tail_direction = (++_segments.crbegin())->points_to(*_segments.crbegin()).normalize();
-    _segments.back() += length * tail_direction;
-}
-
-void snake::move_forward()
-{
-    float moved_distance = game_time::delta_time() * _speed;
-    transformation().translate(moved_distance * _head_direction);
-    _segments.front() = transformation().position();
-    shrink_tail(moved_distance);
-}
-
-void snake::shrink_tail(float cut_off_length)
-{
-    bool shrinking = true;
-
-    while (shrinking)
+void snake::move_forward(unsigned int moved_tiles)
+{    
+    if (moved_tiles == 0)
     {
-        vector2 before_last = *(++_segments.rbegin());
-        float tail_length = before_last.distance_from(_segments.back());
+        return;
+    }
+    
+    ivector2 movement = moved_tiles * _head_direction;
+    head() += movement;
+    transformation().position(_maze->tile_center(head().y, head().x));
+    shrink_tail(moved_tiles);
+    _last_moved += moved_tiles * _speed;
+}
 
-        if (tail_length > cut_off_length)
-        {
-            vector2 tail_direction = before_last.points_to(_segments.back()).normalize();
-            _segments.back() -= cut_off_length * tail_direction;
-        }
-        else
+void snake::shrink_tail(unsigned int moved_tiles)
+{
+    while (moved_tiles > 0)
+    {
+        segment &tail = _segments.back();
+        unsigned int tail_length = std::round(tail.begin.distance_from(tail.end));
+        unsigned int removed_length = std::min(tail_length, moved_tiles);
+        _last_tail_direction = tail.begin.points_to(tail.end).normalize();
+        tail.end -= removed_length * _last_tail_direction;
+        moved_tiles -= removed_length;
+
+        if (_segments.size() > 1 && tail.begin == tail.end)
         {
             _segments.pop_back();
         }
-
-        float removed_length = std::min(tail_length, cut_off_length);
-        shrinking = cut_off_length - removed_length < cut_off_length;
-        cut_off_length -= removed_length;   
     }
 }
 
 void snake::check_self_collision() const
 {
-    auto begin = ++_segments.begin();
-    auto end = ++++_segments.begin();
-
-    while (end != _segments.end())
+    const size_t skipped_segments = 2;
+    
+    if (_segments.size() <= skipped_segments)
     {
-        vector2 segment = begin->points_to(*end);
-        vector2 center = *begin + 0.5F * segment;
-        vector2 area = 0.5F * segment + 0.5F * _thickness * segment.normalize().orthogonal();
-        vector2 threshold = area.absolute() + _collider->area().absolute();
-        vector2 difference = center.points_to(_segments.front()).absolute();
+        return;
+    }
+
+    const segment &head = _segments.front();
+    vector2 head_begin = _maze->tile_center(head.begin.y, head.begin.x);
+    vector2 head_end = _maze->tile_center(head.end.y, head.end.x);
+    vector2 direction = head_begin.points_to(head_end).normalize();
+    vector2 head_center = head_begin + 0.5F * head_begin.points_to(head_end);
+    vector2 head_area = head_begin.points_to(head_center) + 0.5F * _maze->tile_size() * (direction + direction.orthogonal());
+
+    for (const auto &s : segments() | std::views::drop(skipped_segments))
+    {
+        vector2 begin = _maze->tile_center(s.begin.y, s.begin.x);
+        vector2 end = _maze->tile_center(s.end.y, s.end.x);
+        vector2 direction = begin.points_to(end).normalize();
+        vector2 center = begin + 0.5F * begin.points_to(end);
+        vector2 area = begin.points_to(center) + 0.5F * _maze->tile_size() * (direction + direction.orthogonal());
+
+        vector2 difference = head_center.points_to(center).absolute();
+        vector2 threshold = head_area.absolute() + area.absolute();
 
         if (difference.x < threshold.x && difference.y < threshold.y)
         {
             _messenger.send(game_event::game_lost);
             return;
         }
-
-        begin = end++;
     }
 }

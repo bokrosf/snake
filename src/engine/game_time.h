@@ -3,9 +3,11 @@
 
 namespace game_time
 {
-    float delta_time();
     void reset_delta_time();
     void end_frame();
+    float delta_time();
+    float now();
+    float real_now();
 }
 
 #endif
