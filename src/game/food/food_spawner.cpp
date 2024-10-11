@@ -73,7 +73,7 @@ void food_spawner::spawn()
             entity &food = entity::create();
             food.transformation().position(_tile_maze->tile_center(food_position.y, food_position.x));
             food.add_component<::food>(nutritional_value);
-            food.add_component<food_renderer>(render_layer::food, _tile_maze->tile_size());
+            food.add_component<food_renderer>(render_layer::food, 0.75F *_tile_maze->tile_size());
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
             food.attached_component<food_renderer>().change_material(material{color::food});
             --_remaining_food_count;
