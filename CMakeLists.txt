@@ -45,6 +45,7 @@ add_executable("${PROJECT_NAME}"
   src/game/snake/snake.cpp
   src/game/snake/snake_controller.cpp
   src/game/snake/snake_renderer.cpp
+  src/game/ability/ability.cpp
   src/game/ability/ability_slot.cpp
   src/game/tile_maze/tile_maze.cpp
   src/game/tile_maze/tile_maze_renderer.cpp
