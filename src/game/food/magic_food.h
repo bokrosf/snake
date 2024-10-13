@@ -31,7 +31,7 @@ void magic_food<Ability>::eat(snake &snake)
 {
     snake.grow(_nutritional_value);
 
-    if (ability_slot *slot = attached_to().find_component<slot>())
+    if (special_ability_slot *ability_slot = snake.attached_to().find_component<special_ability_slot>())
     {
         food_renderer &renderer = attached_to().attached_component<food_renderer>();
         slot->add<Ability>(renderer.material()->color);
