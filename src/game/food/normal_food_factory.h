@@ -6,7 +6,7 @@
 class normal_food_factory : public food_factory
 {
 public:
-    food &create(unsigned int nutritional_value) override;
+    entity &create(unsigned int nutritional_value) override;
 };
 
 #endif

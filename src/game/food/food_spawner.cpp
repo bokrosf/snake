@@ -10,9 +10,10 @@
 #include <game/render_layer.h>
 #include <game/tag.h>
 
-food_spawner::food_spawner(entity &attached_to)
+food_spawner::food_spawner(entity &attached_to, food_factory &factory)
     : component(attached_to)
     , _remaining_food_count(0)
+    , _factory(factory)
 {
 }
 
@@ -70,9 +71,8 @@ void food_spawner::spawn()
         {
             found = true;
             const int nutritional_value = 1;
-            entity &food = entity::create();
+            entity &food = _factory.create(nutritional_value);
             food.transformation().position(_tile_maze->tile_center(food_position.y, food_position.x));
-            food.add_component<::food>(nutritional_value);
             food.add_component<food_renderer>(render_layer::food, 0.75F *_tile_maze->tile_size());
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
             food.attached_component<food_renderer>().change_material(material{color::food});
