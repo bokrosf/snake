@@ -3,7 +3,7 @@
 
 #include <concepts>
 #include <game/food/food.h>
-#include <game/special_ability/special_ability_slot.h>
+#include <game/ability/ability_slot.h>
 
 template<typename Ability>
     requires std::derived_from<Ability, component>
@@ -28,9 +28,9 @@ void magic_food<Ability>::eat(snake &snake)
 {
     snake.grow(_nutritional_value);
 
-    if (special_ability_slot *ability_slot = attached_to().find_component<special_ability_slot>())
+    if (ability_slot *slot = attached_to().find_component<slot>())
     {
-        ability_slot->add<Ability>();
+        slot->add<Ability>();
     }
 }
 

@@ -1,14 +1,14 @@
-#ifndef SNAKE_GAME_SPECIALABILITY_SPECIALABILITYSLOT_H
-#define SNAKE_GAME_SPECIALABILITY_SPECIALABILITYSLOT_H
+#ifndef SNAKE_GAME_ABILITY_ABILITYSLOT_H
+#define SNAKE_GAME_ABILITY_ABILITYSLOT_H
 
 #include <concepts>
 #include <engine/component/component.h>
 #include <engine/entity.h>
 
-class special_ability_slot : public component
+class ability_slot : public component
 {
 public:
-    special_ability_slot(entity &attached_to);
+    ability_slot(entity &attached_to);
     void detach() override;
     void remove();
 
@@ -21,7 +21,7 @@ private:
 
 template<typename Ability>
     requires std::derived_from<Ability, component>
-void special_ability_slot::add()
+void ability_slot::add()
 {
     remove();
     _ability = &attached_to().add_component<Ability>();
