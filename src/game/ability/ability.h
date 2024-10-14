@@ -15,10 +15,11 @@ public:
     void update() override;
 protected:
     ability(entity &attached_to, float duration);
+    ::snake &snake() const;
 private:
     const float _duration;
     float _expiration;
-    snake *_snake;
+    ::snake *_snake;
 };
 
 #endif

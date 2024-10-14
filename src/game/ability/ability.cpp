@@ -17,7 +17,7 @@ ability::ability(entity &attached_to, float duration)
 
 void ability::initialize()
 {
-    _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
+    _snake = &attached_to().find_tagged(tag::snake)->attached_component<::snake>();
 }
 
 void ability::start()
@@ -41,4 +41,9 @@ void ability::update()
 
     float remaining_percentage = (_expiration - game_time::now()) / _duration;
     _messenger.send(ability_usage_changed{*this, remaining_percentage});
+}
+
+::snake &ability::snake() const
+{
+    return *_snake;
 }
