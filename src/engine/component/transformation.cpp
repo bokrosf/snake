@@ -19,3 +19,13 @@ void transformation::translate(const vector2 &translation)
 {
     _position += translation;
 }
+
+const vector2 &transformation::scale() const
+{
+    return _scale;
+}
+
+void transformation::scale(const vector2 &scaling)
+{
+    _scale = scaling;
+}
