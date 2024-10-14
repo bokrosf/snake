@@ -5,12 +5,11 @@
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
-#include <game/snake/snake.h>
+#include <engine/entity.h>
 
-class ability : public behavior, public initializable, public startable, public updatable
+class ability : public behavior, public startable, public updatable
 {
 public:
-    void initialize() override;
     void start() override;
     void update() override;
 protected:
@@ -18,7 +17,6 @@ protected:
 private:
     const float _duration;
     float _expiration;
-    snake *_snake;
 };
 
 #endif

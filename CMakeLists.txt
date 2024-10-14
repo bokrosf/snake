@@ -30,6 +30,10 @@ add_executable("${PROJECT_NAME}"
   src/engine/scene.cpp
   src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
+  src/game/ability/ability.cpp
+  src/game/ability/ability_indicator.cpp
+  src/game/ability/ability_indicator_renderer.cpp
+  src/game/ability/ability_slot.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
@@ -45,10 +49,6 @@ add_executable("${PROJECT_NAME}"
   src/game/snake/snake.cpp
   src/game/snake/snake_controller.cpp
   src/game/snake/snake_renderer.cpp
-  src/game/ability/ability.cpp
-  src/game/ability/ability_indicator.cpp
-  src/game/ability/ability_indicator_renderer.cpp
-  src/game/ability/ability_slot.cpp
   src/game/tile_maze/tile_maze.cpp
   src/game/tile_maze/tile_maze_renderer.cpp
   src/game/ui/border.cpp

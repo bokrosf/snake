@@ -1,3 +1,5 @@
+#include <engine/entity.h>
+#include <engine/vector2.h>
 #include <game/ability/ability_indicator_renderer.h>
 
 ability_indicator_renderer::ability_indicator_renderer(entity &attached_to, int layer_order)
