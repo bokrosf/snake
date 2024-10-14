@@ -6,6 +6,7 @@
 namespace entity_name
 {
     const std::string map = "map";
+    const std::string ability_indicator = "ability_indicator";
 }
 
 #endif
