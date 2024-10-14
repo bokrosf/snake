@@ -12,10 +12,11 @@ class ability : public behavior, public initializable, public startable, public 
 public:
     void initialize() override;
     void start() override;
-    void update() override;
+    void update() override final;
 protected:
     ability(entity &attached_to, float duration);
     ::snake &snake() const;
+    virtual void update_effect();
 private:
     const float _duration;
     float _expiration;

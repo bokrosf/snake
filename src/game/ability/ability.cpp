@@ -39,6 +39,7 @@ void ability::update()
         return;
     }
 
+    update_effect();
     float remaining_percentage = (_expiration - game_time::now()) / _duration;
     _messenger.send(ability_usage_changed{*this, remaining_percentage});
 }
@@ -46,4 +47,8 @@ void ability::update()
 ::snake &ability::snake() const
 {
     return *_snake;
+}
+
+void ability::update_effect()
+{
 }
