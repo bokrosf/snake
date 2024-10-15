@@ -26,6 +26,7 @@ namespace
         entity &wall = entity::create();
         wall.tag(tag::wall);
         wall.transformation().position(position);
+        wall.transformation().scale(area);
         wall.add_component<::wall>(area);
         wall.add_component<wall_renderer>(render_layer::wall);
         wall.add_component<box_collider>(area);

@@ -5,11 +5,6 @@ wall_renderer::wall_renderer(entity &attached_to, int layer_order)
 {
 }
 
-void wall_renderer::initialize()
-{
-    _wall = &attached_to().attached_component<wall>();
-}
-
 void wall_renderer::render(SDL_Renderer *renderer)
 {
     if (!use_material_color(renderer))
@@ -17,12 +12,16 @@ void wall_renderer::render(SDL_Renderer *renderer)
         return;
     }
 
-    vector2 rect_position = _wall->transformation().position() - _wall->area();
-    SDL_FRect rect;
-    rect.x = rect_position.x;
-    rect.y = rect_position.y;
-    rect.w = 2.0F * _wall->area().x;
-    rect.h = 2.0F * _wall->area().y;
+    vector2 upper_left = transformation().position() - transformation().scale();
+    vector2 area = 2.0F * transformation().scale();
+
+    SDL_FRect rect
+    {
+        .x = upper_left.x,
+        .y = upper_left.y,
+        .w = area.x,
+        .h = area.y
+    };
 
     SDL_RenderFillRectF(renderer, &rect);
 }
