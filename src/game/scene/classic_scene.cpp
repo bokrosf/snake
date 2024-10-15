@@ -16,7 +16,6 @@
 #include <game/tag.h>
 #include <game/tile_maze/tile_maze.h>
 #include <game/tile_maze/tile_maze_renderer.h>
-#include <game/wall/wall.h>
 #include <game/wall/wall_renderer.h>
 
 namespace
@@ -27,7 +26,6 @@ namespace
         wall.tag(tag::wall);
         wall.transformation().position(position);
         wall.transformation().scale(area);
-        wall.add_component<::wall>(area);
         wall.add_component<wall_renderer>(render_layer::wall);
         wall.add_component<box_collider>(area);
         wall.add_component<box_collider_renderer>(render_layer::collider);

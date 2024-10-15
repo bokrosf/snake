@@ -62,7 +62,6 @@ add_executable("${PROJECT_NAME}"
   src/game/ui/screen/main_screen.cpp
   src/game/ui/screen/menu_screen.cpp
   src/game/ui/screen/pause_screen.cpp
-  src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 
 target_link_directories("${PROJECT_NAME}"
