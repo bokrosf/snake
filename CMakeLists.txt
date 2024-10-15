@@ -38,6 +38,7 @@ add_executable("${PROJECT_NAME}"
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
+  src/game/food/magic_food_factory.cpp
   src/game/food/normal_food_factory.cpp
   src/game/game_coordinator.cpp
   src/game/main.cpp
