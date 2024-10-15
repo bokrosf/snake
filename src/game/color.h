@@ -12,6 +12,7 @@ namespace color
 
     const SDL_Color brave_strawberry = SDL_Color{152, 52, 45, 255};
     const SDL_Color sassy_grape = SDL_Color{142, 45, 89, 255};
+    const SDL_Color energetic_mango = SDL_Color{244, 187, 68};
 }
 
 #endif
