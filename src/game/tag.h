@@ -5,7 +5,6 @@
 
 namespace tag
 {
-    const std::string snake = "snake";
     const std::string wall = "wall";
 }
 

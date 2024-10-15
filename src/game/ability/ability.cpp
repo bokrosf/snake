@@ -3,7 +3,7 @@
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>
-#include <game/tag.h>
+#include <game/entity_name.h>
 
 ability::ability(entity &attached_to, float duration)
     : behavior(attached_to)
@@ -17,7 +17,7 @@ ability::ability(entity &attached_to, float duration)
 
 void ability::initialize()
 {
-    _snake = &attached_to().find_tagged(tag::snake)->attached_component<::snake>();
+    _snake = &attached_to().find(entity_name::snake)->attached_component<::snake>();
 }
 
 void ability::start()

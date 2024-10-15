@@ -17,7 +17,7 @@ food_spawner::food_spawner(entity &attached_to, food_factory &factory)
 void food_spawner::initialize()
 {
     _tile_maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
-    _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
+    _snake = &attached_to().find(entity_name::snake)->attached_component<snake>();
 }
 
 void food_spawner::start()

@@ -53,8 +53,7 @@ void classic_scene::initialize()
     map.add_component<tile_maze_renderer>(render_layer::terrain, tile_maze_rendering_bounds);
     map.attached_component<tile_maze_renderer>().change_material(material{color::tile_maze});
 
-    entity &snake = entity::create();
-    snake.tag(tag::snake);
+    entity &snake = entity::create(entity_name::snake);
 
     tile_area snake_area = maze.tiles_of_area(
         maze.transformation().position(),
