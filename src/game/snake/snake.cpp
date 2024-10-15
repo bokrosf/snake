@@ -57,6 +57,20 @@ void snake::update()
     check_self_collision();
 }
 
+void snake::move_forward(unsigned int moved_tiles)
+{    
+    if (moved_tiles == 0)
+    {
+        return;
+    }
+    
+    ivector2 movement = moved_tiles * _head_direction;
+    head() += movement;
+    transformation().position(_maze->tile_center(head().y, head().x));
+    shrink_tail(moved_tiles);
+    _last_moved += moved_tiles * _speed;
+}
+
 void snake::look_in_direction(const ivector2 &direction)
 {
     if (direction == _head_direction || direction == -_head_direction)
@@ -130,20 +144,6 @@ void snake::grow(unsigned int length)
 ivector2 &snake::head()
 {
     return _segments.front().begin;
-}
-
-void snake::move_forward(unsigned int moved_tiles)
-{    
-    if (moved_tiles == 0)
-    {
-        return;
-    }
-    
-    ivector2 movement = moved_tiles * _head_direction;
-    head() += movement;
-    transformation().position(_maze->tile_center(head().y, head().x));
-    shrink_tail(moved_tiles);
-    _last_moved += moved_tiles * _speed;
 }
 
 void snake::shrink_tail(unsigned int moved_tiles)
