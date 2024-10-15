@@ -9,7 +9,14 @@ ability_indicator::ability_indicator(entity &attached_to)
 
 ability_indicator::~ability_indicator()
 {
-    stop_tracking();
+    _messenger.unsubscribe<ability_usage_changed>(*this);
+    _messenger.unsubscribe<ability_expired>(*this);
+}
+
+void ability_indicator::initialize()
+{
+    _messenger.subscribe<ability_usage_changed>(*this);
+    _messenger.subscribe<ability_expired>(*this);
 }
 
 void ability_indicator::track(::ability &ability)
@@ -18,8 +25,6 @@ void ability_indicator::track(::ability &ability)
     _ability = &ability;
     _percentage = 0.0F;
     attached_to().activate(true);
-    _messenger.subscribe<ability_usage_changed>(*this);
-    _messenger.subscribe<ability_expired>(*this);
 }
 
 float ability_indicator::percentage() const
@@ -49,9 +54,7 @@ void ability_indicator::stop_tracking()
     {
         return;
     }
-
-    _messenger.unsubscribe<ability_usage_changed>(*this);
-    _messenger.unsubscribe<ability_expired>(*this);
+    
     _ability = nullptr;
     attached_to().activate(false);
 }
