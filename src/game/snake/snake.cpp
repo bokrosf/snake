@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <cmath>
 #include <ranges>
 #include <stdexcept>
+#include <utility>
 #include <engine/game_time.h>
 #include <game/entity_name.h>
 #include <game/game_event.h>
@@ -83,6 +85,22 @@ unsigned int snake::speed() const
 void snake::speed(unsigned int tiles_per_second)
 {
     _speed = 1.0F / tiles_per_second;
+}
+
+void snake::reverse()
+{
+    for (auto &s : _segments)
+    {
+        std::swap(s.begin, s.end);
+    }
+
+    std::reverse(_segments.begin(), _segments.end());
+    std::swap(_head_direction, _last_tail_direction);
+
+    if (_segments.front().direction_or(_head_direction) != _head_direction)
+    {
+        look_in_direction(_head_direction);
+    }
 }
 
 std::generator<const snake::segment &> snake::segments() const
