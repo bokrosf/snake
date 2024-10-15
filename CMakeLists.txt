@@ -36,6 +36,7 @@ add_executable("${PROJECT_NAME}"
   src/game/ability/ability_slot.cpp
   src/game/ability/inverted_snake_controller.cpp
   src/game/ability/speed_boost.cpp
+  src/game/bouncing_collision_handler.cpp
   src/game/fatal_collision_handler.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
