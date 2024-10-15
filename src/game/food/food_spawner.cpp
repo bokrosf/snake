@@ -76,7 +76,7 @@ void food_spawner::spawn()
             food.transformation().scale(0.75F * 0.5F *_tile_maze->tile_size() * vector2(1, 1));
             food.add_component<food_renderer>(render_layer::food);
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
-            food.attached_component<food_renderer>().change_material(material{color::food});
+            food.attached_component<food_renderer>().change_material(material{color::brave_strawberry});
             --_remaining_food_count;
         }
 
