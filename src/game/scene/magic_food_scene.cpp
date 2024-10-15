@@ -9,6 +9,7 @@
 #include <game/ability/ability_slot.h>
 #include <game/color.h>
 #include <game/entity_name.h>
+#include <game/fatal_collision_handler.h>
 #include <game/food/food_spawner.h>
 #include <game/game_coordinator.h>
 #include <game/render_layer.h>
@@ -32,6 +33,7 @@ namespace
         wall.add_component<wall_renderer>(render_layer::wall);
         wall.add_component<box_collider>(area);
         wall.add_component<box_collider_renderer>(render_layer::collider);
+        wall.add_component<fatal_collision_handler>();
         wall.attached_component<wall_renderer>().change_material(material{color::wall});
     }
 }
