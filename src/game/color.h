@@ -10,7 +10,7 @@ namespace color
     const SDL_Color tile_maze = SDL_Color{0, 0, 255, 255};
     const SDL_Color menu_item_border = SDL_Color{14, 209, 69, 255};
 
-    const SDL_Color brave_strawberry = SDL_Color{255, 0, 0, 255};
+    const SDL_Color brave_strawberry = SDL_Color{152, 52, 45, 255};
 }
 
 #endif
