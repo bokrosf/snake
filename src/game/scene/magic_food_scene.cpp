@@ -4,6 +4,9 @@
 #include <engine/collision/collision_handler.h>
 #include <engine/display.h>
 #include <engine/entity.h>
+#include <game/ability/ability_indicator.h>
+#include <game/ability/ability_indicator_renderer.h>
+#include <game/ability/ability_slot.h>
 #include <game/color.h>
 #include <game/entity_name.h>
 #include <game/food/food_spawner.h>
@@ -65,6 +68,7 @@ void magic_food_scene::initialize()
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(0.5F * vector2(tile_size, tile_size));
     snake.add_component<box_collider_renderer>(render_layer::collider);
+    snake.add_component<ability_slot>();
     snake.attached_component<::snake>().speed(4);
     snake.attached_component<snake_renderer>().change_material(material{color::snake});
 
@@ -76,4 +80,10 @@ void magic_food_scene::initialize()
     create_wall(maze.transformation().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
     create_wall(maze.transformation().position() + vector2(-horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
     create_wall(maze.transformation().position() + vector2(horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+
+    entity &indicator = entity::create(entity_name::ability_indicator);
+    indicator.transformation().position(maze.transformation().position() + vector2(0, 0.5F * (vertical_tile_count + 2) * tile_size));
+    indicator.transformation().scale(0.5F * vector2(horizontal_tile_count * tile_size, tile_size));
+    indicator.add_component<ability_indicator>();
+    indicator.add_component<ability_indicator_renderer>(render_layer::ability_indicator);
 }
