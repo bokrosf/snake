@@ -111,9 +111,14 @@ void snake::reverse()
     std::reverse(_segments.begin(), _segments.end());
     std::swap(_head_direction, _last_tail_direction);
 
-    if (_segments.front().direction_or(_head_direction) != _head_direction)
+    if (_segments.size() == 1 && _segments.front().begin == _segments.front().end)
     {
-        look_in_direction(_head_direction);
+        return;
+    }
+
+    if (_segments.front().direction_or(-_head_direction) != _head_direction)
+    {
+        _segments.push_front(segment{head(), head()});
     }
 }
 
