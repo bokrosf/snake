@@ -5,14 +5,12 @@
 
 food::food(entity &attached_to, unsigned int nutritional_value)
     : behavior(attached_to)
-    , _nutritional_value(0)
+    , _nutritional_value(nutritional_value)
 {
     if (nutritional_value < 0)
     {
         throw std::invalid_argument("Nutritional value must be greater than or equal to zero.");
     }
-
-    _nutritional_value = nutritional_value;
 }
 
 void food::collide(const collision &collision)
