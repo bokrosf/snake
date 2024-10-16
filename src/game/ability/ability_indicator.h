@@ -3,6 +3,7 @@
 
 #include <engine/component/behavior.h>
 #include <engine/component/initializable.h>
+#include <engine/entity.h>
 #include <engine/messaging/recipient.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>

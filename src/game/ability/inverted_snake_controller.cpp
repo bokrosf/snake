@@ -4,12 +4,14 @@
 
 inverted_snake_controller::inverted_snake_controller(entity &attached_to, float duration)
     : ability(attached_to, duration)
+    , _snake(nullptr)
+    , _original_controller(nullptr)
 {
 }
 
 void inverted_snake_controller::initialize()
 {
-    ability::initialize();
+    _snake = &attached_to().attached_component<snake>();
     _original_controller = &attached_to().attached_component<snake_controller>();
 }
 
@@ -23,19 +25,19 @@ void inverted_snake_controller::update_effect()
 {
     if (input::key_down(SDLK_w) || input::key_down(SDLK_UP))
     {
-        snake().look_in_direction(ivector2::up());
+        _snake->look_in_direction(ivector2::up());
     }
     else if (input::key_down(SDLK_s) || input::key_down(SDLK_DOWN))
     {
-        snake().look_in_direction(ivector2::down());
+        _snake->look_in_direction(ivector2::down());
     }
     else if (input::key_down(SDLK_a) || input::key_down(SDLK_LEFT))
     {
-        snake().look_in_direction(ivector2::right());
+        _snake->look_in_direction(ivector2::right());
     }
     else if (input::key_down(SDLK_d) || input::key_down(SDLK_RIGHT))
     {
-        snake().look_in_direction(ivector2::left());
+        _snake->look_in_direction(ivector2::left());
     }
 }
 
