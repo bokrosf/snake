@@ -7,9 +7,11 @@
 class magic_food_factory : public food_factory
 {
 public:
-    magic_food_factory() = default;
+    magic_food_factory();
     entity &create(unsigned int nutritional_value) override;
 private:
+    const int _magic_food_ratio;
+    const int _normal_food_ratio;
     std::random_device _generator;
     std::uniform_int_distribution<int> _distribution;
 };
