@@ -18,17 +18,12 @@ void food::collide(const collision &collision)
     if (snake *snake = collision.collider.attached_to().find_component<::snake>())
     {
         eat(*snake);
+        snake->grow(_nutritional_value);
+        _messenger.send(game_event::food_eaten);
         attached_to().destroy();
     }
 }
 
 void food::eat(snake &snake)
 {
-    feed_snake(snake);
-}
-
-void food::feed_snake(snake &snake)
-{
-    snake.grow(_nutritional_value);
-    _messenger.send(game_event::food_eaten);
 }

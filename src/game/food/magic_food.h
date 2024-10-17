@@ -32,8 +32,6 @@ template<typename Ability>
     requires std::derived_from<Ability, ability>
 void magic_food<Ability>::eat(snake &snake)
 {
-    snake.grow(_nutritional_value);
-
     if (ability_slot *slot = snake.attached_to().find_component<ability_slot>())
     {
         food_renderer &renderer = attached_to().attached_component<food_renderer>();
