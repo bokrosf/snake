@@ -31,8 +31,6 @@ void ability::update()
     if (game_time::now() > _expiration)
     {
         _messenger.send(ability_expired{*this});
-        destroy();
-        
         return;
     }
 
