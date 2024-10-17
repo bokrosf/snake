@@ -9,21 +9,32 @@ ability_slot::ability_slot(entity &attached_to)
 {
 }
 
+ability_slot::~ability_slot()
+{
+    _messenger.unsubscribe<ability_expired>(*this);
+}
+
 void ability_slot::initialize()
 {
     entity &indicator_entity = *attached_to().find(entity_name::ability_indicator);
     _indicator = &indicator_entity.attached_component<ability_indicator>();
     _indicator_renderer = &indicator_entity.attached_component<ability_indicator_renderer>();
+    _messenger.subscribe<ability_expired>(*this);
 }
 
 void ability_slot::detach()
 {
-    remove();
+    remove(*_ability);
 }
 
-void ability_slot::remove()
+void ability_slot::receive(const ability_expired &message)
 {
-    if (!_ability)
+    remove(message.ability);
+}
+
+void ability_slot::remove(ability &removed)
+{
+    if (!_ability || &removed != _ability)
     {
         return;
     }
