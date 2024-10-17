@@ -172,7 +172,15 @@ void entity::change_parent(entity *entity, ::entity *new_parent)
 
 void entity::erase_destroyed_components()
 {
-    auto removed_begin = std::remove_if(_components.begin(), _components.end(), [](component *c) { return c->life_state() == life_state::destroyed; });
-    std::for_each(removed_begin, _components.end(), [](component *c) { delete c; });
+    for (size_t i = 0; i < _components.size(); ++i)
+    {
+        if (_components[i]->life_state() == life_state::destroyed)
+        {
+            delete _components[i];
+            _components[i] = nullptr;
+        }
+    }
+    
+    auto removed_begin = std::remove_if(_components.begin(), _components.end(), [](component *c) { return c == nullptr; } );
     _components.erase(removed_begin, _components.end());
 }
