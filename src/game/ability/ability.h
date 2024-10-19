@@ -4,6 +4,7 @@
 #include <engine/component/behavior.h>
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
+#include <engine/entity.h>
 
 class ability : public behavior, public startable, public updatable
 {
