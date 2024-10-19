@@ -8,6 +8,7 @@ namespace render_layer
     const int food = terrain + 1;
     const int snake = food + 1;
     const int wall = snake + 1;
+    const int ability_indicator = 0;
 }
 
 #endif

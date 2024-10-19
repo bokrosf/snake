@@ -1,25 +1,23 @@
 #include <cmath>
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
-#include <game/color.h>
 #include <game/entity_name.h>
-#include <game/food/food.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
 #include <game/game_start_requirement.h>
-#include <game/render_layer.h>
 #include <game/tag.h>
 
-food_spawner::food_spawner(entity &attached_to)
+food_spawner::food_spawner(entity &attached_to, food_factory &factory)
     : component(attached_to)
     , _remaining_food_count(0)
+    , _factory(factory)
 {
 }
 
 void food_spawner::initialize()
 {
     _tile_maze = &attached_to().find(entity_name::map)->attached_component<tile_maze>();
-    _snake = &attached_to().find_tagged(tag::snake)->attached_component<snake>();
+    _snake = &attached_to().find(entity_name::snake)->attached_component<snake>();
 }
 
 void food_spawner::start()
@@ -70,12 +68,10 @@ void food_spawner::spawn()
         {
             found = true;
             const int nutritional_value = 1;
-            entity &food = entity::create();
+            entity &food = _factory.create(nutritional_value);
             food.transformation().position(_tile_maze->tile_center(food_position.y, food_position.x));
-            food.add_component<::food>(nutritional_value);
-            food.add_component<food_renderer>(render_layer::food, 0.75F *_tile_maze->tile_size());
+            food.transformation().scale(0.75F * 0.5F *_tile_maze->tile_size() * vector2(1, 1));
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
-            food.attached_component<food_renderer>().change_material(material{color::food});
             --_remaining_food_count;
         }
 

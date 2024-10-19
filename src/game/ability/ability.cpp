@@ -3,7 +3,7 @@
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>
-#include <game/tag.h>
+#include <game/entity_name.h>
 
 ability::ability(entity &attached_to, float duration)
     : behavior(attached_to)
@@ -34,6 +34,11 @@ void ability::update()
         return;
     }
 
+    update_effect();
     float remaining_percentage = (_expiration - game_time::now()) / _duration;
     _messenger.send(ability_usage_changed{*this, remaining_percentage});
+}
+
+void ability::update_effect()
+{
 }

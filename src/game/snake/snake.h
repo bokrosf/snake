@@ -27,13 +27,15 @@ public:
     void initialize() override;
     void start() override;
     void update() override;
+    void move_forward(unsigned int moved_tiles);
     void look_in_direction(const ivector2 &direction);
+    unsigned int speed() const;
     void speed(unsigned int tiles_per_second);
+    void reverse();
     std::generator<const segment &> segments() const;
     void grow(unsigned int length);
 private:
     ivector2 &head();
-    void move_forward(unsigned int moved_tiles);
     void shrink_tail(unsigned int moved_tiles);
     void check_self_collision() const;
 

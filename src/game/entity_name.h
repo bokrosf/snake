@@ -5,6 +5,7 @@
 
 namespace entity_name
 {
+    const std::string snake = "snake";
     const std::string map = "map";
     const std::string ability_indicator = "ability_indicator";
 }

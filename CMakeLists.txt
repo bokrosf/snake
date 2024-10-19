@@ -34,9 +34,16 @@ add_executable("${PROJECT_NAME}"
   src/game/ability/ability_indicator.cpp
   src/game/ability/ability_indicator_renderer.cpp
   src/game/ability/ability_slot.cpp
+  src/game/ability/inverted_snake_controller.cpp
+  src/game/ability/speed_boost.cpp
+  src/game/ability/wall_bouncing.cpp
+  src/game/bouncing_collision_handler.cpp
+  src/game/fatal_collision_handler.cpp
   src/game/food/food.cpp
   src/game/food/food_renderer.cpp
   src/game/food/food_spawner.cpp
+  src/game/food/magic_food_factory.cpp
+  src/game/food/normal_food_factory.cpp
   src/game/game_coordinator.cpp
   src/game/main.cpp
   src/game/scene/classic_scene.cpp
@@ -57,7 +64,6 @@ add_executable("${PROJECT_NAME}"
   src/game/ui/screen/main_screen.cpp
   src/game/ui/screen/menu_screen.cpp
   src/game/ui/screen/pause_screen.cpp
-  src/game/wall/wall.cpp
   src/game/wall/wall_renderer.cpp)
 
 target_link_directories("${PROJECT_NAME}"

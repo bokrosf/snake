@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <cmath>
 #include <ranges>
 #include <stdexcept>
+#include <utility>
 #include <engine/game_time.h>
 #include <game/entity_name.h>
 #include <game/game_event.h>
@@ -55,6 +57,20 @@ void snake::update()
     check_self_collision();
 }
 
+void snake::move_forward(unsigned int moved_tiles)
+{    
+    if (moved_tiles == 0)
+    {
+        return;
+    }
+    
+    ivector2 movement = moved_tiles * _head_direction;
+    head() += movement;
+    transformation().position(_maze->tile_center(head().y, head().x));
+    shrink_tail(moved_tiles);
+    _last_moved += moved_tiles * _speed;
+}
+
 void snake::look_in_direction(const ivector2 &direction)
 {
     if (direction == _head_direction || direction == -_head_direction)
@@ -73,9 +89,37 @@ void snake::look_in_direction(const ivector2 &direction)
     check_self_collision();
 }
 
+unsigned int snake::speed() const
+{
+    unsigned int tiles_per_second = 1.0F / _speed;
+
+    return tiles_per_second;
+}
+
 void snake::speed(unsigned int tiles_per_second)
 {
     _speed = 1.0F / tiles_per_second;
+}
+
+void snake::reverse()
+{
+    for (auto &s : _segments)
+    {
+        std::swap(s.begin, s.end);
+    }
+
+    std::reverse(_segments.begin(), _segments.end());
+    std::swap(_head_direction, _last_tail_direction);
+
+    if (_segments.size() == 1 && _segments.front().begin == _segments.front().end)
+    {
+        return;
+    }
+
+    if (_segments.front().direction_or(-_head_direction) != _head_direction)
+    {
+        _segments.push_front(segment{head(), head()});
+    }
 }
 
 std::generator<const snake::segment &> snake::segments() const
@@ -105,20 +149,6 @@ void snake::grow(unsigned int length)
 ivector2 &snake::head()
 {
     return _segments.front().begin;
-}
-
-void snake::move_forward(unsigned int moved_tiles)
-{    
-    if (moved_tiles == 0)
-    {
-        return;
-    }
-    
-    ivector2 movement = moved_tiles * _head_direction;
-    head() += movement;
-    transformation().position(_maze->tile_center(head().y, head().x));
-    shrink_tail(moved_tiles);
-    _last_moved += moved_tiles * _speed;
 }
 
 void snake::shrink_tail(unsigned int moved_tiles)

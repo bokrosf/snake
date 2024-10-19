@@ -14,9 +14,8 @@ public:
     void collide(const collision &collision) final;
 protected:
     virtual void eat(snake &snake);
-    void feed_snake(snake &snake);
-private:
-    unsigned int _nutritional_value;
+    
+    const unsigned int _nutritional_value;
 };
 
 #endif
