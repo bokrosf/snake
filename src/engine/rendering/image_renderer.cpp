@@ -27,7 +27,7 @@ void image_renderer::render(SDL_Renderer *renderer)
     }
 
     
-    vector2 position = attached_to().transformation().position() - vector2(_texture_region.w / 2, _texture_region.h / 2);
+    vector2 position = attached_to().transform().position() - vector2(_texture_region.w / 2, _texture_region.h / 2);
     _draw_region.x = position.x;
     _draw_region.y = position.y;
     SDL_RenderCopyF(renderer, _texture, &_texture_region, &_draw_region);

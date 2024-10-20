@@ -27,8 +27,8 @@ namespace
     {
         entity &wall = entity::create();
         wall.tag(tag::wall);
-        wall.transformation().position(position);
-        wall.transformation().scale(area);
+        wall.transform().position(position);
+        wall.transform().scale(area);
         wall.add_component<wall_renderer>(render_layer::wall);
         wall.add_component<box_collider>(area);
         wall.add_component<box_collider_renderer>(render_layer::collider);
@@ -52,7 +52,7 @@ void magic_food_scene::initialize()
 
     entity &map = entity::create(entity_name::map);
     tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
-    maze.transformation().position(0.5F * vector2(display_mode.w, display_mode.h));
+    maze.transform().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
     map.add_component<tile_maze_renderer>(render_layer::terrain, tile_maze_rendering_bounds);
     map.attached_component<tile_maze_renderer>().change_material(material{color::tile_maze});
@@ -60,8 +60,8 @@ void magic_food_scene::initialize()
     entity &snake = entity::create(entity_name::snake);
 
     tile_area snake_area = maze.tiles_of_area(
-        maze.transformation().position(),
-        maze.transformation().position() + vector2((snake_length - 1) * tile_size, 0));
+        maze.transform().position(),
+        maze.transform().position() + vector2((snake_length - 1) * tile_size, 0));
 
     snake.add_component<::snake>(snake_area.upper_left, snake_area.lower_right);
     snake.add_component<snake_renderer>(render_layer::snake);
@@ -76,14 +76,14 @@ void magic_food_scene::initialize()
     coordinator.add_component<game_coordinator>();
     coordinator.add_component<food_spawner>(_food_factory);
 
-    create_wall(maze.transformation().position() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
-    create_wall(maze.transformation().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
-    create_wall(maze.transformation().position() + vector2(-horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
-    create_wall(maze.transformation().position() + vector2(horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+    create_wall(maze.transform().position() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+    create_wall(maze.transform().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+    create_wall(maze.transform().position() + vector2(-horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+    create_wall(maze.transform().position() + vector2(horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
 
     entity &indicator = entity::create(entity_name::ability_indicator);
-    indicator.transformation().position(maze.transformation().position() + vector2(0, 0.5F * (vertical_tile_count + 2) * tile_size));
-    indicator.transformation().scale(0.5F * vector2(horizontal_tile_count * tile_size, tile_size));
+    indicator.transform().position(maze.transform().position() + vector2(0, 0.5F * (vertical_tile_count + 2) * tile_size));
+    indicator.transform().scale(0.5F * vector2(horizontal_tile_count * tile_size, tile_size));
     indicator.add_component<ability_indicator>();
     indicator.add_component<ability_indicator_renderer>(render_layer::ability_indicator);
 }

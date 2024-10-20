@@ -5,7 +5,7 @@
 #include <engine/messaging/messenger.h>
 
 class entity;
-class transformation;
+class transform;
 
 class component
 {
@@ -14,8 +14,8 @@ public:
     void destroy();
     ::life_state life_state() const;
     entity &attached_to() const;
-    const ::transformation &transformation() const;
-    ::transformation &transformation();
+    const ::transform &transform() const;
+    ::transform &transform();
 protected:
     component(entity &attached_to);
     virtual void detach();

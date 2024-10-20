@@ -25,8 +25,8 @@ void food_spawner::start()
     for (entity &wall : attached_to().find_all_tagged(tag::wall))
     {
         box_collider &collider = wall.attached_component<box_collider>();
-        vector2 upper_left = wall.transformation().position() - collider.area();
-        vector2 lower_right = wall.transformation().position() + collider.area();
+        vector2 upper_left = wall.transform().position() - collider.area();
+        vector2 lower_right = wall.transform().position() + collider.area();
         tile_area area = _tile_maze->tiles_of_area(upper_left, lower_right);
 
         for (int row = area.upper_left.y; row < area.lower_right.y; ++row)
@@ -69,8 +69,8 @@ void food_spawner::spawn()
             found = true;
             const int nutritional_value = 1;
             entity &food = _factory.create(nutritional_value);
-            food.transformation().position(_tile_maze->tile_center(food_position.y, food_position.x));
-            food.transformation().scale(0.75F * 0.5F *_tile_maze->tile_size() * vector2(1, 1));
+            food.transform().position(_tile_maze->tile_center(food_position.y, food_position.x));
+            food.transform().scale(0.75F * 0.5F *_tile_maze->tile_size() * vector2(1, 1));
             food.add_component<box_collider>(0.5F * vector2(_tile_maze->tile_size(), _tile_maze->tile_size()));
             --_remaining_food_count;
         }

@@ -66,7 +66,7 @@ tile_area tile_maze::tiles_of_area(const vector2 &upper_left, const vector2 &low
 
 vector2 tile_maze::upper_left() const
 {
-    return transformation().position() - 0.5F * _tile_size * vector2(_width, _height);
+    return transform().position() - 0.5F * _tile_size * vector2(_width, _height);
 }
 
 ivector2 tile_maze::world_to_tile(const vector2 &world_position) const

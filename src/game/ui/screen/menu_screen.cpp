@@ -20,7 +20,7 @@ void menu_screen::add_menu_item(const std::string &image_path)
     item.attach_to(&attached_to());
     
     border &border = item.add_component<::border>();
-    border.transformation().position(_configuration.first_item_position + vector2(0, _menu_items.size() * _configuration.item_spacing));
+    border.transform().position(_configuration.first_item_position + vector2(0, _menu_items.size() * _configuration.item_spacing));
     border.inner_area(_configuration.item_area);
     border.thickness(_configuration.border_thickness);
     border_renderer &border_renderer = item.add_component<::border_renderer>(_default_rendering_layer);

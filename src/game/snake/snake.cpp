@@ -40,7 +40,7 @@ void snake::initialize()
 
 void snake::start()
 {
-    transformation().position(_maze->tile_center(head().y, head().x));
+    transform().position(_maze->tile_center(head().y, head().x));
     _last_moved = game_time::now();
 }
 
@@ -66,7 +66,7 @@ void snake::move_forward(unsigned int moved_tiles)
     
     ivector2 movement = moved_tiles * _head_direction;
     head() += movement;
-    transformation().position(_maze->tile_center(head().y, head().x));
+    transform().position(_maze->tile_center(head().y, head().x));
     shrink_tail(moved_tiles);
     _last_moved += moved_tiles * _speed;
 }

@@ -12,7 +12,7 @@
 #include <engine/component_added.h>
 #include <engine/component/component.h>
 #include <engine/component/component_not_found.h>
-#include <engine/component/transformation.h>
+#include <engine/component/transform.h>
 #include <engine/life_state.h>
 #include <engine/messaging/messenger.h>
 
@@ -28,7 +28,7 @@ public:
     void destroy();
     ::life_state life_state() const;
     entity *parent() const;
-    ::transformation &transformation();
+    ::transform &transform();
     const std::string &name() const;
     const std::string &tag() const;
     void tag(const std::string &name);
@@ -70,7 +70,7 @@ private:
     entity *_parent;
     std::vector<entity *> _children;
     std::vector<component *> _components;
-    ::transformation *_transformation;
+    ::transform *_transform;
     const std::string _name;
     std::string _tag;
 

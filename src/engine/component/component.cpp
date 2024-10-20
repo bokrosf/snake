@@ -31,14 +31,14 @@ entity &component::attached_to() const
     return _attached_to;
 }
 
-const transformation &component::transformation() const
+const transform &component::transform() const
 {
-    return attached_to().transformation();
+    return attached_to().transform();
 }
 
-transformation &component::transformation()
+transform &component::transform()
 {
-    return attached_to().transformation();
+    return attached_to().transform();
 }
 
 void component::detach()

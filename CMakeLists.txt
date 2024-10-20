@@ -14,7 +14,7 @@ add_executable("${PROJECT_NAME}"
   src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
-  src/engine/component/transformation.cpp
+  src/engine/component/transform.cpp
   src/engine/display.cpp
   src/engine/entity.cpp
   src/engine/entity_name_collision.cpp

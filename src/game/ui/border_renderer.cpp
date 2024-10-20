@@ -19,7 +19,7 @@ void border_renderer::render(SDL_Renderer *renderer)
         return;
     }
 
-    vector2 position = _border->transformation().position() - _border->inner_area() - vector2(_border->thickness(), _border->thickness());
+    vector2 position = _border->transform().position() - _border->inner_area() - vector2(_border->thickness(), _border->thickness());
     SDL_FRect border_part;
     border_part.x = position.x;
     border_part.y = position.y;
@@ -30,7 +30,7 @@ void border_renderer::render(SDL_Renderer *renderer)
     border_part.y = border_part.y + _border->thickness() + (2.0F * _border->inner_area().y);
     SDL_RenderFillRectF(renderer, &border_part);
 
-    position = _border->transformation().position() - _border->inner_area() - vector2(_border->thickness(), 0);
+    position = _border->transform().position() - _border->inner_area() - vector2(_border->thickness(), 0);
     border_part.x = position.x;
     border_part.y = position.y;
     border_part.w = _border->thickness();

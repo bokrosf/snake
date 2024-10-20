@@ -19,8 +19,8 @@ void tile_maze_renderer::render(SDL_Renderer *renderer)
         return;
     }
     
-    vector2 begin = _maze->transformation().position() - _bounds.absolute();
-    vector2 end = _maze->transformation().position() + _bounds.absolute();
+    vector2 begin = _maze->transform().position() - _bounds.absolute();
+    vector2 end = _maze->transform().position() + _bounds.absolute();
     float tile_size = _maze->tile_size();
     int x_sections = (end.x - begin.x) / tile_size;
     int y_sections = (end.y - begin.y) / tile_size;

@@ -29,7 +29,7 @@ void game_ending_screen::initialize()
     
     entity &title = entity::create();
     title.attach_to(&attached_to());
-    title.transformation().position(vector2(display_mode.w / 2, display_mode.h / 4));
+    title.transform().position(vector2(display_mode.w / 2, display_mode.h / 4));
     image_renderer &title_renderer = title.add_component<image_renderer>(_default_rendering_layer);
     title_renderer.change_material(material{.texture_path = _won ? asset_path::game_won_title : asset_path::game_lost_title});
 
