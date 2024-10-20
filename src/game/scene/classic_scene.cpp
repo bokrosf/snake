@@ -72,8 +72,21 @@ void classic_scene::initialize()
     coordinator.add_component<game_coordinator>();
     coordinator.add_component<food_spawner>(_food_factory);
 
-    create_wall(maze.transform().position() + vector2(0, -vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
-    create_wall(maze.transform().position() + vector2(0, vertical_tile_count / 2 * tile_size), vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
-    create_wall(maze.transform().position() + vector2(-horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
-    create_wall(maze.transform().position() + vector2(horizontal_tile_count / 2 * tile_size, 0), vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+    const float half_tile_size = 0.5F * maze.tile_size();
+    
+    create_wall(
+        maze.transform().position() - 0.5F * tile_size * vector2(0, vertical_tile_count) + vector2(0, half_tile_size),
+        vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+
+    create_wall(
+        maze.transform().position() + 0.5F * tile_size * vector2(0, vertical_tile_count) - vector2(0, half_tile_size),
+        vector2(0.5F * horizontal_tile_count * tile_size, 0.5F * tile_size));
+
+    create_wall(
+        maze.transform().position() - 0.5F * tile_size * vector2(horizontal_tile_count, 0) + vector2(half_tile_size, 0),
+        vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
+
+    create_wall(
+        maze.transform().position() + 0.5F * tile_size * vector2(horizontal_tile_count, 0) - vector2(half_tile_size, 0),
+        vector2(0.5F * tile_size, 0.5F * (vertical_tile_count - 2) * tile_size));
 }
