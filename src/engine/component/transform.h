@@ -12,7 +12,7 @@ public:
     void position(const vector2 &position);
     void translate(const vector2 &translation);
     const vector2 &scale() const;
-    void scale(const vector2 &scaling);
+    void scale(const vector2 &scale);
 private:
     vector2 _position;
     vector2 _scale;

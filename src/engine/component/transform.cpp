@@ -25,7 +25,7 @@ const vector2 &transform::scale() const
     return _scale;
 }
 
-void transform::scale(const vector2 &scaling)
+void transform::scale(const vector2 &scale)
 {
-    _scale = scaling;
+    _scale = scale;
 }
