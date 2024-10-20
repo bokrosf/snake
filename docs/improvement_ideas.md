@@ -5,7 +5,7 @@
 - Content should be moved instead of copying. This way the performancepenalty would be as minimal as it can be.
 - This way the reset operation is open for addition and closed formodification because all of it's automatically handled and resetted properly.
 
-### Transformation component
+### Transform component
 - Child entities' position always relative to their parent's position. This must be calculated when a child attached to a parent or a transformation applied to the child.
 - Adding rotation and scaling functionality.
 

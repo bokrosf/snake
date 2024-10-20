@@ -12,8 +12,8 @@ void food_renderer::render(SDL_Renderer *renderer)
         return;
     }
 
-    vector2 upper_left = transformation().position() - transformation().scale();
-    vector2 area = 2.0F * transformation().scale();
+    vector2 upper_left = transform().position() - transform().scale();
+    vector2 area = 2.0F * transform().scale();
 
     SDL_FRect rect
     {

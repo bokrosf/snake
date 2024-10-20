@@ -9,10 +9,10 @@ Contains architectural decisions, problems. Used as a development diary to look 
 - ```scene::reset``` method introduced and it cleans up the scene's state, destroys every entity and calls ```scene::initialize``` on itself.
 - Reset operation must be queued and executed by **commiting** to not interfere with the current frame's scene processing.
 
-# Transformation component
+# Transform component
 2024-05-15
 
-- ```transformation``` is a component that stores the world position of the entity and applies transformation to move the entity with an offset to another position.
+- ```transform``` is a component that stores the world position of the entity and applies transformation to move the entity with an offset to another position.
 - It's a necessary component, every entity has it when constructed, and initialized with the (0, 0) world position.
 
 # Querying entity by name

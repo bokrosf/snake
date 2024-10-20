@@ -10,7 +10,7 @@ entity::entity(const std::string &name)
     , _life_state(life_state::initializing)
     , _messenger(messenger::instance())
     , _parent(nullptr)
-    , _transformation(nullptr)
+    , _transform(nullptr)
     , _name(name)
     , _tag("")
     {
@@ -37,7 +37,7 @@ entity &entity::create(const std::string &name)
     {
         entity = new ::entity(name);
         messenger::instance().send(entity_created{*entity});
-        entity->_transformation = &entity->add_component<::transformation>();
+        entity->_transform = &entity->add_component<::transform>();
     }
     catch (...)
     {
@@ -69,9 +69,9 @@ entity *entity::parent() const
     return _parent;
 }
 
-transformation &entity::transformation()
+transform &entity::transform()
 {
-    return *_transformation;
+    return *_transform;
 }
 
 const std::string &entity::name() const
