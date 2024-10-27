@@ -30,6 +30,7 @@ add_executable("${PROJECT_NAME}"
   src/engine/scene.cpp
   src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
+  src/engine/time_point.cpp
   src/game/ability/ability.cpp
   src/game/ability/ability_indicator.cpp
   src/game/ability/ability_indicator_renderer.cpp
