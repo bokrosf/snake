@@ -9,12 +9,11 @@
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>
 
-class ability_indicator : public behavior, public initializable, public recipient<ability_usage_changed>, public recipient<ability_expired>
+class ability_indicator : public behavior, public recipient<ability_usage_changed>, public recipient<ability_expired>
 {
 public:
     ability_indicator(entity &attached_to);
     ~ability_indicator() override;
-    void initialize() override;
     void track(::ability &ability);
     float percentage() const;
     void receive(const ability_usage_changed &message);
