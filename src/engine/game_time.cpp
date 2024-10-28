@@ -1,28 +1,61 @@
+#include <unordered_map>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <engine/game_time.h>
+#include <engine/time_point.h>
 
 namespace
 {
     const float precision = 0.001F;
-    Uint64 frame_started_at = 0;
-    Uint64 frame_ended_at = 0;
+
+    struct context
+    {
+        context(game_time::context_id);
+
+        const game_time::context_id id;
+        Uint64 switched_away;
+        std::vector<time_point> bound_times;
+    };
+
+    std::unordered_map<game_time::context_id, context> contexts;
+    context *current;
+    Uint64 frame_started_at;
     float delta = 0;
 }
 
-void game_time::reset_delta_time()
+::context::context(game_time::context_id id)
+    : id(id)
+    , switched_away(0)
 {
+}
+
+void game_time::initialize(game_time::context_id id)
+{
+    current = &contexts.emplace(id, id).first->second;
     frame_started_at = SDL_GetTicks64();
-    frame_ended_at = frame_started_at;
+}
+
+void game_time::reset_delta_time(game_time::context_id id)
+{
+    Uint64 now = SDL_GetTicks64();
+    current->switched_away = now;
+    current = &contexts.try_emplace(id, id).first->second;
+    frame_started_at = now;
     delta = 0;
+    float switch_duration = precision * (now - current->switched_away);
+
+    for (auto &bounded : current->bound_times)
+    {
+        bounded._seconds += switch_duration;
+    }
 }
 
 void game_time::end_frame()
 {
-    frame_ended_at = SDL_GetTicks64();
-    delta = precision * (frame_ended_at - frame_started_at);
-    frame_started_at = frame_ended_at;
+    Uint64 now = SDL_GetTicks64();
+    delta = precision * (now - frame_started_at);
+    frame_started_at = now;
 }
-
 
 float game_time::delta_time()
 {
