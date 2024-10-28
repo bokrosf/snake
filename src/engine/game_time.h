@@ -13,7 +13,7 @@ namespace game_time
     float delta();
     float now();
     float real_now();
-    time_point &bind(float seconds = 0);
+    void bind(time_point &time);
     void unbind(time_point &bounded);
 }
 

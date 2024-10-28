@@ -14,7 +14,7 @@ namespace
 
         const game_time::context_id id;
         Uint64 switched_away;
-        std::vector<time_point> bound_times;
+        std::vector<time_point *> bound_times;
     };
 
     std::unordered_map<game_time::context_id, context> contexts;
@@ -44,9 +44,9 @@ void game_time::reset(game_time::context_id id)
     ::delta = 0;
     float switch_duration = precision * (now - current->switched_away);
 
-    for (auto &bounded : current->bound_times)
+    for (auto *bounded : current->bound_times)
     {
-        bounded._seconds += switch_duration;
+        bounded->_seconds += switch_duration;
     }
 }
 
@@ -72,12 +72,12 @@ float game_time::real_now()
     return precision * SDL_GetTicks64();
 }
 
-time_point &game_time::bind(float seconds)
+void game_time::bind(time_point &time)
 {
-    return current->bound_times.emplace_back(seconds);
+    current->bound_times.emplace_back(&time);
 }
 
 void game_time::unbind(time_point &bounded)
 {
-    std::erase_if(current->bound_times, [&](const time_point &t) { return &t == &bounded; });
+    std::erase(current->bound_times, &bounded);
 }

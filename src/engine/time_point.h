@@ -7,10 +7,14 @@ class time_point
 {
 public:
     time_point();
+    ~time_point();
     explicit time_point(float seconds);
     time_point &operator=(float seconds);
+    void bind();
+    void unbind();
 private:
     float _seconds;
+    bool _bounded;
 
     friend void game_time::reset(game_time::context_id);
 };
