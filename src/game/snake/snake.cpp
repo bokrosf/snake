@@ -41,6 +41,7 @@ void snake::initialize()
 void snake::start()
 {
     transform().position(_maze->tile_center(head().y, head().x));
+    _last_moved.bind();
     _last_moved = game_time::now();
 }
 
