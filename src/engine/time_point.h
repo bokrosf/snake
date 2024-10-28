@@ -7,8 +7,8 @@ class time_point
 {
 public:
     time_point();
-    ~time_point();
     explicit time_point(float seconds);
+    ~time_point();
     time_point &operator=(float seconds);
     operator float() const;
     time_point &operator+=(float duration);

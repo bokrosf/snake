@@ -6,15 +6,15 @@ time_point::time_point()
 {
 }
 
-time_point::~time_point()
-{
-    unbind();
-}
-
 time_point::time_point(float seconds)
     : _seconds(seconds)
     , _bounded(false)
 {
+}
+
+time_point::~time_point()
+{
+    unbind();
 }
 
 time_point &time_point::operator=(float seconds)
