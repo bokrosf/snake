@@ -2,6 +2,11 @@
 
 messenger *messenger::_instance = nullptr;
 
+messenger::messenger()
+    : _sending(false)
+{
+}
+
 messenger &messenger::instance()
 {
     if (_instance == nullptr)
@@ -10,4 +15,11 @@ messenger &messenger::instance()
     }
 
     return *_instance;
+}
+
+
+messenger::subscription::subscription(void *object)
+    : object(object)
+    , removed(false)
+{
 }
