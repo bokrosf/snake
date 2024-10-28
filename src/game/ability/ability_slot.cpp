@@ -23,17 +23,20 @@ void ability_slot::initialize()
 
 void ability_slot::detach()
 {
-    remove(*_ability);
+    remove();
 }
 
 void ability_slot::receive(const ability_expired &message)
 {
-    remove(message.ability);
+    if (&message.ability == _ability)
+    {
+        remove();
+    }
 }
 
-void ability_slot::remove(ability &removed)
+void ability_slot::remove()
 {
-    if (!_ability || &removed != _ability)
+    if (!_ability)
     {
         return;
     }
