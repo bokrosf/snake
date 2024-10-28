@@ -19,7 +19,6 @@ void ability_slot::initialize()
     entity &indicator_entity = *attached_to().find(entity_name::ability_indicator);
     _indicator = &indicator_entity.attached_component<ability_indicator>();
     _indicator_renderer = &indicator_entity.attached_component<ability_indicator_renderer>();
-    _messenger.subscribe<ability_expired>(*this);
 }
 
 void ability_slot::detach()
@@ -41,4 +40,5 @@ void ability_slot::remove(ability &removed)
     
     _ability->destroy();
     _ability = nullptr;
+    _messenger.unsubscribe<ability_expired>(*this);
 }
