@@ -5,6 +5,7 @@
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
 #include <engine/entity.h>
+#include <engine/time_point.h>
 
 class ability : public behavior, public startable, public updatable
 {
@@ -16,7 +17,7 @@ protected:
     virtual void update_effect();
 private:
     const float _duration;
-    float _expiration;
+    time_point _expiration;
 };
 
 #endif

@@ -17,6 +17,7 @@ ability::ability(entity &attached_to, float duration)
 
 void ability::start()
 {
+    _expiration.bind();
     _expiration = game_time::now() + _duration;
     _messenger.send(ability_usage_changed{*this, 100});
 }
