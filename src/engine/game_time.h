@@ -8,7 +8,7 @@ namespace game_time
     void initialize(context_id id);
     void reset_delta_time(context_id id);
     void end_frame();
-    float delta_time();
+    float delta();
     float now();
     float real_now();
 }

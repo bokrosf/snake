@@ -41,7 +41,7 @@ void game_time::reset_delta_time(game_time::context_id id)
     current->switched_away = now;
     current = &contexts.try_emplace(id, id).first->second;
     frame_started_at = now;
-    delta = 0;
+    ::delta = 0;
     float switch_duration = precision * (now - current->switched_away);
 
     for (auto &bounded : current->bound_times)
@@ -53,13 +53,13 @@ void game_time::reset_delta_time(game_time::context_id id)
 void game_time::end_frame()
 {
     Uint64 now = SDL_GetTicks64();
-    delta = precision * (now - frame_started_at);
+    ::delta = precision * (now - frame_started_at);
     frame_started_at = now;
 }
 
-float game_time::delta_time()
+float game_time::delta()
 {
-    return delta;
+    return ::delta;
 }
 
 float game_time::now()
