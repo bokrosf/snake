@@ -24,6 +24,11 @@ time_point &time_point::operator=(float seconds)
     return *this;
 }
 
+time_point::operator float() const
+{
+    return _seconds;
+}
+
 void time_point::bind()
 {
     if (!_bounded)
