@@ -11,6 +11,7 @@ public:
     explicit time_point(float seconds);
     time_point &operator=(float seconds);
     operator float() const;
+    time_point &operator+=(float duration);
     void bind();
     void unbind();
 private:
