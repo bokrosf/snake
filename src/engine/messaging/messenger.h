@@ -20,12 +20,10 @@ public:
     template<typename Message>
     void unsubscribe(recipient<Message> &recipient);
 private:
-    using registration_set = std::unordered_set<void *>;
-    
     messenger() = default;
     
     static messenger *_instance;
-    std::unordered_map<std::type_index, registration_set> _registrations;
+    std::unordered_map<std::type_index, std::unordered_set<void *>> _registrations;
 };
 
 template<typename Message>
