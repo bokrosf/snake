@@ -76,3 +76,8 @@ time_point &game_time::bind(float seconds)
 {
     return current->bound_times.emplace_back(seconds);
 }
+
+void game_time::unbind(time_point &bounded)
+{
+    std::erase_if(current->bound_times, [&](const time_point &t) { return &t == &bounded; });
+}

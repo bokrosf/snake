@@ -14,6 +14,7 @@ namespace game_time
     float now();
     float real_now();
     time_point &bind(float seconds = 0);
+    void unbind(time_point &bounded);
 }
 
 #endif
