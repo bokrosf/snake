@@ -1,5 +1,5 @@
-#ifndef ENGINE_GAMETIME_H
-#define ENGINE_GAMETIME_H
+#ifndef ENGINE_TIME_GAMETIME_H
+#define ENGINE_TIME_GAMETIME_H
 
 class time_point;
 

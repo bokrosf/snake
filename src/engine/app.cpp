@@ -2,7 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <engine/app.h>
 #include <engine/display.h>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <engine/input.h>
 #include <engine/subsystem_initialization_failed.h>
 

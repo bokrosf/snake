@@ -3,7 +3,7 @@
 #include <ranges>
 #include <stdexcept>
 #include <utility>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <game/entity_name.h>
 #include <game/game_event.h>
 #include <game/snake/snake.h>

@@ -5,7 +5,7 @@
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
 #include <engine/entity.h>
-#include <engine/time_point.h>
+#include <engine/time/time_point.h>
 
 class ability : public behavior, public startable, public updatable
 {

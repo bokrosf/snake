@@ -1,7 +1,7 @@
-#ifndef ENGINE_TIMEPOINT_H
-#define ENGINE_TIMEPOINT_H
+#ifndef ENGINE_TIME_TIMEPOINT_H
+#define ENGINE_TIME_TIMEPOINT_H
 
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 
 class time_point
 {

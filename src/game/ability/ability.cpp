@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>

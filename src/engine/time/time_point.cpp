@@ -1,5 +1,5 @@
-#include <engine/game_time.h>
-#include <engine/time_point.h>
+#include <engine/time/game_time.h>
+#include <engine/time/time_point.h>
 
 time_point::time_point()
     : time_point(0)
