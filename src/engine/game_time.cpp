@@ -35,7 +35,7 @@ void game_time::initialize(game_time::context_id id)
     frame_started_at = SDL_GetTicks64();
 }
 
-void game_time::reset_delta_time(game_time::context_id id)
+void game_time::reset(game_time::context_id id)
 {
     Uint64 now = SDL_GetTicks64();
     current->switched_away = now;

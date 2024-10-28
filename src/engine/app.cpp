@@ -49,7 +49,7 @@ void app::run()
         }
         else
         {
-            game_time::reset_delta_time(_scene_loader.active().id());
+            game_time::reset(_scene_loader.active().id());
         }
     }
 

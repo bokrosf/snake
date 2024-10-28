@@ -12,7 +12,7 @@ public:
 private:
     float _seconds;
 
-    friend void game_time::reset_delta_time(game_time::context_id);
+    friend void game_time::reset(game_time::context_id);
 };
 
 #endif
