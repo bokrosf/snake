@@ -50,15 +50,11 @@ void game_coordinator::receive(const game_event &message)
 
 void game_coordinator::receive(const game_start_requirement &message)
 {
-    if (_start_requirements.empty())
-    {
-        return;
-    }
-    
     _start_requirements.erase(message);
     
     if (_start_requirements.empty())
     {
+        _messenger.unsubscribe<game_start_requirement>(*this);
         start_game();
     }
 }

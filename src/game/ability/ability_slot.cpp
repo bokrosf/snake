@@ -19,26 +19,29 @@ void ability_slot::initialize()
     entity &indicator_entity = *attached_to().find(entity_name::ability_indicator);
     _indicator = &indicator_entity.attached_component<ability_indicator>();
     _indicator_renderer = &indicator_entity.attached_component<ability_indicator_renderer>();
-    _messenger.subscribe<ability_expired>(*this);
 }
 
 void ability_slot::detach()
 {
-    remove(*_ability);
+    remove();
 }
 
 void ability_slot::receive(const ability_expired &message)
 {
-    remove(message.ability);
+    if (&message.ability == _ability)
+    {
+        remove();
+    }
 }
 
-void ability_slot::remove(ability &removed)
+void ability_slot::remove()
 {
-    if (!_ability || &removed != _ability)
+    if (!_ability)
     {
         return;
     }
     
     _ability->destroy();
     _ability = nullptr;
+    _messenger.unsubscribe<ability_expired>(*this);
 }

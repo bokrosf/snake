@@ -25,7 +25,7 @@ public:
         requires std::derived_from<Ability, ability>
     void add(SDL_Color color, float duration);
 private:
-    void remove(ability &removed);
+    void remove();
 
     ability *_ability;
     ability_indicator *_indicator;
@@ -36,8 +36,9 @@ template<typename Ability>
     requires std::derived_from<Ability, ability>
 void ability_slot::add(SDL_Color color, float duration)
 {
-    remove(*_ability);
+    remove();
     _ability = &attached_to().add_component<Ability>(duration);
+    _messenger.subscribe<ability_expired>(*this);
     _indicator->track(*_ability);
     _indicator_renderer->change_material(material{color});
 }
