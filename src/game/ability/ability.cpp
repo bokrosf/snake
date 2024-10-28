@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>
@@ -17,6 +17,7 @@ ability::ability(entity &attached_to, float duration)
 
 void ability::start()
 {
+    _expiration.bind();
     _expiration = game_time::now() + _duration;
     _messenger.send(ability_usage_changed{*this, 100});
 }

@@ -3,7 +3,7 @@
 #include <ranges>
 #include <stdexcept>
 #include <utility>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <game/entity_name.h>
 #include <game/game_event.h>
 #include <game/snake/snake.h>
@@ -41,6 +41,7 @@ void snake::initialize()
 void snake::start()
 {
     transform().position(_maze->tile_center(head().y, head().x));
+    _last_moved.bind();
     _last_moved = game_time::now();
 }
 

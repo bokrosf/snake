@@ -19,7 +19,6 @@ add_executable("${PROJECT_NAME}"
   src/engine/entity.cpp
   src/engine/entity_name_collision.cpp
   src/engine/gameplay_engine.cpp
-  src/engine/game_time.cpp
   src/engine/input.cpp
   src/engine/logging/logger.cpp
   src/engine/messaging/messenger.cpp
@@ -30,6 +29,8 @@ add_executable("${PROJECT_NAME}"
   src/engine/scene.cpp
   src/engine/scene_loader.cpp
   src/engine/subsystem_initialization_failed.cpp
+  src/engine/time/game_time.cpp
+  src/engine/time/time_point.cpp
   src/game/ability/ability.cpp
   src/game/ability/ability_indicator.cpp
   src/game/ability/ability_indicator_renderer.cpp

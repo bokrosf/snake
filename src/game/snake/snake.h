@@ -9,6 +9,7 @@
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
+#include <engine/time/time_point.h>
 #include <engine/vector2.h>
 #include <game/tile_maze/tile_maze.h>
 
@@ -44,7 +45,7 @@ private:
     tile_maze *_maze;
     box_collider *_collider;
     float _speed;
-    float _last_moved;
+    time_point _last_moved;
     ivector2 _last_tail_direction;
 };
 

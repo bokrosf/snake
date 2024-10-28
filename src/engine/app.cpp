@@ -2,7 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <engine/app.h>
 #include <engine/display.h>
-#include <engine/game_time.h>
+#include <engine/time/game_time.h>
 #include <engine/input.h>
 #include <engine/subsystem_initialization_failed.h>
 
@@ -29,6 +29,7 @@ void app::run()
     _messenger.subscribe<entity_parent_changed>(*this);
     load_start_scene(_scene_loader);
     _scene_loader.commit();
+    game_time::initialize(_scene_loader.active().id());
     _running = true;
     
     while (_running)
@@ -48,7 +49,7 @@ void app::run()
         }
         else
         {
-            game_time::reset_delta_time();
+            game_time::reset(_scene_loader.active().id());
         }
     }
 
