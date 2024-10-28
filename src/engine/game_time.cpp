@@ -71,3 +71,8 @@ float game_time::real_now()
 {
     return precision * SDL_GetTicks64();
 }
+
+time_point &game_time::bind(float seconds)
+{
+    return current->bound_times.emplace_back(seconds);
+}

@@ -1,6 +1,8 @@
 #ifndef ENGINE_GAMETIME_H
 #define ENGINE_GAMETIME_H
 
+class time_point;
+
 namespace game_time
 {
     using context_id = int;
@@ -11,6 +13,7 @@ namespace game_time
     float delta();
     float now();
     float real_now();
+    time_point &bind(float seconds = 0);
 }
 
 #endif
