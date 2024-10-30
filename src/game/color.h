@@ -15,6 +15,7 @@ namespace color
     const SDL_Color energetic_mango = SDL_Color{244, 187, 68, 255};
     const SDL_Color fantastic_durian = SDL_Color{184, 199, 1, 255};
     const SDL_Color elegant_kiwi = SDL_Color{97, 171, 90, 255};
+    const SDL_Color furious_orange = SDL_Color{232, 120, 10, 255};
 }
 
 #endif
