@@ -144,7 +144,6 @@ void snake::grow(unsigned int length)
         ivector2 tail_end = _segments.back().end;
         _segments.push_back(segment{tail_end, tail_end + _last_tail_direction});
     }
-
 }
 
 ivector2 &snake::head()
