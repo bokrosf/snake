@@ -117,7 +117,7 @@ void snake::reverse()
         return;
     }
 
-    if (_segments.front().direction_or(-_head_direction) != _head_direction)
+    if (-_segments.front().direction_or(-_head_direction) != _head_direction)
     {
         _segments.push_front(segment{head(), head()});
     }
