@@ -6,10 +6,11 @@
 #include <game/food/food_renderer.h>
 #include <game/food/magic_food.h>
 #include <game/food/magic_food_factory.h>
+#include <game/food/reverter_food.h>
 #include <game/render_layer.h>
 
 magic_food_factory::magic_food_factory()
-    : _magic_food_ratio(3)
+    : _magic_food_ratio(4)
     , _normal_food_ratio(2 * _magic_food_ratio)
     , _distribution(1, _normal_food_ratio + _magic_food_ratio)
 {
@@ -45,6 +46,10 @@ entity &magic_food_factory::create(unsigned int nutritional_value)
         case 3:
             food.add_component<magic_food<wall_bouncing>>(nutritional_value, 15.0F);
             renderer.change_material(material{color::fantastic_durian});
+            break;
+        case 4:
+            food.add_component<reverter_food>(nutritional_value);
+            renderer.change_material(material{color::elegant_kiwi});
             break;
     }
 
