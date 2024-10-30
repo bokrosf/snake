@@ -1,4 +1,5 @@
 #include <game/ability/inverted_snake_controller.h>
+#include <game/ability/slow_down.h>
 #include <game/ability/speed_boost.h>
 #include <game/ability/wall_bouncing.h>
 #include <game/color.h>
@@ -10,7 +11,7 @@
 #include <game/render_layer.h>
 
 magic_food_factory::magic_food_factory()
-    : _magic_food_ratio(4)
+    : _magic_food_ratio(5)
     , _normal_food_ratio(2 * _magic_food_ratio)
     , _distribution(1, _normal_food_ratio + _magic_food_ratio)
 {
@@ -50,6 +51,10 @@ entity &magic_food_factory::create(unsigned int nutritional_value)
         case 4:
             food.add_component<reverter_food>(nutritional_value);
             renderer.change_material(material{color::elegant_kiwi});
+            break;
+        case 5:
+            food.add_component<magic_food<slow_down>>(nutritional_value, 5.0F);
+            renderer.change_material(material{color::furious_orange});
             break;
     }
 
