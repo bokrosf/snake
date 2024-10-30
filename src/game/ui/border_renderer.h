@@ -9,7 +9,7 @@
 class border_renderer : public renderer, public initializable
 {
 public:
-    border_renderer(entity &attached_to, int layer_order);
+    border_renderer(entity &attached_to);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

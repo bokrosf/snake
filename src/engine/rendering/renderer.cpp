@@ -1,14 +1,9 @@
 #include <engine/rendering/renderer.h>
 
-renderer::renderer(entity &attached_to, int layer_order)
+renderer::renderer(entity &attached_to)
     : behavior(attached_to)
-    , _layer_order(layer_order)
+    , layer_order(0)
 {
-}
-
-int renderer::layer_order() const
-{
-    return _layer_order;
 }
 
 material *renderer::material()

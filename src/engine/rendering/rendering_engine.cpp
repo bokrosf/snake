@@ -55,7 +55,7 @@ void rendering_engine::render(const scene &scene)
         
         for (renderer *r : entity.all_attached_components<renderer>() | std::views::filter(filter_renderer))
         {
-            rendering_layers[r->layer_order()].push_back(r);
+            rendering_layers[r->layer_order].push_back(r);
         }
     }
 

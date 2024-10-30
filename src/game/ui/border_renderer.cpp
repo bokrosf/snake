@@ -1,8 +1,8 @@
 #include <engine/vector2.h>
 #include <game/ui/border_renderer.h>
 
-border_renderer::border_renderer(entity &attached_to, int layer_order)
-    : renderer(attached_to, layer_order)
+border_renderer::border_renderer(entity &attached_to)
+    : renderer(attached_to)
     , _border(nullptr)
 {
 }

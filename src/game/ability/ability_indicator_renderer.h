@@ -8,7 +8,7 @@
 class ability_indicator_renderer : public renderer, public initializable
 {
 public:
-    ability_indicator_renderer(entity &attached_to, int layer_order);
+    ability_indicator_renderer(entity &attached_to);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

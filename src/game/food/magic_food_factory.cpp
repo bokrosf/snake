@@ -20,7 +20,8 @@ magic_food_factory::magic_food_factory()
 entity &magic_food_factory::create(unsigned int nutritional_value)
 {
     entity &food = entity::create();
-    renderer &renderer = food.add_component<food_renderer>(render_layer::food);
+    renderer &renderer = food.add_component<food_renderer>();
+    renderer.layer_order = render_layer::food;
 
     int chance = _distribution(_generator);
 

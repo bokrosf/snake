@@ -7,7 +7,7 @@
 class image_renderer : public renderer
 {
 public:
-    image_renderer(entity &attached_to, int layer_order);
+    image_renderer(entity &attached_to);
     ~image_renderer() override;
     void render(SDL_Renderer *renderer) override;
 private:

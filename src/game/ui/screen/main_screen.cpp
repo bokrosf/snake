@@ -30,7 +30,8 @@ void main_screen::initialize()
     entity &title = entity::create();
     title.attach_to(&attached_to());
     title.transform().position(vector2(display_mode.w / 2, display_mode.h / 4));
-    image_renderer &title_renderer = title.add_component<image_renderer>(_default_rendering_layer);
+    image_renderer &title_renderer = title.add_component<image_renderer>();
+    title_renderer.layer_order = _default_rendering_layer;
     title_renderer.material(material{.texture_path = asset_path::main_title_image});
 
     add_menu_item(asset_path::classic_image);

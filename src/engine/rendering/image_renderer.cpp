@@ -1,8 +1,8 @@
 #include <SDL2/SDL_image.h>
 #include <engine/rendering/image_renderer.h>
 
-image_renderer::image_renderer(entity &attached_to, int layer_order)
-    : renderer(attached_to, layer_order)
+image_renderer::image_renderer(entity &attached_to)
+    : renderer(attached_to)
     , _texture(nullptr)
     , _texture_region(SDL_Rect{0, 0, 0, 0})
     , _draw_region(SDL_FRect{0, 0, 0, 0})
