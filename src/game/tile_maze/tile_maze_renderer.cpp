@@ -1,8 +1,8 @@
 #include <stdexcept>
 #include <game/tile_maze/tile_maze_renderer.h>
 
-tile_maze_renderer::tile_maze_renderer(entity &attached_to, int layer_order, const vector2 &bounds)
-    : renderer(attached_to, layer_order)
+tile_maze_renderer::tile_maze_renderer(entity &attached_to, const vector2 &bounds)
+    : renderer(attached_to)
     , _bounds(bounds)
 {
 }

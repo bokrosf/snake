@@ -9,7 +9,7 @@
 class box_collider_renderer : public renderer, public initializable
 {
 public:
-    box_collider_renderer(entity &attached_to, int render_order);
+    box_collider_renderer(entity &attached_to);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

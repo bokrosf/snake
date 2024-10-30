@@ -1,8 +1,8 @@
 #include <game/entity_name.h>
 #include <game/snake/snake_renderer.h>
 
-snake_renderer::snake_renderer(entity& attached_to, int layer_order)
-    : renderer(attached_to, layer_order)
+snake_renderer::snake_renderer(entity& attached_to)
+    : renderer(attached_to)
     , _snake(nullptr)
     , _maze(nullptr)
 {

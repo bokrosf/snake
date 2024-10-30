@@ -26,11 +26,11 @@ namespace
         wall.tag(tag::wall);
         wall.transform().position(position);
         wall.transform().scale(area);
-        wall.add_component<wall_renderer>(render_layer::wall);
+        wall.add_component<wall_renderer>().layer_order = render_layer::wall;
         wall.add_component<box_collider>(area);
-        wall.add_component<box_collider_renderer>(render_layer::collider);
+        wall.add_component<box_collider_renderer>().layer_order = render_layer::collider;
         wall.add_component<fatal_collision_handler>();
-        wall.attached_component<wall_renderer>().change_material(material{color::wall});
+        wall.attached_component<wall_renderer>().material(material{color::wall});
     }
 }
 
@@ -51,8 +51,8 @@ void classic_scene::initialize()
     tile_maze &maze = map.add_component<tile_maze>(tile_size, horizontal_tile_count, vertical_tile_count);
     maze.transform().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
-    map.add_component<tile_maze_renderer>(render_layer::terrain, tile_maze_rendering_bounds);
-    map.attached_component<tile_maze_renderer>().change_material(material{color::tile_maze});
+    map.add_component<tile_maze_renderer>(tile_maze_rendering_bounds).layer_order = render_layer::terrain;
+    map.attached_component<tile_maze_renderer>().material(material{color::tile_maze});
 
     entity &snake = entity::create(entity_name::snake);
 
@@ -61,12 +61,12 @@ void classic_scene::initialize()
         maze.transform().position() + vector2((snake_length - 1) * tile_size, 0));
 
     snake.add_component<::snake>(snake_area.upper_left, snake_area.lower_right);
-    snake.add_component<snake_renderer>(render_layer::snake);
+    snake.add_component<snake_renderer>().layer_order = render_layer::snake;
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(0.5F * vector2(tile_size, tile_size));
-    snake.add_component<box_collider_renderer>(render_layer::collider);
+    snake.add_component<box_collider_renderer>().layer_order = render_layer::collider;
     snake.attached_component<::snake>().speed(4);
-    snake.attached_component<snake_renderer>().change_material(material{color::snake});
+    snake.attached_component<snake_renderer>().material(material{color::snake});
 
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();

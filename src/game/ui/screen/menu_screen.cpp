@@ -23,12 +23,14 @@ void menu_screen::add_menu_item(const std::string &image_path)
     border.transform().position(_configuration.first_item_position + vector2(0, _menu_items.size() * _configuration.item_spacing));
     border.inner_area(_configuration.item_area);
     border.thickness(_configuration.border_thickness);
-    border_renderer &border_renderer = item.add_component<::border_renderer>(_default_rendering_layer);
+    border_renderer &border_renderer = item.add_component<::border_renderer>();
+    border_renderer.layer_order = _default_rendering_layer;
     border_renderer.activate(false);
-    border_renderer.change_material({.color = _configuration.item_border_color});
+    border_renderer.material({.color = _configuration.item_border_color});
 
-    image_renderer &image_renderer = item.add_component<::image_renderer>(_default_rendering_layer);
-    image_renderer.change_material(material{.texture_path = image_path});
+    image_renderer &image_renderer = item.add_component<::image_renderer>();
+    image_renderer.layer_order = _default_rendering_layer;
+    image_renderer.material(material{.texture_path = image_path});
 
     _menu_items.push_back(&item);
 }

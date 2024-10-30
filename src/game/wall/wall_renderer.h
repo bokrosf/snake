@@ -7,7 +7,7 @@
 class wall_renderer : public renderer
 {
 public:
-    wall_renderer(entity &attached_to, int layer_order);
+    wall_renderer(entity &attached_to);
     void render(SDL_Renderer *renderer) override;
 };
 

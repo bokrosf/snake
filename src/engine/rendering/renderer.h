@@ -10,14 +10,14 @@ class renderer : public behavior
 {
 public:
     virtual void render(SDL_Renderer *renderer) = 0;
-    int layer_order() const;
     ::material *material();
-    void change_material(const ::material &material);
+    void material(const ::material &material);
+    
+    int layer_order;
 protected:
-    renderer(entity &attached_to, int layer_order);
+    renderer(entity &attached_to);
     bool use_material_color(SDL_Renderer *renderer);
 private:
-    const int _layer_order;
     std::optional<::material> _material;
 };
 

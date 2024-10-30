@@ -10,7 +10,7 @@
 class tile_maze_renderer : public renderer, public initializable
 {
 public:
-    tile_maze_renderer(entity &attached_to, int layer_order, const vector2 &bounds);
+    tile_maze_renderer(entity &attached_to, const vector2 &bounds);
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

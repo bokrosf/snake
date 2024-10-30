@@ -1,7 +1,7 @@
 #include <game/food/food_renderer.h>
 
-food_renderer::food_renderer(entity &attached_to, int layer_order)
-    : renderer(attached_to, layer_order)
+food_renderer::food_renderer(entity &attached_to)
+    : renderer(attached_to)
 {
 }
 
