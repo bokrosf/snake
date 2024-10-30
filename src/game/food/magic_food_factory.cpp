@@ -37,24 +37,24 @@ entity &magic_food_factory::create(unsigned int nutritional_value)
     switch (chance)
     {
         case 1:
-            food.add_component<magic_food<inverted_snake_controller>>(nutritional_value, 5.0F);
-            renderer.change_material(material{color::sassy_grape});
-            break;
-        case 2:
-            food.add_component<magic_food<speed_boost>>(nutritional_value, 10.0F);
-            renderer.change_material(material{color::energetic_mango});
-            break;
-        case 3:
             food.add_component<magic_food<wall_bouncing>>(nutritional_value, 15.0F);
             renderer.change_material(material{color::fantastic_durian});
             break;
-        case 4:
-            food.add_component<reverter_food>(nutritional_value);
-            renderer.change_material(material{color::elegant_kiwi});
-            break;
-        case 5:
+        case 2:
             food.add_component<magic_food<slow_down>>(nutritional_value, 5.0F);
             renderer.change_material(material{color::furious_orange});
+            break;
+        case 3:
+            food.add_component<magic_food<speed_boost>>(nutritional_value, 10.0F);
+            renderer.change_material(material{color::energetic_mango});
+            break;
+        case 4:
+            food.add_component<magic_food<inverted_snake_controller>>(nutritional_value, 5.0F);
+            renderer.change_material(material{color::sassy_grape});
+            break;
+        case 5:
+            food.add_component<reverter_food>(nutritional_value);
+            renderer.change_material(material{color::elegant_kiwi});
             break;
     }
 

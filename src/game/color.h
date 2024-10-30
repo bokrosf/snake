@@ -10,12 +10,12 @@ namespace color
     const SDL_Color tile_maze = SDL_Color{0, 0, 255, 255};
     const SDL_Color menu_item_border = SDL_Color{14, 209, 69, 255};
 
-    const SDL_Color brave_strawberry = SDL_Color{152, 52, 45, 255};
-    const SDL_Color sassy_grape = SDL_Color{142, 45, 89, 255};
-    const SDL_Color energetic_mango = SDL_Color{244, 187, 68, 255};
     const SDL_Color fantastic_durian = SDL_Color{184, 199, 1, 255};
-    const SDL_Color elegant_kiwi = SDL_Color{97, 171, 90, 255};
     const SDL_Color furious_orange = SDL_Color{232, 120, 10, 255};
+    const SDL_Color energetic_mango = SDL_Color{244, 187, 68, 255};
+    const SDL_Color sassy_grape = SDL_Color{142, 45, 89, 255};
+    const SDL_Color brave_strawberry = SDL_Color{152, 52, 45, 255};
+    const SDL_Color elegant_kiwi = SDL_Color{97, 171, 90, 255};
 }
 
 #endif
