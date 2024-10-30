@@ -33,7 +33,7 @@ namespace
         wall.add_component<box_collider>(area);
         wall.add_component<box_collider_renderer>(render_layer::collider);
         wall.add_component<fatal_collision_handler>();
-        wall.attached_component<wall_renderer>().change_material(material{color::wall});
+        wall.attached_component<wall_renderer>().material(material{color::wall});
     }
 }
 
@@ -55,7 +55,7 @@ void magic_food_scene::initialize()
     maze.transform().position(0.5F * vector2(display_mode.w, display_mode.h));
     vector2 tile_maze_rendering_bounds = 0.5F * vector2(horizontal_tile_count * tile_size, vertical_tile_count * tile_size);
     map.add_component<tile_maze_renderer>(render_layer::terrain, tile_maze_rendering_bounds);
-    map.attached_component<tile_maze_renderer>().change_material(material{color::tile_maze});
+    map.attached_component<tile_maze_renderer>().material(material{color::tile_maze});
 
     entity &snake = entity::create(entity_name::snake);
 
@@ -70,7 +70,7 @@ void magic_food_scene::initialize()
     snake.add_component<box_collider_renderer>(render_layer::collider);
     snake.add_component<ability_slot>();
     snake.attached_component<::snake>().speed(4);
-    snake.attached_component<snake_renderer>().change_material(material{color::snake});
+    snake.attached_component<snake_renderer>().material(material{color::snake});
 
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();

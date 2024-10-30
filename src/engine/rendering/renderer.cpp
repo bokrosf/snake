@@ -16,7 +16,7 @@ material *renderer::material()
     return _material.has_value() ? &_material.value() : nullptr;
 }
 
-void renderer::change_material(const ::material &material)
+void renderer::material(const ::material &material)
 {
     _material.emplace(material);
 }

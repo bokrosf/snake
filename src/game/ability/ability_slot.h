@@ -40,7 +40,7 @@ void ability_slot::add(SDL_Color color, float duration)
     _ability = &attached_to().add_component<Ability>(duration);
     _messenger.subscribe<ability_expired>(*this);
     _indicator->track(*_ability);
-    _indicator_renderer->change_material(material{color});
+    _indicator_renderer->material(material{color});
 }
 
 #endif

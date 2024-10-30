@@ -31,7 +31,7 @@ void game_ending_screen::initialize()
     title.attach_to(&attached_to());
     title.transform().position(vector2(display_mode.w / 2, display_mode.h / 4));
     image_renderer &title_renderer = title.add_component<image_renderer>(_default_rendering_layer);
-    title_renderer.change_material(material{.texture_path = _won ? asset_path::game_won_title : asset_path::game_lost_title});
+    title_renderer.material(material{.texture_path = _won ? asset_path::game_won_title : asset_path::game_lost_title});
 
     add_menu_item(asset_path::restart_image);
     add_menu_item(asset_path::main_menu_image);
