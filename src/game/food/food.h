@@ -4,7 +4,6 @@
 #include <engine/collision/collision_handler.h>
 #include <engine/component/behavior.h>
 #include <engine/entity.h>
-#include <engine/vector2.h>
 #include <game/snake/snake.h>
 
 class food : public behavior, public collision_handler
