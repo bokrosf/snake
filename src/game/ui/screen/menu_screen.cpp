@@ -25,7 +25,7 @@ void menu_screen::add_menu_item(const std::string &image_path)
     border.thickness(_configuration.border_thickness);
     border_renderer &border_renderer = item.add_component<::border_renderer>();
     border_renderer.layer_order = _default_rendering_layer;
-    border_renderer.activate(false);
+    border_renderer.active(false);
     border_renderer.material({.color = _configuration.item_border_color});
 
     image_renderer &image_renderer = item.add_component<::image_renderer>();
@@ -42,9 +42,9 @@ unsigned int menu_screen::selected_item_index() const
 
 void menu_screen::select_item(unsigned int index)
 {
-    _menu_items[_selected_item_index]->attached_component<border_renderer>().activate(false);
+    _menu_items[_selected_item_index]->attached_component<border_renderer>().active(false);
     index %= _menu_items.size();
-    _menu_items[index]->attached_component<border_renderer>().activate(true);
+    _menu_items[index]->attached_component<border_renderer>().active(true);
     _selected_item_index = index;
 }
 

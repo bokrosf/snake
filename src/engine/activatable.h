@@ -5,7 +5,7 @@ class activatable
 {
 public:
     bool active() const;
-    void activate(bool active);
+    void active(bool active);
 protected:
     activatable();
 private:

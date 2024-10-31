@@ -20,7 +20,7 @@ void ability_indicator::track(::ability &ability)
     _messenger.subscribe<ability_expired>(*this);
     _ability = &ability;
     _percentage = 0.0F;
-    attached_to().activate(true);
+    attached_to().active(true);
 }
 
 float ability_indicator::percentage() const
@@ -52,7 +52,7 @@ void ability_indicator::stop_tracking()
     }
     
     _ability = nullptr;
-    attached_to().activate(false);
+    attached_to().active(false);
     _messenger.unsubscribe<ability_usage_changed>(*this);
     _messenger.unsubscribe<ability_expired>(*this);
 }

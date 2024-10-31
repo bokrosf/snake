@@ -10,7 +10,7 @@ bool activatable::active() const
     return _active;
 }
 
-void activatable::activate(bool active)
+void activatable::active(bool active)
 {
     _active = active;
 }

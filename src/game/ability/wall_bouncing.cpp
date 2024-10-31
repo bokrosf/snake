@@ -14,7 +14,7 @@ void wall_bouncing::start()
     for (auto &entity : attached_to().find_all_tagged(tag::wall))
     {
         fatal_collision_handler *handler = &entity.attached_component<fatal_collision_handler>();
-        handler->activate(false);
+        handler->active(false);
         _deactivated_handlers.push_back(handler);
         _added_handlers.push_back(&entity.add_component<bouncing_collision_handler>());
     }
@@ -24,7 +24,7 @@ void wall_bouncing::detach()
 {
     for (auto *handler : _deactivated_handlers)
     {
-        handler->activate(true);
+        handler->active(true);
     }
 
     for (auto *handler : _added_handlers)

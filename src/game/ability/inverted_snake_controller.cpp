@@ -18,7 +18,7 @@ void inverted_snake_controller::initialize()
 void inverted_snake_controller::start()
 {
     ability::start();
-    _original_controller->activate(false);
+    _original_controller->active(false);
 }
 
 void inverted_snake_controller::update_effect()
@@ -43,5 +43,5 @@ void inverted_snake_controller::update_effect()
 
 void inverted_snake_controller::detach()
 {
-    _original_controller->activate(true);
+    _original_controller->active(true);
 }
