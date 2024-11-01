@@ -18,7 +18,7 @@ void main_scene::initialize()
     {
         .border_thickness = display_mode.h * 10.0F / 1080.0F,
         .first_item_position = 0.5F * vector2(display_mode.w, display_mode.h),        
-        .item_area = 0.5F * vector2(display_mode.w * (256.0F / 1080.0F), display_mode.h * (128.0F / 1080.0F)),
+        .item_area = 0.5F * vector2(display_mode.w * (300.0F / 1080.0F), display_mode.h * (128.0F / 1080.0F)),
         .item_border_color = color::menu_item_border
     };
 
