@@ -37,6 +37,7 @@ void app::run()
         const scene *original_scene = &_scene_loader.active(); 
         _scene_loader.active().initialize_objects();
         _collision_engine.detect_collisions(_scene_loader.active());
+        input::read_events();
         handle_user_input();
         _gameplay_engine.update(_scene_loader.active());
         _scene_loader.active().destroy_marked_objects();
@@ -127,8 +128,6 @@ void app::shutdown()
 
 void app::handle_user_input()
 {
-    input::read_events();
-    
     if (input::occured(SDL_QUIT))
     {
         _running = false;
