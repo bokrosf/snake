@@ -21,6 +21,11 @@ void snake_renderer::render(SDL_Renderer *renderer)
         return;
     }
     
+    render_body(renderer);
+}
+
+void snake_renderer::render_body(SDL_Renderer *renderer)
+{
     for (const auto &segment : _snake->segments())
     {
         vector2 begin = _maze->tile_center(segment.begin.y, segment.begin.x);
