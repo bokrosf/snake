@@ -9,7 +9,7 @@
 class snake_controller : public behavior, public initializable, public updatable
 {
 public:
-    snake_controller(entity &attached_to);
+    snake_controller();
     void initialize() override;
     void update() override;
 private:

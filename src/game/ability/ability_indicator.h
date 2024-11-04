@@ -3,7 +3,6 @@
 
 #include <engine/component/behavior.h>
 #include <engine/component/initializable.h>
-#include <engine/entity.h>
 #include <engine/messaging/recipient.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
@@ -12,7 +11,7 @@
 class ability_indicator : public behavior, public recipient<ability_usage_changed>, public recipient<ability_expired>
 {
 public:
-    ability_indicator(entity &attached_to);
+    ability_indicator();
     ~ability_indicator() override;
     void track(::ability &ability);
     float percentage() const;

@@ -6,7 +6,7 @@
 class main_screen : public menu_screen
 {
 public:
-    main_screen(entity &attached_to, const screen_configuration &configuration);
+    main_screen(const screen_configuration &configuration);
     void initialize() override;
     void update() override;
 protected:

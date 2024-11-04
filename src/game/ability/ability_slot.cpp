@@ -1,9 +1,9 @@
+#include <engine/entity.h>
 #include <game/ability/ability_slot.h>
 #include <game/entity_name.h>
 
-ability_slot::ability_slot(entity &attached_to)
-    : component(attached_to)
-    , _ability(nullptr)
+ability_slot::ability_slot()
+    : _ability(nullptr)
     , _indicator(nullptr)
     , _indicator_renderer(nullptr)
 {

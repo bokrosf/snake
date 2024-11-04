@@ -10,6 +10,7 @@ class transform;
 class component
 {
 public:
+    component();
     virtual ~component() = default;
     void destroy();
     ::life_state life_state() const;
@@ -17,14 +18,14 @@ public:
     const ::transform &transform() const;
     ::transform &transform();
 protected:
-    component(entity &attached_to);
     virtual void detach();
     
     messenger &_messenger;
 private:
     ::life_state _life_state;
-    entity &_attached_to;
+    entity *_attached_to;
 
+    friend entity;
     friend class object_initializer;
 };
 

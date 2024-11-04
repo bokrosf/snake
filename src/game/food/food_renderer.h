@@ -8,7 +8,6 @@
 class food_renderer : public renderer
 {
 public:
-    food_renderer(entity &attached_to);
     void render(SDL_Renderer *renderer) override;
 };
 

@@ -1,11 +1,7 @@
+#include <engine/entity.h>
 #include <game/entity_name.h>
 #include <game/fatal_collision_handler.h>
 #include <game/game_event.h>
-
-fatal_collision_handler::fatal_collision_handler(entity &attached_to)
-    : behavior(attached_to)
-{
-}
 
 void fatal_collision_handler::collide(const collision &collision)
 {

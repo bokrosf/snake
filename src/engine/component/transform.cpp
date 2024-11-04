@@ -1,10 +1,5 @@
 #include <engine/component/transform.h>
 
-transform::transform(entity &attached_to)
-    : component(attached_to)
-{
-}
-
 const vector2 &transform::position() const
 {
     return _position;

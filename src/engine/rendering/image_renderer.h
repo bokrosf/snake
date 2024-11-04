@@ -1,13 +1,12 @@
 #ifndef ENGINE_RENDERING_IMAGERENDERER_H
 #define ENGINE_RENDERING_IMAGERENDERER_H
 
-#include <engine/entity.h>
 #include <engine/rendering/renderer.h>
 
 class image_renderer : public renderer
 {
 public:
-    image_renderer(entity &attached_to);
+    image_renderer();
     ~image_renderer() override;
     void render(SDL_Renderer *renderer) override;
 private:

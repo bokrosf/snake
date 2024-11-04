@@ -1,8 +1,8 @@
+#include <engine/entity.h>
 #include <game/ui/border.h>
 
-border::border(entity &attached_to)
-    : component(attached_to)
-    , _thickness(0)
+border::border()
+    : _thickness(0)
 {
 }
 

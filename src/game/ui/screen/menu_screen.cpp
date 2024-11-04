@@ -1,3 +1,4 @@
+#include <engine/entity.h>
 #include <engine/input.h>
 #include <engine/rendering/image_renderer.h>
 #include <engine/rendering/material.h>
@@ -6,9 +7,8 @@
 #include <game/ui/border_renderer.h>
 #include <game/ui/screen/menu_screen.h>
 
-menu_screen::menu_screen(entity &attached_to, const screen_configuration &configuration)
-    : behavior(attached_to)
-    , _configuration(configuration)
+menu_screen::menu_screen(const screen_configuration &configuration)
+    : _configuration(configuration)
     , _default_rendering_layer(0)
     , _selected_item_index(0)
 {

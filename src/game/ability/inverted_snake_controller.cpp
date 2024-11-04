@@ -1,9 +1,10 @@
+#include <engine/entity.h>
 #include <engine/input.h>
 #include <game/ability/inverted_snake_controller.h>
 #include <game/snake/snake_controller.h>
 
-inverted_snake_controller::inverted_snake_controller(entity &attached_to, float duration)
-    : ability(attached_to, duration)
+inverted_snake_controller::inverted_snake_controller(float duration)
+    : ability(duration)
     , _snake(nullptr)
     , _original_controller(nullptr)
 {

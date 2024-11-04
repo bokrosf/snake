@@ -18,8 +18,8 @@ namespace
     };
 }
 
-main_screen::main_screen(entity &attached_to, const screen_configuration &configuration)
-    : menu_screen(attached_to, configuration)
+main_screen::main_screen(const screen_configuration &configuration)
+    : menu_screen(configuration)
 {
 }
 

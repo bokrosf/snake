@@ -86,7 +86,7 @@ T &entity::add_component(Args &&...args)
     
     try
     {
-        component = new T(*this, std::forward<Args>(args)...);
+        component = new T(std::forward<Args>(args)...);
     }
     catch (...)
     {
@@ -95,6 +95,7 @@ T &entity::add_component(Args &&...args)
     }
 
     _components.push_back(component);
+    component->_attached_to = this;
     _messenger.send(component_added{*component});
 
     return *component;

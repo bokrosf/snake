@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h>
 #include <engine/component/component.h>
 #include <engine/component/initializable.h>
-#include <engine/entity.h>
 #include <engine/messaging/recipient.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
@@ -15,7 +14,7 @@
 class ability_slot : public component, public initializable, public recipient<ability_expired>
 {
 public:
-    ability_slot(entity &attached_to);
+    ability_slot();
     ~ability_slot() override;
     void initialize() override;
     void detach() override;

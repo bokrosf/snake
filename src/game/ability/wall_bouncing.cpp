@@ -1,9 +1,10 @@
 #include <ranges>
+#include <engine/entity.h>
 #include <game/ability/wall_bouncing.h>
 #include <game/tag.h>
 
-wall_bouncing::wall_bouncing(entity &attached_to, float duration)
-    : ability(attached_to, duration)
+wall_bouncing::wall_bouncing(float duration)
+    : ability(duration)
 {
 }
 

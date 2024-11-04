@@ -18,8 +18,8 @@ namespace
     };
 }
 
-pause_screen::pause_screen(entity &attached_to, const screen_configuration &configuration)
-    : menu_screen(attached_to, configuration)
+pause_screen::pause_screen(const screen_configuration &configuration)
+    : menu_screen(configuration)
 {
 }
 

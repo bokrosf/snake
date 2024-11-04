@@ -3,6 +3,7 @@
 #include <ranges>
 #include <stdexcept>
 #include <utility>
+#include <engine/entity.h>
 #include <engine/time/game_time.h>
 #include <game/entity_name.h>
 #include <game/game_event.h>
@@ -15,9 +16,8 @@ ivector2 snake::segment::direction_or(const ivector2 &default_value) const
         : default_value;
 }
 
-snake::snake(entity &attached_to, const ivector2 &head, const ivector2 &tail)
-    : behavior(attached_to)
-    , _maze(nullptr)
+snake::snake(const ivector2 &head, const ivector2 &tail)
+    : _maze(nullptr)
     , _collider(nullptr)
     , _speed(0)
     , _last_moved(0)

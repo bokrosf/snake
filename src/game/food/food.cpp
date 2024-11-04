@@ -1,11 +1,11 @@
 #include <stdexcept>
+#include <engine/entity.h>
 #include <game/food/food.h>
 #include <game/game_event.h>
 #include <game/snake/snake.h>
 
-food::food(entity &attached_to, unsigned int nutritional_value)
-    : behavior(attached_to)
-    , _nutritional_value(nutritional_value)
+food::food(unsigned int nutritional_value)
+    : _nutritional_value(nutritional_value)
 {
     if (nutritional_value < 0)
     {

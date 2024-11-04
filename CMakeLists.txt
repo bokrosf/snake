@@ -11,7 +11,6 @@ add_executable("${PROJECT_NAME}"
   src/engine/collision/box_collider.cpp
   src/engine/collision/box_collider_renderer.cpp
   src/engine/collision/collision_engine.cpp
-  src/engine/component/behavior.cpp
   src/engine/component/component.cpp
   src/engine/component/component_not_found.cpp
   src/engine/component/transform.cpp

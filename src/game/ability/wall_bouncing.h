@@ -9,7 +9,7 @@
 class wall_bouncing : public ability
 {
 public:
-    wall_bouncing(entity &attached_to, float duration);
+    wall_bouncing(float duration);
     void start() override;
     void detach() override;
 private:

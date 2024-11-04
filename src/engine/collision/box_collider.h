@@ -7,8 +7,8 @@
 class box_collider : public behavior
 {
 public:
-    box_collider(entity &attached_to);
-    box_collider(entity &attached_to, const vector2 &area);
+    box_collider();
+    box_collider(const vector2 &area);
     const vector2 &area() const;
     void area(const vector2 area);
 private:
