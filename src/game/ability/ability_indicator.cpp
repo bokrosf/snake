@@ -1,8 +1,8 @@
+#include <engine/entity.h>
 #include <game/ability/ability_indicator.h>
 
-ability_indicator::ability_indicator(entity &attached_to)
-    : behavior(attached_to)
-    , _percentage(0)
+ability_indicator::ability_indicator()
+    : _percentage(0)
     , _ability(nullptr)
 {
 }

@@ -2,9 +2,8 @@
 #include <engine/vector2.h>
 #include <game/ability/ability_indicator_renderer.h>
 
-ability_indicator_renderer::ability_indicator_renderer(entity &attached_to)
-    : renderer(attached_to)
-    , _indicator(nullptr)
+ability_indicator_renderer::ability_indicator_renderer()
+    : _indicator(nullptr)
 {
 }
 

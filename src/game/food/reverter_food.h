@@ -6,7 +6,7 @@
 class reverter_food : public food
 {
 public:
-    reverter_food(entity &attached_to, unsigned int nutritional_value);
+    reverter_food(unsigned int nutritional_value);
 protected:
     void eat(snake &snake) override;
 };

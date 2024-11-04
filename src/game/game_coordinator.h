@@ -6,7 +6,6 @@
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/component/updatable.h>
-#include <engine/entity.h>
 #include <engine/messaging/recipient.h>
 #include <game/food/food_spawner.h>
 #include <game/game_event.h>
@@ -20,7 +19,7 @@ class game_coordinator
     , public recipient<game_start_requirement>
 {
 public:
-    game_coordinator(entity &attached_to);
+    game_coordinator();
     ~game_coordinator() override;
     void initialize() override;
     void update() override;

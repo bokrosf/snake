@@ -1,12 +1,12 @@
+#include <engine/entity.h>
 #include <engine/input.h>
 #include <game/game_coordinator.h>
 #include <game/scene/game_ending_scene.h>
 #include <game/scene/pause_scene.h>
 #include <game/scene/scene_navigator.h>
 
-game_coordinator::game_coordinator(entity &attached_to)
-    : behavior(attached_to)
-    , _food_spawner(nullptr)
+game_coordinator::game_coordinator()
+    : _food_spawner(nullptr)
 {
     _start_requirements.insert(game_start_requirement::food_spawner_ready);
 }

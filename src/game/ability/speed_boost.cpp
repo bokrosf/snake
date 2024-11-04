@@ -1,7 +1,8 @@
+#include <engine/entity.h>
 #include <game/ability/speed_boost.h>
 
-speed_boost::speed_boost(entity &attached_to, float duration)
-    : ability(attached_to, duration)
+speed_boost::speed_boost(float duration)
+    : ability(duration)
     , _snake(nullptr)
     , _original_speed(0)
 {

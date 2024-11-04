@@ -1,9 +1,9 @@
 #include <stdexcept>
+#include <engine/entity.h>
 #include <game/tile_maze/tile_maze.h>
 
-tile_maze::tile_maze(entity &attached_to, float tile_size, unsigned int width, unsigned int height)
-    : component(attached_to)
-    , _tile_size(tile_size)
+tile_maze::tile_maze(float tile_size, unsigned int width, unsigned int height)
+    : _tile_size(tile_size)
     , _width(width)
     , _height(height)
 {

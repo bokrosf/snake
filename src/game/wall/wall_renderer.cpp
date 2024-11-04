@@ -1,9 +1,5 @@
+#include <engine/entity.h>
 #include <game/wall/wall_renderer.h>
-
-wall_renderer::wall_renderer(entity &attached_to)
-    : renderer(attached_to)
-{
-}
 
 void wall_renderer::render(SDL_Renderer *renderer)
 {

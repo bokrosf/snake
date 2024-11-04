@@ -1,9 +1,9 @@
+#include <engine/entity.h>
 #include <engine/vector2.h>
 #include <game/ui/border_renderer.h>
 
-border_renderer::border_renderer(entity &attached_to)
-    : renderer(attached_to)
-    , _border(nullptr)
+border_renderer::border_renderer()
+    : _border(nullptr)
 {
 }
 

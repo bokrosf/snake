@@ -1,9 +1,5 @@
+#include <engine/entity.h>
 #include <game/food/food_renderer.h>
-
-food_renderer::food_renderer(entity &attached_to)
-    : renderer(attached_to)
-{
-}
 
 void food_renderer::render(SDL_Renderer *renderer)
 {

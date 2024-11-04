@@ -1,11 +1,7 @@
+#include <engine/entity.h>
 #include <game/bouncing_collision_handler.h>
 #include <game/entity_name.h>
 #include <game/snake/snake.h>
-
-bouncing_collision_handler::bouncing_collision_handler(entity &attached_to)
-    : behavior(attached_to)
-{
-}
 
 void bouncing_collision_handler::collide(const collision &collision)
 {

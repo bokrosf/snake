@@ -6,7 +6,7 @@
 class pause_screen : public menu_screen
 {
 public:
-    pause_screen(entity &attached_to, const screen_configuration &configuration);
+    pause_screen(const screen_configuration &configuration);
     void initialize() override;
     void update() override;
 protected:

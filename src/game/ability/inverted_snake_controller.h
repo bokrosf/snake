@@ -9,7 +9,7 @@
 class inverted_snake_controller : public ability, public initializable
 {
 public:
-    inverted_snake_controller(entity &attached_to, float duration);
+    inverted_snake_controller(float duration);
     void initialize() override;
     void start() override;
     void update_effect() override;

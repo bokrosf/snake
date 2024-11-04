@@ -1,9 +1,5 @@
 #include <engine/collision/box_collider_renderer.h>
-
-box_collider_renderer::box_collider_renderer(entity &attached_to)
-    : renderer(attached_to)
-{
-}
+#include <engine/entity.h>
 
 void box_collider_renderer::initialize()
 {

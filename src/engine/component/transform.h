@@ -7,7 +7,6 @@
 class transform : public component
 {
 public:
-    transform(entity &attached_to);
     const vector2 &position() const;
     void position(const vector2 &position);
     void translate(const vector2 &translation);

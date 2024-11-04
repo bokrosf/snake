@@ -9,7 +9,7 @@
 class snake_renderer : public renderer, public initializable
 {
 public:
-    snake_renderer(entity &attached_to);
+    snake_renderer();
     void initialize() override;
     void render(SDL_Renderer *renderer) override;
 private:

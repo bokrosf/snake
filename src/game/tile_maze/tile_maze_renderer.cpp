@@ -1,9 +1,9 @@
 #include <stdexcept>
+#include <engine/entity.h>
 #include <game/tile_maze/tile_maze_renderer.h>
 
-tile_maze_renderer::tile_maze_renderer(entity &attached_to, const vector2 &bounds)
-    : renderer(attached_to)
-    , _bounds(bounds)
+tile_maze_renderer::tile_maze_renderer(const vector2 &bounds)
+    : _bounds(bounds)
 {
 }
 

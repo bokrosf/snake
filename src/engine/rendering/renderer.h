@@ -15,7 +15,7 @@ public:
     
     int layer_order;
 protected:
-    renderer(entity &attached_to);
+    renderer();
     bool use_material_color(SDL_Renderer *renderer);
 private:
     std::optional<::material> _material;

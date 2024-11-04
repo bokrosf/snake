@@ -4,7 +4,6 @@
 #include <random>
 #include <unordered_set>
 #include <engine/component/component.h>
-#include <engine/entity.h>
 #include <engine/component/initializable.h>
 #include <engine/component/startable.h>
 #include <engine/vector2.h>
@@ -16,7 +15,7 @@
 class food_spawner : public component, public initializable, public startable
 {
 public:
-    food_spawner(entity &attached_to, food_factory &factory);
+    food_spawner(food_factory &factory);
     void initialize() override;
     void start() override;
     void spawn();

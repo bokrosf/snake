@@ -1,5 +1,6 @@
 #include <engine/app_event.h>
 #include <engine/display.h>
+#include <engine/entity.h>
 #include <engine/rendering/image_renderer.h>
 #include <engine/rendering/material.h>
 #include <game/assets/asset_path.h>
@@ -17,8 +18,8 @@ namespace
     };
 }
 
-game_ending_screen::game_ending_screen(entity &attached_to, const screen_configuration &configuration, bool won)
-    : menu_screen(attached_to, configuration)
+game_ending_screen::game_ending_screen(const screen_configuration &configuration, bool won)
+    : menu_screen(configuration)
     , _won(won)
 {
 }

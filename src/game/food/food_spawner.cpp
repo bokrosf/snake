@@ -1,15 +1,15 @@
 #include <cmath>
 #include <stdexcept>
 #include <engine/collision/box_collider.h>
+#include <engine/entity.h>
 #include <game/entity_name.h>
 #include <game/food/food_renderer.h>
 #include <game/food/food_spawner.h>
 #include <game/game_start_requirement.h>
 #include <game/tag.h>
 
-food_spawner::food_spawner(entity &attached_to, food_factory &factory)
-    : component(attached_to)
-    , _remaining_food_count(0)
+food_spawner::food_spawner(food_factory &factory)
+    : _remaining_food_count(0)
     , _factory(factory)
 {
 }

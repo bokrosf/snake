@@ -3,7 +3,6 @@
 
 #include <generator>
 #include <list>
-#include <engine/entity.h>
 #include <engine/collision/box_collider.h>
 #include <engine/component/behavior.h>
 #include <engine/component/initializable.h>
@@ -24,7 +23,7 @@ public:
         ivector2 end;
     };
 
-    snake(entity &attached_to, const ivector2 &head, const ivector2 &tail);
+    snake(const ivector2 &head, const ivector2 &tail);
     void initialize() override;
     void start() override;
     void update() override;

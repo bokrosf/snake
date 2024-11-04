@@ -2,9 +2,8 @@
 #include <engine/component/component.h>
 #include <engine/entity.h>
 
-component::component(entity &attached_to)
+component::component()
     : _life_state(life_state::initializing)
-    , _attached_to(attached_to)
     , _messenger(messenger::instance())
 {
 }
@@ -28,7 +27,7 @@ life_state component::life_state() const
 
 entity &component::attached_to() const
 {
-    return _attached_to;
+    return *_attached_to;
 }
 
 const transform &component::transform() const

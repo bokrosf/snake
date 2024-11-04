@@ -1,10 +1,10 @@
+#include <engine/entity.h>
 #include <engine/input.h>
 #include <engine/vector2.h>
 #include <game/snake/snake_controller.h>
 
-snake_controller::snake_controller(entity &attached_to)
-    : behavior(attached_to)
-    , _snake(nullptr)
+snake_controller::snake_controller()
+    : _snake(nullptr)
 {
 }
 

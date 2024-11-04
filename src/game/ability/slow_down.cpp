@@ -1,7 +1,8 @@
+#include <engine/entity.h>
 #include <game/ability/slow_down.h>
 
-slow_down::slow_down(entity &attached_to, float duration)
-    : ability(attached_to, duration)
+slow_down::slow_down(float duration)
+    : ability(duration)
     , _snake(nullptr)
     , _original_speed(0)
 {

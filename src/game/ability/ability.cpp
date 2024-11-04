@@ -1,13 +1,13 @@
 #include <stdexcept>
+#include <engine/entity.h>
 #include <engine/time/game_time.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_expired.h>
 #include <game/ability/ability_usage_changed.h>
 #include <game/entity_name.h>
 
-ability::ability(entity &attached_to, float duration)
-    : behavior(attached_to)
-    , _duration(duration)
+ability::ability(float duration)
+    : _duration(duration)
 {
     if (_duration <= 0)
     {

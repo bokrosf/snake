@@ -8,7 +8,7 @@
 class speed_boost : public ability, public initializable
 {
 public:
-    speed_boost(entity &attached_to, float duration);
+    speed_boost(float duration);
     void initialize() override;
     void start() override;
 protected:

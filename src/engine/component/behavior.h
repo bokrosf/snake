@@ -6,8 +6,6 @@
 
 class behavior : public component, public activatable
 {
-protected:
-    behavior(entity &attached_to);
 };
 
 #endif

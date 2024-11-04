@@ -8,7 +8,7 @@
 class slow_down : public ability, public initializable
 {
 public:
-    slow_down(entity &attached_to, float duration);
+    slow_down(float duration);
     void initialize() override;
     void start() override;
 protected:

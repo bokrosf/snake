@@ -3,6 +3,7 @@
 
 #include <concepts>
 #include <SDL2/SDL.h>
+#include <engine/entity.h>
 #include <game/ability/ability.h>
 #include <game/ability/ability_slot.h>
 #include <game/food/food.h>
@@ -13,7 +14,7 @@ template<typename Ability>
 class magic_food : public food
 {
 public:
-    magic_food(entity &attached_to, unsigned int nutritional_value, float ability_duration);
+    magic_food(unsigned int nutritional_value, float ability_duration);
 protected:
     void eat(snake &snake) override;
 private:
@@ -22,8 +23,8 @@ private:
 
 template<typename Ability>
     requires std::derived_from<Ability, ability>
-magic_food<Ability>::magic_food(entity &attached_to, unsigned int nutritional_value, float ability_duration)
-    : food(attached_to, nutritional_value)
+magic_food<Ability>::magic_food(unsigned int nutritional_value, float ability_duration)
+    : food(nutritional_value)
     , _ability_duration(ability_duration)
 {
 }
