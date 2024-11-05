@@ -14,8 +14,8 @@ public:
     void render(SDL_Renderer *renderer) override;
 private:
     void render_body(SDL_Renderer *renderer);
+    void render_head(SDL_Renderer *renderer);
     int thickness() const;
-
 
     const snake *_snake;
     const tile_maze *_maze;

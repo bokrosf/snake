@@ -70,7 +70,7 @@ void magic_food_scene::initialize()
     snake.add_component<box_collider_renderer>().layer_order = render_layer::collider;
     snake.add_component<ability_slot>();
     snake.attached_component<::snake>().speed(4);
-    snake.attached_component<snake_renderer>().material(material{color::snake});
+    snake.attached_component<snake_renderer>().material(material{color::snake_body});
 
     entity &coordinator = entity::create();
     coordinator.add_component<game_coordinator>();
