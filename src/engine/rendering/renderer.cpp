@@ -26,3 +26,8 @@ bool renderer::use_material_color(SDL_Renderer *renderer)
 
     return SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) == 0;
 }
+
+void renderer::use_color(SDL_Renderer *renderer, const SDL_Color &color)
+{
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+}

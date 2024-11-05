@@ -17,6 +17,7 @@ public:
 protected:
     renderer();
     bool use_material_color(SDL_Renderer *renderer);
+    void use_color(SDL_Renderer *renderer, const SDL_Color &color);
 private:
     std::optional<::material> _material;
 };
