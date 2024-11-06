@@ -101,9 +101,14 @@ target_include_directories("${PROJECT_NAME}"
   PRIVATE "${SDL2_LIBRARY_PATH}/include"
 )
 
+set(SDL2_DLL "${sdl2_BINARY_DIR}/SDL2.dll")
+set(SDL2_IMAGE_DLL "${sdl2_image_BINARY_DIR}/SDL2_image.dll")
+
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
-  file(GLOB SDL2_DLL ${sdl2_BINARY_DIR}/SDL2*.dll)
-  file(GLOB SDL2_IMAGE_DLL ${sdl2_image_BINARY_DIR}/SDL2_image*.dll)
+  if(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(SDL2_DLL "${sdl2_BINARY_DIR}/SDL2d.dll")
+    set(SDL2_IMAGE_DLL "${sdl2_image_BINARY_DIR}/SDL2_imaged.dll")
+  endif()
 
   add_custom_command(
     TARGET "${PROJECT_NAME}"
