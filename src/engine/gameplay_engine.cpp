@@ -1,3 +1,4 @@
+#include <map>
 #include <vector>
 #include <engine/component/behavior.h>
 #include <engine/component/updatable.h>
@@ -6,7 +7,7 @@
 
 void gameplay_engine::update(const scene &scene)
 {
-    std::vector<updatable *> updatables;
+    std::map<int, std::vector<updatable *>, std::greater<int>> updatable_groups;
     auto filter_entity = [](const entity *e){ return e->active() && e->life_state() == life_state::alive; };
 
     for (const entity &entity : scene.traverse(filter_entity))
@@ -18,12 +19,15 @@ void gameplay_engine::update(const scene &scene)
             | std::views::filter(filter_behavior)
             | std::views::transform(cast_to_updatable))
         {
-            updatables.push_back(u);
+            updatable_groups[u->priority].push_back(u);
         }
     }
 
-    for (updatable *u : updatables)
+    for (const auto &[priority, updatables] : updatable_groups)
     {
-        u->update();
+        for (updatable *u : updatables)
+        {
+            u->update();
+        }
     }
 }

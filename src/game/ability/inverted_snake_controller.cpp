@@ -1,6 +1,7 @@
 #include <engine/entity.h>
 #include <engine/input.h>
 #include <game/ability/inverted_snake_controller.h>
+#include <game/execution_priority.h>
 #include <game/snake/snake_controller.h>
 
 inverted_snake_controller::inverted_snake_controller(float duration)
@@ -8,6 +9,7 @@ inverted_snake_controller::inverted_snake_controller(float duration)
     , _snake(nullptr)
     , _original_controller(nullptr)
 {
+    priority = execution_priority::controller;
 }
 
 void inverted_snake_controller::initialize()
