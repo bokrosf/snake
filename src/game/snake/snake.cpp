@@ -47,11 +47,11 @@ void snake::start()
 
 void snake::update()
 {
-    if (_last_moved > game_time::now())
+    if (_last_moved >= game_time::now())
     {
         return;
     }
-    
+
     float last_moved_delta = game_time::now() - _last_moved;
     unsigned int moved_tiles = last_moved_delta / _speed;
     move_forward(moved_tiles);
