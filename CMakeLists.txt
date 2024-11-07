@@ -4,7 +4,6 @@ include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(BUILD_RPATH "${CMAKE_SOURCE_DIR}/lib/SDL")
 set(SDL2_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SDL")
 
 FetchContent_Declare(
