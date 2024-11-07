@@ -1,9 +1,26 @@
 cmake_minimum_required(VERSION 3.29.0)
 project(snake)
+include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(BUILD_RPATH "${CMAKE_SOURCE_DIR}/lib/SDL")
+set(SDL_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SDL")
+
+FetchContent_Declare(
+  sdl2
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL
+  GIT_TAG f461d91cd265d7b9a44b4d472b1df0c0ad2855a0 # release-2.30.2
+)
+
+FetchContent_Declare(
+  sdl2_image
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
+  GIT_TAG abcf63aa71b4e3ac32120fa9870a6500ddcdcc89 # release-2.8.2
+)
+
+FetchContent_MakeAvailable(sdl2 sdl2_image)
+file(COPY "${sdl2_SOURCE_DIR}/include/" DESTINATION "${SDL_LIBRARY_PATH}/include/SDL2")
+file(COPY "${sdl2_image_SOURCE_DIR}/include/" DESTINATION "${SDL_LIBRARY_PATH}/include/SDL2")
 
 add_executable("${PROJECT_NAME}"
   src/engine/activatable.cpp
@@ -68,9 +85,6 @@ add_executable("${PROJECT_NAME}"
   src/game/ui/screen/pause_screen.cpp
   src/game/wall/wall_renderer.cpp)
 
-target_link_directories("${PROJECT_NAME}"
-  PRIVATE "lib/SDL")
-
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
   target_link_libraries("${PROJECT_NAME}"
     PRIVATE "mingw32")
@@ -83,11 +97,24 @@ target_link_libraries("${PROJECT_NAME}"
 
 target_include_directories("${PROJECT_NAME}"
   PRIVATE "src"
-  PRIVATE "lib/SDL/include")
+  PRIVATE "${SDL_LIBRARY_PATH}/include"
+)
+
+set(SDL2_DLL "${sdl2_BINARY_DIR}/SDL2.dll")
+set(SDL2_IMAGE_DLL "${sdl2_image_BINARY_DIR}/SDL2_image.dll")
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
-  file(COPY "lib/SDL/bin/SDL2.dll" DESTINATION "${PROJECT_BINARY_DIR}")
-  file(COPY "lib/SDL/bin/SDL2_image.dll" DESTINATION "${PROJECT_BINARY_DIR}")
+  if(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(SDL2_DLL "${sdl2_BINARY_DIR}/SDL2d.dll")
+    set(SDL2_IMAGE_DLL "${sdl2_image_BINARY_DIR}/SDL2_imaged.dll")
+  endif()
+
+  add_custom_command(
+    TARGET "${PROJECT_NAME}"
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy "${SDL2_DLL}" "${PROJECT_BINARY_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${SDL2_IMAGE_DLL}" "${PROJECT_BINARY_DIR}/"
+    VERBATIM)
 endif()
 
 file(COPY "src/game/assets" DESTINATION "${PROJECT_BINARY_DIR}")
