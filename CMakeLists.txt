@@ -4,7 +4,7 @@ include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(SDL2_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SDL")
+set(SDL_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SDL")
 
 FetchContent_Declare(
   sdl2
@@ -19,8 +19,8 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(sdl2 sdl2_image)
-file(COPY "${sdl2_SOURCE_DIR}/include/" DESTINATION "${SDL2_LIBRARY_PATH}/include/SDL2")
-file(COPY "${sdl2_image_SOURCE_DIR}/include/" DESTINATION "${SDL2_LIBRARY_PATH}/include/SDL2")
+file(COPY "${sdl2_SOURCE_DIR}/include/" DESTINATION "${SDL_LIBRARY_PATH}/include/SDL2")
+file(COPY "${sdl2_image_SOURCE_DIR}/include/" DESTINATION "${SDL_LIBRARY_PATH}/include/SDL2")
 
 add_executable("${PROJECT_NAME}"
   src/engine/activatable.cpp
@@ -97,7 +97,7 @@ target_link_libraries("${PROJECT_NAME}"
 
 target_include_directories("${PROJECT_NAME}"
   PRIVATE "src"
-  PRIVATE "${SDL2_LIBRARY_PATH}/include"
+  PRIVATE "${SDL_LIBRARY_PATH}/include"
 )
 
 set(SDL2_DLL "${sdl2_BINARY_DIR}/SDL2.dll")
