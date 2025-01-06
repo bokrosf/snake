@@ -13,8 +13,8 @@ namespace game_time
     float delta();
     float now();
     float real_now();
-    void bind(time_point &time);
-    void unbind(time_point &bounded);
+    context_id bind(time_point &time);
+    void unbind(context_id id, time_point &bounded);
 }
 
 #endif

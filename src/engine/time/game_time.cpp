@@ -72,12 +72,14 @@ float game_time::real_now()
     return precision * SDL_GetTicks64();
 }
 
-void game_time::bind(time_point &time)
+game_time::context_id game_time::bind(time_point &time)
 {
     current->bound_times.emplace_back(&time);
+
+    return current->id;
 }
 
-void game_time::unbind(time_point &bounded)
+void game_time::unbind(context_id id, time_point &bounded)
 {
-    std::erase(current->bound_times, &bounded);
+    std::erase(contexts.at(id).bound_times, &bounded);
 }
