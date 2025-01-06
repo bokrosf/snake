@@ -8,7 +8,6 @@ time_point::time_point()
 
 time_point::time_point(float seconds)
     : _seconds(seconds)
-    , _bounded(false)
 {
 }
 
@@ -38,18 +37,17 @@ time_point &time_point::operator+=(float duration)
 
 void time_point::bind()
 {
-    if (!_bounded)
+    if (!_context_id)
     {
-        game_time::bind(*this);
-        _bounded = true;
+        _context_id = game_time::bind(*this);
     }
 }
 
 void time_point::unbind()
 {
-    if (_bounded)
+    if (_context_id)
     {
-        game_time::unbind(*this);
-        _bounded = false;
+        game_time::unbind(_context_id.value(), *this);
+        _context_id.reset();
     }
 }

@@ -1,6 +1,7 @@
 #ifndef ENGINE_TIME_TIMEPOINT_H
 #define ENGINE_TIME_TIMEPOINT_H
 
+#include <optional>
 #include <engine/time/game_time.h>
 
 class time_point
@@ -16,7 +17,7 @@ public:
     void unbind();
 private:
     float _seconds;
-    bool _bounded;
+    std::optional<game_time::context_id> _context_id;
 
     friend void game_time::reset(game_time::context_id);
 };
