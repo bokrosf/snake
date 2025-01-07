@@ -7,8 +7,9 @@
 #include <engine/subsystem_initialization_failed.h>
 
 app::app(const app_configuration &configuration)
-    : _configuration(configuration)
-    , _messenger(messenger::instance())
+    : _messenger(messenger::instance())
+    , _configuration(configuration)
+    , _scene_loader(_messenger)
     , _running(false)
 {
 }
@@ -27,6 +28,7 @@ void app::run()
     _messenger.subscribe<component_added>(*this);
     _messenger.subscribe<component_destroyed>(*this);
     _messenger.subscribe<entity_parent_changed>(*this);
+    _messenger.subscribe<scene_destroyed>(*this);
     load_start_scene(_scene_loader);
     _scene_loader.commit();
     game_time::initialize(_scene_loader.active().id());
@@ -90,6 +92,11 @@ void app::receive(const entity_parent_changed &message)
     _scene_loader.active().update_root_status(message.entity);
 }
 
+void app::receive(const scene_destroyed &message)
+{
+    game_time::erase(message.id);
+}
+
 void app::initialize_subsystems()
 {
     if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS | SDL_INIT_VIDEO) != 0)
@@ -120,6 +127,7 @@ void app::shutdown()
     _messenger.unsubscribe<component_added>(*this);
     _messenger.unsubscribe<component_destroyed>(*this);
     _messenger.unsubscribe<entity_parent_changed>(*this);
+    _messenger.unsubscribe<scene_destroyed>(*this);
     _rendering_engine.shutdown();
     display::shutdown();
     IMG_Quit();

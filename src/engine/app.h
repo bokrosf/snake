@@ -13,6 +13,7 @@
 #include <engine/messaging/messenger.h>
 #include <engine/messaging/recipient.h>
 #include <engine/rendering/rendering_engine.h>
+#include <engine/scene_destroyed.h>
 #include <engine/scene_loader.h>
 
 class app : 
@@ -21,7 +22,8 @@ class app :
     public recipient<entity_destroyed>,
     public recipient<component_added>,
     public recipient<component_destroyed>,
-    public recipient<entity_parent_changed>
+    public recipient<entity_parent_changed>,
+    public recipient<scene_destroyed>
 {
 public:
     virtual ~app();
@@ -32,6 +34,7 @@ public:
     void receive(const component_added &message) final;
     void receive(const component_destroyed &message) final;
     void receive(const entity_parent_changed &message) final;
+    void receive(const scene_destroyed &message) final;
 protected:
     app(const app_configuration &configuration);
     virtual void load_start_scene(scene_loader &loader) = 0;

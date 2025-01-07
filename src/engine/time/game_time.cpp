@@ -38,7 +38,12 @@ void game_time::initialize(game_time::context_id id)
 void game_time::reset(game_time::context_id id)
 {
     Uint64 now = SDL_GetTicks64();
-    current->switched_away = now;
+
+    if (current)
+    {
+        current->switched_away = now;
+    }
+
     current = &contexts.try_emplace(id, id).first->second;
     frame_started_at = now;
     ::delta = 0;
@@ -47,6 +52,16 @@ void game_time::reset(game_time::context_id id)
     for (auto *bounded : current->bound_times)
     {
         bounded->_seconds += switch_duration;
+    }
+}
+
+void game_time::erase(context_id id)
+{
+    contexts.erase(id);
+
+    if (current && current->id == id)
+    {
+        current = nullptr;
     }
 }
 
