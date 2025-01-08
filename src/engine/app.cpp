@@ -31,7 +31,7 @@ void app::run()
     _messenger.subscribe<scene_destroyed>(*this);
     load_start_scene(_scene_loader);
     _scene_loader.commit();
-    game_time::initialize(_scene_loader.active().id());
+    game_time::reset(_scene_loader.active().id());
     _running = true;
     
     while (_running)
