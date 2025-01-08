@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <utility>
 #include <vector>
 #include <SDL2/SDL.h>
 #include <engine/time/game_time.h>
@@ -10,29 +11,33 @@ namespace
 
     struct context
     {
-        context(game_time::context_id);
+        context(game_time::context_id, Uint64 started_at);
 
         const game_time::context_id id;
         Uint64 switched_away;
+        Uint64 frame_started_at;
+        float delta;
         std::vector<time_point *> bound_times;
     };
 
     std::unordered_map<game_time::context_id, context> contexts;
     context *current;
-    Uint64 frame_started_at;
-    float delta = 0;
 }
 
-::context::context(game_time::context_id id)
+::context::context(game_time::context_id id, Uint64 started_at)
     : id(id)
     , switched_away(0)
+    , frame_started_at(started_at)
+    , delta(0)
 {
 }
 
 void game_time::initialize(game_time::context_id id)
 {
-    current = &contexts.emplace(id, id).first->second;
-    frame_started_at = SDL_GetTicks64();
+    current = &contexts.emplace(
+        std::piecewise_construct,
+        std::forward_as_tuple(id),
+        std::forward_as_tuple(id, SDL_GetTicks64())).first->second;
 }
 
 void game_time::reset(game_time::context_id id)
@@ -44,9 +49,7 @@ void game_time::reset(game_time::context_id id)
         current->switched_away = now;
     }
 
-    current = &contexts.try_emplace(id, id).first->second;
-    frame_started_at = now;
-    ::delta = 0;
+    current = &contexts.try_emplace(id, id, now).first->second;
     float switch_duration = precision * (now - current->switched_away);
 
     for (auto *bounded : current->bound_times)
@@ -68,18 +71,18 @@ void game_time::erase(context_id id)
 void game_time::end_frame()
 {
     Uint64 now = SDL_GetTicks64();
-    ::delta = precision * (now - frame_started_at);
-    frame_started_at = now;
+    current->delta = precision * (now - current->frame_started_at);
+    current->frame_started_at = now;
 }
 
 float game_time::delta()
 {
-    return ::delta;
+    return current->delta;
 }
 
 float game_time::now()
 {
-    return precision * frame_started_at;
+    return precision * current->frame_started_at;
 }
 
 float game_time::real_now()
