@@ -32,14 +32,6 @@ namespace
 {
 }
 
-void game_time::initialize(game_time::context_id id)
-{
-    current = &contexts.emplace(
-        std::piecewise_construct,
-        std::forward_as_tuple(id),
-        std::forward_as_tuple(id, SDL_GetTicks64())).first->second;
-}
-
 void game_time::reset(game_time::context_id id)
 {
     Uint64 now = SDL_GetTicks64();
