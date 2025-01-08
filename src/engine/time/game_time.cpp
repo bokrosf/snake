@@ -21,7 +21,7 @@ namespace
     };
 
     std::unordered_map<game_time::context_id, context> contexts;
-    context *current;
+    context *current = nullptr;
 }
 
 ::context::context(game_time::context_id id, Uint64 started_at)
