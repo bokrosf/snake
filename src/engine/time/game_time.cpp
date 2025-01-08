@@ -50,6 +50,8 @@ void game_time::reset(game_time::context_id id)
     }
 
     current = &contexts.try_emplace(id, id, now).first->second;
+    current->frame_started_at = now;
+    current->delta = 0;
     float switch_duration = precision * (now - current->switched_away);
 
     for (auto *bounded : current->bound_times)
