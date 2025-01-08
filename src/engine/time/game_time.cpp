@@ -60,12 +60,12 @@ void game_time::reset(game_time::context_id id)
 
 void game_time::erase(context_id id)
 {
-    contexts.erase(id);
-
     if (current && current->id == id)
     {
         current = nullptr;
     }
+
+    contexts.erase(id);
 }
 
 void game_time::end_frame()
