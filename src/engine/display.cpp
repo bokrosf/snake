@@ -38,7 +38,13 @@ void display::initialize(const std::string &window_title)
     }
    
     SDL_DisplayMode display_mode = ::current_mode();
-    active_window = SDL_CreateWindow(window_title.c_str(), 0, 0, display_mode.w, display_mode.h, SDL_WINDOW_SHOWN);
+    active_window = SDL_CreateWindow(
+        window_title.c_str(),
+        0,
+        0,
+        display_mode.w,
+        display_mode.h,
+        SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP);
 
     if (!active_window)
     {
