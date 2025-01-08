@@ -36,7 +36,7 @@ void app::run()
     
     while (_running)
     {
-        const scene *original_scene = &_scene_loader.active(); 
+        const int original_scene_id = _scene_loader.active().id();
         _scene_loader.active().initialize_objects();
         _collision_engine.detect_collisions(_scene_loader.active());
         input::read_events();
@@ -46,7 +46,7 @@ void app::run()
         _rendering_engine.render(_scene_loader.active());
         _scene_loader.commit();
 
-        if (&_scene_loader.active() == original_scene)
+        if (_scene_loader.active().id() == original_scene_id)
         {
             game_time::end_frame();
         }
