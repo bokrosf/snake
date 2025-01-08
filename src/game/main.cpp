@@ -7,17 +7,19 @@
 int main(int argc, char *argv[])
 {
     logger::instance().change_destination(std::cout);
-    
+    snake_app *app = nullptr;
+
     try
     {
-        snake_app app = snake_app(app_configuration{"Snake SDL"});
-        app.run();
-
-        return 0;
+        app = new snake_app(app_configuration{"Snake SDL"});
+        app->run();
     }
     catch (const std::exception &ex)
     {
         logger::instance().error(ex.what());
-        return 1;
     }
+
+    delete app;
+
+    return 0;
 }

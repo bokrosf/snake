@@ -6,6 +6,7 @@
 #include <queue>
 #include <unordered_map>
 #include <utility>
+#include <engine/messaging/messenger.h>
 #include <engine/scene.h>
 
 class scene_loader final
@@ -13,7 +14,7 @@ class scene_loader final
 public:
     using operation = std::function<void(scene_loader &)>;
 
-    scene_loader();
+    scene_loader(messenger &messenger);
     ~scene_loader();    
 
     template<typename Scene, typename... Args>
@@ -27,6 +28,7 @@ public:
     void queue(operation operation);
     void commit();
 private:
+    messenger &_messenger;
     int _last_loaded_id;
     std::unordered_map<int, scene *> _loaded_scenes;
     scene *_active_scene;

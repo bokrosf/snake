@@ -1,9 +1,11 @@
 #include <stdexcept>
 #include <string>
+#include <engine/scene_destroyed.h>
 #include <engine/scene_loader.h>
 
-scene_loader::scene_loader()
-    : _last_loaded_id(-1)
+scene_loader::scene_loader(messenger &messenger)
+    : _messenger(messenger)
+    , _last_loaded_id(-1)
     , _active_scene(nullptr)
 {
 }
@@ -28,6 +30,7 @@ void scene_loader::unload(int id)
     }
     
     delete node.mapped();
+    _messenger.send(scene_destroyed{id});
 }
 
 void scene_loader::unload_all()
@@ -35,6 +38,7 @@ void scene_loader::unload_all()
     for (auto [id, scene] : _loaded_scenes)
     {
         delete scene;
+        _messenger.send(scene_destroyed{id});
     }
     
     _loaded_scenes.clear();

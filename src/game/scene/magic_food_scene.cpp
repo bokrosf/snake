@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include <engine/collision/box_collider.h>
-#include <engine/collision/box_collider_renderer.h>
 #include <engine/collision/collision_handler.h>
 #include <engine/display.h>
 #include <engine/entity.h>
@@ -31,7 +30,6 @@ namespace
         wall.transform().scale(area);
         wall.add_component<wall_renderer>().layer_order = render_layer::wall;
         wall.add_component<box_collider>(area);
-        wall.add_component<box_collider_renderer>().layer_order = render_layer::collider;
         wall.add_component<fatal_collision_handler>();
         wall.attached_component<wall_renderer>().material(material{color::wall});
     }
@@ -67,7 +65,6 @@ void magic_food_scene::initialize()
     snake.add_component<snake_renderer>().layer_order = render_layer::snake;
     snake.add_component<snake_controller>();
     snake.add_component<box_collider>(0.5F * vector2(tile_size, tile_size));
-    snake.add_component<box_collider_renderer>().layer_order = render_layer::collider;
     snake.add_component<ability_slot>();
     snake.attached_component<::snake>().speed(4);
     snake.attached_component<snake_renderer>().material(material{color::snake_body});

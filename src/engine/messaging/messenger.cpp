@@ -17,7 +17,6 @@ messenger &messenger::instance()
     return *_instance;
 }
 
-
 messenger::subscription::subscription(void *object)
     : object(object)
     , removed(false)
