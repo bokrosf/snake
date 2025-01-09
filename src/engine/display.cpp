@@ -1,5 +1,6 @@
 #include <sstream>
 #include <stdexcept>
+#include <SDL2/SDL_mouse.h>
 #include <engine/display.h>
 #include <engine/subsystem_initialization_failed.h>
 
@@ -51,6 +52,7 @@ void display::initialize(const std::string &window_title)
         throw subsystem_initialization_failed(std::string("SDL Window creation failed. ").append(SDL_GetError()));
     }
 
+    SDL_ShowCursor(SDL_DISABLE);
     initialized = true;
 }
 
