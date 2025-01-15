@@ -2,6 +2,9 @@
 
 Contains architectural decisions, problems. Used as a development diary to look back later on the process.
 
+# 1.0.0
+2025-01-09
+
 # Unsubscribe during send
 2024-10-28
 
