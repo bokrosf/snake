@@ -2,6 +2,20 @@
 
 Contains architectural decisions, problems. Used as a development diary to look back later on the process.
 
+# Unsubscribe during send
+2024-10-28
+
+### Problem
+- When a reciever unsubscribes from a message while handling it then segmentation fault can occur.
+- Segmantation fault occurs because of iterator invalidation. The send method iterates through all the handlers and calls them sequentially. When unsubscribe called then the handler removed from the container.
+
+### Solution
+- Handler removal can only happen if there is no active sending.
+- If there is an active sending then the handler marked for removal.
+- After sending all marked handlers are removed.
+- This means if a handler was subscribed it gets the message even if unsubscribed during a send call.
+- If there is no active sending during the unsubscribe call then the handler physically removed.
+
 # Pausing the game
 2024-10-27
 
