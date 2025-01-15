@@ -2,6 +2,23 @@
 
 Contains architectural decisions, problems. Used as a development diary to look back later on the process.
 
+# Pausing the game
+2024-10-27
+
+### Problem
+- ```update``` method only called when the scene is active.
+- If a behavior stores a future real time point and it's compared inside the ```update``` method with the scene's start time point then scene changing can cause a problem.
+- After the scene has been switched back the current scene's start time point might passes the stored time point. This would mean that time has elapsed during scene changes.
+- Desired behavior from a scene's perspective is that no time should be elapsed during a scene change. When switched back to a scene it should continue from where it has been paused.
+
+### Solution
+- Real time continuously goes forward and represented by ```game_time::real_now```, independent of scene switching.
+- A stored time point must be synchronized when a scene switch back occures. It's must be increased with the duration of the scene not being active.
+- This means the stored time points belong to a scene's game time context. Time point references should be stored per scene.
+- ```behavior``` subsclasses stores the time points and the ```game_time``` module references and refreshes these time points when neccessary.
+- ```behavior``` subclasses' ```initialize``` and ```start``` methods can be used to set an initial time point.
+- ```time_point``` class stores the synchronizable time points. It should have bind and unbind methods that can be used to turn on or off the synchronization functionality. ```unbind``` automatically called by ```time_point``` class' destructor so it's advisable that ```behavior```s store ```time_point``` instances as members without the need of additional destructors for using it.
+
 # Resetting scene
 2024-05-21
 
