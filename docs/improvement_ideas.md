@@ -25,4 +25,4 @@
 
 ### Entity hierarchy traversal
 - If a need arises for prioritizing the entities then an additional priority metadata needed and an ordered map can be used. The ordered map indexed by the priority and contains a set of entities that at the specified priority level can be processed in random order.
-- Subengine's can have the same collection for each scene to not allocate a new one. But they can also use some kind of caching strategy for entities to be processed.
+- Subengines can have the same collection for each scene to not allocate a new one. But they can also use some kind of caching strategy for entities to be processed.
