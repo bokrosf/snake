@@ -18,7 +18,7 @@
 
 ### Collision engine
 - Reduce the O(n^2) complexity.
-- The game world could be divided to fix sized disjunct rectangle areas that represent possible collision hotspots. Called **hotspot tiles**. This way the spacial position could be used as a hash function. Each collider would be hashed by their position and added to the spacial buckets they overlap. (n) operation but the collider area tiled subdivisions should be taken into account too. The algorythm should check those buckets that contains more than one collider O(n) operation. Approximately it's an O(n +tile_subdivision) + O(n) = O(2n + tile_subdivision) operation.
+- The game world could be divided to fix sized disjunct rectangle areas that represent possible collision hotspots. Called **hotspot tiles**. This way the spacial position could be used as a hash function. Each collider would be hashed by their position and added to the spacial buckets they overlap. (n) operation but the collider area tiled subdivisions should be taken into account too. The algorythm should check those buckets that contains more than one collider O(n) operation. Approximately it's an O(n + tile_subdivision) + O(n) = O(2n + tile_subdivision) operation.
 
 ### Material rendering
 - Shaders can be attached to material.
