@@ -2,7 +2,7 @@
 
 ### Resetting scene
 - Implementation could use the copy-swap idiom. This would create and empty uninitialized scene object and copies it's contents into the already existing scene's address. The old scene instance would be copied into the new address and it's destructor will be called when the swap operation finished.
-- Content should be moved instead of copying. This way the performancepenalty would be as minimal as it can be.
+- Content should be moved instead of copying. This way the performance penalty would be as minimal as it can be.
 - This way the reset operation is open for addition and closed for modification because all of it's automatically handled and resetted properly.
 
 ### Transform component
